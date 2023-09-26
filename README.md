@@ -6,4 +6,6 @@ Enlace de los criterios de validación: https://docs.google.com/document/d/1MBqx
 
 Enlace de los cuentos de usuario (Tarjetas): https://docs.google.com/document/d/1sa5CHJv91uZhCwtLJO6-JafC2XJeftse_f1hTv7WB1U/edit?usp=sharing
 
+To-Do requisitos: https://docs.google.com/spreadsheets/d/1hvmzQxS4x_m2BG9x6WuBQRvDcau9ZACIQn9KsFxpioM/edit?usp=sharing
+
 Miembros: Germán Fábregas, Hugo Andrés Herrera, Álvaro Sanz, Juan García, Tomás Machín y Daniel Santiago Escribano
