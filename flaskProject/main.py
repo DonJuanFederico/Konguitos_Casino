@@ -5,11 +5,14 @@ app = Flask(__name__)
 @app.route('/')  # indica la ventana (url/link) donde se va a reproducir la funcion, el '/' es la ruta base
                  # si pongo varias rutas para un mismo metodo se puede acceder a este por todas ellas
 def init():  # usuario y contraseña
-    return open('pagina_inicio.html')
+    return render_template('pagina_inicio.html')
 
 @app.route('/login/')
 def index():
-    return open('indice.html')
+    return open('templates/indice.html')
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000) # puedo modificar el puerto por defecto
 # -----------------------------------------------------
 """"
 @app.route('/juegos_de_cartas/')
