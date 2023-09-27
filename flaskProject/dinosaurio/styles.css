@@ -1,0 +1,41 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.scroll-container {
+    position: relative;
+    height: 100%;
+}
+
+.scrolling-image-container {
+    overflow: hidden;
+    height: 100%;
+}
+
+.scrolling-image {
+    background: url("fondoDino2.png") repeat-x;
+    height: 100%;
+    width: 12000%; 
+    background-size: auto 55%; 
+    animation: scroll 200s linear infinite; /* Mantenido como 200 segundos y tiempo infinito */
+}
+
+img {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 1.5%;
+    max-width: 15%;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
