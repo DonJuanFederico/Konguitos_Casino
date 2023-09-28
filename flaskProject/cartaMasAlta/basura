@@ -1,0 +1,24 @@
+/* Estilo del fondo marrón (semicírculo) debajo de la mesa */
+.bottom-semicircle {
+    background-color: #8B4513; /* Marrón */
+    width: 900px;
+    height: 500px;
+    border-radius: 400px 400px 0 0; /* Forma de semicírculo */
+    position: absolute;
+    top: 100%; /* Colocar debajo de la mesa */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1; /* Colocar debajo de la mesa */
+}
+
+/* Estilo de la mesa curva */
+.curved-table {
+    background-color: #006400; /* Verde pistacho */
+    width: 800px;
+    height: 400px;
+    border-radius: 0 0 400px 400px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    z-index: 0; /* Colocar la mesa sobre el fondo marrón */
+}

@@ -9,10 +9,18 @@ def init():  # usuario y contraseña
 
 @app.route('/login/')
 def index():
-    return open('templates/indice.html')
+    return render_template('indice.html')  # reconoce automaticamente la carpeta templates y de ahi eliges el html
+
+@app.route('/Carta_mas_alta/')
+def juego_cartas():
+    return open('cartaMasAlta/carta_mas_alta.html')
+
+@app.errorhandler(404)
+def page_not_found(error):
+ return render_template("pagina_no_encontrada.html"), 404
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000) # puedo modificar el puerto por defecto
+    app.run(debug=True) # puedo modificar el puerto por defecto
 # -----------------------------------------------------
 """"
 @app.route('/juegos_de_cartas/')
