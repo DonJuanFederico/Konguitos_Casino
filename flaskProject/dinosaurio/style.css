@@ -1,0 +1,118 @@
+body{
+    margin: 0px;
+    height: 100vh;
+}
+
+#board{
+    background-color: aqua;
+    width: 100%;
+    /*
+        Gracias a height: 100vh; que está en body, puedo poner % en height
+    */
+    height: 45%; 
+    position: relative;
+    /*width: 100%;
+    height: 100vh;Como un full screen*/
+}
+
+#fondo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*animation: movimientoFondo 5s linear infinite;*/
+    top: 0%;
+    left: 0%;
+    background-image: url("/fondoDino2.png");
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    background-size: auto 100%;
+    animation: movimientoFondo 2s linear infinite;
+}
+
+#player {
+    /*
+        background-image: url('corriendo1.png'); //Ruta de la imagen 
+        background-size: cover; //Ajusta la imagen para cubrir completamente el div
+    */
+    background-color: red; /* Ajusta la imagen para cubrir completamente el div */
+    width: 70px;
+    height: 70px;
+    /*  20% desde el primer relative que encuentra  */
+    position: absolute;
+    bottom: 5%;
+    left: 40%;
+    /*
+    Posición desde el fondo de la ventana
+    position: absolute;
+    bottom: 20%;
+    */
+}
+
+#player img{
+    width: 100%;
+    height: 100%;
+}
+
+/*
+    Clase que se encarga de que el objeto salte
+    En el html habrá que poner class"playerJump"
+*/
+.playerJump{
+    animation: playerJump 1s linear;
+}
+
+@keyframes playerJump{
+    0%{
+        bottom: 8%;
+    }
+    45%, 55%{
+        bottom: 20%
+    }
+    100%{
+        bottom: 5%
+    }
+}
+
+@keyframes movimientoFondo{
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1500px 0;
+    }
+}
+
+.scoreContainer{
+    font-size: 50px;
+    text-align-last: center;
+    margin-top: 10px;
+}
+
+.button.pausa {
+    cursor: pointer;
+    border-width: 0px 0 0px 60px; 
+    border-style: double;
+    
+}
+
+.button{
+    width: 0;
+    height: 74px;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+    border-color: transparent transparent transparent greenyellow/*#202020*/;
+    transition: 1000ms all ease;
+    border-style: solid;
+    border-width: 37px 0 37px 60px;
+}
+
+.button:hover{
+    border-color: transparent transparent transparent rgb(85, 131, 17);
+}
+
+.menu{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
