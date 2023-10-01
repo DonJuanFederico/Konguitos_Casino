@@ -1,0 +1,209 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
+html {
+  height: 100%;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  height: 80%;
+  padding: 1%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 0;
+  padding-right: 0;
+  color: #ffffff;
+  text-align: center;
+}
+
+
+
+.wrap{
+	width:30%;
+	height:30%;
+	perspective: 1000px;
+}
+
+.holo{
+	overflow:hidden;
+	position: absolute;
+    top: 5%;
+	right:10%;
+	width: 25%;
+	height: 25%;
+	border-radius:5%;
+	background: linear-gradient(135deg, #e59f2d 0%,#ffea30 25%,#ff8528 71%,#ffdd89 100%);
+}
+
+.line{
+	margin:-20px;
+	width:90px;
+	height:50px;
+	border:2px solid #ff8528;
+	border-radius:4px;
+	&:nth-child(2){
+		margin:-40px;
+	}
+	&:nth-child(3){
+		margin: 10px 20px;
+	}
+}
+
+.face{
+	position:relative;
+	z-index:1;
+	box-sizing: border-box;
+	width: 300%;
+	height: 170%;
+    top: 10%;
+	border-radius: 15px;
+	background: white;
+	padding: 35px 30px;
+    left: 12.5%;
+	transform: rotateY(-15deg);
+
+	&:hover{
+		transform: rotateY(0deg);
+	}
+	transition: all 0.3s;
+}
+
+
+#number {
+    margin: 10% 0 5%;
+    position: relative;
+    display: inline-block;
+
+    &:before {
+        position: absolute;
+        font-size: 100%;
+        top: -20px;
+        content: "card number";
+    }
+}
+#number	input{
+    font-size: 170%;
+    width: 23%;
+    outline: none;
+    border:none;
+}
+
+#date{
+	position: relative;
+	display:block;
+	 span{
+		float: left;
+		font-size: 26px;
+		opacity: 0.4;
+		margin-right: 4px;
+	}
+	&:before{
+		position:absolute;
+		font-size: 100%;
+		top: -20px;
+        left: 0;
+		content: "valid date";
+	}
+	 input{
+		font-size: 26px;
+		width: 40px;
+		outline: none;
+		float: left;
+		border:none;
+		text-transform: uppercase;
+	}
+}
+
+
+.back{
+	overflow:hidden;
+	position: absolute;
+	top:110%;
+	left:50%;
+	z-index:-1;
+	box-sizing: border-box;
+	width: 300%;
+	height: 154%;
+	border-radius: 3%;
+	background: #f1e02d;
+	padding: 20% 5%;
+	transform: rotateY(15deg);
+	&:before{
+		position:absolute;
+		font-size: 100%;
+		right: 15%;
+		top: 60%;
+		content: "CVV";
+	}
+	input::placeholder{
+		color: black;
+		opacity: 0.5;
+	}
+	&:hover{
+		transform: rotateY(0deg);
+	}
+	transition: all 0.3s;
+}
+
+#cvv {
+    position: absolute;
+    top: 70%;
+    right: 15px;
+}
+#cvv span{
+    font-size: 26px;
+}
+#cvv input{
+    font-size: 26px;
+    width: 60px;
+    outline: none;
+    border:none;
+    background:transparent;
+    text-transform: uppercase;
+}
+
+
+#cardline{
+	width:160%;
+	height:60px;
+	opacity:0.8;
+	background:black;
+}
+
+.sumbit{
+	position:absolute;
+	left:200%;
+	border:none;
+	outline:none;
+	background: #69ffc8;
+	width:90%;
+	height:40%;
+	border-radius:2%;
+	text-transform:uppercase;
+	font-size: 120%;
+	font-weight: 700;
+    top: 275%;
+	transform: rotateY(0deg);
+	&:hover{
+		background: #00f0ff;
+		transform: rotateY(15deg);
+	}
+	transition: all 0.3s;
+}

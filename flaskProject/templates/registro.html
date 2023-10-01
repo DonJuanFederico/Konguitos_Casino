@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="../static/css/inicio.css">
 </head>
 <body>
-  <p> REGISTRO</p>
+    <div class="login-box">
+      <h2>Registro</h2>
+        <form method="POST" action="/Usuario/">
+            <div class="user-box">
+              <input type="text" name="nombre" required="">
+              <label>Nombre</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="apellido" required="">
+              <label>Apellido</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="telefono" required="">
+              <label>Teléfono</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="DNI" required="">
+              <label>DNI</label>
+            </div>
+            <div class="user-box">
+              <input type="email" name="correo" required="">
+              <label>Correo Electrónico</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="nombreUsuario" required="">
+              <label>Nombre Usuario</label>
+            </div>
+            <div class="user-box">
+              <input type="password" name="contraseña" required="">
+              <label>Contraseña</label>
+            </div>
+                <button type="submit" class="button-right">&gt;</button>
+        </form>
+        <form method="GET" action="/">
+            <button type="submit" class="button-left">&lt;</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta</title>
+    <link rel="stylesheet" href="../static/css/tarjeta.css">
+</head>
+<body>
+<form method="POST" action="/">
+    <div class="login-box">
+      <h2>Registro</h2>
+
+        <div class="wrap">
+            <div class="face">
+                <div class="holo">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <div id="number">
+                    <input placeholder="0000" maxlength="4" type="password" required="" name ="numero4">
+                    <input placeholder="0000" maxlength="4" type="password" required="" name ="numero8">
+                    <input placeholder="0000" maxlength="4" type="password" required="" name ="numero12">
+                    <input placeholder="0000" maxlength="4" type="password" required="" name="numero16">
+                </div>
+
+                <div id="date">
+                    <input placeholder="05" maxlength="2" required="" name="dia">
+                    <span>/</span>
+                    <input placeholder="16" maxlength="2" required="" name="mes">
+                </div>
+            </div>
+            <div class="back">
+                <div id="cardline"></div>
+                <div id="cvv">
+                    <span>&#x275A;&#x275A;&#x275A;</span>
+                    <input placeholder="16" maxlength="3" required="" name="cvv">
+                </div>
+            </div>
+            <button type="submit" class="sumbit">CREAR</button>
+        </div>
+    </div>
+    </form>
+    <script src="../static/js/tarjeta.js"></script>
+</body>
+</html>

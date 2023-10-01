@@ -9,30 +9,20 @@
 <body>
     <div class="login-box">
       <h2>Inicio</h2>
-      <form method="GET" action="/Juegos/">
+      <form method="POST" action="/Juegos/">
         <div class="user-box">
-          <input type="text" name="" required="">
-          <label>Username</label>
+          <input type="text" name="nombreUsuario" required="">
+          <label>Nombre de Usuario</label>
         </div>
         <div class="user-box">
-          <input type="password" name="" required="">
-          <label>Password</label>
+          <input type="password" name="contraseña" required="">
+          <label>Contraseña</label>
         </div>
           <button type="submit" class ="entrar">ENTRAR</button>
       </form>
         <form method="GET" action="/Registro/">
             <button type="submit" class = "registro">REGISTRO</button>
         </form>
-</div>
-
+    </div>
 </body>
 </html>
-
-<!-- COMENTARIOS
-COSAS A TENER EN CUENTA:
-CONTRASEÑA: minimo de 8 caracteres de largo
-            tiene q contener numeros, letras (mayus y min)
-            ¿contener o no caracteres especiales?
-            ¿permitir espacios en blanco?
-pattern="[0-9a-fA-F]{8,}"
-->
