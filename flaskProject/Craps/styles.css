@@ -1,0 +1,83 @@
+/* Estilo general de la página */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alineación vertical desde la parte superior */
+    min-height: 100vh; /* Establece una altura mínima para ocupar toda la ventana */
+    flex-direction: row; /* Cambia la dirección del flex a horizontal */
+}
+
+/* Estilo de la barra lateral */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    width: 200px;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    top: 0;
+    left: 0;
+}
+
+/* Estilo del título de la barra lateral */
+.sidebar h2 {
+    font-size: 20px;
+    margin-top: 0;
+}
+
+/* Estilo de los botones de apuestas */
+.sidebar button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilo de los botones de apuestas al pasar el ratón por encima */
+.sidebar button:hover {
+    background-color: #777;
+}
+
+/* Estilo del contenido principal */
+.content {
+    margin: 0 auto; /* Centra la columna de contenido principal horizontalmente */
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en sucesión vertical */
+    align-items: center; /* Centra los elementos horizontalmente */
+}
+
+/* Estilo del contenedor de los dados */
+#dice-container {
+    display: flex;
+    flex-direction: row; /* Coloca los dados en una fila horizontal */
+    align-items: center; /* Centra los elementos horizontalmente */
+    margin-top: 20px; /* Espacio entre la barra lateral y el contenido principal */
+}
+
+/* Estilo de los dados */
+.dice {
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px; /* Espacio entre los dados */
+    background-color: #fff;
+}
+
+
+
+
+
