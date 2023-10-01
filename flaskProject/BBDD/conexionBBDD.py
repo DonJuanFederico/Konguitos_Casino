@@ -4,13 +4,14 @@
 #Contraseña: Konguito9
 #Puerto: 3306 (el predeterminado)
 #Ejecutar: "pip install Flask mysql-connector-python" en consola
+
 import mysql.connector
 
 db_config = {
     "host": "konguitoscasino.mysql.database.azure.com",
     "user": "KingKonguito",
     "password": "Konguito9",
-    "database": "konguitoscasino",
+    "database": "casino",
     "port": 3306,
 }
 
@@ -25,3 +26,9 @@ def connect():
 def close_connection(conn):
     if conn:
         conn.close()
+
+#cnx = mysql.connector.connect(user="KingKonguito", password="{your_password}",
+#                             host="konguitoscasino.mysql.database.azure.com",
+#                             port=3306, database="{your_database}",
+#                             ssl_ca="{ca-cert filename}",
+#                             ssl_disabled=False)

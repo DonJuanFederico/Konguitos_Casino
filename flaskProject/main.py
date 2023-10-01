@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from conexionBBDD import connect, close_connection
+from BBDD.conexionBBDD import connect, close_connection
 app = Flask(__name__)
 
 #@app.route('/')
@@ -64,7 +64,8 @@ def page_not_found(error):
  return render_template("pagina_no_encontrada.html"), 404
 
 
-@app.route('/')
+# metodo de comprobacion de conexion a la bbdd
+@app.route('/a/')
 def consultar_datos():
     conn = connect()
     if conn:
@@ -76,6 +77,7 @@ def consultar_datos():
             resultados = cursor.fetchall()
 
             return render_template('resultados.html', resultados=resultados)
+
         finally:
             cursor.close()
             close_connection(conn)
