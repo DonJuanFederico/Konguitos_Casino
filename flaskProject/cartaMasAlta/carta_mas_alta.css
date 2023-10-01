@@ -1,0 +1,43 @@
+/* Estilo general de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Estilo del encabezado */
+h1 {
+    color: #333;
+}
+
+/* Estilo del botón de inicio */
+button {
+    padding: 10px 20px;
+    background-color: #007d33;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilo del contenedor del resultado */
+#resultado {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del texto del resultado */
+#resultado p {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Estilo del cuadro de entrada de texto */
+input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+}

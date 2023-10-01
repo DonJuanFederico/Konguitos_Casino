@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Cartas</title>
+    <link rel="stylesheet", href="carta_mas_alta.css", type="text/css">
 </head>
 <body>
     <h1>Juego de Cartas</h1>
     <button onclick="iniciarJuego()">Iniciar Juego</button>
     <div id="resultado"></div>
     <script>
-        // Funci贸n para crear una baraja de cartas de poker
+        // Funci髇 para crear una baraja de cartas de poker
         function crearBaraja() {
             const palos = ['\u2660', '\u2663', '\u2665', '\u2666'];
             const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -25,34 +26,34 @@
             return baraja;
         }
 
-        // Funci贸n para obtener una carta aleatoria de la baraja
+        // Funci髇 para obtener una carta aleatoria de la baraja
         function obtenerCartaAleatoria(baraja) {
             const indice = Math.floor(Math.random() * baraja.length);
             return baraja.splice(indice, 1)[0];
         }
 
-        // Funci贸n para comparar dos cartas por su valor
+        // Funci髇 para comparar dos cartas por su valor
         function compararCartas(cartas) {
             const valorCartaUsuario = obtenerValorCarta(cartas.usuario);
             const valorCartaCroupier = obtenerValorCarta(cartas.croupier);
 
             if (valorCartaUsuario > valorCartaCroupier) {
-                return '隆El usuario gana!';
+                return 'l usuario gana!';
             } else if (valorCartaUsuario < valorCartaCroupier) {
-                return '隆El croupier gana!';
+                return 'l croupier gana!';
             } else {
                 return 'Empate';
             }
         }
 
-        // Funci贸n para obtener el valor num茅rico de una carta
+        // Funci髇 para obtener el valor num閞ico de una carta
         function obtenerValorCarta(carta) {
             const valor = carta.split(' ')[0];
             const valores = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
             return valores[valor];
         }
 
-        // Funci贸n principal para iniciar el juego
+        // Funci髇 principal para iniciar el juego
         function iniciarJuego() {
             const baraja = crearBaraja();
             const cartas = {
