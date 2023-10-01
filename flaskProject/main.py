@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-
+from conexionBBDD import connect, close_connection
 app = Flask(__name__)
 
 #@app.route('/')
@@ -25,6 +25,25 @@ def juego_cartas():
 @app.errorhandler(404)
 def page_not_found(error):
  return render_template("pagina_no_encontrada.html"), 404
+
+
+@app.route('/')
+def consultar_datos():
+    conn = connect()
+    if conn:
+        try:
+            cursor = conn.cursor()
+
+            # Ejemplo de consulta
+            cursor.execute("SELECT * FROM administradores")
+            resultados = cursor.fetchall()
+
+            return render_template('resultados.html', resultados=resultados)
+        finally:
+            cursor.close()
+            close_connection(conn)
+    else:
+        return "No se pudo conectar a la base de datos"
 
 if __name__ == '__main__':
     app.run(debug=True) # puedo modificar el puerto por defecto
