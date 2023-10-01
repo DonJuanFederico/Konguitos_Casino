@@ -27,8 +27,3 @@ def close_connection(conn):
     if conn:
         conn.close()
 
-#cnx = mysql.connector.connect(user="KingKonguito", password="{your_password}",
-#                             host="konguitoscasino.mysql.database.azure.com",
-#                             port=3306, database="{your_database}",
-#                             ssl_ca="{ca-cert filename}",
-#                             ssl_disabled=False)
