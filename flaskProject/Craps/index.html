@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Juego de Craps</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="content">
+        <h1>Juego de Craps</h1>
+        <div id="balance-container">
+            <p>Saldo total: <span id="balance">0 monedas</span></p>
+        </div>
+        <div id="bet-container">
+            <p>Cantidad apostada: <span id="bet">0 monedas</span></p>
+            <p>Tipo de apuesta actual: <span id="current-bet-type">Ninguna</span></p>
+        </div>
+        <div id="dice-container">
+            <div class="dice" id="dice1">?</div>
+            <div class="dice" id="dice2">?</div>
+        </div>
+        <button onclick="rollDice()">Lanzar Dados</button>
+        <p id="result"></p>
+        <p id="punto-actual">Punto actual: Ninguno</p>
+    </div>
+    <div class="sidebar">
+        <h2>Posibles Apuestas</h2>
+        <button onclick="placeBet('lineaDePase')">Línea de Pase</button>
+        <button onclick="placeBet('barraDeNoPase')">Barra de No Pase</button>
+        <button onclick="placeBet('gabelaAFavor')">Gabela a Favor</button>
+        <button onclick="placeBet('gabelaEnContra')">Gabela en Contra</button>
+        <button onclick="placeBet('numeroPorVenir')">Número por Venir</button>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
