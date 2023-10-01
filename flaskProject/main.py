@@ -71,7 +71,6 @@ def consultar_datos():
     if conn:
         try:
             cursor = conn.cursor()
-
             # Ejemplo de consulta
             cursor.execute("SELECT * FROM administradores")
             resultados = cursor.fetchall()
