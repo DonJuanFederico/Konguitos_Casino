@@ -4,8 +4,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Documento</title>
-        <link href="./style.css" rel="stylesheet">
+        <title>Konguito Run</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
     </head>
     <body>
         <div id = board>
@@ -21,13 +22,34 @@
                 <!-- 
                     En caso de no poder mostrar la imagen del dinosaurio, muestra el texto Konguito
                 -->
-                <img src="/Corriendo1.png" alt="Konguito">
+                <img src="Corriendo1.png" alt="Konguito" id="konguitoDino">
+            </div>
+        </div>     
+        <div id = "tablero">
+            <div id = "tableroImagen">
+                <div class = "menu1">
+                    <button id = "buttonPlayStop" class = "button"></button>
+                    <button id = "restartGame" >Retirarse</button>
+                </div>
+                <div class = "menu2">
+                    <form id="miFormulario">
+                        <label for="cantidadApostada">Apuesta</label>
+                        <input id ="cantidadApostada" type="number" min="0.01" step="0.01" value="0.01"><br><br>
+                        <label for="limiteApostado">Límite</label>
+                        <input id ="limiteApostado" type="number" min="1.00" step="0.05" value="1.01"><br><br>
+                    </form>
+                </div>
+                <div class = "menu3">
+                    <p>Recompensa: <span id = "recompensa">0</span></p>
+                </div>
+            </div>
+            <div id = "logoCasino">
+                <img src="KonguitosSinFondo.png" id="konguitos">
+            </div>
+            <div id = "logoJuego">
+                <img src="konguitoRun.png" id="konguitos">
             </div>
         </div>
-        <div class = "menu">
-            <button id = "buttonPlayStop" class = "button"></button>
-            <button id = "restartGame">Restart Game</button>
-        </div>
-        <script src="/scripts.js"></script>
+        <script src="scripts.js"></script>
     </body>
 </html>
