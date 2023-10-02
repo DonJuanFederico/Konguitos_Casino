@@ -1,41 +1,31 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, jsonify, Response
 from BBDD.conexionBBDD import connect, close_connection
 
 app = Flask(__name__)
 
-# @app.route('/')
-# def init():
-#    return render_template('carga.html')
 
-
-# INICIO, obtiene los datos de la tarjeta del usuario
 @app.route('/', methods=['GET', 'POST'])
 def inicio():
-    if request.method == 'GET':  # GET
+    if request.method == 'POST':
+        print("FOTO:")
+        foto =request.files['photo']
+        print("FOTO PASO 2")
+        print("Foto guardada")
         return render_template('inicio.html')
-    else:  # POST datosTarjeta
-        print("Tarjeta:")
-        numero4 = request.form['numero4']
-        numero8 = request.form['numero8']
-        numero12 = request.form['numero12']
-        numero16 = request.form['numero16']
-        dia = request.form['dia']
-        mes = request.form['mes']
-        cvv = request.form['cvv']
-        print("Nº Tarjeta:", numero4, numero8, numero12, numero16)
-        print("Caducidad:", dia, "/", mes)
-        print("CVV:", cvv)
+    else:
         return render_template('inicio.html')
 
-# REGISTRO USUARIO, introduce datos
+
 @app.route('/Registro/')
-def registro():
+def registroUsuario():
     return render_template('registro.html')
 
+@app.route('/Registro/terminosCondiciones.html')
+def terminos():
+    return render_template('terminosCondiciones.html')
 
-# RESIDTRO Tarjeta, introduce datos tarjeta y obtiene los datos del formulario del usuario
 @app.route('/Usuario/', methods=['POST'])
-def tarjeta():
+def tarjetaUsuario():
     if request.method == 'POST':
         print("USUARIO:")
         nombre = request.form['nombre']
@@ -54,14 +44,19 @@ def tarjeta():
         print("Contraseña:", contraseña)
         return render_template('tarjeta.html')
 
-#REGISTRO ADMINISTRADOR, introduce datos admin
-@app.route('/Registro Administrador/')
+
+
+@app.route('/Camara/')
+def camara():
+    return render_template('camara.html')
+
+@app.route('/RegistroAdministrador/')
 def registroAdmin():
     return render_template('registroAdmin.html')
 
-#Interfaz ADMIN, obtiene datos de nuevo registro admin o de inicio de sesion admin
+
 @app.route('/Administrador/', methods=['POST'])
-def admin():
+def interfazAdmin():
     if request.method == 'POST':
         print("ADMIN:")
         nombre = request.form['nombre']
@@ -102,12 +97,11 @@ def page_not_found(error):
 def consultar_datos():
     conn = connect()
     if conn:
+        print("Conectado a la base de datos: ", conn)
         try:
             cursor = conn.cursor()
-            # Ejemplo de consulta
             cursor.execute("SELECT * FROM administradores")
             resultados = cursor.fetchall()
-
             return render_template('resultados.html', resultados=resultados)
 
         finally:
@@ -118,4 +112,4 @@ def consultar_datos():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)  # puedo modificar el puerto por defecto
+    app.run(debug=True)
