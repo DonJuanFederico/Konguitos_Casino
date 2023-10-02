@@ -36,7 +36,7 @@ def tarjetaUsuario():
             DNI = request.form['DNI']
             dinero = 0.0
             telefono = request.form['telefono']
-            foto = "ejemplo.png"
+            foto = None
             fecha_hora = datetime.now()
             calle = request.form['calle']
             codigoPostal = request.form['codigoPostal']
