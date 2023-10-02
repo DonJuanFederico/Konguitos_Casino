@@ -55,7 +55,12 @@ def registroAdmin():
     return render_template('registroAdmin.html')
 
 
-@app.route('/Administrador/', methods=['POST'])
+@app.route('/Datos Usuario/')
+def datosUsuario():
+    return render_template('cambiosUsuarioAdmin.html')
+
+
+@app.route('/Administrador/', methods=['GET','POST'])
 def interfazAdmin():
     if request.method == 'POST':
         print("ADMIN:")
@@ -69,6 +74,8 @@ def interfazAdmin():
         print("ID Empresa:", idEmpresa)
         print("Correo Empresa:", correoEmpresa)
         print("Contraseña:", contraseña)
+        return render_template('admin.html')
+    else:
         return render_template('admin.html')
 
 
