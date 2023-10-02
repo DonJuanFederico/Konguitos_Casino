@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d8b417c-a073-4229-a96d-4bb7c3438c0d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slot1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slot2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slot3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slot4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slot5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slot6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slot7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-    </list>
+    <list default="true" id="7b9d9149-dde0-4837-80d4-a897c51f67c5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,45 +13,44 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
+        <option value="package.json" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
-  </component>
   <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
+  "associatedIndex": 1
 }]]></component>
-  <component name="ProjectId" id="2VzIakPD0A20bnIjHQldfS8zUzb" />
+  <component name="ProjectId" id="2WCTlcToWV5WMUt3XGBwhXH6i5w" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Admin/Desktop/DaniPC/Uni/3.1-2.1/Ingeniería del Software/Konguitos_Casino/flaskProject/Tragaperras",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1d8b417c-a073-4229-a96d-4bb7c3438c0d" name="Changes" comment="" />
-      <created>1695832547864</created>
+      <changelist id="7b9d9149-dde0-4837-80d4-a897c51f67c5" name="Changes" comment="" />
+      <created>1696235715549</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1695832547864</updated>
-      <workItem from="1695832548870" duration="488000" />
+      <updated>1696235715549</updated>
+      <workItem from="1696235716794" duration="2241000" />
     </task>
     <servers />
   </component>
