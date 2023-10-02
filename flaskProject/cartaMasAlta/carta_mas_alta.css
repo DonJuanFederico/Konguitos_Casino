@@ -1,43 +1,42 @@
-/* Estilo general de la página */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #5f0606;
-    margin: 0;
-    padding: 0;
+    /*background-image: url("cartaMasAlta/casino.jpg");*/
+    background-color: white;
+    color: black;
+}
+h1{
     text-align: center;
+    text-decoration: underline;
 }
-
-/* Estilo del encabezado */
-h1 {
-    color: #333;
+#resultado {
+    display: flex;
+    justify-content: center;
+    color: black;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-/* Estilo del botón de inicio */
-button {
+ol {
+    text-align: left;
+    padding-left: 600px;
+}
+li::marker{
+    font-weight: bold;
+}
+.lista{
+    padding: 2px;
+}
+button{
+    display: block;
+    margin: auto;
     padding: 10px 20px;
     background-color: #007d33;
     color: #fff;
     border: none;
     cursor: pointer;
 }
-
-/* Estilo del contenedor del resultado */
-#resultado {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo del texto del resultado */
-#resultado p {
-    font-size: 18px;
-    color: #333;
-}
-
-/* Estilo del cuadro de entrada de texto */
-input[type="text"] {
-    padding: 5px;
-    font-size: 16px;
+#titulo{
+    /*background-color: #01300f;*/
+    padding: 2px;
 }
