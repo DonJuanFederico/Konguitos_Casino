@@ -33,30 +33,27 @@ def tarjetaUsuario():
             conexion_MySQL = connect()
             print("Se conecta a la BBDD")
             cursor = conexion_MySQL.cursor()
-            id = 5
-            NombreUsuario = request.form['nombreUsuario']
+            print("Funciona cursor")
+            id = 10
+            nombreUsuario = request.form['nombreUsuario']
             contraseña = request.form['contraseña']
             correo = request.form['correo']
             DNI = request.form['DNI']
-            dinero = 33.33
+            dinero = 0.0
             telefono = request.form['telefono']
             foto = "ejemplo.png"
             fecha_hora = datetime.now()
-            calle = "c/congoB"
-            codigoPostal = 334
-            nombre = request.form['nombre']
-            apellido = request.form['apellido']
-
+            calle = request.form['calle']
+            codigoPostal = request.form['codigoPostal']
+            print(id,nombreUsuario,contraseña, correo,DNI,dinero,telefono,foto,fecha_hora,calle,codigoPostal)
             sql = "INSERT INTO casino.usuarios (id, NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, FechaDeCreacion, Calle, CodigoPostal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(sql, (
-            id, NombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, fecha_hora, calle, codigoPostal))
+            cursor.execute(sql,
+                (id, nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, fecha_hora, calle, codigoPostal))
             conexion_MySQL.commit()
             print("Datos de usuario guardados en la BBDD")
             cursor.close()
             conexion_MySQL.close()
             return render_template('tarjeta.html')
-
-
 
 @app.route('/Camara/')
 def camara():
