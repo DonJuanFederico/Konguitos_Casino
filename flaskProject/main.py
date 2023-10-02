@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, Response
 from BBDD.conexionBBDD import connect, close_connection
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -26,23 +27,34 @@ def terminos():
 
 @app.route('/Usuario/', methods=['POST'])
 def tarjetaUsuario():
-    if request.method == 'POST':
-        print("USUARIO:")
-        nombre = request.form['nombre']
-        apellido = request.form['apellido']
-        telefono = request.form['telefono']
-        DNI = request.form['DNI']
-        correo = request.form['correo']
-        nombreUsuario = request.form['nombreUsuario']
-        contraseña = request.form['contraseña']
-        print("Nombre:", nombre)
-        print("Apellido:", apellido)
-        print("Telefono:", telefono)
-        print("DNI:", DNI)
-        print("Correo:", correo)
-        print("Nombre de usuario:", nombreUsuario)
-        print("Contraseña:", contraseña)
-        return render_template('tarjeta.html')
+        msg = ''
+        if request.method == 'POST':
+            print("USUARIO:")
+            conexion_MySQL = connect()
+            print("Se conecta a la BBDD")
+            cursor = conexion_MySQL.cursor()
+            id = 5
+            NombreUsuario = request.form['nombreUsuario']
+            contraseña = request.form['contraseña']
+            correo = request.form['correo']
+            DNI = request.form['DNI']
+            dinero = 33.33
+            telefono = request.form['telefono']
+            foto = "ejemplo.png"
+            fecha_hora = datetime.now()
+            calle = "c/congoB"
+            codigoPostal = 334
+            nombre = request.form['nombre']
+            apellido = request.form['apellido']
+
+            sql = "INSERT INTO casino.usuarios (id, NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, FechaDeCreacion, Calle, CodigoPostal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(sql, (
+            id, NombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, fecha_hora, calle, codigoPostal))
+            conexion_MySQL.commit()
+            print("Datos de usuario guardados en la BBDD")
+            cursor.close()
+            conexion_MySQL.close()
+            return render_template('tarjeta.html')
 
 
 
@@ -97,26 +109,6 @@ def juego_cartas():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
-
-
-# metodo de comprobacion de conexion a la bbdd
-@app.route('/a/')
-def consultar_datos():
-    conn = connect()
-    if conn:
-        print("Conectado a la base de datos: ", conn)
-        try:
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM administradores")
-            resultados = cursor.fetchall()
-            return render_template('resultados.html', resultados=resultados)
-
-        finally:
-            cursor.close()
-            close_connection(conn)
-    else:
-        return "No se pudo conectar a la base de datos"
-
 
 if __name__ == '__main__':
     app.run(debug=True)
