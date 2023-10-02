@@ -70,3 +70,22 @@ def agregarDinero(nombre_usuario, cantidad_a_agregar):
         finally:
             cursor.close()
             close_connection(conn)
+
+
+                    
+def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para insertar un nuevo usuario en la tabla "usuarios"
+            query = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal))
+            conn.commit()
+            print(f"Nuevo usuario '{NombreUsuario}' ha sido agregado con éxito.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
