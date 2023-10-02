@@ -5,7 +5,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 
-@app.route('/a/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def inicio():
     if request.method == 'POST':
         print("FOTO:")
@@ -96,11 +96,6 @@ def index():
         print("Nombre de usuario:", nombreUsuario)
         print("Contraseña:", contraseña)
         return render_template('pantallaJuegos.html')
-
-
-@app.route('/')
-def juego_cartas():
-    return open('cartaMasAlta/carta_mas_alta.html')
 
 
 @app.errorhandler(404)
