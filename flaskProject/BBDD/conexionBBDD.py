@@ -29,3 +29,27 @@ def connect():
 def close_connection(conn):
     if conn:
         conn.close()
+
+
+def iniciar_sesion(usuario, contraseña):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el usuario y la contraseña son válidos
+            query = "SELECT * FROM usuarios WHERE NombreUsuario = %s AND Contraseña = %s"
+            cursor.execute(query, (usuario, contraseña))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                print("Inicio de sesión exitoso")
+                return True
+            else:
+                print("Inicio de sesión fallido: usuario o contraseña incorrectos")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
