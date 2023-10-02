@@ -1,32 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Tragaperras</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Tragaperras</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="slots">
-    <div class="slot-row">
-      <img class="slot" id="slot1" src="Slot1.png" alt="Slot 1">
-      <img class="slot" id="slot2" src="Slot1.png" alt="Slot 1">
-      <img class="slot" id="slot3" src="Slot1.png" alt="Slot 1">
+<div id="app">
+    <div class="posicionamiento">
+        <div class="slot">
+            <div class="boxes">
+            </div>
+        </div>
+
+        <div class="slot">
+            <div class="boxes">
+            </div>
+        </div>
+
+        <div class="slot">
+            <div class="boxes">
+            </div>
+        </div>
     </div>
-    <div class="slot-row">
-      <img class="slot red-background" id="slot4" src="Slot2.png" alt="Slot 2">
-      <img class="slot red-background" id="slot5" src="Slot2.png" alt="Slot 2">
-      <img class="slot red-background" id="slot6" src="Slot2.png" alt="Slot 2">
+
+    <div class="buttons">
+        <button id="spinner">Play</button>
     </div>
-    <div class="slot-row">
-      <img class="slot" id="slot7" src="Slot3.png" alt="Slot 3">
-      <img class="slot" id="slot8" src="Slot3.png" alt="Slot 3">
-      <img class="slot" id="slot9" src="Slot3.png" alt="Slot 3">
+    <div class="recuadro">
+        <label id="apostado">Apostado:</label>
+        <input type="number" id="bet" value="1" min="1">
     </div>
-  </div>
-  <button class="button" id="spin" onclick="spin()">Tirar</button>
-  <input type="number" id="bet" value="1" min="1" max="10">
-  <label class="label" for="balance">Saldo:</label>
-  <span id="balance">100</span>
-  <script src="script.js"></script>
+    <div class="recuadro">
+        <label for="balance">Saldo:</label>
+        <span id="balance">100</span>
+    </div>
+    <div class="recuadro" id="mensaje-gananado">
+        <label for="prize">Ganado:</label>
+        <span id="prize">0</span>
+    </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
