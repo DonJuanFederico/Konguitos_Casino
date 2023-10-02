@@ -5,7 +5,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/a/', methods=['GET', 'POST'])
 def inicio():
     if request.method == 'POST':
         print("FOTO:")
@@ -98,7 +98,7 @@ def index():
         return render_template('pantallaJuegos.html')
 
 
-@app.route('/Carta_mas_alta/')
+@app.route('/')
 def juego_cartas():
     return open('cartaMasAlta/carta_mas_alta.html')
 

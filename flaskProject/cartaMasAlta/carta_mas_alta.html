@@ -5,10 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Cartas</title>
     <link rel="stylesheet", href="carta_mas_alta.css", type="text/css">
+    <style>
+        body {
+            background-image: url("casino.jpg");
+            /*background-color: black;*/
+            color: white;
+        }
+        h1{
+            text-align: center;
+        }
+        #resultado {
+            display: flex;
+            justify-content: center;
+            background-color: #01300f;
+            color: black;
+        }
+        ol {
+            text-align: left;
+            padding-left: 600px;
+        }
+        li::marker{
+            font-weight: bold;
+        }
+        .lista{
+            background-color: #3a1803;
+            padding: 2px;
+        }
+
+        button{
+            display: block;
+            margin: auto;
+        }
+        #titulo{
+            background-color: #01300f;
+            padding: 2px;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Juego de Cartas</h1>
-    <button onclick="iniciarJuego()">Iniciar Juego</button>
+    <div class="lista">
+        <h1>Reglas del juego</h1>
+        <ol>
+            <li> Se reparten 4 cartas boca abajo en total. </li>
+            <li> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador. </li>
+            <li> Al jugador se le da la opción de elegir una de las 3 cartas que posee. </li>
+            <li> Se desvela la carta del jugador y posteriormente la de la banca. </li>
+            <li> Se comparan las cartas y la de mayor valor ganará. </li>
+            <li> En caso de empate se perderá el 50% de la apuesta principal.</li>
+        </ol>
+    </div>
+    <div id="titulo">
+        <h1>Juego de Cartas</h1>
+        <button onclick="iniciarJuego()">Iniciar Juego</button>
+    </div>
+
     <div id="resultado"></div>
     <script>
         // Función para crear una baraja de cartas de poker
