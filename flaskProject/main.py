@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, Response
-from BBDD.conexionBBDD import connect, close_connection
+from BBDD.conexionBBDD import connect, close_connection, iniciar_sesion, agregarDinero, agregarUsuario
 from datetime import datetime
 
 app = Flask(__name__)
@@ -19,22 +19,17 @@ def inicio():
 
 @app.route('/Registro/')
 def registroUsuario():
-    return render_template('registro.html')
+    return render_template('registroDatosUsuario.html')
+
 
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
     return render_template('terminosCondiciones.html')
 
-@app.route('/Usuario/', methods=['POST'])
+
+@app.route('/Tarjeta/', methods=['POST'])
 def tarjetaUsuario():
-        msg = ''
         if request.method == 'POST':
-            print("USUARIO:")
-            conexion_MySQL = connect()
-            print("Se conecta a la BBDD")
-            cursor = conexion_MySQL.cursor()
-            print("Funciona cursor")
-            id = 10
             nombreUsuario = request.form['nombreUsuario']
             contraseña = request.form['contraseña']
             correo = request.form['correo']
@@ -45,14 +40,7 @@ def tarjetaUsuario():
             fecha_hora = datetime.now()
             calle = request.form['calle']
             codigoPostal = request.form['codigoPostal']
-            print(id,nombreUsuario,contraseña, correo,DNI,dinero,telefono,foto,fecha_hora,calle,codigoPostal)
-            sql = "INSERT INTO casino.usuarios (id, NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, FechaDeCreacion, Calle, CodigoPostal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(sql,
-                (id, nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, fecha_hora, calle, codigoPostal))
-            conexion_MySQL.commit()
-            print("Datos de usuario guardados en la BBDD")
-            cursor.close()
-            conexion_MySQL.close()
+            agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal)
             return render_template('tarjeta.html')
 
 @app.route('/Camara/')
@@ -93,9 +81,11 @@ def index():
     if request.method == 'POST':
         nombreUsuario = request.form['nombreUsuario']
         contraseña = request.form['contraseña']
-        print("Nombre de usuario:", nombreUsuario)
-        print("Contraseña:", contraseña)
-        return render_template('pantallaJuegos.html')
+        if iniciar_sesion(nombreUsuario, contraseña) == True:
+            return render_template('pantallaJuegos.html')
+
+        else:
+            return render_template('inicio.html')
 
 
 @app.errorhandler(404)

@@ -4,8 +4,7 @@ html {
   height: 100%;
 }
 body {
-  margin:0;
-  padding:0;
+  margin:200px;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   text-transform: uppercase;
@@ -14,7 +13,7 @@ body {
 
 .login-box {
   width: 50%;
-  height: 800px;
+  height: 90%;
   padding: 50px;
   background: rgba(0,0,0,.5);
   box-sizing: border-box;
