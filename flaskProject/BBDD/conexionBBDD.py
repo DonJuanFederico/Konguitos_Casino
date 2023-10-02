@@ -89,3 +89,20 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
         finally:
             cursor.close()
             close_connection(conn)
+
+def agregarTarjeta(NumeroTarjeta,NombreTitular,FechaCaducidad,CVV):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para insertar una nueva tarjeta en la tabla "tarjetas"
+            query = "INSERT INTO tarjetas (NumeroTarjeta,NombreTitular,FechaCaducidad,CVV) VALUES (%s, %s, %s, %s)"
+            cursor.execute(query, (NumeroTarjeta,NombreTitular,FechaCaducidad,CVV))
+            conn.commit()
+            print(f"Nueva tarjeta de '{NombreTitular}' ha sido agregado con éxito.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)

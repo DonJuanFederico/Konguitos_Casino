@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../static/css/tarjeta.css">
 </head>
 <body>
-    <form method="GET" action="/Camara/">
+    <form method="POST" action="/Camara/">
         <div class="login-box">
           <h2>Registro</h2>
             <div class="wrap">
@@ -23,11 +23,13 @@
                         <input placeholder="0000" maxlength="4" type="password" required="" name ="numero12">
                         <input placeholder="0000" maxlength="4" type="password" required="" name="numero16">
                     </div>
-
+                    <div id="name">
+                        <input placeholder="Nombre Titulante" required="" name="nombreTitulante">
+                    </div>
                     <div id="date">
-                        <input placeholder="05" maxlength="2" required="" name="dia">
+                        <input placeholder="05" maxlength="2" required="" name="mes">
                         <span>/</span>
-                        <input placeholder="16" maxlength="2" required="" name="mes">
+                        <input placeholder="16" maxlength="2" required="" name="dia">
                     </div>
                 </div>
                 <div class="back">

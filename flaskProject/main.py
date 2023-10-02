@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, Response
-from BBDD.conexionBBDD import connect, close_connection, iniciar_sesion, agregarDinero, agregarUsuario
+from BBDD.conexionBBDD import *
 from datetime import datetime
 
 app = Flask(__name__)
@@ -15,7 +15,6 @@ def inicio():
         return render_template('inicio.html')
     else:
         return render_template('inicio.html')
-
 
 @app.route('/Registro/')
 def registroUsuario():
@@ -43,9 +42,22 @@ def tarjetaUsuario():
             agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal)
             return render_template('tarjeta.html')
 
-@app.route('/Camara/')
+@app.route('/Camara/', methods=['POST'])
 def camara():
-    return render_template('camara.html')
+    if request.method == 'POST':
+        print("Tarjeta:")
+        numero4 = request.form['numero4']
+        numero8 = request.form['numero8']
+        numero12 = request.form['numero12']
+        numero16 = request.form['numero16']
+        numeroTarjeta = numero4 + numero8 + numero12 + numero16
+        nombreTitulante = request.form['nombreTitulante']
+        dia = request.form['dia']
+        mes = request.form['mes']
+        caducidad = "2023" + "-" + mes + "-" + dia
+        cvv = request.form['cvv']
+        agregarTarjeta(numeroTarjeta, nombreTitulante, caducidad, cvv)
+        return render_template('camara.html')
 
 @app.route('/RegistroAdministrador/')
 def registroAdmin():
