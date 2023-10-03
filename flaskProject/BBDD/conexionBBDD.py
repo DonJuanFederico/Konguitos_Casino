@@ -72,7 +72,7 @@ def agregarDinero(nombre_usuario, cantidad_a_agregar):
             close_connection(conn)
 
 
-                    
+
 def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal):
     conn = connect()
     if conn:
