@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    background: #1a2b45;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Control de 3 filas o 3 columnas. Actual: 3 columnas*/
+.posicionamiento {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* Fondos de las puertas y los cuadrados*/
+.slot {
+    background: #dbe138;
+    width: 100px;
+    height: 110px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+/* Animación de las puertas*/
+.boxes {
+    transition: transform 1s ease-in-out;
+}
+
+/* Tamaño de los simbolos*/
+.symbol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+.buttons {
+    margin: 1rem 0 2rem 0;
+}
+
+button {
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 0 0.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+button:hover {
+    background: #1ec492;
+    color: #1a2b45;
+}
+/* Botones de las puertas*/
+.info {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.input{
+    width: 100%;
+    text-align: center;
+    margin: 1rem 0;
+}
+.apostado {
+    color: #dbe138;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.recuadro {
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    margin: 0 0.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+#balance {
+    color: #dbe138;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#apostado {
+    color: #dbe138;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

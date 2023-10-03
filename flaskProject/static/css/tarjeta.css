@@ -12,6 +12,27 @@ body {
   background: linear-gradient(#141e30, #243b55);
 }
 
+#name {
+	left: 50%;
+	top: 10%;
+	position: relative;
+	display: inline-block;
+	&:before {
+		position: absolute;
+		font-size: 100%;
+		top: -20px;
+		content: "Name holder";
+	}
+	input {
+		font-size: 170%;
+		width: 70%;
+		height: 50%;
+		outline: none;
+		border:none;
+	}
+}
+
+
 .login-box {
   position: absolute;
   top: 50%;
