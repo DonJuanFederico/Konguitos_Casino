@@ -22,7 +22,7 @@
     <script>
         function agregarDinero(nombre_usuario) {
             var monto = parseFloat(document.getElementById("ingresar").value);
-            monto = monto.toFixed(2)
+            monto = monto.toFixed(2);
             if (!isNaN(monto) && monto > 0) {
                 // Enviar solicitud HTTP a tu servidor Flask
                 var xhr = new XMLHttpRequest();
@@ -45,7 +45,7 @@
 
         function retirarDinero(nombre_usuario) {
             var monto = parseFloat(document.getElementById("retirar").value);
-            monto = monto.toFixed(2)
+            monto = monto.toFixed(2);
             if (!isNaN(monto) && monto > 0) {
                 // Enviar solicitud HTTP a tu servidor Flask
                 var xhr = new XMLHttpRequest();

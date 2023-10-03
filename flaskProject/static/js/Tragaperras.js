@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const nuevoBalance = balanceActual + (apuesta * 10);
             balanceElement.textContent = nuevoBalance;
             //Actualiza el premio
-            prizeElement.textContent = apuesta * 10;
+            prizeElement.textContent = apuesta * 10 + parseInt(prizeElement.textContent);
             //Imprime en consola el balance
             console.log(nuevoBalance);
         }
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const nuevoBalance = balanceActual + (apuesta * 5);
             balanceElement.textContent = nuevoBalance;
             //Actualiza el premio
-            prizeElement.textContent = apuesta * 5;
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
             //Imprime en consola el balance
             console.log(nuevoBalance);
         }
