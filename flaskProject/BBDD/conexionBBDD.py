@@ -88,7 +88,22 @@ def agregarDinero(nombre_usuario, cantidad_a_agregar):
             cursor.close()
             close_connection(conn)
 
-
+def retirarDinero(nombre_usuario, cantidad_a_retirar):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para actualizar la cantidad de dinero en la cuenta del usuario
+            query = "UPDATE usuarios SET Dinero = Dinero - %s WHERE NombreUsuario = %s"
+            cursor.execute(query, (cantidad_a_retirar, nombre_usuario))
+            conn.commit()
+            print(f"Se han retirado {cantidad_a_retirar} unidades de dinero de la cuenta de {nombre_usuario}.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
                     
 def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal):
     conn = connect()

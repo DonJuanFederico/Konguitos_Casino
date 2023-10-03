@@ -116,6 +116,24 @@ def dinero():
     DINERO = obtenerDinero(nombre_usuario)
     return render_template('dinero.html', DINERO = DINERO)
 
+@app.route('/agregar_dinero', methods=['POST'])
+def agregar_dinero():
+    nombre_usuario = request.form.get('nombre_usuario')
+    cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
+
+    # Aquí deberías actualizar el dinero del usuario en tu base de datos
+    agregarDinero(nombre_usuario, cantidad_a_agregar)
+    return "Dinero agregado correctamente"
+
+@app.route('/retirar_dinero', methods=['POST'])
+def retirar_dinero():
+    nombre_usuario = request.form.get('nombre_usuario')
+    cantidad_a_retirar = float(request.form.get('cantidad_a_retirar'))
+
+    # Aquí deberías retirar el dinero del usuario en tu base de datos
+    retirarDinero(nombre_usuario, cantidad_a_retirar)
+    return "Dinero retirado correctamente"
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404

@@ -6,5 +6,65 @@
 </head>
 <body>
     <h1>Ahora mismo este es tu dinero disponible: {{ DINERO }}</h1>
+
+    <form>
+        <label for="ingresar">Ingresar:</label>
+        <input type="number" id="ingresar" name="ingresar">
+        <button id="botonIngresar" type="button" onclick="agregarDinero('prueba')">Submit</button>
+    </form>
+
+    <form>
+        <label for="retirar">Retirar:</label>
+        <input type="number" id="retirar" name="retirar">
+        <button id="botonRetirar" type="button" onclick="retirarDinero('prueba')">Submit</button>
+    </form>
+
+    <script>
+        function agregarDinero(nombre_usuario) {
+            var monto = parseFloat(document.getElementById("ingresar").value);
+            monto = monto.toFixed(2)
+            if (!isNaN(monto) && monto > 0) {
+                // Enviar solicitud HTTP a tu servidor Flask
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/agregar_dinero", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            alert("Ingreso realizado");
+                        } else {
+                            alert("Error al procesar la solicitud");
+                        }
+                    }
+                };
+                xhr.send("nombre_usuario=" + nombre_usuario + "&cantidad_a_agregar=" + monto);
+            } else {
+                alert("Por favor ingresa un número positivo con dos decimales como máximo.");
+            }
+        }
+
+        function retirarDinero(nombre_usuario) {
+            var monto = parseFloat(document.getElementById("retirar").value);
+            monto = monto.toFixed(2)
+            if (!isNaN(monto) && monto > 0) {
+                // Enviar solicitud HTTP a tu servidor Flask
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/retirar_dinero", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            alert("Retiro realizado");
+                        } else {
+                            alert("Error al procesar la solicitud");
+                        }
+                    }
+                };
+                xhr.send("nombre_usuario=" + nombre_usuario + "&cantidad_a_retirar=" + monto);
+            } else {
+                alert("Por favor ingresa un número positivo con dos decimales como máximo.");
+            }
+        }
+    </script>
 </body>
 </html>
