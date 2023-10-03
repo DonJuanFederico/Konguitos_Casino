@@ -1,4 +1,4 @@
-# Servidor (Azure):
+# Servidor (Azure): https://portal.azure.com/#@ceu365.onmicrosoft.com/resource/subscriptions/b30aee39-08b5-4718-be30-db1b3f59294e/resourceGroups/Konguitos/providers/Microsoft.DBforMySQL/flexibleServers/konguitoscasino/overview
 # Host: konguitoscasino.mysql.database.azure.com
 # User: KingKonguito
 # Contraseña: Konguito9
