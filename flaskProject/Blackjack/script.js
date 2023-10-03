@@ -5,6 +5,28 @@ let dealerHand = [];
 let gameOver = true;
 let dealerHiddenCard = true;
 
+let balance = 20;
+let betAmount = 0;
+
+function placeBet() {
+    if (balance > 0) {
+        betAmount++;
+        balance--;
+        updateBalance();
+        updateBet();
+    } else {
+        alert("No tienes suficientes monedas para apostar.");
+    }
+}
+
+function updateBalance() {
+    document.getElementById("balance").textContent = `${balance} monedas`;
+}
+
+function updateBet() {
+    document.getElementById("bet").textContent = `${betAmount} monedas`;
+}
+
 // Función para crear una nueva baraja
 function createDeck() {
     const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
@@ -26,21 +48,25 @@ function shuffleDeck() {
 
 // Función para repartir una carta
 function dealCard(hand) {
-    const card = deck.pop();
-    hand.push(card);
+    //if(betAmount > 0)
+        const card = deck.pop();
+        hand.push(card);
 
-    // Mostrar la carta recién repartida
-    const cardElement = document.createElement('span');
-    cardElement.textContent = card;
+        // Mostrar la carta recién repartida
+        const cardElement = document.createElement('span');
+        cardElement.textContent = card;
 
-    if (hand === playerHand) {
-        document.getElementById('player-hand').appendChild(cardElement);
-    } else {
-        document.getElementById('dealer-hand').appendChild(cardElement);
-    }
+        if (hand === playerHand) {
+            document.getElementById('player-hand').appendChild(cardElement);
+        } else {
+            document.getElementById('dealer-hand').appendChild(cardElement);
+        }
 
-    // Actualizar el valor de la mano y la interfaz de usuario
-    updateUI();
+        // Actualizar el valor de la mano y la interfaz de usuario
+        updateUI();
+    //} else {
+      //  alert("No tienes una cantidad apostada.");
+    //}
 }
 
 // Función para calcular el valor de una mano de cartas
@@ -82,7 +108,6 @@ function updateUI() {
 }
 
 // Función para comprobar el resultado del juego
-// Función para comprobar el resultado del juego
 function checkResult() {
     const playerValue = calculateHandValue(playerHand);
     const dealerValue = calculateHandValue(dealerHand);
@@ -93,22 +118,30 @@ function checkResult() {
         dealerHiddenCard = false;
         updateUI();
         gameOver = true;
+        betEnded();
     } else if (dealerValue > 21) {
         document.getElementById('result').textContent = 'La banca se pasa de 21. Ganaste';
         // Revelar la segunda carta de la banca
         dealerHiddenCard = false;
         updateUI();
         gameOver = true;
+        balance += betAmount * 2;
+        betEnded();
     } else if (!gameOver) {
         if (playerValue > dealerValue) {
             document.getElementById('result').textContent = 'Has ganado';
             gameOver = true;
+            balance += betAmount * 2;
+            betEnded();
         } else if (playerValue < dealerValue) {
             document.getElementById('result').textContent = 'Has perdido';
             gameOver = true;
+            betEnded();
         } else {
             document.getElementById('result').textContent = 'Empate';
             gameOver = true;
+            balance += betAmount;
+            betEnded();
         }
     }
 }
@@ -139,6 +172,12 @@ function resetGame() {
 
     // Actualizar la interfaz de usuario
     updateUI();
+}
+
+function betEnded(){ // Se actualiza el saldo y las apuestas
+    betAmount = 0;
+    updateBalance();
+    updateBet();
 }
 
 
