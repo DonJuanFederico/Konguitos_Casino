@@ -170,7 +170,7 @@ function cambiarImagenes() {
     }
     numeroImagen += incremento;
     if(score >= limiteApostado && limiteApostado <= pararJuego){
-        retirarse(1);
+        retirarse(0);
         restartGame();
     }
     if(score > pararJuego){
