@@ -95,10 +95,18 @@ def index():
         contraseña = request.form['contraseña']
         if iniciar_sesion(nombreUsuario, contraseña) == True:
             return render_template('pantallaJuegos.html')
-
         else:
             return render_template('inicio.html')
 
+@app.route('/juegos_extra/', methods=['GET'])
+def juegos_extra():
+    return render_template('juegos_extra.html')
+
+@app.route('/dinero/', methods=['GET'])
+def dinero():
+    nombre_usuario = "prueba"
+    DINERO = obtenerDinero(nombre_usuario)
+    return render_template('dinero.html', DINERO = DINERO)
 
 @app.errorhandler(404)
 def page_not_found(error):

@@ -54,6 +54,23 @@ def iniciar_sesion(usuario, contraseña):
             close_connection(conn)
     return False  # Devuelve False si no se pudo conectar a la base de datos
 
+def obtenerDinero(nombre_usuario):
+    conn = connect()
+    dinero = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT Dinero FROM usuarios WHERE NombreUsuario = %s"
+            cursor.execute(query, (nombre_usuario,))
+            dinero = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return dinero
+
 def agregarDinero(nombre_usuario, cantidad_a_agregar):
     conn = connect()
     if conn:
