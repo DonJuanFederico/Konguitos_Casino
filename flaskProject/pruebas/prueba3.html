@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/indice_juegos.css">
+    <title>Konguitos Casino Royale</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: lightblue;
+        }
+
+        .scrolling-button-container{
+            position: relative;
+        }
+
+        .scrolling-button-container, .slider{
+            display: flex;
+
+            padding: 2px;
+
+        }
+
+        .scrolling-button-container, .control{
+            border-radius: 50%;
+            background: yellow;
+            cursor: pointer;
+            object-fit: cover;
+            padding: 10px;
+        }
+
+        .scrolling-button-container, .prev{
+            left: 0;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .scrolling-button-container, .next{
+            right: 0;
+            top: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .card {
+            width: 200px; /* Ajusta el ancho deseado de todas las tarjetas */
+            height: 500px; /* Ajusta la altura deseada de todas las tarjetas */
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: #980303;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="scrolling-button-container">
+        <span class="control prev"> &lt; </span>
+        <div class = "slider">
+            <div class="card">
+                <h2>CARTAS</h2>
+                <p>juegos de cartas</p>
+            </div>
+            <div class="card">
+                <h2>DADOS</h2>
+                <p>juegos de dados</p>
+            </div>
+            <div class="card">
+                <h2>RULETA</h2>
+                <p>juegos de ruleta</p>
+            </div>
+            <div class="card">
+                <h2>TRAGAPERRAS</h2>
+                <p>juegos de tragaperras</p>
+            </div>
+            <div class="card">
+                <h2>DINOSAURIO</h2>
+                <p>juego del dino</p>
+            </div>
+            <div class="card">
+                <h2>EVENTOS</h2>
+                <p>eventos del dia</p>
+            </div>
+            <div class="card">
+                <h2>JUEGOS EXTRA</h2>
+                <p>mas juegos diferentes</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+        <span class="control next"> &gt; </span>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>

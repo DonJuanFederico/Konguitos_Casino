@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/indice_juegos.css">
+    <title>Konguitos Casino Royale</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            /*justify-content: center; /* Centra horizontalmente el contenido */
+            align-items: center; /* Centra verticalmente el contenido */
+            height: 100vh; /* Aprovecha toda la altura de la ventana */
+            position: relative;
+            background-color: #482808;
+        }
+
+        .container-wrapper {
+            display: flex;
+            /*justify-content: space-between;*/
+            align-items: center; /* Centra verticalmente las tarjetas y las flechas */
+            position: relative;
+            z-index: 1;
+        }
+
+
+
+        .card {
+            width: 200px; /* Ajusta el ancho deseado de todas las tarjetas */
+            height: 500px; /* Ajusta la altura deseada de todas las tarjetas */
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: #980303;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-items: center;
+        }
+
+        .scroll-button {
+            width: 40px;
+            height: 500px;
+            background-color: rgba(204, 204, 204, 0.2); /* Ajustamos la opacidad */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute; /* Hacemos que las flechas sean posicionadas absolutamente */
+            z-index: 2; /* Asegura que las flechas estén por encima de las tarjetas */
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+
+        .scroll-button:hover {
+            background-color: rgba(184, 134, 11, 1); /* Cambiamos el color al pasar el cursor */
+        }
+        #scroll-left {
+            left: 10px; /* Mueve el botón de scroll izquierdo al lado izquierdo */
+        }
+
+        #scroll-right {
+            right: 10px; /* Mueve el botón de scroll derecho al lado derecho */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-wrapper">
+        <span class="scroll-button" id="scroll-left">&lt;</span>
+    <div class = "slider">
+            <div class="card">
+                <h2>CARTAS</h2>
+                <p>juegos de cartas</p>
+            </div>
+            <div class="card">
+                <h2>DADOS</h2>
+                <p>juegos de dados</p>
+            </div>
+            <div class="card">
+                <h2>RULETA</h2>
+                <p>juegos de ruleta</p>
+            </div>
+            <div class="card">
+                <h2>TRAGAPERRAS</h2>
+                <p>juegos de tragaperras</p>
+            </div>
+            <div class="card">
+                <h2>DINOSAURIO</h2>
+                <p>juego del dino</p>
+            </div>
+            <div class="card">
+                <h2>EVENTOS</h2>
+                <p>eventos del dia</p>
+            </div>
+            <div class="card">
+                <h2>JUEGOS EXTRA</h2>
+                <p>mas juegos diferentes</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+            <div class="card">
+                <h2>Botón</h2>
+                <p>Descripción del botón</p>
+            </div>
+    </div>
+            <!-- Puedes agregar más tarjetas aquí -->
+        <div class="scroll-button" id="scroll-right">&gt;</div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const scrollLeftButton = document.getElementById('scroll-left');
+        const scrollRightButton = document.getElementById('scroll-right');
+
+        scrollLeftButton.addEventListener('click', () => {
+            container.scrollBy({
+                left: -200, // Desplazamiento hacia la izquierda
+                behavior: 'smooth'
+            });
+        });
+
+        scrollRightButton.addEventListener('click', () => {
+            container.scrollBy({
+                left: 200, // Desplazamiento hacia la derecha
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
