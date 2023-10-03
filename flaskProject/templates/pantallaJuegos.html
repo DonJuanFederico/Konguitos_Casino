@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
+            color: white;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -14,6 +15,12 @@
             align-items: center;
             height: 100vh;
             background-color: #000000;
+            background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
+            /*MAS OPCIONES:
+
+             */
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         .container {
@@ -34,20 +41,20 @@
         .button {
             width: 200px;
             height: 500px;
-            background-color: darkred;
+            background-color: black;
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             border-radius: 5px;
-            border: 1px solid black;
+            border: 1px solid white;
             cursor: pointer;
         }
 
         .scroll-button {
             position: absolute;
-            background-color: rgba(169, 169, 169, 0.2);
+            background-color: rgba(169, 169, 169, 0.1);
             color: #fff;
             width: 50px;
             height: 500px;
@@ -67,9 +74,63 @@
         }
         h1{
             position: absolute;
-            top: 0;
+            top: 30px;
             text-align: center;
             text-decoration: underline;
+        }
+
+        .cartas{
+            background-image: url("https://i.pinimg.com/236x/a2/0d/82/a20d820a1e20bd2a7b5805b52e19fad3.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*
+            OTRAS OPCIONES:
+            https://i.pinimg.com/236x/32/d1/82/32d182f9e994eadef1d3631b064d3eb8.jpg
+            https://i.pinimg.com/236x/46/55/1d/46551dfad206f0cfbbbf0b13c2fef267.jpg     ACTUAL
+            https://i.pinimg.com/236x/a2/0d/82/a20d820a1e20bd2a7b5805b52e19fad3.jpg
+             */
+        }
+        .ruleta{
+            background-image: url("https://i.pinimg.com/236x/03/2c/3b/032c3be96eeee110deb2220191e0eb3e.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .dados{
+            background-image: url("https://i.pinimg.com/236x/9f/3b/1b/9f3b1b0857da025027f496e88b64d352.jpg");
+        }
+        .tragap{
+            background-image: url("https://i.pinimg.com/236x/ac/1f/f6/ac1ff689a606abb72ce0660ca035c634.jpg");
+            background-size: cover;
+        }
+        .dino{
+            background-image: url("https://i.pinimg.com/236x/de/86/7f/de867faeaf5c39d7baa42e3cf39b0d2f.jpg");
+            /*OTRAS OPCIONES:
+            https://i.pinimg.com/236x/73/fe/36/73fe36fc591b187d0c0cacf2e6a67d55.jpg
+            https://i.pinimg.com/236x/de/86/7f/de867faeaf5c39d7baa42e3cf39b0d2f.jpg        ACTUAL
+            https://i.pinimg.com/236x/45/1d/3a/451d3aedb6cd4eb115d9bb81f4e0ee1f.jpg
+             */
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+        .event{
+            background-image: url("https://i.pinimg.com/236x/bb/47/f3/bb47f329a5db13fc46c34179c6ee8697.jpg");
+            /*
+            MAS OPCIONES:
+            https://i.pinimg.com/236x/bb/47/f3/bb47f329a5db13fc46c34179c6ee8697.jpg     ACTUAL
+            https://i.pinimg.com/236x/f1/6b/b9/f16bb95f07b6eb18cbbcdf298c107f51.jpg
+             */
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .extra{
+            background-image: url("https://i.pinimg.com/236x/ea/cd/ff/eacdff1ad46e3270c1af80f0ff7d0880.jpg");
+            /*MAS OPCIONES:
+            https://i.pinimg.com/236x/da/ea/5e/daea5e65163af53586f15431db8314c2.jpg
+            https://i.pinimg.com/236x/ea/cd/ff/eacdff1ad46e3270c1af80f0ff7d0880.jpg     ACTUAL
+            https://i.pinimg.com/236x/da/f6/c0/daf6c0f1bc794197f5e5e40a7825b7b8.jpg
+            https://i.pinimg.com/236x/60/17/ff/6017ffe2d7ae08a52f690d8886312336.jpg
+             */
         }
     </style>
 </head>
@@ -79,25 +140,27 @@
         <div class="scroll-button left" id="scroll-left">←</div>
         <div class="scroll-container" id="scroll-container">
             <form method="GET" action="/Carta_mas_alta/">
-                <button class="button" type="submit">
+                <button class="button cartas" type="submit">
                     CARTAS:<br> - Carta más alta
                 </button>
             </form>
             <form method="GET" action="/Ruleta/">
-                <button class="button" type="submit"> RULETA </button>
-
+                <button class="button dados" type="submit"> DADOS </button>
+            </form>
+            <form method="GET" action="/Ruleta/">
+                <button class="button ruleta" type="submit"> RULETA </button>
             </form>
             <form method="GET" action="/Tragaperras/">
-                <button class="button" type="submit"> TRAGAPERRAS </button>
+                <button class="button tragap" type="submit"> TRAGAPERRAS </button>
             </form>
             <form method="GET" action="/DinoKongo/">
-                <button class="button" type="submit"> DINOKONGO </button>
+                <button class="button dino" type="submit"> DINOKONGO </button>
             </form>
             <form method="GET" action="/Eventos/">
-                <button class="button" type="submit"> EVENTOS </button>
+                <button class="button event" type="submit"> EVENTOS </button>
             </form>
             <form method="GET" action="/Juegos_extra/">
-                <button class="button" type="submit"> JUEGOS EXTRA </button>
+                <button class="button extra" type="submit"> JUEGOS EXTRA </button>
             </form>
         </div>
         <div class="scroll-button right" id="scroll-right">→</div>
