@@ -102,6 +102,10 @@ def index():
 def tragaperras():
     return render_template('tragaperras.html')
 
+@app.route("/Carta_mas_alta/", methods=['GET'])
+def carta_mas_alta():
+    return render_template('carta_mas_alta.html')
+
 @app.route('/juegos_extra/', methods=['GET'])
 def juegos_extra():
     return render_template('juegos_extra.html')

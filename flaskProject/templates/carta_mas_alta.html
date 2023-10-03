@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Cartas</title>
-    <link rel="stylesheet", href="carta_mas_alta.css", type="text/css">
+    <link rel="stylesheet" , href="../cartaMasAlta/carta_mas_alta.css" , type="text/css">
     <style>
         body {
             /*background-color: white;*/
@@ -13,13 +13,14 @@
             background-attachment: fixed;
             background-position: center;
             background-size: cover;
+            text-align: center;
             color: white;
         }
         h1{
             text-align: center;
             text-decoration: underline;
         }
-        
+
         ol {
             text-align: left;
             padding-left: 600px;
@@ -53,10 +54,10 @@
         <ol>
             <li> Se reparten 4 cartas boca abajo en total. </li>
             <li> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador. </li>
-            <li> Al jugador se le da la opción de elegir una de las 3 cartas que posee. </li>
+            <li> Al jugador se le da la opciÃ³n de elegir una de las 3 cartas que posee. </li>
             <li> Se desvela la carta del jugador y posteriormente la de la banca. </li>
-            <li> Se comparan las cartas y la de mayor valor ganará. </li>
-            <li> En caso de empate se perderá el 50% de la apuesta principal.</li>
+            <li> Se comparan las cartas y la de mayor valor ganarÃ¡. </li>
+            <li> En caso de empate se perderÃ¡ el 50% de la apuesta principal.</li>
         </ol>
     </div>
     <div id="titulo">
@@ -66,7 +67,7 @@
 
     <div id="resultado"></div>
     <script>
-        // Función para crear una baraja de cartas de poker
+        // FunciÃ³n para crear una baraja de cartas de poker
         function crearBaraja() {
             const palos = ['\u2660', '\u2663', '\u2665', '\u2666'];
             const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -81,34 +82,34 @@
             return baraja;
         }
 
-        // Función para obtener una carta aleatoria de la baraja
+        // FunciÃ³n para obtener una carta aleatoria de la baraja
         function obtenerCartaAleatoria(baraja) {
             const indice = Math.floor(Math.random() * baraja.length);
             return baraja.splice(indice, 1)[0];
         }
 
-        // Función para comparar dos cartas por su valor
+        // FunciÃ³n para comparar dos cartas por su valor
         function compararCartas(cartas) {
             const valorCartaUsuario = obtenerValorCarta(cartas.usuario);
             const valorCartaCroupier = obtenerValorCarta(cartas.croupier);
 
             if (valorCartaUsuario > valorCartaCroupier) {
-                return '¡El usuario gana!';
+                return 'Â¡El usuario gana!';
             } else if (valorCartaUsuario < valorCartaCroupier) {
-                return '¡El croupier gana!';
+                return 'Â¡El croupier gana!';
             } else {
                 return 'Empate';
             }
         }
 
-        // Función para obtener el valor numérico de una carta
+        // FunciÃ³n para obtener el valor numÃ©rico de una carta
         function obtenerValorCarta(carta) {
             const valor = carta.split(' ')[0];
             const valores = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
             return valores[valor];
         }
 
-        // Función principal para iniciar el juego
+        // FunciÃ³n principal para iniciar el juego
         function iniciarJuego() {
             const baraja = crearBaraja();
             const cartas = {
