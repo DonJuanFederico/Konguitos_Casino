@@ -98,6 +98,10 @@ def index():
         else:
             return render_template('inicio.html')
 
+@app.route("/tragaperras/", methods=['GET'])
+def tragaperras():
+    return render_template('tragaperras.html')
+
 @app.route('/juegos_extra/', methods=['GET'])
 def juegos_extra():
     return render_template('juegos_extra.html')
