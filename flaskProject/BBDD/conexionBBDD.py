@@ -141,3 +141,31 @@ def agregarTarjeta(NumeroTarjeta,NombreTitular,FechaCaducidad,CVV):
         finally:
             cursor.close()
             close_connection(conn)
+
+def modificarDinero(nombre_usuario, cantidad_a_modificar):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            if cantidad_a_modificar < 0:
+                # Si la cantidad es negativa, resta el valor absoluto a la columna Dinero
+                query = "UPDATE usuarios SET Dinero = Dinero - %s WHERE NombreUsuario = %s"
+                cursor.execute(query, (-cantidad_a_modificar, nombre_usuario))
+                conn.commit()
+                print(f"Se ha restado {abs(cantidad_a_modificar)} unidades de dinero a la cuenta de {nombre_usuario}.")
+            else:
+                # Si la cantidad es positiva, agrega la cantidad a la columna Dinero
+                query = "UPDATE usuarios SET Dinero = Dinero + %s WHERE NombreUsuario = %s"
+                cursor.execute(query, (cantidad_a_modificar, nombre_usuario))
+                conn.commit()
+                print(f"Se ha agregado {cantidad_a_modificar} unidades de dinero a la cuenta de {nombre_usuario}.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+
+
+#poner aqui los metodos comentados y que quereis que hagan
