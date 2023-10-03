@@ -1,31 +1,64 @@
 let balance = 20;
 
 
-let bets = {
+let primaryBets = {
     lineaDePase: 0,
-    barraDeNoPase: 0,
-    gabelaAFavor: 0,
-    gabelaEnContra: 0,
+    barraDeNoPase: 0
+};
+
+let secondaryBets = {
+    gavelaAFavor: 0,
+    gavelaEnContra: 0,
     numeroPorVenir: 0
 };
 
-let tipoApuesta = 0; // Inicialmente, no hay ninguna apuesta seleccionada
 
-function placeBet(betType) {
+let tipoApuestaP = "Ninguna"; // Inicialmente, no hay ninguna apuesta seleccionada
+let tipoApuestaS = "Ninguna";
+
+function placePrimaryBet(betType) {
     if (balance > 0) {
-        if (tipoApuesta === 0) {
+        if (tipoApuestaP === "Ninguna") {
             // Si no hay apuesta seleccionada, permite hacer una apuesta nueva
-            bets[betType]++;
+            primaryBets[betType]++;
             balance--;
-            tipoApuesta = betType;
+            tipoApuestaP = betType;
             updateBalance();
-            updateBets();
-        } else if (tipoApuesta === betType) {
+            updatePrimaryBets();
+        } else if (tipoApuestaP === betType) {
             // Si la apuesta seleccionada es la misma, aumenta la apuesta existente
-            bets[betType]++;
+            primaryBets[betType]++;
             balance--;
             updateBalance();
-            updateBets();
+            updatePrimaryBets();
+        } else {
+            alert("Termina la apuesta actual antes de hacer una nueva.");
+        }
+    } else {
+        alert("No tienes suficientes monedas para apostar.");
+    }
+}
+
+function placeSecondaryBet(betType) {
+    if (balance > 0) {
+        if (tipoApuestaS === "Ninguna") {
+            // Si no hay apuesta seleccionada, permite hacer una apuesta nueva
+            if ((betType === "gabelaAFavor" && tipoApuestaP === "lineaDePase") ||
+                (betType === "gabelaEnContra" && tipoApuestaP === "barraDeNoPase")) {
+                secondaryBets[betType]++;
+                balance--;
+                tipoApuestaS = betType;
+                updateBalance();
+                updateSecondaryBets();
+            } else {
+                alert("Debes hacer la apuesta principal correspondiente antes de realizar esta apuesta secundaria.");
+            }
+        } else if (tipoApuestaS === betType) {
+            // Si la apuesta seleccionada es la misma, aumenta la apuesta existente
+            secondaryBets[betType]++;
+            balance--;
+            updateBalance();
+            updateSecondaryBets();
         } else {
             alert("Termina la apuesta actual antes de hacer una nueva.");
         }
@@ -35,14 +68,21 @@ function placeBet(betType) {
 }
 
 
+
 function updateBalance() {
     document.getElementById("balance").textContent = `${balance} monedas`;
 }
 
-function updateBets() {
-    const cantidadApostada = bets[tipoApuesta] || 0;
+function updatePrimaryBets() {
+    const cantidadApostada = primaryBets[tipoApuestaP] || 0;
     document.getElementById("bet").textContent = `${cantidadApostada} monedas`;
-    document.getElementById("current-bet-type").textContent = tipoApuesta;
+    document.getElementById("current-bet-type").textContent = tipoApuestaP;
+}
+
+function updateSecondaryBets() {
+    const cantidadApostada = secondaryBets[tipoApuestaS] || 0;
+    document.getElementById("bet2").textContent = `${cantidadApostada} monedas`;
+    document.getElementById("current-bet-type2").textContent = tipoApuestaS;
 }
 
 let puntoActual = 0; // Variable para el punto actual (inicialmente 0)
@@ -58,14 +98,14 @@ function rollDice() {
     document.getElementById("result").textContent = `Resultado: ${resultado}`;
 
     //Apuesta "Línea de Pase"
-    if (tipoApuesta === "lineaDePase") {
+    if (tipoApuestaP === "lineaDePase") {
         if (puntoActual === 0) {
             // Si no hay punto actual, comprueba si se gana o pierde directamente
             if (resultado === 7 || resultado === 11) {
                 document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                 document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                 alert("Ganaste la apuesta de Línea de Pase.");
-                balance += bets.lineaDePase * 2; // Se duplica la apuesta
+                balance += primaryBets.lineaDePase * 2; // Se duplica la apuesta
                 betEnded();
             } else if (resultado === 2 || resultado === 3 || resultado === 12) {
                 document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
@@ -84,7 +124,7 @@ function rollDice() {
                 document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                 document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                 alert("Ganaste la apuesta de Línea de Pase.");
-                balance += bets.lineaDePase * 2; // Se duplica la apuesta
+                balance += primaryBets.lineaDePase * 2; // Se duplica la apuesta
                 puntoActual = 0; // Se reinicia el punto
                 betEnded();
             } else if (resultado === 7) {
@@ -101,7 +141,7 @@ function rollDice() {
     }
     
     //Apuesta Barra No Pase
-    if (tipoApuesta === "barraDeNoPase") {
+    if (tipoApuestaP === "barraDeNoPase") {
         if (puntoActual === 0) {
             // Si no hay punto actual, comprueba si se gana o pierde directamente
             if (resultado === 7 || resultado === 11) {
@@ -113,13 +153,13 @@ function rollDice() {
                 document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                 document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                 alert("Ganaste la apuesta de Barra de no Pase.");
-                balance += bets.lineaDePase * 2; // Se duplica la apuesta
+                balance += primaryBets.barraDeNoPase * 2; // Se duplica la apuesta
                 betEnded();
             } else if (resultado === 12){
                 document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                 document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                 alert("Empataste la apuesta de Barra de no Pase.");
-                balance += bets.lineaDePase; // Se devuelve la cantidad apostada
+                balance += primaryBets.barraDeNoPase; // Se devuelve la cantidad apostada
                 betEnded();
             } else {
                 // Se establece el punto
@@ -133,14 +173,13 @@ function rollDice() {
                 document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                 document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                 alert("Perdiste la apuesta de Barra de no Pase.");
-                
                 puntoActual = 0; // Se reinicia el punto
                 betEnded();
             } else if (resultado === 7) {
                 document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                 document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                 alert("Ganaste la apuesta de Barra de no Pase.");
-                balance += bets.lineaDePase * 2; // Se duplica la apuesta
+                balance += primaryBets.barraDeNoPase * 2; // Se duplica la apuesta
                 puntoActual = 0; // Se reinicia el punto
                 betEnded();
             }
@@ -154,10 +193,10 @@ function rollDice() {
 }
 
 function betEnded(){ // Se actualiza el saldo y las apuestas
-    bets[tipoApuesta] = 0;
-    tipoApuesta = 0; // Se reinicia el tipo de apuesta
+    primaryBets[tipoApuestaP] = 0;
+    tipoApuestaP = "Ninguna"; // Se reinicia el tipo de apuesta principal
     updateBalance();
-    updateBets();
+    updatePrimaryBets();
 }
 
 
