@@ -88,6 +88,11 @@ def agregarDinero(nombre_usuario, cantidad_a_agregar):
             cursor.close()
             close_connection(conn)
 
+<<<<<<< HEAD
+
+
+def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal):
+=======
 def retirarDinero(nombre_usuario, cantidad_a_retirar):
     conn = connect()
     if conn:
@@ -106,6 +111,7 @@ def retirarDinero(nombre_usuario, cantidad_a_retirar):
             close_connection(conn)
                     
 def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal):
+>>>>>>> c638f66914fafe885d9e7fc00211f4e8b5d9a756
     conn = connect()
     if conn:
         cursor = conn.cursor()
