@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Cartas</title>
+    <link rel="stylesheet" , href="../games/cartaMasAlta/carta_mas_alta.css" , type="text/css">
+    <style>
+        body {
+            /*background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");*/
+            /*background-repeat: no-repeat;*/
+            /*background-attachment: fixed;*/
+            background-position: center;
+            background-size: cover;
+            text-align: center;
+            align-items: center;
+            color: white;
+        }
+        h1{
+            font-size: xxx-large;
+            text-decoration: underline;
+            text-decoration: underline;
+            color: #910000;
+            -webkit-text-stroke-width: 0.2px;
+            -webkit-text-stroke-color: white;
+            padding-left: 300px;
+        }
+
+        ol {
+            font-size: x-large;
+            text-align: left;
+            padding-left: 330px;
+            color: darkgoldenrod;
+        }
+        li::marker{
+            font-weight: bold;
+        }
+        .lista{
+            padding: 2px;
+            position: absolute;
+            top: 10px;
+            margin: 0 0 0 100px;
+            -webkit-text-stroke-width: 0.5px;
+            -webkit-text-stroke-color: black;
+        }
+        button{
+            display: block;
+            margin: auto;
+            padding: 10px 20px;
+            margin-left: 615px;
+            background-color: darkgoldenrod;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .sobreposicion{
+            position: relative;
+            display: inline-block;
+
+            background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 815px;
+            width: 100%;
+        }
+        .prueba{
+            position: absolute;
+            top: 12.5px;
+            left: 390px;
+            border: 3px solid darkgoldenrod;
+            border-radius: 10px;
+            opacity: 0.8;
+            width: 740px;
+            height: 800px;
+        }
+        #titulo{
+            -webkit-text-stroke-width: 0px;
+            padding: 2px;
+            position: absolute;
+            top: 10px;
+            margin: 0 0 0 100px;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sobreposicion"></div>
+        <img class ="prueba" src="https://static.vecteezy.com/system/resources/previews/000/109/623/original/free-vector-red-poker-background.jpg">
+
+            <div id="titulo">
+                <h1>Juego de Cartas</h1>
+                <form method="GET" action="/Juegos/Indice_cartas/Carta_mas_alta/A_Jugar/">
+                    <button type="submit"> Repartir </button>
+                </form>
+
+        </div>
+</body>
+</html>
