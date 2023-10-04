@@ -1,41 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Cartas</title>
     <link rel="stylesheet" , href="../cartaMasAlta/carta_mas_alta.css" , type="text/css">
     <style>
         body {
-            /*background-color: white;*/
-            background-image: url("https://i.pinimg.com/originals/8a/ce/f9/8acef94854c49aab2db1e0f959ce1737.jpg");
+
+            background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
             background-size: cover;
             text-align: center;
+            align-items: center;
             color: white;
         }
+        /*#img_1{
+            background-image: url("https://static.vecteezy.com/system/resources/previews/000/109/623/original/free-vector-red-poker-background.jpg");
+            background-size: 1200px 800px;
+            background-size: cover;
+        }*/
         h1{
-            text-align: center;
+            font-size: xxx-large;
             text-decoration: underline;
+            text-decoration: underline;
+            color: #910000;
+            -webkit-text-stroke-width: 0.2px;
+            -webkit-text-stroke-color: white;
+            padding-left: 300px;
         }
 
         ol {
+            font-size: x-large;
             text-align: left;
-            padding-left: 600px;
+            padding-left: 500px;
+            color: white;
         }
         li::marker{
             font-weight: bold;
         }
         .lista{
             padding: 2px;
+            position: absolute;
+            top: 10px;
         }
 
         button{
             display: block;
             margin: auto;
             padding: 10px 20px;
+            margin-left: 660px;
             background-color: #007d33;
             color: #fff;
             border: none;
@@ -45,27 +61,49 @@
             /*background-color: #01300f;*/
             padding: 2px;
         }
+        #resultado{
+            /*background-image: url("");*/
+            background-size: revert;
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            color: white;
+            /*background: rgba(0, 0, 0, 1);*/
+            position: absolute;
+            margin: 10px 0 10px 617px;
+            background-color: #013801;
+
+        }
+        .prueba{
+            padding-left: 100px;
+            opacity: 0.3;
+            height: 750px;
+            width: 1400px;
+            position: relative;
+        }
 
     </style>
 </head>
 <body>
-    <div class="lista">
-        <h1>Reglas del juego</h1>
-        <ol>
-            <li> Se reparten 4 cartas boca abajo en total. </li>
-            <li> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador. </li>
-            <li> Al jugador se le da la opción de elegir una de las 3 cartas que posee. </li>
-            <li> Se desvela la carta del jugador y posteriormente la de la banca. </li>
-            <li> Se comparan las cartas y la de mayor valor ganará. </li>
-            <li> En caso de empate se perderá el 50% de la apuesta principal.</li>
-        </ol>
-    </div>
-    <div id="titulo">
-        <h1>Juego de Cartas</h1>
-        <button onclick="iniciarJuego()">Iniciar Juego</button>
-    </div>
+        <div>
+            <img class ="prueba" src="https://static.vecteezy.com/system/resources/previews/000/109/623/original/free-vector-red-poker-background.jpg">
+        </div>
+        <div class="lista">
+            <h1>Reglas del juego</h1>
+            <ol>
+                <li> Se reparten 4 cartas boca abajo en total. </li>
+                <li> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador. </li>
+                <li> Al jugador se le da la opción de elegir una de las 3 cartas que posee. </li>
+                <li> Se desvela la carta del jugador y posteriormente la de la banca. </li>
+                <li> Se comparan las cartas y la de mayor valor ganará. </li>
+                <li> En caso de empate se perderá el 50% de la apuesta principal.</li>
+            </ol>
 
-    <div id="resultado"></div>
+        <div id="titulo">
+            <h1>Juego de Cartas</h1>
+            <button onclick="iniciarJuego()">Iniciar Juego</button>
+        </div>
+            <div id="resultado"></div>
+        </div>
     <script>
         // Función para crear una baraja de cartas de poker
         function crearBaraja() {

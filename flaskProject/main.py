@@ -87,7 +87,7 @@ def interfazAdmin():
     else:
         return render_template('admin.html')
 
-
+# indice de juegos
 @app.route('/Juegos/', methods=['POST'])
 def index():
     if request.method == 'POST':
@@ -98,18 +98,44 @@ def index():
         else:
             return render_template('inicio.html')
 
-@app.route("/tragaperras/", methods=['GET'])
-def tragaperras():
-    return render_template('tragaperras.html')
-
-@app.route("/Carta_mas_alta/", methods=['GET'])
+# direcciones de las categorias de juegos
+#idice de juegos de cartas
+@app.route('/Juegos/Indice_Cartas/', methods=['GET'])
+def cartas():
+    return render_template('cards_index.html')
+@app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
 def carta_mas_alta():
     return render_template('carta_mas_alta.html')
 
-@app.route('/juegos_extra/', methods=['GET'])
+#indice de juegos de dados
+@app.route('/Juegos/Dados/', methods=['GET'])
+def dados():
+    return render_template('dice_index.html')
+@app.route('/Juegos/Indice_Dados/Dados/', methods=['GET'])
+def craps():
+    return render_template("craps.html")
+
+@app.route('/Juegos/Ruleta/', methods=['GET'])
+def ruleta():
+    return render_template('ruleta.html')
+
+@app.route('/Juegos/Tragaperras/', methods=['GET'])
+def tragaperras():
+    return render_template('tragaperras.html')
+
+@app.route('/Juegos/DinoKongo/', methods=['GET'])
+def dino():
+    return open('dinosaurio/index.html')
+
+@app.route('/Juegos/Eventos/', methods=['GET'])
+def event():
+    return render_template('eventos.html')
+
+@app.route('/Juegos_extra/', methods=['GET'])
 def juegos_extra():
     return render_template('juegos_extra.html')
 
+# dineros
 @app.route('/dinero/', methods=['GET'])
 def dinero():
     nombre_usuario = "prueba"

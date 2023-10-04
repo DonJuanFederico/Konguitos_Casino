@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            color: white;
+            color: #910000;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -39,10 +39,12 @@
         }
 
         .button {
-            width: 200px;
-            height: 500px;
+            width: 400px;
+            height: 600px;
             background-color: black;
-            color: #fff;
+            color: white;
+            /*-webkit-text-stroke-width: 0.2px;
+            -webkit-text-stroke-color: white;*/
             display: flex;
             align-items: center;
             justify-content: center;
@@ -57,7 +59,7 @@
             background-color: rgba(169, 169, 169, 0.1);
             color: #fff;
             width: 50px;
-            height: 500px;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,20 +75,24 @@
             right: 0;
         }
         h1{
+            font-size: xxx-large;
             position: absolute;
-            top: 30px;
+            top: 0px;
             text-align: center;
             text-decoration: underline;
+            color: #910000;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: white;
         }
 
         .cartas{
-            background-image: url("https://i.pinimg.com/236x/a2/0d/82/a20d820a1e20bd2a7b5805b52e19fad3.jpg");
+            background-image: url("https://i.pinimg.com/236x/32/d1/82/32d182f9e994eadef1d3631b064d3eb8.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             /*
             OTRAS OPCIONES:
-            https://i.pinimg.com/236x/32/d1/82/32d182f9e994eadef1d3631b064d3eb8.jpg
-            https://i.pinimg.com/236x/46/55/1d/46551dfad206f0cfbbbf0b13c2fef267.jpg     ACTUAL
+            https://i.pinimg.com/236x/32/d1/82/32d182f9e994eadef1d3631b064d3eb8.jpg     ACTUAL
+            https://i.pinimg.com/236x/46/55/1d/46551dfad206f0cfbbbf0b13c2fef267.jpg
             https://i.pinimg.com/236x/a2/0d/82/a20d820a1e20bd2a7b5805b52e19fad3.jpg
              */
         }
@@ -97,16 +103,18 @@
         }
         .dados{
             background-image: url("https://i.pinimg.com/236x/9f/3b/1b/9f3b1b0857da025027f496e88b64d352.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
         }
         .tragap{
             background-image: url("https://i.pinimg.com/236x/ac/1f/f6/ac1ff689a606abb72ce0660ca035c634.jpg");
             background-size: cover;
         }
         .dino{
-            background-image: url("https://i.pinimg.com/236x/de/86/7f/de867faeaf5c39d7baa42e3cf39b0d2f.jpg");
+            background-image: url("https://i.pinimg.com/236x/73/fe/36/73fe36fc591b187d0c0cacf2e6a67d55.jpg");
             /*OTRAS OPCIONES:
-            https://i.pinimg.com/236x/73/fe/36/73fe36fc591b187d0c0cacf2e6a67d55.jpg
-            https://i.pinimg.com/236x/de/86/7f/de867faeaf5c39d7baa42e3cf39b0d2f.jpg        ACTUAL
+            https://i.pinimg.com/236x/73/fe/36/73fe36fc591b187d0c0cacf2e6a67d55.jpg     ACTUAL
+            https://i.pinimg.com/236x/de/86/7f/de867faeaf5c39d7baa42e3cf39b0d2f.jpg
             https://i.pinimg.com/236x/45/1d/3a/451d3aedb6cd4eb115d9bb81f4e0ee1f.jpg
              */
             background-repeat: no-repeat;
@@ -131,6 +139,8 @@
             https://i.pinimg.com/236x/da/f6/c0/daf6c0f1bc794197f5e5e40a7825b7b8.jpg
             https://i.pinimg.com/236x/60/17/ff/6017ffe2d7ae08a52f690d8886312336.jpg
              */
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
@@ -139,33 +149,31 @@
     <div class="container">
         <div class="scroll-button left" id="scroll-left">←</div>
         <div class="scroll-container" id="scroll-container">
-            <form method="GET" action="/Carta_mas_alta/">
-                <button class="button cartas" type="submit">
-                    CARTAS:<br> - Carta más alta
-                </button>
+            <form method="GET" action="/Juegos/Indice_Cartas/">
+                <button class="button cartas" type="submit"> CARTAS </button>
             </form>
-            <form method="GET" action="/Ruleta/">
+            <form method="GET" action="/Juegos/Indice_Dados/">
                 <button class="button dados" type="submit"> DADOS </button>
             </form>
-            <form method="GET" action="/Ruleta/">
+            <form method="GET" action="/Juegos/Ruleta/">
                 <button class="button ruleta" type="submit"> RULETA </button>
             </form>
-            <form method="GET" action="/Tragaperras/">
+            <form method="GET" action="/Juegos/Tragaperras/">
                 <button class="button tragap" type="submit"> TRAGAPERRAS </button>
             </form>
-            <form method="GET" action="/DinoKongo/">
+            <form method="GET" action="/Juegos/DinoKongo/">
                 <button class="button dino" type="submit"> DINOKONGO </button>
             </form>
-            <form method="GET" action="/Eventos/">
+            <form method="GET" action="/Juegos/Eventos/">
                 <button class="button event" type="submit"> EVENTOS </button>
             </form>
-            <form method="GET" action="/Juegos_extra/">
+            <form method="GET" action="/Juegos/Juegos_extra/">
                 <button class="button extra" type="submit"> JUEGOS EXTRA </button>
             </form>
         </div>
         <div class="scroll-button right" id="scroll-right">→</div>
     </div>
-
+    
     <script>
         const container = document.getElementById('scroll-container');
         const scrollLeftButton = document.getElementById('scroll-left');
