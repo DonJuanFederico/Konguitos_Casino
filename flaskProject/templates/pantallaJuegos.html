@@ -49,7 +49,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 10px;
             border: 1px solid white;
             cursor: pointer;
         }
@@ -102,7 +102,7 @@
             background-size: cover;
         }
         .dados{
-            background-image: url("https://i.pinimg.com/236x/9f/3b/1b/9f3b1b0857da025027f496e88b64d352.jpg");
+            background-image: url("https://i.pinimg.com/236x/ac/71/25/ac7125f1290a068c7e327d7577ecf9d4.jpg");
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -149,7 +149,7 @@
     <div class="container">
         <div class="scroll-button left" id="scroll-left">←</div>
         <div class="scroll-container" id="scroll-container">
-            <form method="GET" action="/Juegos/Indice_Cartas/">
+            <form method="GET" action="/Juegos/Indice_cartas/">
                 <button class="button cartas" type="submit"> CARTAS </button>
             </form>
             <form method="GET" action="/Juegos/Indice_Dados/">
@@ -185,12 +185,12 @@
         let currentPosition = 0;
 
         scrollLeftButton.addEventListener('click', () => {
-            currentPosition -= 400
+            currentPosition -= 420
             updateScroll();
         });
 
         scrollRightButton.addEventListener('click', () => {
-            currentPosition += 400
+            currentPosition += 420
             updateScroll();
         });
 

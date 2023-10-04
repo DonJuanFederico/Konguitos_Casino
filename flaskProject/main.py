@@ -100,18 +100,21 @@ def index():
 
 # direcciones de las categorias de juegos
 #idice de juegos de cartas
-@app.route('/Juegos/Indice_Cartas/', methods=['GET'])
+@app.route('/Juegos/Indice_cartas/', methods=['GET'])
 def cartas():
     return render_template('cards_index.html')
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
 def carta_mas_alta():
     return render_template('carta_mas_alta.html')
+@app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
+def blackjac():
+    return render_template('blackjack.html')
 
 #indice de juegos de dados
-@app.route('/Juegos/Dados/', methods=['GET'])
+@app.route('/Juegos/Indice_Dados/', methods=['GET'])
 def dados():
     return render_template('dice_index.html')
-@app.route('/Juegos/Indice_Dados/Dados/', methods=['GET'])
+@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
 def craps():
     return render_template("craps.html")
 
@@ -125,7 +128,7 @@ def tragaperras():
 
 @app.route('/Juegos/DinoKongo/', methods=['GET'])
 def dino():
-    return open('dinosaurio/index.html')
+    return open('games/dinosaurio/index.html')
 
 @app.route('/Juegos/Eventos/', methods=['GET'])
 def event():
