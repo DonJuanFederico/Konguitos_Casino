@@ -1,25 +1,49 @@
-from flask import Flask, render_template, request, jsonify, Response
+from flask import Flask, render_template, request, jsonify, Response, redirect, url_for
 from BBDD.conexionBBDD import *
 from datetime import datetime
+from templates.form import inicioSesion
 
 app = Flask(__name__)
+#python
+#import os
+#random_bytes = os.urandom(12)
+#hex_representation = random_bytes.hex()
+#print(hex_representation)
+app.config['SECRET_KEY'] = 'ded843028a32eb605772926d'
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def index():
+    return redirect(url_for('inicio'))
+
+
+@app.route('/Inicio/', methods=['GET', 'POST'])
 def inicio():
-    if request.method == 'POST':
-        print("FOTO:")
-        foto =request.files['photo']
-        print("FOTO PASO 2")
-        print("Foto guardada")
-        return render_template('inicio.html')
-    else:
-        return render_template('inicio.html')
+    form = inicioSesion()
+    if form.validate_on_submit():
+        nombreUsuario = form.username.data
+        contraseña = form.password.data
+        print("Nombre de usuario:", nombreUsuario)
+        print("Contraseña:", contraseña)
+        if iniciar_sesion(nombreUsuario, contraseña):
+            print("Inicio de sesión exitoso")
+            return juegos()
+        else:
+            print("Inicio de sesión fallido: usuario o contraseña incorrectos, o BBDD apagada")
+            return index()
+    return render_template('inicio.html', form=form)
+
 
 @app.route('/Registro/')
 def registroUsuario():
     return render_template('registroDatosUsuario.html')
 
+@app.route('/Registro Administrador/')
+def registroAdmin():
+    return render_template('registroAdmin.html')
+@app.route('/Juegos/')
+def juegos():
+        return render_template('pantallaJuegos.html')
 
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
@@ -59,9 +83,7 @@ def camara():
         agregarTarjeta(numeroTarjeta, nombreTitulante, caducidad, cvv)
         return render_template('camara.html')
 
-@app.route('/RegistroAdministrador/')
-def registroAdmin():
-    return render_template('registroAdmin.html')
+
 
 
 @app.route('/Datos Usuario/')
@@ -88,15 +110,7 @@ def interfazAdmin():
         return render_template('admin.html')
 
 # indice de juegos
-@app.route('/Juegos/', methods=['POST'])
-def index():
-    if request.method == 'POST':
-        nombreUsuario = request.form['nombreUsuario']
-        contraseña = request.form['contraseña']
-        if iniciar_sesion(nombreUsuario, contraseña) == True:
-            return render_template('pantallaJuegos.html')
-        else:
-            return render_template('inicio.html')
+
 
 # direcciones de las categorias de juegos
 #idice de juegos de cartas
