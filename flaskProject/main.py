@@ -108,7 +108,7 @@ def carta_mas_alta():
     return render_template('carta_mas_alta.html')
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/A_Jugar/', methods=['GET'])
 def A_Jugar():
-    return render_template('carta_mas_alta_juego.html')
+    return render_template('cartas_antiguo.html')
 @app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
 def blackjac():
     return render_template('blackjack.html')

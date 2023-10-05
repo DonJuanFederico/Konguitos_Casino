@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Cartas</title>
+    <link rel="stylesheet" , href="../games/cartaMasAlta/carta_mas_alta.css" , type="text/css">
+    <style>
+        body {
+            /*background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");*/
+            /*background-repeat: no-repeat;*/
+            /*background-attachment: fixed;*/
+            background-position: center;
+            background-size: cover;
+            text-align: center;
+            align-items: center;
+            color: white;
+        }
+        h1{
+            font-size: xxx-large;
+            text-decoration: underline;
+            color: #910000;
+            -webkit-text-stroke-width: 0.2px;
+            -webkit-text-stroke-color: white;
+            padding-left: 500px;
+        }
+
+        ol {
+            font-size: x-large;
+            text-align: left;
+            padding-left: 330px;
+            color: darkgoldenrod;
+        }
+        li::marker{
+            font-weight: bold;
+        }   
+        button{
+            display: block;
+            margin: auto;
+            padding: 10px 20px;
+            margin-left: 615px;
+            background-color: darkgoldenrod;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .sobreposicion{
+            position: relative;
+            display: inline-block;
+            opacity: 0.2;
+            background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 815px;
+            width: 100%;
+        }
+        .prueba{
+            position: absolute;
+            top: 12.5px;
+            left: 390px;
+            border: 3px solid darkgoldenrod;
+            border-radius: 10px;
+            opacity: 0.2;
+            width: 740px;
+            height: 800px;
+        }
+        #titulo{
+            -webkit-text-stroke-width: 0px;
+            padding: 2px;
+            position: absolute;
+            top: 10px;
+            margin: 0 0 0 100px;
+            align-items: center;
+
+        }
+        #resultado{
+            text-align: center;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="sobreposicion"></div>
+        <img class ="prueba" src="https://static.vecteezy.com/system/resources/previews/000/109/623/original/free-vector-red-poker-background.jpg">
+            <div id="titulo">
+                <h1>Juego de Cartas</h1>
+                <button onclick="iniciarJuego()"> Repartir </button>
+                <div id="resultado"></div>
+        </div>
+    <script>
+        // Función para crear una baraja de cartas de poker
+        // Función para crear una baraja de cartas de poker
+        function crearBaraja() {
+            const palos = ['\u2660', '\u2663', '\u2665', '\u2666'];
+            const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+            const baraja = [];
+            for (const palo of palos) {
+                for (const valor of valores) {
+                    baraja.push(`${valor} ${palo}`);
+                }
+            }
+            return baraja;
+        }
+
+        // Función para obtener una carta aleatoria de la baraja
+        // Función para obtener una carta aleatoria de la baraja
+        function obtenerCartaAleatoria(baraja) {
+            const indice = Math.floor(Math.random() * baraja.length);
+            return baraja.splice(indice, 1)[0];
+        }
+
+        // Función para comparar dos cartas por su valor
+        // Función para comparar dos cartas por su valor
+        function compararCartas(cartas) {
+            const valorCartaUsuario = obtenerValorCarta(cartas.usuario);
+            const valorCartaCroupier = obtenerValorCarta(cartas.croupier);
+
+            if (valorCartaUsuario > valorCartaCroupier) {
+                return '¡El usuario gana!';
+                return '¡El usuario gana!';
+            } else if (valorCartaUsuario < valorCartaCroupier) {
+                return '¡El croupier gana!';
+                return '¡El croupier gana!';
+            } else {
+                return 'Empate';
+            }
+        }
+
+        // Función para obtener el valor numérico de una carta
+        // Función para obtener el valor numérico de una carta
+        function obtenerValorCarta(carta) {
+            const valor = carta.split(' ')[0];
+            const valores = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
+            return valores[valor];
+        }
+
+        // Función principal para iniciar el juego
+        // Función principal para iniciar el juego
+        function iniciarJuego() {
+            const baraja = crearBaraja();
+            const cartas = {
+                usuario: [obtenerCartaAleatoria(baraja), obtenerCartaAleatoria(baraja), obtenerCartaAleatoria(baraja)],
+                croupier: obtenerCartaAleatoria(baraja),
+            };
+            const cartaElegida = prompt(`Elige una carta (1, 2 o 3):`);
+            const cartaUsuario = cartas.usuario[cartaElegida - 1];
+            const resultado = compararCartas({ usuario: cartaUsuario, croupier: cartas.croupier });
+            document.getElementById('resultado').innerHTML = `Carta del croupier: ${cartas.croupier}<br>Tu carta: ${cartaUsuario}<br>Resultado: ${resultado} <br> Tus opciones eran: ${cartas.usuario.join(', ')}`;
+        }
+    </script>
+</body>
+</html>
