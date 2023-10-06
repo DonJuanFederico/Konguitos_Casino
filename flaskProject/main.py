@@ -124,7 +124,7 @@ def carta_mas_alta():
 def A_Jugar():
     return render_template('carta_mas_alta_juego.html')
 @app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
-def blackjac():
+def blackjack():
     return render_template('blackjack.html')
 
 #indice de juegos de dados
@@ -139,9 +139,9 @@ def craps():
 def ruleta():
     return render_template('ruleta.html')
 
-@app.route('/Juegos/Tragaperras/', methods=['GET'])
+@app.route('/Juegos/Tragaperras/')
 def tragaperras():
-    return render_template('tragaperras.html')
+    return render_template('Tragaperras.html')
 
 @app.route('/Juegos/DinoKongo/', methods=['GET'])
 def dino():
