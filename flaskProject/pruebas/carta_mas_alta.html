@@ -7,18 +7,14 @@
     <link rel="stylesheet" , href="../games/cartaMasAlta/carta_mas_alta.css" , type="text/css">
     <style>
         body {
+            /*background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");*/
+            /*background-repeat: no-repeat;*/
+            /*background-attachment: fixed;*/
+            background-position: center;
+            background-size: cover;
             text-align: center;
             align-items: center;
-        }
-        body::before{
-          content: "";
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
-          opacity: 1;
+            color: white;
         }
         h1{
             font-size: xxx-large;
@@ -26,39 +22,55 @@
             color: #910000;
             -webkit-text-stroke-width: 0.2px;
             -webkit-text-stroke-color: white;
+            padding-left: 300px;
         }
 
         ol {
             font-size: x-large;
             text-align: left;
-            color: goldenrod;
-            margin-bottom: 100px;
+            padding-left: 330px;
+            color: darkgoldenrod;
         }
         li::marker{
             font-weight: bold;
         }
         .lista{
+            padding: 2px;
             position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 10px;
+            margin: 0 0 0 100px;
             -webkit-text-stroke-width: 0.5px;
             -webkit-text-stroke-color: black;
         }
         button{
+            display: block;
+            margin: auto;
             padding: 10px 20px;
+            margin: 100px 0  0 615px;
             background-color: darkgoldenrod;
             color: #fff;
             border: none;
             cursor: pointer;
         }
+        .sobreposicion{
+            position: relative;
+            display: inline-block;
 
+            background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            height: 815px;
+            width: 100%;
+        }
         .prueba{
+            position: absolute;
+            top: 12.5px;
+            left: 390px;
             border: 3px solid darkgoldenrod;
             border-radius: 10px;
-            opacity: 0.99;
-            width: 700px;
-            height: 928px;
+            opacity: 0.8;
+            width: 740px;
+            height: 800px;
         }
         #titulo{
             -webkit-text-stroke-width: 0px;
@@ -67,14 +79,15 @@
     </style>
 </head>
 <body>
+    <div class="sobreposicion"></div>
         <img class ="prueba" src="data:image/png;base64,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">
         <div class="lista">
             <h1>Reglas del juego</h1>
             <ol>
                 <li><strong> Se reparten 4 cartas boca abajo en total. </strong></li>
-                <li><strong> Una carta es repartida a la banca y las demás 3 al jugador. </strong></li>
-                <li><strong> El jugador tendrá que una de las 3 cartas que posee. </strong></li>
-                <li><strong> Se desvela la carta del jugador y luego la de la banca. </strong></li>
+                <li><strong> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador. </strong></li>
+                <li><strong> Al jugador se le da la opción de elegir una de las 3 cartas que posee. </strong></li>
+                <li><strong> Se desvela la carta del jugador y posteriormente la de la banca. </strong></li>
                 <li><strong> Se comparan las cartas y la de mayor valor ganará. </strong></li>
                 <li><strong> En caso de empate se perderá el 50% de la apuesta principal.</strong></li>
             </ol>
@@ -86,4 +99,3 @@
         </div>
 </body>
 </html>
-l>

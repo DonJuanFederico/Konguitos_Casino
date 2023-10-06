@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Cartas</title>
-    <link rel="stylesheet", href="carta_mas_alta.css", type="text/css">
     <link rel="stylesheet" , href="../cartaMasAlta/carta_mas_alta.css" , type="text/css">
     <style>
         body {
             /*background-color: white;*/
-            background-image: url("https://i.pinimg.com/originals/8a/ce/f9/8acef94854c49aab2db1e0f959ce1737.jpg");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
+            background-image: url("https://w.forfun.com/fetch/78/7896f6ea0115415d224a22fec720bcca.jpeg");
+            /*
+            MAS OPCIONES
+            https://images5.alphacoders.com/486/486724.jpg
+            https://i.pinimg.com/originals/8a/ce/f9/8acef94854c49aab2db1e0f959ce1737.jpg
+            https://images2.alphacoders.com/105/105962.jpg      ACTUAL
+            https://w.forfun.com/fetch/78/7896f6ea0115415d224a22fec720bcca.jpeg
+            https://img3.wallspic.com/crops/5/2/8/9/3/139825/139825-para_jugar_a_las_cartas-3840x2160.jpg
+            */
+            /*background-repeat: no-repeat;*/
+            /*background-attachment: fixed;*/
+            /*background-position: center;*/
             background-size: cover;
             text-align: center;
             color: white;
@@ -25,8 +32,6 @@
             -webkit-text-stroke-width: 0.2px;
             -webkit-text-stroke-color: white;
         }
-
-
         ol {
             text-align: left;
             padding-left: 600px;
@@ -34,12 +39,10 @@
         li::marker{
             font-weight: bold;
         }
-        .lista{
-            padding: 2px;
-        }
         button{
             display: block;
             margin: auto;
+            margin-bottom: 20px;
             padding: 10px 20px;
             background-color: darkgoldenrod;
             color: #fff;
@@ -48,26 +51,58 @@
             cursor: pointer;
         }
         #titulo{
-            /*background-color: #01300f;*/
             padding: 2px;
         }
         #resultado{
             padding-top: 10px;
             color: white;
         }
+        #saldo {
+            font-size: 24px;
+            color: darkgoldenrod;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            -webkit-text-stroke-width: 0.1px;
+            -webkit-text-stroke-color: lightgoldenrodyellow;
+        }
+        #apuesta {
+            padding-left: 50px;
+        }
+        label{
+            color: white;
+            text-decoration: underline;
+        }
+        #resultado-apuesta {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #ffd700;
+        }
+        #mensaje {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #ff4500;
+        }
+        /*
+        PONER UN COLOR DE FONDO EN EL CENTRO Y AHI HACER LA MESA ETC
+         */
     </style>
 </head>
 <body>
-
+<div id="container">
     <div id="titulo">
         <h1>Juego de Cartas</h1>
-        <button onclick="iniciarJuego()">Iniciar Juego</button>
+        <div id="saldo">Saldo actual: 100</div>
+        <button onclick="iniciarJuego()"> Repartir </button>
     </div>
 
+    <label for="apuesta">Apuesta:</label>
+    <input type="number" id="apuesta" min="1" max="100">
     <div id="resultado"></div>
-    <div id="apuesta"></div>
+    <div id="resultado-apuesta"></div>
+    <div id="mensaje"></div>
+</div>
     <script>
-        // Función para crear una baraja de cartas de poker
+        // FunciÃ³n para crear una baraja de cartas de poker
         function crearBaraja() {
             const palos = ['\u2660', '\u2663', '\u2665', '\u2666'];
             const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -80,53 +115,62 @@
             return baraja;
         }
 
-        // Función para obtener una carta aleatoria de la baraja
+        // FunciÃ³n para obtener una carta aleatoria de la baraja
         function obtenerCartaAleatoria(baraja) {
             const indice = Math.floor(Math.random() * baraja.length);
             return baraja.splice(indice, 1)[0];
         }
 
-        // Función para comparar dos cartas por su valor
+        // FunciÃ³n para comparar dos cartas por su valor
         function compararCartas(cartas) {
             const valorCartaUsuario = obtenerValorCarta(cartas.usuario);
             const valorCartaCroupier = obtenerValorCarta(cartas.croupier);
 
             if (valorCartaUsuario > valorCartaCroupier) {
-                return '¡El usuario gana!';
+                return 'Â¡KONGUITO GANADOOORRR!';
             } else if (valorCartaUsuario < valorCartaCroupier) {
-                return '¡El croupier gana!';
+                return 'Konguito caido... :Â´(';
             } else {
-                return 'Empate';
+                return 'Ninguno, hay empate';
             }
         }
 
-        // Función para obtener el valor numérico de una carta
+        // FunciÃ³n para obtener el valor numÃ©rico de una carta
         function obtenerValorCarta(carta) {
             const valor = carta.split(' ')[0];
             const valores = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
             return valores[valor];
         }
 
-        // apostar (VA DENTRO DE INICIAR JUEGO
-        function apostar(){
-            /*
-                0.- establecer un saldo inicial (= dinero q tiene en la BBDD)
-                1.- coger el valor de un div (la apuesta) q introduzca el usuario (no puede ser mayor al saldo)
-                2.- establecer las reglas de la apuesta (ganar perder y empatar)
-                3.- actualizar el resultado (saldo + mensaje de cuanto has ganado)
-             */
-            // 0.-
-            const saldo = 100;
-            // 1.-
+        // Variables globales para el saldo y la apuesta
+        let saldo = 100;
+        let apuesta = 0;
 
-            // 2.-
-            const resultado = compararCartas({ usuario: cartaUsuario, croupier: cartas.croupier });
-
-            // 3.-
-            document.getElementById('apuesta').innerHTML = `Tu apuesta de: ${apuesta} <br> Se ha convertido en: ${apuesta * ganancia} <br> Por lo que tu saldo actual es de: ${saldo + apuesta * ganancia}`
+        //funcion para poder apostar y actualizar el saldo
+        function apostar(apuesta, resultado) {
+            if(saldo > 0 && apuesta <= saldo) {
+                let gananciaPerdida = 0;
+                if (resultado === 'Â¡KONGUITO GANADOOORRR!') {
+                    gananciaPerdida = apuesta;
+                    saldo += apuesta;
+                } else if (resultado === 'Konguito caido... :Â´(') {
+                    gananciaPerdida = -apuesta;
+                    saldo -= apuesta;
+                } else if (resultado === 'Ninguno, hay empate') {
+                    gananciaPerdida = -apuesta / 2;
+                    saldo -= apuesta / 2;
+                }
+                // Muestra el resultado de la apuesta
+                document.getElementById('resultado-apuesta').textContent = `Ganador: ${resultado}`;
+                document.getElementById('mensaje').textContent = `Ganancias/PÃ©rdidas: ${gananciaPerdida}`;
+            } else {
+                // Mostrar un mensaje de error si no cumple las condiciones
+                document.getElementById('resultado-apuesta').textContent = `No puedes realizar esa apuesta.`;
+                document.getElementById('mensaje').textContent = ``;
+            }
         }
 
-        // Función principal para iniciar el juego
+        // FunciÃ³n principal para iniciar el juego
         function iniciarJuego() {
             const baraja = crearBaraja();
             const cartas = {
@@ -136,9 +180,16 @@
             const cartaElegida = prompt(`Elige una carta (1, 2 o 3):`);
             const cartaUsuario = cartas.usuario[cartaElegida - 1];
             const resultado = compararCartas({ usuario: cartaUsuario, croupier: cartas.croupier });
-            document.getElementById('resultado').innerHTML = `Carta del croupier: ${cartas.croupier}<br>Tu carta: ${cartaUsuario}<br>Resultado: ${resultado} <br> Tus opciones eran: ${cartas.usuario.join(', ')}`;
+            document.getElementById('resultado').innerHTML = `<br>Carta del croupier: ${cartas.croupier}<br>Tu carta: ${cartaUsuario}<br>Tus opciones eran: ${cartas.usuario.join(', ')}`;
 
-            // HACER Q SE PUEDA APOSTAR - LLAMAR AL METODO apostar()
+            // Pide la apuesta al usuario
+            apuesta = parseInt(document.getElementById('apuesta').value);
+
+            // Realiza la apuesta
+            apostar(apuesta, resultado);
+
+            // Muestra el saldo actualizado
+            document.getElementById('saldo').textContent = `Saldo actual: ${saldo}`;
         }
     </script>
 </body>
