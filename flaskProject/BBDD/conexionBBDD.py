@@ -88,7 +88,7 @@ def agregarDinero(cantidad_a_agregar):
         try:
             # Consulta para actualizar la cantidad de dinero en la cuenta del usuario
             query = "UPDATE usuarios SET Dinero = Dinero + %s WHERE NombreUsuario = %s"
-            cursor.execute(query, (cantidad_a_agregar, obtener_nombre()))
+            cursor.execute(query, (cantidad_a_agregar/100, obtener_nombre()))
             conn.commit()
         except mysql.connector.Error as err:
             conn.rollback()
@@ -104,7 +104,7 @@ def retirarDinero(cantidad_a_retirar):
         try:
             # Consulta para actualizar la cantidad de dinero en la cuenta del usuario
             query = "UPDATE usuarios SET Dinero = Dinero - %s WHERE NombreUsuario = %s"
-            cursor.execute(query, (cantidad_a_retirar, obtener_nombre()))
+            cursor.execute(query, (cantidad_a_retirar/100, obtener_nombre()))
             conn.commit()
         except mysql.connector.Error as err:
             conn.rollback()

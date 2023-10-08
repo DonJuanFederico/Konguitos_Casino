@@ -91,15 +91,33 @@ let inicio = 0;
 
 buttonPlayStop.addEventListener("click", () => {
     if(!buttonPlayStop.classList.contains("pausa")){
-        if(document.getElementById("cantidadApostada").value >= (0.01) && document.getElementById("limiteApostado").value >= 1.01){
-            //Primera vez que le da al play en la partida
-            if(inicio === 0){
-                cantidadApostada =  parseFloat(document.getElementById("cantidadApostada").value);
-                limiteApostado = parseFloat(document.getElementById("limiteApostado").value);
-                inicio++;
+        posibleCantidad = parseFloat(document.getElementById("cantidadApostada").value);
+        if(posibleCantidad >= (0.01) && document.getElementById("limiteApostado").value >= 1.01){
+            if(posibleCantidad - parseFloat(posibleCantidad.toFixed(2)) == 0){
+                if(parseFloat(document.getElementById("cantidadApostada").value) <= parseFloat(document.getElementById("monedas").innerText)) {
+                    //Primera vez que le da al play en la partida
+                    if (inicio === 0) {
+                        cantidadApostada = parseFloat(document.getElementById("cantidadApostada").value);
+                        limiteApostado = parseFloat(document.getElementById("limiteApostado").value);
+                        inicio++;
+                        //Quitar el dinero de la cuenta y mostrarlo en el marcado:
+                        retirarDinero();
+                        marcador = document.getElementById("monedas");
+                        marcador.innerText = parseFloat(marcador.innerText) - cantidadApostada;
+                    }
+                    //Reanudar el juego.
+                    resumeGame();
+                }else {
+                    buttonPlayStop.classList.toggle("pausa");
+                    alert("Cantidad insuficiente");
+                }
+            }else{
+                //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
+                buttonPlayStop.classList.toggle("pausa");
+                alert("Dos decimales solo");
+                document.getElementById("cantidadApostada").value = 0.01;
+                document.getElementById("limiteApostado").value = 1.01;
             }
-            //Reanudar el juego.
-            resumeGame();
         }else{
             //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
             buttonPlayStop.classList.toggle("pausa");
@@ -107,7 +125,6 @@ buttonPlayStop.addEventListener("click", () => {
             document.getElementById("cantidadApostada").value = 0.01;
             document.getElementById("limiteApostado").value = 1.01;
         }
-        
     }else{
         pauseGame();
     }
@@ -134,7 +151,9 @@ function retirarse(motivo){
         recompensa = cantidadApostada * limiteApostado;
         recompensa = recompensa.toFixed(2);
     }
+    marcador.innerText = parseFloat(marcador.innerText) + parseFloat(recompensa);
     alert("Se retira ganando: " + recompensa);
+    agregarDinero()
     restartGame();
 }
 
@@ -262,3 +281,23 @@ masMonedas.addEventListener("click", function() {
 });
 
 document.addEventListener("DOMContentLoaded", () => generarLimite());
+
+function retirarDinero() {
+    var monto = cantidadApostada;
+    monto = monto * 100;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + monto);
+}
+
+function agregarDinero() {
+    var monto = recompensa;
+    monto = monto * 100;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + monto);
+}
