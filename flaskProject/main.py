@@ -151,9 +151,13 @@ def dino():
 def event():
     return render_template('eventos.html')
 
-@app.route('/Juegos_extra/', methods=['GET'])
+@app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():
     return render_template('juegos_extra.html')
+
+@app.route('/Juegos/Juegos_extra/Dinosaurio', methods=['GET'])
+def cargarDino():
+    return render_template('dinosaurio.html')
 
 # dineros
 @app.route('/dinero/', methods=['GET'])
@@ -176,6 +180,10 @@ def retirar_dinero():
     # Aquí deberías retirar el dinero del usuario en tu base de datos
     retirarDinero(cantidad_a_retirar)
     return "Dinero retirado correctamente"
+
+@app.route('/Juegos/Juegos_extra/KonguitoRun.html')
+def konguito():
+    return render_template('konguitoRun.html')
 
 @app.errorhandler(404)
 def page_not_found(error):

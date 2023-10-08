@@ -158,10 +158,10 @@ incremento = 0;
 tiempoFrame = 90; // Cambiado a 90 para una animación más rápida
 
 function cambiarImagenes() {
-    imagen.src = `Corriendo${numeroImagen}.png`;
+    imagen.src = `/static/images/konguito_run/Corriendo${numeroImagen}.png`;
     //Se buguea y a veces no sale la imagen konguitoDino ARREGLAR, solución temporal:
     if(numeroImagen <= 0 || numeroImagen >= 6){
-        imagen.src = `Corriendo1.png`
+        imagen.src = `/static/images/konguito_run/Corriendo1.png`
     }
     if (numeroImagen === 5) {
         incremento = -1;

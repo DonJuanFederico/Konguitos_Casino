@@ -45,7 +45,7 @@ input{
     /*animation: movimientoFondo 5s linear infinite;*/
     top: 0%;
     left: 0%;
-    background-image: url("fondoDino2.png");
+    background-image: url("/static/images/konguito_run/fondoDino2.png");
     background-repeat: repeat-x;
     background-position: 0 0;
     background-size: auto 100%;
@@ -68,7 +68,7 @@ input{
     /*animation: movimientoFondo 5s linear infinite;*/
     top: 0%;
     left: 0%;
-    background-image: url("background.jpg");
+    background-image: url("/static/images/konguito_run/background.jpg");
     background-position: 0 0;
 }
 
