@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, Response, redirect, url_for
 from BBDD.conexionBBDD import *
 from datetime import datetime
-from templates.form import inicioSesion
+from templates.form import *
 
 app = Flask(__name__)
 #python
@@ -26,7 +26,6 @@ def inicio():
         print("Nombre de usuario:", nombreUsuario)
         print("Contraseña:", contraseña)
         if iniciar_sesion(nombreUsuario, contraseña):
-            print("Inicio de sesión exitoso")
             return juegos()
         else:
             print("Inicio de sesión fallido: usuario o contraseña incorrectos, o BBDD apagada")
@@ -34,9 +33,44 @@ def inicio():
     return render_template('inicio.html', form=form)
 
 
-@app.route('/Registro/')
+@app.route('/Registro/', methods=['GET', 'POST'])
 def registroUsuario():
-    return render_template('registroDatosUsuario.html')
+    form = crearUsuario()
+    if form.validate_on_submit():
+        nombreUsuario = form.username.data
+        contraseña = form.password.data
+        correo = form.email.data
+        DNI = form.dni.data
+        dinero = 0.0
+        telefono = form.telephone.data
+        foto = None
+        fecha_hora = datetime.now()
+        calle = form.street.data
+        codigoPostal = form.postalCode.data
+        numeroTarjeta = form.cardNumber.data
+        titulanteTarjeta = form.nameHolder.data
+        caducidadTarjeta = form.expirationDate.data
+        cvv = form.cvv.data
+        print("Nombre de usuario:", nombreUsuario)
+        print("NumeroTarjeta:", numeroTarjeta)
+        if agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal):
+            print("Exito Usuario")
+            if agregarTarjeta(numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv):
+                print("Exito Tarjeta")
+                return camara()
+            else:
+                return redirect(url_for('registroUsuario'))
+        else:
+            return redirect(url_for('registroUsuario'))
+    return render_template('registroUsuario.html', form=form)
+
+@app.route('/Registro/terminosCondiciones.html')
+def terminos():
+    return render_template('terminosCondiciones.html')
+
+@app.route('/Camara/')
+def camara():
+    return render_template('camara.html')
 
 @app.route('/Registro Administrador/')
 def registroAdmin():
@@ -45,51 +79,9 @@ def registroAdmin():
 def juegos():
         return render_template('pantallaJuegos.html')
 
-@app.route('/Registro/terminosCondiciones.html')
-def terminos():
-    return render_template('terminosCondiciones.html')
-
-
-@app.route('/Tarjeta/', methods=['POST'])
-def tarjetaUsuario():
-        if request.method == 'POST':
-            nombreUsuario = request.form['nombreUsuario']
-            contraseña = request.form['contraseña']
-            correo = request.form['correo']
-            DNI = request.form['DNI']
-            dinero = 0.0
-            telefono = request.form['telefono']
-            foto = None
-            fecha_hora = datetime.now()
-            calle = request.form['calle']
-            codigoPostal = request.form['codigoPostal']
-            agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal)
-            return render_template('tarjeta.html')
-
-@app.route('/Camara/', methods=['POST'])
-def camara():
-    if request.method == 'POST':
-        print("Tarjeta:")
-        numero4 = request.form['numero4']
-        numero8 = request.form['numero8']
-        numero12 = request.form['numero12']
-        numero16 = request.form['numero16']
-        numeroTarjeta = numero4 + numero8 + numero12 + numero16
-        nombreTitulante = request.form['nombreTitulante']
-        dia = request.form['dia']
-        mes = request.form['mes']
-        caducidad = "2023" + "-" + mes + "-" + dia
-        cvv = request.form['cvv']
-        agregarTarjeta(numeroTarjeta, nombreTitulante, caducidad, cvv)
-        return render_template('camara.html')
-
-
-
-
 @app.route('/Datos Usuario/')
 def datosUsuario():
     return render_template('cambiosUsuarioAdmin.html')
-
 
 @app.route('/Administrador/', methods=['GET','POST'])
 def interfazAdmin():
