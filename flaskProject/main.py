@@ -158,26 +158,23 @@ def juegos_extra():
 # dineros
 @app.route('/dinero/', methods=['GET'])
 def dinero():
-    nombre_usuario = "prueba"
-    DINERO = obtenerDinero(nombre_usuario)
+    DINERO = obtenerDinero()
     return render_template('dinero.html', DINERO = DINERO)
 
 @app.route('/agregar_dinero', methods=['POST'])
 def agregar_dinero():
-    nombre_usuario = request.form.get('nombre_usuario')
     cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
 
     # Aquí deberías actualizar el dinero del usuario en tu base de datos
-    agregarDinero(nombre_usuario, cantidad_a_agregar)
+    agregarDinero(cantidad_a_agregar)
     return "Dinero agregado correctamente"
 
 @app.route('/retirar_dinero', methods=['POST'])
 def retirar_dinero():
-    nombre_usuario = request.form.get('nombre_usuario')
     cantidad_a_retirar = float(request.form.get('cantidad_a_retirar'))
 
     # Aquí deberías retirar el dinero del usuario en tu base de datos
-    retirarDinero(nombre_usuario, cantidad_a_retirar)
+    retirarDinero(cantidad_a_retirar)
     return "Dinero retirado correctamente"
 
 @app.errorhandler(404)
