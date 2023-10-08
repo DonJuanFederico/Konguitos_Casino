@@ -174,7 +174,7 @@ function cambiarImagenes() {
         restartGame();
     }
     if(score > pararJuego){
-        alert("Se te pasó el tiempo, paró en el:" + pararJuego);
+        alert("Se te pasó el tiempo, paró en el: " + pararJuego);
         restartGame();
     }
 }
@@ -247,5 +247,11 @@ let pararJuego;
 function generarLimite(){
     pararJuego = generarNumeroNormal(2, 3).toFixed(2);
 }
+
+let volverPrincipal = document.getElementById("konguitos");
+
+volverPrincipal.addEventListener("click", function() {
+    window.location.href = "/Juegos";
+});
 
 document.addEventListener("DOMContentLoaded", () => generarLimite());
