@@ -132,6 +132,7 @@ function solicitarRetirarse(){
 function retirarse(motivo){
     if(motivo === 0){
         recompensa = cantidadApostada * limiteApostado;
+        recompensa = recompensa.toFixed(2);
     }
     alert("Se retira ganando: " + recompensa);
     restartGame();
@@ -252,6 +253,12 @@ let volverPrincipal = document.getElementById("konguitos");
 
 volverPrincipal.addEventListener("click", function() {
     window.location.href = "/Juegos";
+});
+
+let masMonedas = document.getElementById("masMonedas");
+
+masMonedas.addEventListener("click", function() {
+    window.location.href = "/dinero/";
 });
 
 document.addEventListener("DOMContentLoaded", () => generarLimite());

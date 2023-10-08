@@ -168,22 +168,19 @@ def dinero():
 @app.route('/agregar_dinero', methods=['POST'])
 def agregar_dinero():
     cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
-
-    # Aquí deberías actualizar el dinero del usuario en tu base de datos
     agregarDinero(cantidad_a_agregar)
     return "Dinero agregado correctamente"
 
 @app.route('/retirar_dinero', methods=['POST'])
 def retirar_dinero():
     cantidad_a_retirar = float(request.form.get('cantidad_a_retirar'))
-
-    # Aquí deberías retirar el dinero del usuario en tu base de datos
     retirarDinero(cantidad_a_retirar)
     return "Dinero retirado correctamente"
 
 @app.route('/Juegos/Juegos_extra/KonguitoRun.html')
 def konguito():
-    return render_template('konguitoRun.html')
+    DINERO = obtenerDinero()
+    return render_template('konguitoRun.html', DINERO = DINERO)
 
 @app.errorhandler(404)
 def page_not_found(error):
