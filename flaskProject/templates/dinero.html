@@ -35,6 +35,7 @@
                         } else {
                             alert("Error al procesar la solicitud");
                         }
+                        location.reload(); // Recarga la página
                     }
                 };
                 xhr.send("&cantidad_a_agregar=" + monto);
@@ -58,6 +59,7 @@
                         } else {
                             alert("Error al procesar la solicitud");
                         }
+                        location.reload(); // Recarga la página
                     }
                 };
                 xhr.send("&cantidad_a_retirar=" + monto);
