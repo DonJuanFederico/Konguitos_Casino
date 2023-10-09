@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}<title> Registro </title>{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registroUsuario.css') }}">
+{% endblock %}
+{% block body %}
+<body>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+         <div class="loginPersonal-box">
+            <h2>Datos Personales</h2>
+            <div class="user-box">
+              <input required="" {{ form.username()}}
+              <label>Nombre Usuario</label>
+            </div>
+            <div class="user-box">
+              <input required="" {{ form.password() }}
+              <label>Contraseña</label>
+            </div>
+            <div class="user-box">
+              <input required="" type="email" {{ form.email() }}
+              <label>Email</label>
+            </div>
+            <div class="user-box">
+              <input required="" {{ form.dni() }}
+              <label>DNI</label>
+            </div>
+            <div class="user-box">
+              <input required="" type="number" {{ form.telephone() }}
+              <label>Telefono</label>
+            </div>
+            <div class="user-box">
+              <input required="" {{ form.street() }}
+              <label>Calle</label>
+            </div>
+            <div class="user-box">
+              <input required="" type="number" {{ form.postalCode() }}
+              <label>Codigo Postal</label>
+            </div>
+            <div class="terminos">
+                <input type="checkbox" required=""  {{ form.terminus() }}
+                  <a  href="terminosCondiciones.html" style="color: white">Terminos Condiciones</a>
+            </div>
+         </div>
+        <div class="loginTarjeta-box">
+            <h2>Datos Tarjeta</h2>
+            <div class="user-box">
+              <input required="" type="number" {{ form.cardNumber() }}
+              <label>Número Tarjeta</label>
+            </div>
+            <div class="user-box">
+              <input required="" {{ form.nameHolder() }}
+              <label>Titulante de la Tarjeta</label>
+            </div>
+            <div class="user-box">
+              <input required="" {{ form.expirationDate() }}
+              <label>Fecha Caducidad (Día/Mes)</label>
+            </div>
+            <div class="user-box">
+              <input required="" {{ form.cvv() }}
+              <label>CVV</label>
+            </div>
+            <div class="user-box">
+                <button {{ form.submit(class="registro")}} Registro</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

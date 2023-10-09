@@ -30,7 +30,9 @@ def close_connection(conn):
     if conn:
         conn.close()
 
-
+'''
+    En este método se llama al método almacenar_nombre() para tener el nombre de usuario guardado y ser usado en otros métodos 
+'''
 def iniciar_sesion(usuario, contraseña):
     conn = connect()
     if conn:
@@ -43,6 +45,7 @@ def iniciar_sesion(usuario, contraseña):
 
             if resultado:
                 print("Inicio de sesión exitoso")
+                almacenar_nombre(usuario)
                 return True
             else:
                 print("Inicio de sesión fallido: usuario o contraseña incorrectos")
@@ -54,7 +57,14 @@ def iniciar_sesion(usuario, contraseña):
             close_connection(conn)
     return False  # Devuelve False si no se pudo conectar a la base de datos
 
-def obtenerDinero(nombre_usuario):
+def almacenar_nombre(usuario):
+    global nombreUsuario
+    nombreUsuario = usuario
+
+def obtener_nombre():
+    return nombreUsuario
+
+def obtenerDinero():
     conn = connect()
     dinero = None
     if conn:
@@ -62,7 +72,7 @@ def obtenerDinero(nombre_usuario):
         try:
             # Consulta para obtener el dinero del usuario
             query = "SELECT Dinero FROM usuarios WHERE NombreUsuario = %s"
-            cursor.execute(query, (nombre_usuario,))
+            cursor.execute(query, (obtener_nombre(),))
             dinero = cursor.fetchone()[0]
         except mysql.connector.Error as err:
             print(f"Error de MySQL: {err}")
@@ -71,16 +81,15 @@ def obtenerDinero(nombre_usuario):
             close_connection(conn)
     return dinero
 
-def agregarDinero(nombre_usuario, cantidad_a_agregar):
+def agregarDinero(cantidad_a_agregar):
     conn = connect()
     if conn:
         cursor = conn.cursor()
         try:
             # Consulta para actualizar la cantidad de dinero en la cuenta del usuario
             query = "UPDATE usuarios SET Dinero = Dinero + %s WHERE NombreUsuario = %s"
-            cursor.execute(query, (cantidad_a_agregar, nombre_usuario))
+            cursor.execute(query, (cantidad_a_agregar/100, obtener_nombre()))
             conn.commit()
-            print(f"Se han agregado {cantidad_a_agregar} unidades de dinero a la cuenta de {nombre_usuario}.")
         except mysql.connector.Error as err:
             conn.rollback()
             print(f"Error de MySQL: {err}")
@@ -88,25 +97,24 @@ def agregarDinero(nombre_usuario, cantidad_a_agregar):
             cursor.close()
             close_connection(conn)
 
-
-def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal):
-    return None
-def retirarDinero(nombre_usuario, cantidad_a_retirar):
+def retirarDinero(cantidad_a_retirar):
     conn = connect()
     if conn:
         cursor = conn.cursor()
         try:
             # Consulta para actualizar la cantidad de dinero en la cuenta del usuario
             query = "UPDATE usuarios SET Dinero = Dinero - %s WHERE NombreUsuario = %s"
-            cursor.execute(query, (cantidad_a_retirar, nombre_usuario))
+            cursor.execute(query, (cantidad_a_retirar/100, obtener_nombre()))
             conn.commit()
-            print(f"Se han retirado {cantidad_a_retirar} unidades de dinero de la cuenta de {nombre_usuario}.")
         except mysql.connector.Error as err:
             conn.rollback()
             print(f"Error de MySQL: {err}")
         finally:
             cursor.close()
             close_connection(conn)
+
+def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal):
+    return None
 
 def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal):
     conn = connect()
@@ -141,31 +149,5 @@ def agregarTarjeta(NumeroTarjeta,NombreTitular,FechaCaducidad,CVV):
         finally:
             cursor.close()
             close_connection(conn)
-
-def modificarDinero(nombre_usuario, cantidad_a_modificar):
-    conn = connect()
-    if conn:
-        cursor = conn.cursor()
-        try:
-            if cantidad_a_modificar < 0:
-                # Si la cantidad es negativa, resta el valor absoluto a la columna Dinero
-                query = "UPDATE usuarios SET Dinero = Dinero - %s WHERE NombreUsuario = %s"
-                cursor.execute(query, (-cantidad_a_modificar, nombre_usuario))
-                conn.commit()
-                print(f"Se ha restado {abs(cantidad_a_modificar)} unidades de dinero a la cuenta de {nombre_usuario}.")
-            else:
-                # Si la cantidad es positiva, agrega la cantidad a la columna Dinero
-                query = "UPDATE usuarios SET Dinero = Dinero + %s WHERE NombreUsuario = %s"
-                cursor.execute(query, (cantidad_a_modificar, nombre_usuario))
-                conn.commit()
-                print(f"Se ha agregado {cantidad_a_modificar} unidades de dinero a la cuenta de {nombre_usuario}.")
-        except mysql.connector.Error as err:
-            conn.rollback()
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-
-
 
 #poner aqui los metodos comentados y que quereis que hagan

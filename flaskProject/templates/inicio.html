@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}<title> Inicio </title>{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="../static/css/inicio.css">
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/inicio.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -16,17 +16,17 @@
       <h2>Inicio</h2>
         <form method="POST">
           {{ form.hidden_tag() }}
-          <div class="user-box">
-          <input required="" {{ form.username(class="nombreUsuario") }}>
-          <label>Nombre de Usuario</label>
+        <div class="user-box">
+          <input required="" {{ form.username() }}
+              <label>Nombre de Usuario</label>
         </div>
         <div class="user-box">
-          <input required="" {{ form.password(class="contraseña")}}>
+          <input required="" {{ form.password()}}
           <label>Contraseña</label>
         </div>
              {{ form.submit(class="entrar")}}
         </form>
-        <form action="{{ url_for('registroUsuario')}}">
+        <form method="GET" action="{{ url_for('registroUsuario')}}">
             <button type="submit" class = "registroUsuario">REGISTRO</button>
         </form>
         <form>

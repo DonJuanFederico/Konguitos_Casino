@@ -91,15 +91,33 @@ let inicio = 0;
 
 buttonPlayStop.addEventListener("click", () => {
     if(!buttonPlayStop.classList.contains("pausa")){
-        if(document.getElementById("cantidadApostada").value >= (0.01) && document.getElementById("limiteApostado").value >= 1.01){
-            //Primera vez que le da al play en la partida
-            if(inicio === 0){
-                cantidadApostada =  parseFloat(document.getElementById("cantidadApostada").value);
-                limiteApostado = parseFloat(document.getElementById("limiteApostado").value);
-                inicio++;
+        posibleCantidad = parseFloat(document.getElementById("cantidadApostada").value);
+        if(posibleCantidad >= (0.01) && document.getElementById("limiteApostado").value >= 1.01){
+            if(posibleCantidad - parseFloat(posibleCantidad.toFixed(2)) == 0){
+                if(parseFloat(document.getElementById("cantidadApostada").value) <= parseFloat(document.getElementById("monedas").innerText)) {
+                    //Primera vez que le da al play en la partida
+                    if (inicio === 0) {
+                        cantidadApostada = parseFloat(document.getElementById("cantidadApostada").value);
+                        limiteApostado = parseFloat(document.getElementById("limiteApostado").value);
+                        inicio++;
+                        //Quitar el dinero de la cuenta y mostrarlo en el marcado:
+                        retirarDinero();
+                        marcador = document.getElementById("monedas");
+                        marcador.innerText = parseFloat(marcador.innerText) - cantidadApostada;
+                    }
+                    //Reanudar el juego.
+                    resumeGame();
+                }else {
+                    buttonPlayStop.classList.toggle("pausa");
+                    alert("Cantidad insuficiente");
+                }
+            }else{
+                //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
+                buttonPlayStop.classList.toggle("pausa");
+                alert("Dos decimales solo");
+                document.getElementById("cantidadApostada").value = 0.01;
+                document.getElementById("limiteApostado").value = 1.01;
             }
-            //Reanudar el juego.
-            resumeGame();
         }else{
             //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
             buttonPlayStop.classList.toggle("pausa");
@@ -107,7 +125,6 @@ buttonPlayStop.addEventListener("click", () => {
             document.getElementById("cantidadApostada").value = 0.01;
             document.getElementById("limiteApostado").value = 1.01;
         }
-        
     }else{
         pauseGame();
     }
@@ -132,8 +149,11 @@ function solicitarRetirarse(){
 function retirarse(motivo){
     if(motivo === 0){
         recompensa = cantidadApostada * limiteApostado;
+        recompensa = recompensa.toFixed(2);
     }
+    marcador.innerText = parseFloat(marcador.innerText) + parseFloat(recompensa);
     alert("Se retira ganando: " + recompensa);
+    agregarDinero()
     restartGame();
 }
 
@@ -158,10 +178,10 @@ incremento = 0;
 tiempoFrame = 90; // Cambiado a 90 para una animación más rápida
 
 function cambiarImagenes() {
-    imagen.src = `Corriendo${numeroImagen}.png`;
+    imagen.src = `/static/images/konguito_run/Corriendo${numeroImagen}.png`;
     //Se buguea y a veces no sale la imagen konguitoDino ARREGLAR, solución temporal:
     if(numeroImagen <= 0 || numeroImagen >= 6){
-        imagen.src = `Corriendo1.png`
+        imagen.src = `/static/images/konguito_run/Corriendo1.png`
     }
     if (numeroImagen === 5) {
         incremento = -1;
@@ -174,7 +194,7 @@ function cambiarImagenes() {
         restartGame();
     }
     if(score > pararJuego){
-        alert("Se te pasó el tiempo, paró en el:" + pararJuego);
+        alert("Se te pasó el tiempo, paró en el: " + pararJuego);
         restartGame();
     }
 }
@@ -248,4 +268,36 @@ function generarLimite(){
     pararJuego = generarNumeroNormal(2, 3).toFixed(2);
 }
 
+let volverPrincipal = document.getElementById("konguitos");
+
+volverPrincipal.addEventListener("click", function() {
+    window.location.href = "/Juegos";
+});
+
+let masMonedas = document.getElementById("masMonedas");
+
+masMonedas.addEventListener("click", function() {
+    window.location.href = "/dinero/";
+});
+
 document.addEventListener("DOMContentLoaded", () => generarLimite());
+
+function retirarDinero() {
+    var monto = cantidadApostada;
+    monto = monto * 100;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + monto);
+}
+
+function agregarDinero() {
+    var monto = recompensa;
+    monto = monto * 100;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + monto);
+}

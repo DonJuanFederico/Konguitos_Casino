@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/css/juegos_extra.css">
     <title>Juegos Extra</title>
-</head>
-<body>
-    <h1>VENTANA EN DESARROLLO</h1>
-</body>
-</html>
+{% endblock %}
+{% block body %}
+    <article id="cargarDino">
+        <img  src="/static/images/juegos_extra/KonguitoRunCartel.png">
+        <img src="/static/images/juegos_extra/KonguitoRunFrontal.png">
+    </article>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        imagenDino = document.getElementById("cargarDino");
+        imagenDino.addEventListener("click", function(){
+            window.location.href = "/Juegos/Juegos_extra/KonguitoRun.html";
+        });
+    </script>
+{% endblock %}

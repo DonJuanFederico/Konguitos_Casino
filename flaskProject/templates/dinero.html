@@ -10,19 +10,19 @@
     <form>
         <label for="ingresar">Ingresar:</label>
         <input type="number" id="ingresar" name="ingresar">
-        <button id="botonIngresar" type="button" onclick="agregarDinero('prueba')">Submit</button>
+        <button id="botonIngresar" type="button" onclick="agregarDinero('')">Submit</button>
     </form>
 
     <form>
         <label for="retirar">Retirar:</label>
         <input type="number" id="retirar" name="retirar">
-        <button id="botonRetirar" type="button" onclick="retirarDinero('prueba')">Submit</button>
+        <button id="botonRetirar" type="button" onclick="retirarDinero('')">Submit</button>
     </form>
 
     <script>
-        function agregarDinero(nombre_usuario) {
+        function agregarDinero() {
             var monto = parseFloat(document.getElementById("ingresar").value);
-            monto = monto.toFixed(2);
+            monto = monto * 100;
             if (!isNaN(monto) && monto > 0) {
                 // Enviar solicitud HTTP a tu servidor Flask
                 var xhr = new XMLHttpRequest();
@@ -35,17 +35,18 @@
                         } else {
                             alert("Error al procesar la solicitud");
                         }
+                        location.reload(); // Recarga la página
                     }
                 };
-                xhr.send("nombre_usuario=" + nombre_usuario + "&cantidad_a_agregar=" + monto);
+                xhr.send("&cantidad_a_agregar=" + monto);
             } else {
                 alert("Por favor ingresa un número positivo con dos decimales como máximo.");
             }
         }
 
-        function retirarDinero(nombre_usuario) {
+        function retirarDinero() {
             var monto = parseFloat(document.getElementById("retirar").value);
-            monto = monto.toFixed(2);
+            monto = monto * 100;
             if (!isNaN(monto) && monto > 0) {
                 // Enviar solicitud HTTP a tu servidor Flask
                 var xhr = new XMLHttpRequest();
@@ -58,9 +59,10 @@
                         } else {
                             alert("Error al procesar la solicitud");
                         }
+                        location.reload(); // Recarga la página
                     }
                 };
-                xhr.send("nombre_usuario=" + nombre_usuario + "&cantidad_a_retirar=" + monto);
+                xhr.send("&cantidad_a_retirar=" + monto);
             } else {
                 alert("Por favor ingresa un número positivo con dos decimales como máximo.");
             }

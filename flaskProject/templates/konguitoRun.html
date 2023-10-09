@@ -1,30 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Konguito Run</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
-    </head>
-    <body>
-        <div id = board>
+{% block stylesheets %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konguito Run</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/static/css/konguitoRun.css" rel="stylesheet">
+    <title>Juegos Extra</title>
+{% endblock %}
+{% block body %}
+    <div id = board>
             <div id = "fondo">
                 <div class = "scoreContainer">
-                    <!-- 
+                    <!--
                         Usar span para controlarlo con JS
                     -->
                     Multiplicador: <span id = "score">0</span>
                 </div>
+                <div id = "prueba">
+                    <img id = "fotoMoneda" src="/static/images/moneda.png">
+                    <div id = "prueba2">
+                        <!--
+                            A partir de las 16 cifras ya no se ve el número completo
+                        -->
+                        <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
+                        <img id = "masMonedas" src="/static/images/masMonedas.png">
+                    </div>
+                </div>
             </div>
             <div id = "player">
-                <!-- 
+                <!--
                     En caso de no poder mostrar la imagen del dinosaurio, muestra el texto Konguito
                 -->
-                <img src="Corriendo1.png" alt="Konguito" id="konguitoDino">
+                <img src="/static/images/konguito_run/Corriendo1.png" alt="Konguito" id="konguitoDino">
             </div>
-        </div>     
+        </div>
         <div id = "tablero">
             <div id = "tableroImagen">
                 <div class = "menu1">
@@ -44,12 +53,13 @@
                 </div>
             </div>
             <div id = "logoCasino">
-                <img src="KonguitosSinFondo.png" id="konguitos">
+                <img src="/static/images/konguito_run/KonguitosSinFondo.png" id="konguitos">
             </div>
             <div id = "logoJuego">
-                <img src="konguitoRun.png" id="konguitos">
+                <img src="/static/images/konguito_run/konguitoRun.png" id="konguitos">
             </div>
         </div>
-        <script src="scripts.js"></script>
-    </body>
-</html>
+{% endblock %}
+{% block javascripts %}
+    <script src="/static/js/konguitoRun.js"></script>
+{% endblock %}
