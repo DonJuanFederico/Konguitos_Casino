@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesa de Poker</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .table {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            background-color: green;
+            border: 2px solid #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .deck {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 150px;
+            background-color: #ccc;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .slots {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .slot {
+            width: 100px;
+            height: 150px;
+            background-color: #ccc;
+            border: 2px solid #000;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card {
+            width: 80px;
+            height: 120px;
+            background-color: #fff;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .card.face-down {
+            background-color: #ccc;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="table">
+        <div class="deck" id="deck">Repartir</div>
+        <div class="slot" id="slot4"></div>
+        <br>
+        <div class="slots">
+            <div class="slot" id="slot1"></div>
+            <div class="slot" id="slot2"></div>
+            <div class="slot" id="slot3"></div>
+        </div>
+    </div>
+
+    <script>
+        const deck = document.getElementById('deck');
+        const slots = document.querySelectorAll('.slot');
+        const suits = ['♠', '♥', '♦', '♣'];
+        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+        function createDeck() {
+            const deck = [];
+            for (const suit of suits) {
+                for (const value of values) {
+                    deck.push(value + suit);
+                }
+            }
+            return deck;
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function dealCards() {
+            const deck = createDeck();
+            shuffle(deck);
+            for (let i = 0; i < slots.length - 1; i++) {
+                slots[i].textContent = deck[i];
+                slots[i].classList.remove('face-down');
+            }
+            slots[3].textContent = deck[3];
+            slots[3].classList.remove('face-down');
+        }
+
+        deck.addEventListener('click', () => {
+            dealCards();
+        });
+
+        for (let i = 0; i < slots.length - 1; i++) {
+            slots[i].addEventListener('click', () => {
+                if (!slots[i].classList.contains('face-down')) {
+                    return;
+                }
+                for (let j = 0; j < slots.length; j++) {
+                    slots[j].classList.add('face-down');
+                }
+                slots[i].classList.remove('face-down');
+                deck.classList.remove('face-down');
+            });
+        }
+    </script>
+</body>
+</html>
