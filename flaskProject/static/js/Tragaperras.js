@@ -167,39 +167,39 @@ document.addEventListener('DOMContentLoaded', function () {
         if (slot1 === '🍭' && slot2 === '🍭' && slot3 === '🍭') {
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
+            const nuevoBalance = balanceActual + (apuesta * 5);
+            balanceElement.textContent = nuevoBalance;
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+        } else if (slot1 === '🤡' && slot2 === '🤡' && slot3 === '🤡') { //Mulptiplica por 100 los aposstado y lo suma al balance
+            const apuesta = parseInt(document.querySelector('#bet').value);
+            const balanceActual = parseInt(balanceElement.textContent);
+            const nuevoBalance = balanceActual + (apuesta * 7);
+            balanceElement.textContent = nuevoBalance;
+            prizeElement.textContent = apuesta * 7 + parseInt(prizeElement.textContent);
+        } else if (slot1 === '❌' && slot2 === '❌' && slot3 === '❌') { //Mulptiplica por 100 los aposstado y lo suma al balance
+            const apuesta = parseInt(document.querySelector('#bet').value);
+            const balanceActual = parseInt(balanceElement.textContent);
             const nuevoBalance = balanceActual + (apuesta * 10);
             balanceElement.textContent = nuevoBalance;
             prizeElement.textContent = apuesta * 10 + parseInt(prizeElement.textContent);
-        } else if (slot1 === '🤡' && slot2 === '🤡' && slot3 === '🤡') { //Mulptiplica por 100 los aposstado y lo suma al balance
+        } else if (slot1 === '️⛄️' && slot2 === '⛄️' && slot3 === '⛄️') { //Mulptiplica por 100 los aposstado y lo suma al balance
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
             const nuevoBalance = balanceActual + (apuesta * 15);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 12 + parseInt(prizeElement.textContent);
-        } else if (slot1 === '❌' && slot2 === '❌' && slot3 === '❌') { //Mulptiplica por 100 los aposstado y lo suma al balance
-            const apuesta = parseInt(document.querySelector('#bet').value);
-            const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 20);
-            balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 12 + parseInt(prizeElement.textContent);
-        } else if (slot1 === '️⛄️' && slot2 === '⛄️' && slot3 === '⛄️') { //Mulptiplica por 100 los aposstado y lo suma al balance
+            prizeElement.textContent = apuesta * 15 + parseInt(prizeElement.textContent);
+        } else if (slot1 === '😒' && slot2 === '😒' && slot3 === '😒') { //Mulptiplica por 100 los aposstado y lo suma al balance
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
             const nuevoBalance = balanceActual + (apuesta * 30);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 12 + parseInt(prizeElement.textContent);
-        } else if (slot1 === '😒' && slot2 === '😒' && slot3 === '😒') { //Mulptiplica por 100 los aposstado y lo suma al balance
-            const apuesta = parseInt(document.querySelector('#bet').value);
-            const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 100);
-            balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 100 + parseInt(prizeElement.textContent);
+            prizeElement.textContent = apuesta * 30 + parseInt(prizeElement.textContent);
         } else if (slot1 === '🎁' && slot2 === '🎁' && slot3 === '🎁') { //Mulptiplica por 100 los aposstado y lo suma al balance
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 250);
+            const nuevoBalance = balanceActual + (apuesta * 200);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 250 + parseInt(prizeElement.textContent);
+            prizeElement.textContent = apuesta * 200 + parseInt(prizeElement.textContent);
         } else if (slot1 === '🤑' && slot2 === '🤑' && slot3 === '🤑') { //Mulptiplica por 100 los aposstado y lo suma al balance
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
