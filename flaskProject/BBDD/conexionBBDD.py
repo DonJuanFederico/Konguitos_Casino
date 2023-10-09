@@ -4,6 +4,7 @@
 # Contraseña: Konguito9
 # Puerto: 3306 (el predeterminado)
 # Ejecutar: "pip install Flask mysql-connector-python" en consola
+import hashlib
 
 import mysql.connector
 
@@ -15,6 +16,11 @@ db_config = {
     "port": 3306,
 }
 
+
+def encriptarClave(clave):
+    hasher = hashlib.sha256()
+    hasher.update(clave.encode('utf-8'))
+    return hasher.hexdigest()
 
 def connect():
     try:
@@ -34,6 +40,7 @@ def close_connection(conn):
     En este método se llama al método almacenar_nombre() para tener el nombre de usuario guardado y ser usado en otros métodos 
 '''
 def iniciar_sesion(usuario, contraseña):
+    contraseña = encriptarClave(contraseña)
     conn = connect()
     if conn:
         cursor = conn.cursor()
@@ -113,10 +120,8 @@ def retirarDinero(cantidad_a_retirar):
             cursor.close()
             close_connection(conn)
 
-def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, ForoIMG, Calle, CodigoPostal):
-    return None
-
 def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal):
+    Contraseña = encriptarClave(Contraseña)
     conn = connect()
     if conn:
         cursor = conn.cursor()
@@ -126,6 +131,7 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
             cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal))
             conn.commit()
             print(f"Nuevo usuario '{NombreUsuario}' ha sido agregado con éxito.")
+            return True
         except mysql.connector.Error as err:
             conn.rollback()
             print(f"Error de MySQL: {err}")
@@ -133,16 +139,29 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
             cursor.close()
             close_connection(conn)
 
-def agregarTarjeta(NumeroTarjeta,NombreTitular,FechaCaducidad,CVV):
+def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV):
     conn = connect()
     if conn:
         cursor = conn.cursor()
         try:
-            # Consulta para insertar una nueva tarjeta en la tabla "tarjetas"
-            query = "INSERT INTO tarjetas (NumeroTarjeta,NombreTitular,FechaCaducidad,CVV) VALUES (%s, %s, %s, %s)"
-            cursor.execute(query, (NumeroTarjeta,NombreTitular,FechaCaducidad,CVV))
-            conn.commit()
-            print(f"Nueva tarjeta de '{NombreTitular}' ha sido agregado con éxito.")
+            # Obtener el ID del usuario a partir del nombre de usuario
+            query_id = "SELECT id FROM usuarios WHERE NombreUsuario = %s"
+            cursor.execute(query_id, (nombre_usuario,))
+            resultado = cursor.fetchone()
+            print(resultado)
+            print(123)
+            if resultado:
+                print(455)
+                usuario_id = resultado[0]
+                print(usuario_id)
+                # Insertar los datos de la tarjeta asociada al usuario
+                query = "INSERT INTO tarjetas (id, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV) VALUES (%s, %s, %s, %s, %s)"
+                cursor.execute(query, (usuario_id, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV))
+                conn.commit()
+                print("Tarjeta agregada con éxito.")
+                return True
+            else:
+                print(f"No se encontró el usuario con nombre de usuario '{nombre_usuario}'.")
         except mysql.connector.Error as err:
             conn.rollback()
             print(f"Error de MySQL: {err}")
@@ -150,4 +169,4 @@ def agregarTarjeta(NumeroTarjeta,NombreTitular,FechaCaducidad,CVV):
             cursor.close()
             close_connection(conn)
 
-#poner aqui los metodos comentados y que quereis que hagan
+
