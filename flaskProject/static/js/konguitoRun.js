@@ -93,7 +93,9 @@ buttonPlayStop.addEventListener("click", () => {
     if(!buttonPlayStop.classList.contains("pausa")){
         posibleCantidad = parseFloat(document.getElementById("cantidadApostada").value);
         if(posibleCantidad >= (0.01) && document.getElementById("limiteApostado").value >= 1.01){
-            if(posibleCantidad - parseFloat(posibleCantidad.toFixed(2)) == 0){
+            if(inicio > 0) {
+                resumeGame();
+            }else if(posibleCantidad - parseFloat(posibleCantidad.toFixed(2)) == 0){
                 if(parseFloat(document.getElementById("cantidadApostada").value) <= parseFloat(document.getElementById("monedas").innerText)) {
                     //Primera vez que le da al play en la partida
                     if (inicio === 0) {
@@ -103,7 +105,7 @@ buttonPlayStop.addEventListener("click", () => {
                         //Quitar el dinero de la cuenta y mostrarlo en el marcado:
                         retirarDinero();
                         marcador = document.getElementById("monedas");
-                        marcador.innerText = parseFloat(marcador.innerText) - cantidadApostada;
+                        marcador.innerText = Math.round((parseFloat(marcador.innerText) - cantidadApostada) * 100)/ 100;
                     }
                     //Reanudar el juego.
                     resumeGame();
@@ -151,7 +153,7 @@ function retirarse(motivo){
         recompensa = cantidadApostada * limiteApostado;
         recompensa = recompensa.toFixed(2);
     }
-    marcador.innerText = parseFloat(marcador.innerText) + parseFloat(recompensa);
+    marcador.innerText = Math.round((parseFloat(marcador.innerText) + parseFloat(recompensa)) * 100) / 100;
     alert("Se retira ganando: " + recompensa);
     agregarDinero()
     restartGame();
