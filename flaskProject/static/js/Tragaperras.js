@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const items = [
-        '🍭', '❌', '⛄️', "😒", "🤡", "🎁", "🤑", "💀"
+        '🍭', '❌', '⛄️', "😒", "🤡", "🎁", "🤑", "💀", "🙏", "🎅", "🧙"
     ];
     const posicionamiento = document.querySelectorAll('.slot');
     const balanceElement = document.querySelector('#balance');
@@ -129,12 +129,15 @@ document.addEventListener('DOMContentLoaded', function () {
         // Define las probabilidades de aparición de cada símbolo
         const probabilidades = {
             '🍭': 0.2,  // Reducida a 0.2
-            '🤡': 0.18, // Reducida a 0.18
-            '❌': 0.16, // Reducida a 0.16
-            '⛄️': 0.14, // Reducida a 0.14
-            '😒': 0.12, // Reducida a 0.12
-            "🎁": 0.1,  // Reducida a 0.1
-            "🤑": 0.09,   // Reducida a 0.1
+            "🙏": 0.1,
+            "🎅": 0.1,
+            "🧙": 0.1,
+            '🤡': 0.1,
+            '❌': 0.1,
+            '⛄️': 0.1,
+            '😒': 0.1,
+            "🎁": 0.05,
+            "🤑": 0.04,
             "💀": 0.01
         };
 
@@ -179,32 +182,32 @@ document.addEventListener('DOMContentLoaded', function () {
             const balanceActual = parseInt(balanceElement.textContent);
             const nuevoBalance = balanceActual + (apuesta * 7);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 7 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 7 + "€")
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 5 + "€")
         } else if (slot1 === '❌' && slot2 === '❌' && slot3 === '❌') { //Mulptiplica por 100 los aposstado y lo suma al balance
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 10);
+            const nuevoBalance = balanceActual + (apuesta * 7);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 10 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 10 + "€")
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 5 + "€")
         } else if (slot1 === '️⛄️' && slot2 === '⛄️' && slot3 === '⛄️') { //Mulptiplica por 100 los aposstado y lo suma al balance
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 15);
+            const nuevoBalance = balanceActual + (apuesta * 7);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 15 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 15 + "€")
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 5 + "€")
         } else if (slot1 === '😒' && slot2 === '😒' && slot3 === '😒') { //Mulptiplica por 100 los aposstado y lo suma al balance
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 30);
+            const nuevoBalance = balanceActual + (apuesta * 7);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 30 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 30 + "€")
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 5 + "€")
         } else if (slot1 === '🎁' && slot2 === '🎁' && slot3 === '🎁') { //Mulptiplica por 100 los aposstado y lo suma al balance
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
@@ -229,6 +232,30 @@ document.addEventListener('DOMContentLoaded', function () {
             balanceElement.textContent = nuevoBalance;
             prizeElement.textContent = apuesta * 1000 + parseInt(prizeElement.textContent);
             console.log("Has ganado: " + apuesta * 1000 + "€")
+        } else if (slot1 === '🙏' && slot2 === '🙏' && slot3 === '🙏') {
+           console.log("tenias " + balanceElement.textContent + "€")
+            const apuesta = parseInt(document.querySelector('#bet').value);
+            const balanceActual = parseInt(balanceElement.textContent);
+            const nuevoBalance = balanceActual + (apuesta * 7);
+            balanceElement.textContent = nuevoBalance;
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 5 + "€")
+        } else if (slot1 === '🎅' && slot2 === '🎅' && slot3 === '🎅') {
+            console.log("tenias " + balanceElement.textContent + "€")
+            const apuesta = parseInt(document.querySelector('#bet').value);
+            const balanceActual = parseInt(balanceElement.textContent);
+            const nuevoBalance = balanceActual + (apuesta * 7);
+            balanceElement.textContent = nuevoBalance;
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 5 + "€")
+        } else if (slot1 === '🧙' && slot2 === '🧙' && slot3 === '🧙') {
+            console.log("tenias " + balanceElement.textContent + "€")
+            const apuesta = parseInt(document.querySelector('#bet').value);
+            const balanceActual = parseInt(balanceElement.textContent);
+            const nuevoBalance = balanceActual + (apuesta * 7);
+            balanceElement.textContent = nuevoBalance;
+            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 5 + "€")
         }
 
 
@@ -237,10 +264,10 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 1.5);
+            const nuevoBalance = balanceActual + (apuesta * 2);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 1.5 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 1.5 + "€")
+            prizeElement.textContent = apuesta * 2 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 2 + "€")
         } else if (slot1 === '🤡' && slot2 === '🤡' || slot2 === '🤡' && slot3 === '🤡' || slot1 === '🤡' && slot3 === '🤡') {
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
@@ -252,26 +279,26 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 2.5);
+            const nuevoBalance = balanceActual + (apuesta * 2);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 2.5 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 2.5 + "€")
+            prizeElement.textContent = apuesta * 2 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 2 + "€")
         } else if (slot1 === '️⛄️' && slot2 === '⛄️' || slot2 === '⛄️' && slot3 === '⛄️' || slot1 === '⛄️' && slot3 === '⛄️') {
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
             const nuevoBalance = balanceActual + (apuesta * 4);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 4 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 4 + "€")
+            prizeElement.textContent = apuesta * 2 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 2 + "€")
         } else if (slot1 === '😒' && slot2 === '😒' || slot2 === '😒' && slot3 === '😒' || slot1 === '😒' && slot3 === '😒') {
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
             const balanceActual = parseInt(balanceElement.textContent);
-            const nuevoBalance = balanceActual + (apuesta * 5);
+            const nuevoBalance = balanceActual + (apuesta * 2);
             balanceElement.textContent = nuevoBalance;
-            prizeElement.textContent = apuesta * 5 + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + apuesta * 5 + "€")
+            prizeElement.textContent = apuesta * 2 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 2 + "€")
         } else if (slot1 === '🎁' && slot2 === '🎁' || slot2 === '🎁' && slot3 === '🎁' || slot1 === '🎁' && slot3 === '🎁') {
             console.log("tenias " + balanceElement.textContent + "€")
             const apuesta = parseInt(document.querySelector('#bet').value);
@@ -296,8 +323,30 @@ document.addEventListener('DOMContentLoaded', function () {
             balanceElement.textContent = nuevoBalance;
             prizeElement.textContent = apuesta * 25 + parseInt(prizeElement.textContent);
             console.log("Has ganado: " + apuesta * 25 + "€")
-        } else{
-
+        } else if (slot1 === '🙏'  && slot2 === '🙏' || slot2 === '🙏' && slot3 === '🙏' || slot1 === '🙏' && slot3 === '🙏') {
+            console.log("tenias " + balanceElement.textContent + "€")
+            const apuesta = parseInt(document.querySelector('#bet').value);
+            const balanceActual = parseInt(balanceElement.textContent);
+            const nuevoBalance = balanceActual + (apuesta * 2);
+            balanceElement.textContent = nuevoBalance;
+            prizeElement.textContent = apuesta * 2 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 2 + "€")
+        } else if (slot1 === '🎅'  && slot2 === '🎅' || slot2 === '🎅' && slot3 === '🎅' || slot1 === '🎅' && slot3 === '🎅') {
+           console.log("tenias " + balanceElement.textContent + "€")
+           const apuesta = parseInt(document.querySelector('#bet').value);
+           const balanceActual = parseInt(balanceElement.textContent);
+           const nuevoBalance = balanceActual + (apuesta * 2);
+           balanceElement.textContent = nuevoBalance;
+           prizeElement.textContent = apuesta * 2 + parseInt(prizeElement.textContent);
+           console.log("Has ganado: " + apuesta * 2 + "€")
+        } else if (slot1 === '🧙'  && slot2 === '🧙' || slot2 === '🧙' && slot3 === '🧙' || slot1 === '🧙' && slot3 === '🧙') {
+            console.log("tenias " + balanceElement.textContent + "€")
+            const apuesta = parseInt(document.querySelector('#bet').value);
+            const balanceActual = parseInt(balanceElement.textContent);
+            const nuevoBalance = balanceActual + (apuesta * 2);
+            balanceElement.textContent = nuevoBalance;
+            prizeElement.textContent = apuesta * 2 + parseInt(prizeElement.textContent);
+            console.log("Has ganado: " + apuesta * 2 + "€")
         }
     }
 
