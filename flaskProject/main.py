@@ -55,7 +55,7 @@ def registroUsuario():
         print("NumeroTarjeta:", numeroTarjeta)
         if agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal):
             print("Exito Usuario")
-            if agregarTarjeta(numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv):
+            if agregarTarjeta(nombreUsuario,numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv):
                 print("Exito Tarjeta")
                 return camara()
             else:
