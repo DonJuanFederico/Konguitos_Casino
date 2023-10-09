@@ -3,60 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Cartas</title>
-    <link rel="stylesheet" , href="../cartaMasAlta/carta_mas_alta.css" , type="text/css">
+    <title>Mesa de Poker</title>
     <style>
         body {
-            /*background-color: white;*/
-            background-image: url("https://w.forfun.com/fetch/78/7896f6ea0115415d224a22fec720bcca.jpeg");
-            /*
-            MAS OPCIONES
-            https://images5.alphacoders.com/486/486724.jpg
-            https://i.pinimg.com/originals/8a/ce/f9/8acef94854c49aab2db1e0f959ce1737.jpg
-            https://images2.alphacoders.com/105/105962.jpg      ACTUAL
-            https://w.forfun.com/fetch/78/7896f6ea0115415d224a22fec720bcca.jpeg
-            https://img3.wallspic.com/crops/5/2/8/9/3/139825/139825-para_jugar_a_las_cartas-3840x2160.jpg
-            */
-            /*background-repeat: no-repeat;*/
-            /*background-attachment: fixed;*/
-            /*background-position: center;*/
-            background-size: cover;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("https://images8.alphacoders.com/115/1150814.png");
             color: white;
         }
-        h1{
-            text-align: center;
-            padding-top: 200px;
-            font-size: xxx-large;
-            color: #910000;
-            -webkit-text-stroke-width: 0.2px;
-            -webkit-text-stroke-color: white;
+
+        .table {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            background-color: #043f04;
+            border: 20px solid #231a04;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
-        ol {
-            text-align: left;
-            padding-left: 600px;
-        }
-        li::marker{
-            font-weight: bold;
-        }
-        button{
-            display: block;
-            margin: auto;
-            margin-bottom: 20px;
-            padding: 10px 20px;
-            background-color: darkgoldenrod;
-            color: #fff;
-            border: 1px solid black;
-            border-radius: 5px;
+
+        .deck {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 150px;
+            background-color: #ccc;
+            border: 3px solid darkgoldenrod;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
+            background-image: url("https://comicstores.es/imagenes_grandes/4012927/401292774145.JPG");
+            background-size: cover;
         }
-        #titulo{
-            padding: 2px;
+
+        .slots {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
         }
-        #resultado{
-            padding-top: 10px;
+
+        .slot {
+            width: 100px;
+            height: 150px;
+
+            border: 2px dashed #ffffff;
+            border-radius: 10px;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #slot4{
+            cursor: default;
+        }
+
+        .card {
+            width: 90%;
+            height: 90%;
+            background-color: #161b5d;
+            border: 2px solid darkgoldenrod;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            transform: rotate(0deg);
+            transition: transform 0.5s;
+            backface-visibility: hidden; /* Evita que el reverso de la carta se vea antes de dar la vuelta */
+        }
+
+        .card.face-down {
+            transform: rotateY(180deg);
+        }
+
+        #message{
+            font-size: x-large;
             color: white;
         }
+
         #saldo {
             font-size: 24px;
             color: darkgoldenrod;
@@ -65,132 +104,221 @@
             -webkit-text-stroke-width: 0.1px;
             -webkit-text-stroke-color: lightgoldenrodyellow;
         }
-        #apuesta {
-            padding-left: 50px;
+
+        #container{
+            text-align: center;
+            position: absolute;
+            top: 20px;
         }
-        label{
+        h1{
+            font-size: xxx-large;
+            color: #910000;
+            -webkit-text-stroke-width: 0.2px;
+            -webkit-text-stroke-color: white;
+        }
+        #bet{
+            position: absolute;
+            left: 20px;
             color: white;
-            text-decoration: underline;
+            text-align: center;
         }
-        #resultado-apuesta {
-            font-size: 16px;
-            margin-top: 10px;
-            color: #ffd700;
-        }
-        #mensaje {
-            font-size: 16px;
-            margin-top: 10px;
-            color: #ff4500;
-        }
-        /*
-        PONER UN COLOR DE FONDO EN EL CENTRO Y AHI HACER LA MESA ETC
-         */
     </style>
 </head>
 <body>
-<div id="container">
-    <div id="titulo">
+    <div id="container">
         <h1>Juego de Cartas</h1>
         <div id="saldo">Saldo actual: 100</div>
-        <button onclick="iniciarJuego()"> Repartir </button>
+    </div>
+    <div id="bet">
+        <label for="apuesta">Apuesta:</label>
+        <input type="number" id="apuesta" min="1" max="saldo">
+        <div id="dinero"></div>
+    </div>
+    <div class="table">
+        <div class="deck" id="deck">Repartir</div>
+        <div class="slot" id="slot4"></div>
+        <br>
+        <div class="slots">
+            <div class="slot" id="slot1"></div>
+            <div class="slot" id="slot2"></div>
+            <div class="slot" id="slot3"></div>
+        </div>
+        <br>
+        <div id="message"></div>
     </div>
 
-    <label for="apuesta">Apuesta:</label>
-    <input type="number" id="apuesta" min="1" max="100">
-    <div id="resultado"></div>
-    <div id="resultado-apuesta"></div>
-    <div id="mensaje"></div>
-</div>
     <script>
-        // Función para crear una baraja de cartas de poker
-        function crearBaraja() {
-            const palos = ['\u2660', '\u2663', '\u2665', '\u2666'];
-            const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-            const baraja = [];
-            for (const palo of palos) {
-                for (const valor of valores) {
-                    baraja.push(`${valor} ${palo}`);
+        const deck = document.getElementById('deck');
+        const slots = document.querySelectorAll('.slot');
+        const suits = [' ♠', ' ♥', ' ♦', ' ♣'];
+        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        let dealerCard = null;
+        const messageDiv = document.getElementById('message');
+
+        // Pone los palos a las cartas
+        function createDeck() {
+            const deck = [];
+            for (const suit of suits) {
+                for (const value of values) {
+                    deck.push(value + suit);
                 }
             }
-            return baraja;
+            return deck;
         }
 
-        // Función para obtener una carta aleatoria de la baraja
-        function obtenerCartaAleatoria(baraja) {
-            const indice = Math.floor(Math.random() * baraja.length);
-            return baraja.splice(indice, 1)[0];
-        }
-
-        // Función para comparar dos cartas por su valor
-        function compararCartas(cartas) {
-            const valorCartaUsuario = obtenerValorCarta(cartas.usuario);
-            const valorCartaCroupier = obtenerValorCarta(cartas.croupier);
-
-            if (valorCartaUsuario > valorCartaCroupier) {
-                return '¡KONGUITO GANADOOORRR!';
-            } else if (valorCartaUsuario < valorCartaCroupier) {
-                return 'Konguito caido... :´(';
-            } else {
-                return 'Ninguno, hay empate';
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
         }
 
-        // Función para obtener el valor numérico de una carta
-        function obtenerValorCarta(carta) {
-            const valor = carta.split(' ')[0];
-            const valores = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
-            return valores[valor];
+        function hideCards() {
+            for (let i = 0; i < slots.length; i++) {
+                const card = document.createElement('div');
+                card.className = 'card face-down'; // Comienza oculta
+                slots[i].textContent = '';
+                slots[i].appendChild(card);
+            }
         }
 
-        // Variables globales para el saldo y la apuesta
-        let saldo = 100;
-        let apuesta = 0;
+        //hideCards();
 
-        //funcion para poder apostar y actualizar el saldo
-        function apostar(apuesta, resultado) {
-            if(saldo > 0 && apuesta <= saldo) {
-                let gananciaPerdida = 0;
-                if (resultado === '¡KONGUITO GANADOOORRR!') {
-                    gananciaPerdida = apuesta;
-                    saldo += apuesta;
-                } else if (resultado === 'Konguito caido... :´(') {
-                    gananciaPerdida = -apuesta;
-                    saldo -= apuesta;
-                } else if (resultado === 'Ninguno, hay empate') {
-                    gananciaPerdida = -apuesta / 2;
-                    saldo -= apuesta / 2;
+        function dealCards() {
+            const deck = createDeck();
+            shuffle(deck);
+            for (let i = 0; i < slots.length + 1; i++) {
+                const card = document.createElement('div');
+                card.className = 'card face-down'; // Comienza oculta
+                card.textContent = deck[i];
+                if (i === 0) {
+                    dealerCard = card;
                 }
-                // Muestra el resultado de la apuesta
-                document.getElementById('resultado-apuesta').textContent = `Ganador: ${resultado}`;
-                document.getElementById('mensaje').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
-            } else {
-                // Mostrar un mensaje de error si no cumple las condiciones
-                document.getElementById('resultado-apuesta').textContent = `No puedes realizar esa apuesta.`;
-                document.getElementById('mensaje').textContent = ``;
+                slots[i].textContent = '';
+                slots[i].appendChild(card);
             }
+
         }
 
-        // Función principal para iniciar el juego
-        function iniciarJuego() {
-            const baraja = crearBaraja();
-            const cartas = {
-                usuario: [obtenerCartaAleatoria(baraja), obtenerCartaAleatoria(baraja), obtenerCartaAleatoria(baraja)],
-                croupier: obtenerCartaAleatoria(baraja),
-            };
-            const cartaElegida = prompt(`Elige una carta (1, 2 o 3):`);
-            const cartaUsuario = cartas.usuario[cartaElegida - 1];
-            const resultado = compararCartas({ usuario: cartaUsuario, croupier: cartas.croupier });
-            document.getElementById('resultado').innerHTML = `<br>Carta del croupier: ${cartas.croupier}<br>Tu carta: ${cartaUsuario}<br>Tus opciones eran: ${cartas.usuario.join(', ')}`;
-
+        deck.addEventListener('click', () => {
+            messageDiv.textContent = '';
             // Pide la apuesta al usuario
             apuesta = parseInt(document.getElementById('apuesta').value);
 
-            // Realiza la apuesta
-            apostar(apuesta, resultado);
+            // Verifica si la apuesta es válida
+            if (apuesta <= 0) {
+                alert('La apuesta debe ser mayor que cero.');
+                return;
+            } else if (apuesta > saldo) {
+                alert('No tienes suficiente saldo para esta apuesta.');
+                return;
+            }
+            hideCards();
+            //apostar();
+            dealCards();
 
-            // Muestra el saldo actualizado
-            document.getElementById('saldo').textContent = `Saldo actual: ${saldo}`;
+        });
+
+        // IMPORTANTE: LA CARTA Nº 1 ES LA DEL DEALER
+        for (let i = 1; i < slots.length; i++) {
+                slots[i].addEventListener('click', () => {
+                    const card = slots[i].querySelector('.card');
+                    if (card.classList.contains('face-down')) {
+                        card.classList.remove('face-down');
+                    }
+                    if (i === 1 || 2 || 3 && dealerCard !== null) {
+                        dealerCard.classList.remove('face-down');
+                        const selectedCardValue = card.textContent;
+                        const dealerCardValue = dealerCard.textContent;
+                        compareCards(selectedCardValue, dealerCardValue);
+                        setTimeout(() => {
+                            revealAllCards(); // Revelar todas las cartas después de 1 segundo
+                        }, 700);
+                    }
+                });
         }
+
+        let saldo = 100;
+        let apuesta = 0;
+
+        /*function apostar(){
+            // Pide la apuesta al usuario
+            apuesta = parseInt(document.getElementById('apuesta').value);
+            // Realiza la apuesta
+            if(saldo > 0 && apuesta <= saldo) {
+                let gananciaPerdida = apuesta;
+                if(messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
+                    saldo += apuesta;
+                } else if (messageDiv.textContent === 'Konguito caido... :´(') {
+                    gananciaPerdida = -apuesta;
+                    saldo -= apuesta;
+                } else if (messageDiv.textContent === 'Empate') {
+                    gananciaPerdida = -apuesta / 2;
+                    saldo -= apuesta / 2;
+                }
+                //document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
+                // Muestra el saldo actualizado
+                //document.getElementById('saldo').textContent = `Saldo actual: ${saldo}`;
+            } else {
+                document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
+            }
+        }*/
+
+        function compareCards(selectedCardValue, dealerCardValue) {
+            let message = '';
+            let gananciaPerdida = 0;
+            // valores para poder comparar letras
+            let card_2 = dealerCardValue.split(' ')[0]
+            let card_1 = selectedCardValue.split(' ')[0]
+            const valores = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
+            card_1 =  valores[card_1];
+            card_2 =  valores[card_2];
+
+            // Lógica de comparación de cartas (personaliza según tus reglas)
+            if (card_1 === card_2) {
+                message = 'Empate';
+            } else if (card_1 > card_2) {
+                message = '¡¡¡KONGUITO GANADOORRRR!!!';
+            } else {
+                message = 'Konguito caido... :´(';
+            }
+            messageDiv.textContent = message //+ '  |  ' + card_1 + '  |  ' + card_2;
+
+            //apostar
+            apuesta = parseInt(document.getElementById('apuesta').value);
+            // Realiza la apuesta
+            if(saldo > 0 && apuesta <= saldo) {
+                let gananciaPerdida = apuesta;
+                if(messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
+                    saldo += apuesta;
+                } else if (messageDiv.textContent === 'Konguito caido... :´(') {
+                    gananciaPerdida = -apuesta;
+                    saldo -= apuesta;
+                } else if (messageDiv.textContent === 'Empate') {
+                    gananciaPerdida = -apuesta / 2;
+                    saldo -= apuesta / 2;
+                }
+                document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
+                // Muestra el saldo actualizado
+                document.getElementById('saldo').textContent = `Saldo actual: ${saldo}`;
+            } else {
+                document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
+            }
+        }
+
+        function revealAllCards() {
+            for (let i = 1; i < slots.length; i++) {
+                const card = slots[i].querySelector('.card');
+                if (card.classList.contains('face-down')) {
+                    card.classList.remove('face-down');
+                }
+            }
+        }
+
+        //slots[3].addEventListener('click', () => {
+            // La carta sola no es clickeable.
+        //});
+
     </script>
 </body>
 </html>
