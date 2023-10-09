@@ -4,6 +4,7 @@
 # Contraseña: Konguito9
 # Puerto: 3306 (el predeterminado)
 # Ejecutar: "pip install Flask mysql-connector-python" en consola
+import hashlib
 
 import mysql.connector
 
@@ -15,6 +16,11 @@ db_config = {
     "port": 3306,
 }
 
+
+def encriptarClave(clave):
+    hasher = hashlib.sha256()
+    hasher.update(clave.encode('utf-8'))
+    return hasher.hexdigest()
 
 def connect():
     try:
@@ -34,6 +40,7 @@ def close_connection(conn):
     En este método se llama al método almacenar_nombre() para tener el nombre de usuario guardado y ser usado en otros métodos 
 '''
 def iniciar_sesion(usuario, contraseña):
+    contraseña = encriptarClave(contraseña)
     conn = connect()
     if conn:
         cursor = conn.cursor()
@@ -114,6 +121,7 @@ def retirarDinero(cantidad_a_retirar):
             close_connection(conn)
 
 def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal):
+    Contraseña = encriptarClave(Contraseña)
     conn = connect()
     if conn:
         cursor = conn.cursor()
@@ -160,3 +168,5 @@ def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad,
         finally:
             cursor.close()
             close_connection(conn)
+
+
