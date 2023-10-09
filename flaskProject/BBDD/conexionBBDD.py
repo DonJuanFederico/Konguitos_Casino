@@ -112,7 +112,7 @@ def retirarDinero(cantidad_a_retirar):
         finally:
             cursor.close()
             close_connection(conn)
-            
+
 def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal):
     conn = connect()
     if conn:
