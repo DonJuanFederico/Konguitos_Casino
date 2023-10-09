@@ -150,4 +150,30 @@ def agregarTarjeta(NumeroTarjeta,NombreTitular,FechaCaducidad,CVV):
             cursor.close()
             close_connection(conn)
 
+def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Obtener el ID del usuario a partir del nombre de usuario
+            query_id = "SELECT id FROM usuarios WHERE NombreUsuario = %s"
+            cursor.execute(query_id, (nombre_usuario,))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                usuario_id = resultado[0]
+                # Insertar los datos de la tarjeta asociada al usuario
+                query = "INSERT INTO tarjetas (id_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV) VALUES (%s, %s, %s, %s, %s)"
+                cursor.execute(query, (usuario_id, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV))
+                conn.commit()
+                print("Tarjeta agregada con éxito.")
+            else:
+                print(f"No se encontró el usuario con nombre de usuario '{nombre_usuario}'.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
 #poner aqui los metodos comentados y que quereis que hagan
