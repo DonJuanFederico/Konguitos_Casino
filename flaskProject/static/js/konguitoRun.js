@@ -286,7 +286,6 @@ document.addEventListener("DOMContentLoaded", () => generarLimite());
 
 function retirarDinero() {
     var monto = cantidadApostada;
-    monto = monto * 100;
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/retirar_dinero", true);
@@ -296,7 +295,6 @@ function retirarDinero() {
 
 function agregarDinero() {
     var monto = recompensa;
-    monto = monto * 100;
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/agregar_dinero", true);
