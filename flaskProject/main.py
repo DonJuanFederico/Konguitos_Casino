@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, Response, redirect, 
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
+from static.py.camara import tomarFoto
 
 app = Flask(__name__)
 #python
@@ -68,8 +69,11 @@ def registroUsuario():
 def terminos():
     return render_template('terminosCondiciones.html')
 
-@app.route('/Camara/')
+@app.route('/Camara/', methods = ['GET', 'POST'])
 def camara():
+    print("ENTRA")
+    tomarFoto("fotoCara/prueba.png")
+    print("ENTRA 1")
     return render_template('camara.html')
 
 @app.route('/Registro Administrador/')
