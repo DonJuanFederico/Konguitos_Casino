@@ -8,42 +8,63 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <div class="content">
-        <h1>Juego de Craps</h1>
-        <div id="balance-container">
-            <p>Saldo total: <span id="balance">20 monedas</span></p>
-        </div>
-        <div id="bet-container">
-            <p>Apuesta actual: <span id="current-bet-type">Ninguna</span></p>
-            <p>Cantidad apostada: <span id="bet">0 monedas</span></p>
-        </div>
-        <!-- <div id="bet-container2">
-            <p>Apuesta Secundaria actual: <span id="current-bet-type2">Ninguna</span></p>
-            <p>Cantidad apostada: <span id="bet2">0 monedas</span></p>
-        </div> -->
-        <div id="dice-container">
-            <div class="dice" id="dice1">?</div>
-            <div class="dice" id="dice2">?</div>
-        </div>
-        <button onclick="rollDice()">Lanzar Dados</button>
-        <p id="result"></p>
-        <p id="punto-actual">Punto actual: Ninguno</p>
-    </div>
-    <div class="sidebar">
-        <h2>Posibles Apuestas</h2>
-        <div class="apuesta-principal">
-            <!--<h3>Apuestas Principales</h3> -->
-            <button onclick="placePrimaryBet('lineaDePase')">Línea de Pase</button>
-            <button onclick="placePrimaryBet('barraDeNoPase')">Barra de No Pase</button>
-        </div>
-        <!--<div class="apuesta-secundaria">
+    <div class="container">
+        <div class="sidebar sidebar-right">
+            <h2>Reglas del Juego</h2>
+    
+            <h3>Apuestas Principales</h3>
+            <ul>
+                <li><strong>Línea de Pase:</strong> Gana si sale un 7 u 11 en el lanzamiento inicial. Pierde si sale un 2, 3 o 12. Si sale otro número se establece como punto y gana si se repite antes de un 7.</li>
+
+                <li><strong>Barra de No Pase:</strong> Gana si sale un 2 o un 3 en el lanzamiento inicial. Pierde si sale un 7 u 11. Empata si sale un 12. Si se establece un punto, gana si sale un 7 antes de repetirlo.</li>
+            </ul>
+
             <h3>Apuestas Secundarias</h3>
-            <button onclick="placeBet('gabelaAFavor')">Gabela a Favor</button>
-            <button onclick="placeBet('gabelaEnContra')">Gabela en Contra</button>
-        </div> -->
+            <ul>
+                <li><strong>Gabela a Favor:</strong> Solo está disponible si se hizo una Línea de Pase como apuesta principal. Gana si el punto establecido se repite antes de un 7.</li>
+
+                <li><strong>Gabela en Contra:</strong> Solo está disponible si se hizo una Barra de No Pase como apuesta principal. Gana si sale un 7 antes de que se repita el punto.</li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Juego de Craps</h1>
+            <div id="balance-container">
+                <p>Saldo total: <span id="balance">20 monedas</span></p>
+            </div>
+            <div id="bet-container">
+                <p>Apuesta Principal actual: <span id="current-bet-type">Ninguna</span></p>
+                <p>Cantidad apostada: <span id="bet">0 monedas</span></p>
+            </div>
+            <div id="bet-container2">
+                <p>Apuesta Secundaria actual: <span id="current-bet-type2">Ninguna</span></p>
+                <p>Cantidad apostada: <span id="bet2">0 monedas</span></p>
+            </div>
+            <div id="dice-container">
+                <div class="dice" id="dice1">?</div>
+                <div class="dice" id="dice2">?</div>
+            </div>
+            <button onclick="rollDice()">Lanzar Dados</button>
+            <p id="result"></p>
+            <p id="punto-actual">Punto actual: Ninguno</p>
+        </div>
+        <div class="sidebar sidebar-left">
+            <h2>Posibles Apuestas</h2>
+            <div class="apuesta-principal">
+                <h3>Apuestas Principales</h3>
+                <button onclick="placePrimaryBet('lineaDePase')">Línea de Pase</button>
+                <button onclick="placePrimaryBet('barraDeNoPase')">Barra de No Pase</button>
+            </div>
+            <div class="apuesta-secundaria">
+                <h3>Apuestas Secundarias</h3>
+                <button onclick="placeSecondaryBet('gabelaAFavor')">Gabela a Favor</button>
+                <button onclick="placeSecondaryBet('gabelaEnContra')">Gabela en Contra</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
+
+
 
 
 

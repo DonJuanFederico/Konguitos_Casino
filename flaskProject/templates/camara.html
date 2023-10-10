@@ -9,30 +9,18 @@
     <title>Document</title>
   </head>
   <body>
-    <form method="GET">
+    <form method="POST" action="/Camara/">
         <input type="hidden" name="foto" id="fotoInput">
-        <header>
-          Hágase una foto para crear su cuenta
-        </header>
+        <header>Hágase una foto para crear su cuenta</header>
         <section class="cam-container">
           <div class="video-wrap">
             <video class="video"></video>
           </div>
           <div class="canvas-wrap">
-            <canvas class="canvas" width="420" height="340">
-              <img
-                src=""
-                class="photo"
-                alt="photo"
-                id="foto"
-              />
-            </canvas>
+            <canvas class="canvas" width="420" height="340"></canvas>
           </div>
           <div>
-            <button type="button" class="start-btn">PHOTO</button>
-          </div>
-            <div>
-            <button type="submit" class="2">CREAR <br> CUENTA</button>
+             <a type="submit" {{ form.submit(class="start.btn")}}> Tomar Foto</a>
           </div>
         </section>
     </form>
