@@ -170,3 +170,28 @@ def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad,
             close_connection(conn)
 
 
+def agregarFotoUsuario(nombre_usuario, foto_blob):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Obtener el ID del usuario a partir del nombre de usuario
+            query_id = "SELECT id FROM usuarios WHERE NombreUsuario = %s"
+            cursor.execute(query_id, (nombre_usuario,))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                usuario_id = resultado[0]
+                # Actualizar la columna FotoIMG con el BLOB de la foto
+                query = "UPDATE usuarios SET FotoIMG = %s WHERE id = %s"
+                cursor.execute(query, (foto_blob, usuario_id))
+                conn.commit()
+                print(f"La foto ha sido agregada con éxito al usuario '{nombre_usuario}'.")
+            else:
+                print(f"No se encontró el usuario con nombre de usuario '{nombre_usuario}'.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)

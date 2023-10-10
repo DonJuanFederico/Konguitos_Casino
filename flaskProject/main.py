@@ -72,7 +72,9 @@ def terminos():
 @app.route('/Camara/', methods = ['GET', 'POST'])
 def camara():
     print("ENTRA")
-    tomarFoto("fotoCara/prueba.png")
+    foto = tomarFoto()
+    nombreUsuario = "prueba"    #CAMBIAR Y PONER AQUI EL NOMBRE DE USUARIO
+    agregarFotoUsuario(nombreUsuario, foto)
     print("ENTRA 1")
     return render_template('camara.html')
 
