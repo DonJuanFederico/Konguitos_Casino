@@ -199,27 +199,29 @@
         }
 
         let repartir = false;
-        deck.addEventListener('click', () => {
-            if(!repartir) {
-                repartir = true;
-                bloqueo = false;
-                messageDiv.textContent = '';
-                // Pide la apuesta al usuario
-                apuesta = parseInt(document.getElementById('apuesta').value);
+            deck.addEventListener('click', () => {
+                if(isNaN(parseInt(document.getElementById('apuesta').value)) === false){
+                    if(!repartir) {
+                        repartir = true;
+                        bloqueo = false;
+                        messageDiv.textContent = '';
+                        // Pide la apuesta al usuario
+                        apuesta = parseInt(document.getElementById('apuesta').value);
 
-                // Verifica si la apuesta es válida
-                if (apuesta <= 0) {
-                    alert('Tiene que apostar una cantidad mínima de 1.');
-                    return;
-                } else if (apuesta > saldo) {
-                    alert('No tienes suficiente saldo para esta apuesta.');
-                    return;
-                }
-                //hideCards();
-                //apostar();
-                dealCards();
-            }
-        });
+                        // Verifica si la apuesta es válida
+                        if (apuesta <= 0) {
+                            alert('Tiene que apostar una cantidad mínima de 1.');
+                            return;
+                        } else if (apuesta > saldo) {
+                            alert('No tienes suficiente saldo para esta apuesta.');
+                            return;
+                        }
+                        dealCards();
+                    }
+                } else {
+            alert('Tiene que apostar una cantidad mínima de 1.');
+        }
+            });
 
         let bloqueo = false;
 
