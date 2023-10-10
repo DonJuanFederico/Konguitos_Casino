@@ -242,7 +242,7 @@ function rollDice() {
     
 }
 
-function betEnded(){ // Se actualiza el saldo y las apuestas
+function betEnded(){
     primaryBets[tipoApuestaP] = 0;
     tipoApuestaP = "Ninguna"; // Se reinicia el tipo de apuesta principal
     updateBalance();
@@ -251,7 +251,7 @@ function betEnded(){ // Se actualiza el saldo y las apuestas
 
 function sBetEnded(){
     secondaryBets[tipoApuestaS] = 0;
-    tipoApuestaS = "Ninguna"; // Se reinicia el tipo de apuesta principal
+    tipoApuestaS = "Ninguna"; // Se reinicia el tipo de apuesta secundaria
     updateBalance();
     updateSecondaryBets();
 }
