@@ -1,35 +1,68 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina de Inicio de Sesion</title>
-    <link rel="stylesheet" href="../static/css/inicio.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}<title> Inicio </title>{% endblock %}
+{% block stylesheets %}
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/inicio.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+{% endblock %}
+{% block body %}
     <video id="logoMovimiento" autoplay loop muted>
         <source src="../static/video/konguitoFinalMov.mp4" type="video/mp4">
     </video>
     <div class="login-box">
       <h2>Inicio</h2>
-      <form method="POST" action="/Juegos/">
+        <form method="POST">
+          {{ form.hidden_tag() }}
         <div class="user-box">
-          <input type="text" name="nombreUsuario" required="">
-          <label>Nombre de Usuario</label>
+          <input required="" {{ form.username() }}
+              <label>Nombre de Usuario</label>
         </div>
         <div class="user-box">
-          <input type="password" name="contraseña" required="">
+          <input required="" {{ form.password()}}
           <label>Contraseña</label>
         </div>
-          <button type="submit" class ="entrar">ENTRAR</button>
-      </form>
-        <form method="GET" action="/Registro/">
-            <button type="submit" class = "registro">REGISTRO</button>
+             {{ form.submit(class="entrar")}}
         </form>
-        <form method="GET" action="/RegistroAdministrador/">
-            <button type="submit" class = "registro">ADMIN</button>
+        <form method="GET" action="{{ url_for('registroUsuario')}}">
+            <button type="submit" class = "registroUsuario">REGISTRO</button>
+        </form>
+        <form>
+            <button type="button" data-toggle="modal" data-target="#myModal" class="registroAdmin">ADMIN</button>
         </form>
     </div>
-</body>
-</html>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ingresa la contraseña de Administrador</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="password" id="passwordInput" class="form-control" placeholder="Contraseña">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" onclick="verificarContraseña()">Verificar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+      function verificarContraseña() {
+        var password = document.getElementById('passwordInput').value;
+        if (password === 'Konguito9') {
+          window.location.href = '/Registro Administrador/';
+        } else {
+          alert('Contraseña incorrecta. Acceso denegado.');
+        }
+        $('#myModal').modal('hide');
+      }
+</script>
+{% endblock %}

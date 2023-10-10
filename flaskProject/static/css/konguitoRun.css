@@ -1,0 +1,359 @@
+body{
+    margin: 0px;
+    height: 100vh;
+}
+
+label{
+    color: greenyellow;
+    display: inline-block;
+    width: 100px; /* Ajusta el ancho según sea necesario */
+    text-align: right;
+}
+
+p{
+    top: 0%;
+    color: greenyellow;
+    text-align: center;
+    font-size: 24px;
+}
+
+input{
+    width: 200px;
+    height: 25px;
+    margin: 2px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#board{
+    background-color: aqua;
+    width: 100%;
+    /*
+        Gracias a height: 100vh; que está en body, puedo poner % en height
+    */
+    height: 45%; 
+    position: relative;
+    /*width: 100%;
+    height: 100vh;Como un full screen*/
+}
+
+#fondo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*animation: movimientoFondo 5s linear infinite;*/
+    top: 0%;
+    left: 0%;
+    background-image: url("/static/images/konguito_run/fondoDino2.png");
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    background-size: auto 100%;
+    animation: movimientoFondo 2s linear infinite;
+}
+
+#prueba {
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
+    position: absolute;
+    top: 0%;
+    right: 4%;
+    width: 20%;
+    height: 40%;
+    background-size: 100% 100%;
+    display: flex;
+}
+
+#prueba2 {
+    position: relative;
+    right: 15%;
+    margin-right: 2%;
+    width: 50%;
+    height: 15%;
+    top: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#prueba2 span {
+    position: absolute;
+    font-size: 200%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#fotoMoneda {
+    margin-left: 5%;
+    margin-top: -3%;
+    transform: scale(0.3);
+}
+
+#masMonedas {
+    margin-left: -190%;
+    margin-top: -30%;
+    transform: scale(0.07);
+    animation: masMonedasAnimation 2s infinite alternate;
+}
+
+@keyframes masMonedasAnimation{
+    0% {
+        transform: scale(0.07);
+    }
+    50% {
+        transform: scale(0.08);
+    }
+    100% {
+        transform: scale(0.07);
+    }
+}
+
+#tablero{
+    position: relative;
+    width: 100%;
+    height: 55%;
+    overflow: hidden;
+}
+
+#tableroImagen{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*animation: movimientoFondo 5s linear infinite;*/
+    top: 0%;
+    left: 0%;
+    background-image: url("/static/images/konguito_run/background.jpg");
+    background-position: 0 0;
+}
+
+#logoCasino {
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 8%;
+    /*background-color: red;*/
+    width: 25%;
+    height: 60%;
+    animation: animacionLogos 2s infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+#logoCasino img{
+    width: 70%;
+    height: 110%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#logoJuego{
+    position: absolute;
+    margin-top: 4%;
+    margin-right: 6%;
+    /*background-color: green;*/
+    right: 0%;
+    width: 25%;
+    height: 60%;
+    animation: animacionLogos 2s infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logoJuego img{
+    width: 80%;
+    height: 120%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@keyframes animacionLogos{
+    0% {
+        transform: scale(1);
+        transform-origin: center center;
+    }
+    50% {
+        transform: scale(1.15);
+        transform-origin: center center;
+    }
+    100% {
+        transform: scale(1);
+        transform-origin: center center;
+    }
+}
+
+#player {
+    /*
+        background-image: url('corriendo1.png'); //Ruta de la imagen 
+        background-size: cover; //Ajusta la imagen para cubrir completamente el div
+    */
+    /*background-color: red;  Ajusta la imagen para cubrir completamente el div */
+    width: 15%;
+    height: 70%;
+    /*  20% desde el primer relative que encuentra  */
+    position: absolute;
+    bottom: 5%;
+    left: 40%;
+    /*
+    Posición desde el fondo de la ventana
+    position: absolute;
+    bottom: 20%;
+    */
+}
+
+#player img{
+    width: 100%;
+    height: 100%;
+}
+
+/*
+    Clase que se encarga de que el objeto salte
+    En el html habrá que poner class"playerJump"
+*/
+.playerJump{
+    animation: playerJump 5s linear;
+}
+
+@keyframes playerJump{
+    0%{
+        left: 40%;
+    }
+    25%{
+        left: 45%;
+    }
+    50%{
+        left: 40%;
+    }
+    73%,76%{
+        left: 35%
+    }
+    100%{
+        left: 40%
+    }
+
+}
+
+@keyframes movimientoFondo{
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1500px 0;
+    }
+}
+
+.scoreContainer{
+    font-size: 50px;
+    text-align-last: center;
+    margin-top: 10px;
+}
+
+.button.pausa {
+    cursor: pointer;
+    border-width: 0px 0 0px 60px; 
+    border-style: double;
+    
+}
+
+.button{
+    width: 0;
+    height: 74px;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+    border-color: transparent transparent transparent greenyellow/*#202020*/;
+    transition: 800ms all ease;
+    border-style: solid;
+    border-width: 37px 0 37px 60px;
+}
+
+.button:hover{
+    border-color: transparent transparent transparent rgb(85, 131, 17);
+}
+
+.menu1{
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+}
+
+.menu2{
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: -2%;
+}
+
+.menu3 {
+    margin-top: 1%;
+    position: absolute;
+    left: 50%; /* Coloca el elemento a la mitad del ancho del contenedor padre */
+    transform: translate(-50%, -50%); /* Corrige la posición al centro exacto */
+}
+
+
+.menu form {
+    text-align: center; /* Alinea el contenido del formulario al centro */
+}
+
+.menu form input{
+    margin-top: 10px; /* Ajusta el espacio sobre el botón */
+}
+
+/* 
+.modal__overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 10%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal__window {
+    max-width: 500px;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    font-size: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+}
+
+.modal__titlebar {
+    height: 40px;
+    background: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal__title {
+    margin-left: 15px;
+    font-weight: bold;
+    color: #eeeeee;
+}
+
+.modal__close {
+    width: 40px;
+    height: 40px;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: #eeeeee;
+    cursor: pointer;
+}
+
+.modal__close:active {
+    transform: scale(0.9);
+}
+
+.modal__content {
+    padding: 15px;
+    font-size: 0.9em;
+}
+*/

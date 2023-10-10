@@ -1,73 +1,87 @@
-from flask import Flask, render_template, request, jsonify, Response
+from flask import Flask, render_template, request, jsonify, Response, redirect, url_for
 from BBDD.conexionBBDD import *
 from datetime import datetime
+from templates.form import *
 
 app = Flask(__name__)
+#python
+#import os
+#random_bytes = os.urandom(12)
+#hex_representation = random_bytes.hex()
+#print(hex_representation)
+app.config['SECRET_KEY'] = 'ded843028a32eb605772926d'
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def index():
+    return redirect(url_for('inicio'))
+
+
+@app.route('/Inicio/', methods=['GET', 'POST'])
 def inicio():
-    if request.method == 'POST':
-        print("FOTO:")
-        foto =request.files['photo']
-        print("FOTO PASO 2")
-        print("Foto guardada")
-        return render_template('inicio.html')
-    else:
-        return render_template('inicio.html')
+    form = inicioSesion()
+    if form.validate_on_submit():
+        nombreUsuario = form.username.data
+        contraseña = form.password.data
+        print("Nombre de usuario:", nombreUsuario)
+        print("Contraseña:", contraseña)
+        if iniciar_sesion(nombreUsuario, contraseña):
+            return juegos()
+        else:
+            print("Inicio de sesión fallido: usuario o contraseña incorrectos, o BBDD apagada")
+            return index()
+    return render_template('inicio.html', form=form)
 
-@app.route('/Registro/')
+
+@app.route('/Registro/', methods=['GET', 'POST'])
 def registroUsuario():
-    return render_template('registroDatosUsuario.html')
-
+    form = crearUsuario()
+    if form.validate_on_submit():
+        nombreUsuario = form.username.data
+        contraseña = form.password.data
+        correo = form.email.data
+        DNI = form.dni.data
+        dinero = 0.0
+        telefono = form.telephone.data
+        foto = None
+        fecha_hora = datetime.now()
+        calle = form.street.data
+        codigoPostal = form.postalCode.data
+        numeroTarjeta = form.cardNumber.data
+        titulanteTarjeta = form.nameHolder.data
+        caducidadTarjeta = form.expirationDate.data
+        cvv = form.cvv.data
+        print("Nombre de usuario:", nombreUsuario)
+        print("NumeroTarjeta:", numeroTarjeta)
+        if agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal):
+            print("Exito Usuario")
+            if agregarTarjeta(nombreUsuario,numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv):
+                print("Exito Tarjeta")
+                return camara()
+            else:
+                return redirect(url_for('registroUsuario'))
+        else:
+            return redirect(url_for('registroUsuario'))
+    return render_template('registroUsuario.html', form=form)
 
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
     return render_template('terminosCondiciones.html')
 
-
-@app.route('/Tarjeta/', methods=['POST'])
-def tarjetaUsuario():
-        if request.method == 'POST':
-            nombreUsuario = request.form['nombreUsuario']
-            contraseña = request.form['contraseña']
-            correo = request.form['correo']
-            DNI = request.form['DNI']
-            dinero = 0.0
-            telefono = request.form['telefono']
-            foto = None
-            fecha_hora = datetime.now()
-            calle = request.form['calle']
-            codigoPostal = request.form['codigoPostal']
-            agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal)
-            return render_template('tarjeta.html')
-
-@app.route('/Camara/', methods=['POST'])
+@app.route('/Camara/')
 def camara():
-    if request.method == 'POST':
-        print("Tarjeta:")
-        numero4 = request.form['numero4']
-        numero8 = request.form['numero8']
-        numero12 = request.form['numero12']
-        numero16 = request.form['numero16']
-        numeroTarjeta = numero4 + numero8 + numero12 + numero16
-        nombreTitulante = request.form['nombreTitulante']
-        dia = request.form['dia']
-        mes = request.form['mes']
-        caducidad = "2023" + "-" + mes + "-" + dia
-        cvv = request.form['cvv']
-        agregarTarjeta(numeroTarjeta, nombreTitulante, caducidad, cvv)
-        return render_template('camara.html')
+    return render_template('camara.html')
 
-@app.route('/RegistroAdministrador/')
+@app.route('/Registro Administrador/')
 def registroAdmin():
     return render_template('registroAdmin.html')
-
+@app.route('/Juegos/')
+def juegos():
+        return render_template('pantallaJuegos.html')
 
 @app.route('/Datos Usuario/')
 def datosUsuario():
     return render_template('cambiosUsuarioAdmin.html')
-
 
 @app.route('/Administrador/', methods=['GET','POST'])
 def interfazAdmin():
@@ -87,52 +101,78 @@ def interfazAdmin():
     else:
         return render_template('admin.html')
 
+# indice de juegos
 
-@app.route('/Juegos/', methods=['POST'])
-def index():
-    if request.method == 'POST':
-        nombreUsuario = request.form['nombreUsuario']
-        contraseña = request.form['contraseña']
-        if iniciar_sesion(nombreUsuario, contraseña) == True:
-            return render_template('pantallaJuegos.html')
-        else:
-            return render_template('inicio.html')
 
-@app.route("/tragaperras/", methods=['GET'])
-def tragaperras():
-    return render_template('tragaperras.html')
-
-@app.route("/Carta_mas_alta/", methods=['GET'])
+# direcciones de las categorias de juegos
+#idice de juegos de cartas
+@app.route('/Juegos/Indice_cartas/', methods=['GET'])
+def cartas():
+    return render_template('cards_index.html')
+@app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
 def carta_mas_alta():
     return render_template('carta_mas_alta.html')
+@app.route('/Juegos/Indice_cartas/Carta_mas_alta/A_Jugar/', methods=['GET'])
+def A_Jugar():
+    return render_template('cartas_antiguo.html')
+@app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
+def blackjack():
+    return render_template('blackjack.html')
 
-@app.route('/juegos_extra/', methods=['GET'])
+#indice de juegos de dados
+@app.route('/Juegos/Indice_Dados/', methods=['GET'])
+def dados():
+    return render_template('dice_index.html')
+@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
+def craps():
+    return render_template("craps.html")
+
+@app.route('/Juegos/Ruleta/', methods=['GET'])
+def ruleta():
+    return render_template('ruleta.html')
+
+@app.route('/Juegos/Tragaperras/')
+def tragaperras():
+    return render_template('Tragaperras.html')
+
+@app.route('/Juegos/DinoKongo/', methods=['GET'])
+def dino():
+    return open('games/dinosaurio/index.html')
+
+@app.route('/Juegos/Eventos/', methods=['GET'])
+def event():
+    return render_template('eventos.html')
+
+@app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():
     return render_template('juegos_extra.html')
 
+@app.route('/Juegos/Juegos_extra/Dinosaurio', methods=['GET'])
+def cargarDino():
+    return render_template('dinosaurio.html')
+
+# dineros
 @app.route('/dinero/', methods=['GET'])
 def dinero():
-    nombre_usuario = "prueba"
-    DINERO = obtenerDinero(nombre_usuario)
+    DINERO = obtenerDinero()
     return render_template('dinero.html', DINERO = DINERO)
 
 @app.route('/agregar_dinero', methods=['POST'])
 def agregar_dinero():
-    nombre_usuario = request.form.get('nombre_usuario')
     cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
-
-    # Aquí deberías actualizar el dinero del usuario en tu base de datos
-    agregarDinero(nombre_usuario, cantidad_a_agregar)
+    agregarDinero(cantidad_a_agregar)
     return "Dinero agregado correctamente"
 
 @app.route('/retirar_dinero', methods=['POST'])
 def retirar_dinero():
-    nombre_usuario = request.form.get('nombre_usuario')
     cantidad_a_retirar = float(request.form.get('cantidad_a_retirar'))
-
-    # Aquí deberías retirar el dinero del usuario en tu base de datos
-    retirarDinero(nombre_usuario, cantidad_a_retirar)
+    retirarDinero(cantidad_a_retirar)
     return "Dinero retirado correctamente"
+
+@app.route('/Juegos/Juegos_extra/KonguitoRun.html')
+def konguito():
+    DINERO = obtenerDinero()
+    return render_template('konguitoRun.html', DINERO = DINERO)
 
 @app.errorhandler(404)
 def page_not_found(error):

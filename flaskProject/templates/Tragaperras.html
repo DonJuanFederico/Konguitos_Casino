@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tragaperras</title>
-    <link rel="stylesheet" href="../static/css/Tragaperras.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}<title>Tragaperras</title>{% endblock %}
+{% block stylesheets %} {{super()}}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Tragaperras.css') }}">
+    <script src="{{ url_for('static', filename='js/Tragaperras.js') }}"></script>
+{% endblock %}
+{% block body %}
 <div id="app">
     <div class="posicionamiento">
         <div class="slot">
@@ -25,7 +24,7 @@
     </div>
 
     <div class="buttons">
-        <button id="spinner">Play</button>
+        <button id="spinner">Spin</button>
     </div>
     <div class="recuadro">
         <label id="apostado">Apostado:</label>
@@ -40,6 +39,4 @@
         <span id="prize">0</span>
     </div>
 </div>
-<script src="../static/js/Tragaperras.js"></script>
-</body>
-</html>
+{% endblock %}

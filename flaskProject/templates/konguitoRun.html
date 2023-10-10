@@ -1,0 +1,65 @@
+{% block stylesheets %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konguito Run</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/static/css/konguitoRun.css" rel="stylesheet">
+    <title>Juegos Extra</title>
+{% endblock %}
+{% block body %}
+    <div id = board>
+            <div id = "fondo">
+                <div class = "scoreContainer">
+                    <!--
+                        Usar span para controlarlo con JS
+                    -->
+                    Multiplicador: <span id = "score">0</span>
+                </div>
+                <div id = "prueba">
+                    <img id = "fotoMoneda" src="/static/images/moneda.png">
+                    <div id = "prueba2">
+                        <!--
+                            A partir de las 16 cifras ya no se ve el número completo
+                        -->
+                        <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
+                        <img id = "masMonedas" src="/static/images/masMonedas.png">
+                    </div>
+                </div>
+            </div>
+            <div id = "player">
+                <!--
+                    En caso de no poder mostrar la imagen del dinosaurio, muestra el texto Konguito
+                -->
+                <img src="/static/images/konguito_run/Corriendo1.png" alt="Konguito" id="konguitoDino">
+            </div>
+        </div>
+        <div id = "tablero">
+            <div id = "tableroImagen">
+                <div class = "menu1">
+                    <button id = "buttonPlayStop" class = "button"></button>
+                    <button id = "restartGame" >Retirarse</button>
+                </div>
+                <div class = "menu2">
+                    <form id="miFormulario">
+                        <label for="cantidadApostada">Apuesta</label>
+                        <input id ="cantidadApostada" type="number" min="0.01" step="0.01" value="0.01"><br><br>
+                        <label for="limiteApostado">Límite</label>
+                        <input id ="limiteApostado" type="number" min="1.00" step="0.05" value="1.01"><br><br>
+                    </form>
+                </div>
+                <div class = "menu3">
+                    <p>Recompensa: <span id = "recompensa">0</span></p>
+                </div>
+            </div>
+            <div id = "logoCasino">
+                <img src="/static/images/konguito_run/KonguitosSinFondo.png" id="konguitos">
+            </div>
+            <div id = "logoJuego">
+                <img src="/static/images/konguito_run/konguitoRun.png" id="konguitos">
+            </div>
+        </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="/static/js/konguitoRun.js"></script>
+{% endblock %}
