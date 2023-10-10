@@ -59,7 +59,6 @@
         .slot {
             width: 100px;
             height: 150px;
-
             border: 2px dashed #ffffff;
             border-radius: 10px;
             margin: 0 10px;
@@ -121,7 +120,7 @@
             font-size: xxx-large;
             color: #d74e16;
             -webkit-text-stroke-width: 0.2px;
-            -webkit-text-stroke-color: white;
+            -webkit-text-stroke_color: white;
         }
         #bet{
             position: absolute;
@@ -130,6 +129,50 @@
             text-align: center;
         }
 
+        /* Estilos para la carta volteable */
+        .card-container {
+            width: 100px; /* Tamaño de la carta */
+            height: 150px; /* Tamaño de la carta */
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+            pointer-events: none; /* Desactiva los clics después de la primera vuelta */
+        }
+
+        .card-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            background-image: url("https://comicstores.es/imagenes_grandes/4012927/401292774145.JPG");
+            background-size: cover;
+            color: white;
+            border: 2px solid darkgoldenrod;
+            border-radius: 5px;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            text-align: center;
+            background-color: #161b5d;
+            background-image: none;
+        }
     </style>
 </head>
 <body>
@@ -144,12 +187,44 @@
     </div>
     <div class="table">
         <div class="deck" id="deck">Repartir</div>
-        <div class="slot" id="slot4"></div>
+        <div class="slot" id="slot4">
+            <!-- Carta en el slot 4 -->
+            <div class="card-container">
+                <div class="card" id="card4">
+                    <div class="card-face"></div>
+                    <div class="card-face card-back"> Carta </div>
+                </div>
+            </div>
+        </div>
         <br>
         <div class="slots">
-            <div class="slot" id="slot1"></div>
-            <div class="slot" id="slot2"></div>
-            <div class="slot" id="slot3"></div>
+            <div class="slot" id="slot1">
+                <!-- Carta en el slot 1 -->
+                <div class="card-container">
+                    <div class="card" id="card1">
+                        <div class="card-face"></div>
+                        <div class="card-face card-back"> Carta </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slot" id="slot2">
+                <!-- Carta en el slot 2 -->
+                <div class="card-container">
+                    <div class="card" id="card2">
+                        <div class="card-face"></div>
+                        <div class="card-face card-back"> Carta </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slot" id="slot3">
+                <!-- Carta en el slot 3 -->
+                <div class="card-container">
+                    <div class="card" id="card3">
+                        <div class="card-face"></div>
+                        <div class="card-face card-back"> Carta </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <br><br>
         <div id="message"></div>
@@ -163,6 +238,7 @@
         let dealerCard = null;
         const messageDiv = document.getElementById('message');
 
+        // ... El resto de tu código para el juego "Carta más alta" ...
         // Pone los palos a las cartas
         function createDeck() {
             const deck = [];
@@ -181,7 +257,17 @@
             }
         }
 
-        // al reaprtir se ejecuta esto
+        function hideCards() {
+            for (let i = 0; i < slots.length; i++) {
+                const card = document.createElement('div');
+                card.className = 'card face-down'; // Comienza oculta
+                slots[i].textContent = '';
+                slots[i].appendChild(card);
+            }
+        }
+
+        //hideCards();
+
         function dealCards() {
             const deck = createDeck();
             shuffle(deck);
@@ -198,36 +284,31 @@
 
         }
 
-        let repartir = false;
         deck.addEventListener('click', () => {
-            if(!repartir) {
-                repartir = true;
-                bloqueo = false;
+            let incremento = 0;
+            if(incremento === 0) {
+                incremento++;
                 messageDiv.textContent = '';
                 // Pide la apuesta al usuario
                 apuesta = parseInt(document.getElementById('apuesta').value);
 
                 // Verifica si la apuesta es válida
                 if (apuesta <= 0) {
-                    alert('Tiene que apostar una cantidad mínima de 1.');
+                    alert('La apuesta debe ser mayor que cero.');
                     return;
                 } else if (apuesta > saldo) {
                     alert('No tienes suficiente saldo para esta apuesta.');
                     return;
                 }
-                //hideCards();
+                hideCards();
                 //apostar();
                 dealCards();
             }
         });
 
-        let bloqueo = false;
-
         // IMPORTANTE: LA CARTA Nº 1 ES LA DEL DEALER
         for (let i = 1; i < slots.length; i++) {
                 slots[i].addEventListener('click', () => {
-                if(!bloqueo) {
-                    bloqueo = true;
                     const card = slots[i].querySelector('.card');
                     if (card.classList.contains('face-down')) {
                         card.classList.remove('face-down');
@@ -241,13 +322,11 @@
                             revealAllCards(); // Revelar todas las cartas después de 1 segundo
                         }, 700);
                     }
-                }
-            });
+                });
         }
 
         let saldo = 100;
         let apuesta = 0;
-        let incremento  = 1;
 
         function compareCards(selectedCardValue, dealerCardValue) {
             let message = '';
@@ -271,25 +350,23 @@
             //apostar
             apuesta = parseInt(document.getElementById('apuesta').value);
             // Realiza la apuesta
-            //if(incremento === 1) {
-                if (saldo > 0 && apuesta <= saldo) {
-                    let gananciaPerdida = apuesta;
-                    if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
-                        saldo += apuesta;
-                    } else if (messageDiv.textContent === 'Konguito caido... :´(') {
-                        gananciaPerdida = -apuesta;
-                        saldo -= apuesta;
-                    } else if (messageDiv.textContent === 'Empate') {
-                        gananciaPerdida = -apuesta / 2;
-                        saldo -= apuesta / 2;
-                    }
-                    document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
-                    // Muestra el saldo actualizado
-                    document.getElementById('saldo').textContent = `Saldo actual: ${saldo}`;
-                } else {
-                    document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
+            if(saldo > 0 && apuesta <= saldo) {
+                let gananciaPerdida = apuesta;
+                if(messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
+                    saldo += apuesta;
+                } else if (messageDiv.textContent === 'Konguito caido... :´(') {
+                    gananciaPerdida = -apuesta;
+                    saldo -= apuesta;
+                } else if (messageDiv.textContent === 'Empate') {
+                    gananciaPerdida = -apuesta / 2;
+                    saldo -= apuesta / 2;
                 }
-            //}
+                document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
+                // Muestra el saldo actualizado
+                document.getElementById('saldo').textContent = `Saldo actual: ${saldo}`;
+            } else {
+                document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
+            }
         }
 
         function revealAllCards() {
@@ -299,19 +376,24 @@
                     card.classList.remove('face-down');
                 }
             }
-            repartir = false;
         }
 
-        //slots[3].addEventListener('click', () => {
-            // La carta sola no es clickeable.
-        //});
+        // Voltear una carta al hacer clic en ella
+        function setupCardFlip(cardElement) {
+            const card = cardElement.querySelector('.card');
 
+            card.addEventListener('click', () => {
+                if (!card.classList.contains('flipped')) {
+                    card.classList.add('flipped');
+                }
+            });
+        }
+
+        // Configurar el volteo de las cartas en los slots
+        slots.forEach((slot, index) => {
+            const cardElement = slot.querySelector('.card-container');
+            setupCardFlip(cardElement);
+        });
     </script>
 </body>
 </html>
-
-<!--
-PUEDO HACER ESTO PARA PONER EL REVERSO:
-cambiar el face-down por un reverso y editarlo para q tenga el fondo q quiera
-el problema es q el valor de las cartas sigue impreso y quiero q lo muestre despues
--->
