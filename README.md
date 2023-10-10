@@ -1,6 +1,6 @@
 # Konguitos_Casino
 
-Planificación (To-Do) requisitos: https://docs.google.com/spreadsheets/d/1hvmzQxS4x_m2BG9x6WuBQRvDcau9ZACIQn9KsFxpioM/edit?usp=sharing
+Planificación (To-Do) requisitos: Carpeta Documentos --> Excel
 
 Enlace de los requisitos: https://docs.google.com/document/d/14R_kHeSHYIqd3cnS0UIaapjFn16_p-2hvo5X-M9BWGs/edit?usp=sharing
 
