@@ -21,7 +21,7 @@
             height: 400px;
             background-color: #043f04;
             border: 20px ridge #523718;
-            border-radius: 0px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -34,7 +34,7 @@
             right: 20px;
             width: 100px;
             height: 150px;
-            background-color: #ccc;
+            font-size: large;
             border: 3px solid darkgoldenrod;
             border-radius: 10px;
             display: flex;
@@ -75,7 +75,7 @@
             cursor: default;
         }
 
-        .card {
+        /*.card {
             width: 90%;
             height: 90%;
             background-color: #161b5d;
@@ -90,13 +90,13 @@
             transform: rotate(0deg);
             transition: transform 0.5s;
             backface-visibility: hidden; /* Evita que el reverso de la carta se vea antes de dar la vuelta */
-        }
+        /*}
 
         .card.face-down {
             background-image: url("https://comicstores.es/imagenes_grandes/4012927/401292774145.JPG");
             background-size: cover;
             transform: rotateY(180deg);
-        }
+        }*/
 
         #message{
             font-size: x-large;
@@ -130,6 +130,59 @@
             text-align: center;
         }
 
+        /* CSS PARA EL VOLTEO DE CARTAS */
+        .card.flipped {
+            transform: rotateY(180deg);
+            pointer-events: none;
+        }
+
+        .card-face {
+            width: 90%;
+            height: 90%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            background-image: url("https://comicstores.es/imagenes_grandes/4012927/401292774145.JPG");
+            background-size: cover;
+            color: white;
+            border: 2px solid darkgoldenrod;
+            border-radius: 5px;
+        }
+
+        .card-back {
+            width: 90%;
+            height: 90%;
+            /*transform: rotateY(180deg);*/
+            text-align: center;
+            background-color: #161b5d;
+            border: 2px solid darkgoldenrod;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background-image: none;
+        }
+
+        .card-selected{
+            width: 90%;
+            height: 90%;
+            /*transform: rotateY(180deg);*/
+            text-align: center;
+            background-color: #6b0193;
+            border: 2px solid darkgoldenrod;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background-image: none;
+        }
+
     </style>
 </head>
 <body>
@@ -144,12 +197,32 @@
     </div>
     <div class="table">
         <div class="deck" id="deck">Repartir</div>
-        <div class="slot" id="slot4"></div>
+        <div class="card-container">
+            <div class="slot" id="slot4">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
         <br>
         <div class="slots">
-            <div class="slot" id="slot1"></div>
-            <div class="slot" id="slot2"></div>
-            <div class="slot" id="slot3"></div>
+            <div class="card-container">
+                <div class="slot" id="slot1">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="slot" id="slot2">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="slot" id="slot3">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
         </div>
         <br><br>
         <div id="message"></div>
@@ -174,6 +247,7 @@
             return deck;
         }
 
+        // baraja las cartas para q no tengan un orden
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -181,13 +255,22 @@
             }
         }
 
-        // al reaprtir se ejecuta esto
+        function hideCards() {
+            for (let i = 0; i < slots.length; i++) {
+                const card = document.createElement('div');
+                card.className = 'card-face'; // Comienza oculta
+                slots[i].textContent = '';
+                slots[i].appendChild(card);
+            }
+        }
+
+        // al repartir se ejecuta esto
         function dealCards() {
             const deck = createDeck();
             shuffle(deck);
-            for (let i = 0; i < slots.length + 1; i++) {
+            for (let i = 0; i < slots.length; i++) {
                 const card = document.createElement('div');
-                card.className = 'card face-down'; // Comienza oculta
+                card.className = 'card-back'; // Comienza oculta
                 card.textContent = deck[i];
                 if (i === 0) {
                     dealerCard = card;
@@ -195,61 +278,73 @@
                 slots[i].textContent = '';
                 slots[i].appendChild(card);
             }
-
         }
 
-        let repartir = false;
-            deck.addEventListener('click', () => {
-                if(isNaN(parseInt(document.getElementById('apuesta').value)) === false){
-                    if(!repartir) {
-                        repartir = true;
-                        bloqueo = false;
-                        messageDiv.textContent = '';
-                        // Pide la apuesta al usuario
-                        apuesta = parseInt(document.getElementById('apuesta').value);
-
-                        // Verifica si la apuesta es válida
-                        if (apuesta <= 0) {
-                            alert('Tiene que apostar una cantidad mínima de 1 Konguito Coin.');
-                            return;
-                        } else if (apuesta > saldo) {
-                            alert('No tienes suficiente saldo para esta apuesta.');
-                            return;
-                        }
-                        dealCards();
-                    }
-                } else {
-            alert('Tiene que apostar una cantidad mínima de 1 Konguito Coin.');
-        }
-            });
-
-        let bloqueo = false;
+         let bloqueo = false;
 
         // IMPORTANTE: LA CARTA Nº 1 ES LA DEL DEALER
         for (let i = 1; i < slots.length; i++) {
-                slots[i].addEventListener('click', () => {
+            slots[i].addEventListener('click', () => {
                 if(!bloqueo) {
                     bloqueo = true;
-                    const card = slots[i].querySelector('.card');
-                    if (card.classList.contains('face-down')) {
-                        card.classList.remove('face-down');
+
+                    slots[i].style.backgroundColor = 'rebeccapurple';
+                    /*
+                    cambiar los estilos de los diferentes metodos y comprobar si se cambia de color
+                     */
+
+                    dealCards();
+                    const card = slots[i].querySelector('.card-back');
+                    if (card.classList.contains('card-face')) {
+                        //card.classList.remove('card-face');
+                        card.classList.toggle('flipped');
                     }
                     if (i === 1 || 2 || 3 && dealerCard !== null) {
-                        dealerCard.classList.remove('face-down');
+                        //dealerCard.classList.remove('card-face');
+                        dealerCard.classList.toggle('flipped');
                         const selectedCardValue = card.textContent;
                         const dealerCardValue = dealerCard.textContent;
                         compareCards(selectedCardValue, dealerCardValue);
                         setTimeout(() => {
-                            revealAllCards(); // Revelar todas las cartas después de 1 segundo
-                        }, 700);
+                            //revealAllCards(); // Revelar todas las cartas después de 1 segundo
+                            repartir = false;
+                        }, 300);
                     }
                 }
             });
         }
 
+        let repartir = false;
+
+        deck.addEventListener('click', () => {
+            for (let i = 1; i < slots.length; i++) {
+                slots[i].style.backgroundColor = '';
+            }
+            if(isNaN(parseInt(document.getElementById('apuesta').value)) === false){
+                if(!repartir) {
+                    repartir = true;
+                    bloqueo = false;
+                    messageDiv.textContent = '';
+                    // Pide la apuesta al usuario
+                    apuesta = parseInt(document.getElementById('apuesta').value);
+
+                    // Verifica si la apuesta es válida
+                    if (apuesta <= 0) {
+                        alert('Tiene que apostar una cantidad mínima de 1 Konguito Coin.');
+                        return;
+                    } else if (apuesta > saldo) {
+                        alert('No tienes suficiente saldo para esta apuesta.');
+                        return;
+                    }
+                    hideCards();
+                }
+            } else {
+                alert('Tiene que apostar una cantidad mínima de 1 Konguito Coin.');
+            }
+        });
+
         let saldo = 100;
         let apuesta = 0;
-        let incremento  = 1;
 
         function compareCards(selectedCardValue, dealerCardValue) {
             let message = '';
@@ -259,7 +354,6 @@
             const valores = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
             card_1 =  valores[card_1];
             card_2 =  valores[card_2];
-
             // Lógica de comparación de cartas (personaliza según tus reglas)
             if (card_1 === card_2) {
                 message = 'Empate';
@@ -273,7 +367,6 @@
             //apostar
             apuesta = parseInt(document.getElementById('apuesta').value);
             // Realiza la apuesta
-            //if(incremento === 1) {
                 if (saldo > 0 && apuesta <= saldo) {
                     let gananciaPerdida = apuesta;
                     if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
@@ -291,18 +384,20 @@
                 } else {
                     document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
                 }
-            //}
         }
 
-        function revealAllCards() {
+        /*function revealAllCards() {
             for (let i = 1; i < slots.length; i++) {
-                const card = slots[i].querySelector('.card');
-                if (card.classList.contains('face-down')) {
-                    card.classList.remove('face-down');
+                const card = slots[i].querySelector('.card-face');
+                repartir = false;
+                if (card.classList.contains('flipped')) {
+                    messageDiv.textContent = 'toto';
+                    //card.classList.remove('card-face');
+                    card.classList.toggle('flipped');
                 }
             }
-            repartir = false;
-        }
+            //repartir = false;
+        }*/
 
         //slots[3].addEventListener('click', () => {
             // La carta sola no es clickeable.
@@ -313,11 +408,6 @@
 </html>
 
 <!--
-LISTA DE TAREAS:
-- reverso de la carta y volteo de la misma
-- visual fotos
-- indice con las reglas
-
 PUEDO HACER ESTO PARA PONER EL REVERSO:
 cambiar el face-down por un reverso y editarlo para q tenga el fondo q quiera
 el problema es q el valor de las cartas sigue impreso y quiero q lo muestre despues
