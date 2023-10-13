@@ -5,25 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../static/css/camara.css" />
-    <script defer src="app.js"></script>
-    <title>Document</title>
+    <title>Camara</title>
   </head>
   <body>
-    <form method="POST" action="/Camara/">
+    <form method="POST">
+        {{ form.hidden_tag() }}
         <input type="hidden" name="foto" id="fotoInput">
-        <header>Hágase una foto para crear su cuenta</header>
+        <header>
+          Hágase una foto para crear su cuenta
+        </header>
         <section class="cam-container">
           <div class="video-wrap">
             <video class="video"></video>
           </div>
           <div class="canvas-wrap">
-            <canvas class="canvas" width="420" height="340"></canvas>
-          </div>
-          <div>
-             <a type="submit" {{ form.submit(class="start.btn")}}> Tomar Foto</a>
+            <canvas class="canvas" width="420" height="340">
+              <img
+                src=""
+                class="photo"
+                alt="photo"
+                id="foto"
+              />
+            </canvas>
           </div>
         </section>
-    </form>
-    <script src="../static/js/camara.js"></script>
+            {{ form.submit(class="btnTomaFoto") }}
+        </form>
+        <form method="GET" action="{{ url_for('inicio') }}">
+            <button type="submit" class="btnCreaCuenta">CREAR <br> CUENTA</button>
+        </form>
   </body>
 </html>
