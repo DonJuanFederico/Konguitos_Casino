@@ -159,10 +159,6 @@ def event():
 def juegos_extra():
     return render_template('juegos_extra.html')
 
-@app.route('/Juegos/Juegos_extra/Dinosaurio', methods=['GET'])
-def cargarDino():
-    return render_template('dinosaurio.html')
-
 # dineros
 @app.route('/dinero/', methods=['GET'])
 def dinero():
@@ -181,10 +177,29 @@ def retirar_dinero():
     retirarDinero(cantidad_a_retirar)
     return "Dinero retirado correctamente"
 
-@app.route('/Juegos/Juegos_extra/KonguitoRun.html')
+@app.route('/Juegos/Juegos_extra/Bingo')
+def bingo():
+    DINERO = obtenerDinero()
+    return render_template('bingo.html', DINERO = DINERO)
+
+@app.route('/Juegos/Juegos_extra/Slots')
+def slots():
+    return render_template('Tragaperras.html')
+    '''
+        Cuando ya este el juego adaptado para ir con el dinero de la cuenta descomentar
+    '''
+    '''DINERO = obtenerDinero()
+    return render_template('Tragaperras.html', DINERO = DINERO) '''
+
+@app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():
     DINERO = obtenerDinero()
     return render_template('konguitoRun.html', DINERO = DINERO)
+
+@app.route('/Juegos/Juegos_extra/Plinko')
+def plinko():
+    DINERO = obtenerDinero()
+    return render_template('plinko.html', DINERO = DINERO)
 
 @app.errorhandler(404)
 def page_not_found(error):
