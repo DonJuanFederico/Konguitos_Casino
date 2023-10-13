@@ -28,7 +28,6 @@ def tomarFotoNo(path):
     cap.release()
 """
 #pip install opencv-python
-
 import cv2
 import numpy as np
 import io
