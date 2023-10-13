@@ -5,7 +5,10 @@
 # Puerto: 3306 (el predeterminado)
 # Ejecutar: "pip install Flask mysql-connector-python" en consola
 import hashlib
+import io
+import os
 
+import cv2
 import mysql.connector
 
 db_config = {
@@ -169,6 +172,28 @@ def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad,
             cursor.close()
             close_connection(conn)
 
+def tomarFoto():
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error al abrir la cámara")
+    else:
+        # Configurar las dimensiones de captura
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 420)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 360)
+
+    ret, frame = cap.read()
+    if ret:
+        # Guardar la imagen capturada en la ruta deseada
+        cv2.imwrite("imagen_temp.jpg", frame)
+        with open("imagen_temp.jpg", "rb") as f:
+            img_bytes = io.BytesIO(f.read())
+        cap.release()
+        os.remove("imagen_temp.jpg")
+        return img_bytes.read()
+    else:
+        print("Error al capturar imagen")
+        cap.release()
+        return None
 
 def agregarFotoUsuario(nombre_usuario, foto_blob):
     conn = connect()
@@ -179,7 +204,6 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
             query_id = "SELECT id FROM usuarios WHERE NombreUsuario = %s"
             cursor.execute(query_id, (nombre_usuario,))
             resultado = cursor.fetchone()
-
             if resultado:
                 usuario_id = resultado[0]
                 # Actualizar la columna FotoIMG con el BLOB de la foto
@@ -187,6 +211,7 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
                 cursor.execute(query, (foto_blob, usuario_id))
                 conn.commit()
                 print(f"La foto ha sido agregada con éxito al usuario '{nombre_usuario}'.")
+                return True
             else:
                 print(f"No se encontró el usuario con nombre de usuario '{nombre_usuario}'.")
         except mysql.connector.Error as err:

@@ -22,3 +22,6 @@ class crearUsuario(FlaskForm):
     expirationDate = StringField()
     cvv = StringField()
     submit = SubmitField()
+
+class TomarFoto(FlaskForm):
+    submit = SubmitField('Tomar Foto')

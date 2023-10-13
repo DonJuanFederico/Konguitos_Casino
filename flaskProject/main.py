@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, jsonify, Response, redirect, url_for
+from flask import Flask, render_template, request, jsonify, Response, redirect, url_for, session
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
-from static.py.camara import tomarFoto
 
 app = Flask(__name__)
 #python
@@ -39,6 +38,7 @@ def registroUsuario():
     form = crearUsuario()
     if form.validate_on_submit():
         nombreUsuario = form.username.data
+        session['nombreUsuario'] = nombreUsuario
         contraseña = form.password.data
         correo = form.email.data
         DNI = form.dni.data
@@ -69,14 +69,20 @@ def registroUsuario():
 def terminos():
     return render_template('terminosCondiciones.html')
 
-@app.route('/Camara/', methods = ['GET', 'POST'])
+
+@app.route('/Camara/',methods=['GET','POST'])
 def camara():
-    print("ENTRA")
-    foto = tomarFoto()
-    nombreUsuario = "prueba"    #CAMBIAR Y PONER AQUI EL NOMBRE DE USUARIO
-    agregarFotoUsuario(nombreUsuario, foto)
-    print("ENTRA 1")
-    return render_template('camara.html')
+    form = TomarFoto()
+    if form.validate_on_submit():
+        foto = tomarFoto()
+        print("a:",foto.__sizeof__())
+        nombreUsuario = session.get('nombreUsuario')
+        print("a: ", nombreUsuario)
+        if agregarFotoUsuario(nombreUsuario,foto):
+            print("c")
+            return redirect(url_for('camara'))
+        return redirect(url_for('camara'))
+    return render_template('camara.html',form=form)
 
 @app.route('/Registro Administrador/')
 def registroAdmin():
