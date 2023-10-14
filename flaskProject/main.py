@@ -2,10 +2,9 @@ from flask import Flask, render_template, request, jsonify, Response, redirect, 
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
-<<<<<<< HEAD
+
 #from static.py.camara import tomarFoto
-=======
->>>>>>> 64e95aba840d576d625d76dad57028903119bde6
+'''64e95aba840d576d625d76dad57028903119bde6'''
 
 app = Flask(__name__)
 #python
