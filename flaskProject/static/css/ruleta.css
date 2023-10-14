@@ -1,0 +1,130 @@
+html, body {
+  margin: 0; padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background-image: url(/static/images/ruleta/fondo.jpg), -webkit-radial-gradient(50% 40%,circle farthest-corner,#527c14,#243a0a);
+  background-size: 100% 100%,auto;
+  background-attachment: fixed;
+  user-select: none;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0; padding: 0;
+}
+
+.capa1-ruleta {
+  float: right;
+  width: 380px;
+  height: 380px;
+  border-radius: 100%;
+  background: url("/static/images/ruleta/ruleta_1.jpg");
+  background-size: 380px 380px;
+  shape-outside: circle(190px);
+  box-shadow: 2px 10px 30px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  touch-action: none;
+  overflow: visible;
+}
+
+@media screen and (max-width: 2640px) {
+  .capa1-ruleta {
+    float:none;
+    margin: 1em auto
+  }
+}
+  @media screen and (max-width: 375px) {
+  body {
+    padding: 0 20px;
+  }
+  .capa1-ruleta {
+    float:none;
+    left: 30px;
+    // margin: 1em 0 0 2em;
+  }
+}
+
+.capa1-ruleta .capa2-ruleta,
+.capa1-ruleta .capa3-ruleta,
+.capa1-ruleta .capa4-ruleta,
+.capa1-ruleta .capa5-ruleta,
+.capa1-ruleta .ball-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 380px 380px
+}
+
+.capa1-ruleta .layer-2, .capa1-ruleta .layer-4, .ball-container {
+  will-change: transform
+}
+
+.capa1-ruleta .capa2-ruleta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  background: url("/static/images/ruleta/ruleta_2.png");
+  background-size: 380px 380px;
+  shape-outside: circle(190px);
+  touch-action: none;
+  overflow: visible;
+}
+
+.capa1-ruleta .capa3-ruleta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  background: url("/static/images/ruleta/ruleta_3.png");
+  background-size: 380px 380px;
+  shape-outside: circle(190px);
+  touch-action: none;
+  overflow: visible;
+}
+
+.capa1-ruleta .capa4-ruleta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  background: url("/static/images/ruleta/ruleta_4.png");
+  background-size: 380px 380px;
+  shape-outside: circle(190px);
+  touch-action: none;
+  overflow: visible;
+}
+
+.capa1-ruleta .capa5-ruleta {
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  background: url("/static/images/ruleta/ruleta_5.png");
+  background-size: 380px 380px;
+  shape-outside: circle(190px);
+  touch-action: none;
+  overflow: visible;
+}
+
+.capa1-ruleta circle {
+  cursor: pointer;
+  fill: transparent;
+}
+
+.capa1-ruleta .ball {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: #fff radial-gradient(circle at 5px 5px,#fff,#444);
+  box-shadow: 1px 1px 4px #000;
+  transform: translateY(-116px);
+  top: 50%;
+  left: 50%;
+  margin: -7px;
+  will-change: transform;
+}
