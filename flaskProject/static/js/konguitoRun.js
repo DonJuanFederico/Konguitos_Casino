@@ -145,7 +145,9 @@ const restartButton = document.getElementById("restartGame");
 restartButton.addEventListener("click", solicitarRetirarse);
 
 function solicitarRetirarse(){
-    retirarse(1);
+    if(inicio === 1){
+        retirarse(1);
+    }
 }
 
 function retirarse(motivo){

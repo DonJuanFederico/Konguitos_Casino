@@ -19,8 +19,10 @@ section{
     gap: 20px;
 }
 
-button{
-
+.btnTomaFoto{
+    position: absolute;
+    right: 10%;
+    bottom: 50%;
     border-radius: 50px;
     width: 70px;
     height: 70px;
@@ -32,8 +34,29 @@ button{
     cursor:pointer;
     outline: solid 2px rgb(36, 59, 85);
 }
-button:hover{
 
+.btnTomaFoto:hover{
+    background-color: rgb(36, 59, 85);
+    color: aliceblue;
+}
+
+.btnCreaCuenta{
+    position: absolute;
+    right: 10%;
+    bottom: 30%;
+    border-radius: 50px;
+    width: 70px;
+    height: 70px;
+    border: none;
+    background-color: transparent;
+    color: rgb(36, 59, 85);
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor:pointer;
+    outline: solid 2px rgb(36, 59, 85);
+}
+
+.btnCreaCuenta:hover{
     background-color: rgb(36, 59, 85);
     color: aliceblue;
 }
@@ -46,15 +69,9 @@ header{
     align-items: center;
     font-size: 1.3rem;
         color: aliceblue;
-
-
 }
 
 video{
-    border: solid 1px rgb(36, 59, 85);
-    border-radius: 10px;
-}
-canvas{
     border: solid 1px rgb(36, 59, 85);
     border-radius: 10px;
 }

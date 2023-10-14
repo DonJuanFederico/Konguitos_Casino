@@ -3,25 +3,39 @@ body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    background: #1a2b45;
+    /*background: #1a2b45;*/
+    background-image: url("/static/images/tragaperras/fondoTragaperras2.png");
+    background-size: cover;
+
 }
 
 #app {
     display: flex;
+    position: absolute;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Control de 3 filas o 3 columnas. Actual: 3 columnas*/
 .posicionamiento {
+    position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
+
+
+    /* Control de tres slots*/
+    margin-top: 25px;
+    margin-right: 50px;
 }
+
 
 
 /* Fondos de las puertas y los cuadrados*/
@@ -32,6 +46,9 @@ body {
     overflow: hidden;
     border-radius: 5px;
     margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Animación de las puertas*/
@@ -47,21 +64,33 @@ body {
     font-size: 3rem;
 }
 
-.buttons {
-    margin: 1rem 0 2rem 0;
+.buttonSpin {
+    position: absolute;
+    margin-top: 300px;
+    margin-right: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 button {
     cursor: pointer;
     font-size: 1.2rem;
-    margin: 0 0.2rem;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
+    width: 400%;
+    height: 150%;
+
+    /*quitame el fondo para que sea transparente*/
+    /*background: transparent;
+*/
 }
 
 button:hover {
-    background: #1ec492;
+    background: #dbe138;
     color: #1a2b45;
 }
 /* Botones de las puertas*/
@@ -78,18 +107,45 @@ button:hover {
     margin: 1rem 0;
 }
 .prize {
-    color: #dbe138;
+    color: #070707;
     font-size: 1.5rem;
     font-weight: bold;
 }
 
-.recuadro {
+.recuadroSaldo {
+    position: absolute;
     color: #f4f4f4;
     font-size: 1.2rem;
-    margin: 0 0.2rem;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
+    margin-right: 800px;
+    margin-top: 200px;
+}
+
+.recuadroApuesta {
+    position: absolute;
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-right: 800px;
+    margin-top: 430px;
+}
+
+.recuadroGanado {
+    color: #070707;
+    height: 4%;
+    width: 10%;
+    background: #f4f4f4;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 430px;
+    margin-right: 45px;
+    position: absolute;
 }
 
 #balance {
@@ -99,7 +155,24 @@ button:hover {
 }
 
 #prize {
-    color: #dbe138;
+    color: #070707;
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+#player {
+    position: absolute;
+    width: 35%;
+    height: 60%;
+    top: 20%;
+    left: 39.95%;
+    scale: 1.3;
+    z-index: -1;
+
+}
+
+#player img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }

@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, jsonify, Response, redirect, url_for
+from flask import Flask, render_template, request, jsonify, Response, redirect, url_for, session
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
+<<<<<<< HEAD
 #from static.py.camara import tomarFoto
+=======
+>>>>>>> 64e95aba840d576d625d76dad57028903119bde6
 
 app = Flask(__name__)
 #python
@@ -39,6 +42,7 @@ def registroUsuario():
     form = crearUsuario()
     if form.validate_on_submit():
         nombreUsuario = form.username.data
+        session['nombreUsuario'] = nombreUsuario
         contraseña = form.password.data
         correo = form.email.data
         DNI = form.dni.data
@@ -69,14 +73,20 @@ def registroUsuario():
 def terminos():
     return render_template('terminosCondiciones.html')
 
-@app.route('/Camara/', methods = ['GET', 'POST'])
+
+@app.route('/Camara/',methods=['GET','POST'])
 def camara():
-    print("ENTRA")
-    foto = tomarFoto()
-    nombreUsuario = "prueba"    #CAMBIAR Y PONER AQUI EL NOMBRE DE USUARIO
-    agregarFotoUsuario(nombreUsuario, foto)
-    print("ENTRA 1")
-    return render_template('camara.html')
+    form = TomarFoto()
+    if form.validate_on_submit():
+        foto = tomarFoto()
+        print("a:",foto.__sizeof__())
+        nombreUsuario = session.get('nombreUsuario')
+        print("a: ", nombreUsuario)
+        if agregarFotoUsuario(nombreUsuario,foto):
+            print("c")
+            return redirect(url_for('camara'))
+        return redirect(url_for('camara'))
+    return render_template('camara.html',form=form)
 
 @app.route('/Registro Administrador/')
 def registroAdmin():
@@ -155,10 +165,6 @@ def event():
 def juegos_extra():
     return render_template('juegos_extra.html')
 
-@app.route('/Juegos/Juegos_extra/Dinosaurio', methods=['GET'])
-def cargarDino():
-    return render_template('dinosaurio.html')
-
 # dineros
 @app.route('/dinero/', methods=['GET'])
 def dinero():
@@ -177,10 +183,29 @@ def retirar_dinero():
     retirarDinero(cantidad_a_retirar)
     return "Dinero retirado correctamente"
 
-@app.route('/Juegos/Juegos_extra/KonguitoRun.html')
+@app.route('/Juegos/Juegos_extra/Bingo')
+def bingo():
+    DINERO = obtenerDinero()
+    return render_template('bingo.html', DINERO = DINERO)
+
+@app.route('/Juegos/Juegos_extra/Slots')
+def slots():
+    return render_template('Tragaperras.html')
+    '''
+        Cuando ya este el juego adaptado para ir con el dinero de la cuenta descomentar
+    '''
+    '''DINERO = obtenerDinero()
+    return render_template('Tragaperras.html', DINERO = DINERO) '''
+
+@app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():
     DINERO = obtenerDinero()
     return render_template('konguitoRun.html', DINERO = DINERO)
+
+@app.route('/Juegos/Juegos_extra/Plinko')
+def plinko():
+    DINERO = obtenerDinero()
+    return render_template('plinko.html', DINERO = DINERO)
 
 @app.errorhandler(404)
 def page_not_found(error):
