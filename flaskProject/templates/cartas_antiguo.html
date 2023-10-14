@@ -183,16 +183,71 @@
             background-image: none;
         }
 
+        #prueba3{
+            background-image: url("/static/images/konguito_run/marcoCasino.png");
+            background-size: cover;
+            position: absolute;
+            display: flex;
+            width: 16%;
+            height: 24%;
+            top: 5%;
+            left: 75%;
+            overflow: hidden;
+        }
+
+        #prueba3 span {
+            top: 35%;
+            left: 50%;
+            position: absolute;
+            font-size: 200%;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fotoMoneda {
+            margin-left: -8%;
+            margin-top: -7%;
+            transform: scale(0.3);
+        }
+
+        #masMonedas{
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 15%;
+            left: 10%;
+            animation: masMonedasAnimation 2s infinite alternate;
+        }
+
+        @keyframes masMonedasAnimation{
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
     </style>
 </head>
 <body>
+    <div id = prueba3>
+        <img id ="fotoMoneda" src="/static/images/moneda.png">
+        <img id = "masMonedas" src="/static/images/masMonedas.png">
+        <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
+    </div>
     <div id="container">
         <h1> Carta más alta </h1>
         <div id="saldo">Saldo actual: 100</div>
     </div>
     <div id="bet">
         <label for="apuesta">Apuesta:</label>
-        <input type="number" id="apuesta" min="1" max="saldo">
+        <input type="number" id="apuesta" min="0.01" step= "0.01" max="saldo">  <!--  step="0.01" para apuestas con decimales -->
         <div id="dinero"></div>
     </div>
     <div class="table">
@@ -256,6 +311,7 @@
         }
 
         function hideCards() {
+            retirarDinero();
             for (let i = 0; i < slots.length; i++) {
                 const card = document.createElement('div');
                 card.className = 'card-face'; // Comienza oculta
@@ -320,17 +376,17 @@
             for (let i = 1; i < slots.length; i++) {
                 slots[i].style.backgroundColor = '';
             }
-            if(isNaN(parseInt(document.getElementById('apuesta').value)) === false){
+            if(isNaN(parseFloat(document.getElementById('apuesta').value)) === false){
                 if(!repartir) {
                     repartir = true;
                     bloqueo = false;
                     messageDiv.textContent = '';
                     // Pide la apuesta al usuario
-                    apuesta = parseInt(document.getElementById('apuesta').value);
+                    apuesta = parseFloat(document.getElementById('apuesta').value);
 
                     // Verifica si la apuesta es válida
                     if (apuesta <= 0) {
-                        alert('Tiene que apostar una cantidad mínima de 1 Konguito Coin.');
+                        alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
                         return;
                     } else if (apuesta > saldo) {
                         alert('No tienes suficiente saldo para esta apuesta.');
@@ -339,12 +395,31 @@
                     hideCards();
                 }
             } else {
-                alert('Tiene que apostar una cantidad mínima de 1 Konguito Coin.');
+                alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
             }
         });
 
-        let saldo = 100;
-        let apuesta = 0;
+        let saldo = document.getElementById('monedas').textContent;
+        let apuesta = parseFloat(document.getElementById('apuesta').value);
+
+        function retirarDinero() {
+            var monto = apuesta;
+            // Enviar solicitud HTTP a tu servidor Flask
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/retirar_dinero", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("&cantidad_a_retirar=" + monto);
+        }
+
+        function agregarDinero() {
+            var monto = apuesta * 2;
+            // Enviar solicitud HTTP a tu servidor Flask
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/agregar_dinero", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("&cantidad_a_agregar=" + monto);
+        }
+
 
         function compareCards(selectedCardValue, dealerCardValue) {
             let message = '';
@@ -365,22 +440,23 @@
             messageDiv.textContent = message //+ '  |  ' + card_1 + '  |  ' + card_2;
 
             //apostar
-            apuesta = parseInt(document.getElementById('apuesta').value);
+            apuesta = parseFloat(document.getElementById('apuesta').value);
             // Realiza la apuesta
                 if (saldo > 0 && apuesta <= saldo) {
                     let gananciaPerdida = apuesta;
                     if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
                         saldo += apuesta;
-                    } else if (messageDiv.textContent === 'Konguito caido... :´(') {
+                        agregarDinero();
+                    /*} else if (messageDiv.textContent === 'Konguito caido... :´(') {
                         gananciaPerdida = -apuesta;
-                        saldo -= apuesta;
+                        saldo -= apuesta;*/
                     } else if (messageDiv.textContent === 'Empate') {
                         gananciaPerdida = -apuesta / 2;
                         saldo -= apuesta / 2;
                     }
                     document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
                     // Muestra el saldo actualizado
-                    document.getElementById('saldo').textContent = `Saldo actual: ${saldo}`;
+                    document.getElementById('monedas').textContent = `${saldo}`;
                 } else {
                     document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
                 }

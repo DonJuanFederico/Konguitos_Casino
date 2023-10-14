@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, Response, redirect, 
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
-from static.py.camara import tomarFoto
+#from static.py.camara import tomarFoto
 
 app = Flask(__name__)
 #python
@@ -120,7 +120,9 @@ def carta_mas_alta():
     return render_template('carta_mas_alta.html')
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/A_Jugar/', methods=['GET'])
 def A_Jugar():
-    return render_template('cartas_antiguo.html')
+    DINERO = obtenerDinero()
+    return render_template('cartas_antiguo.html', DINERO = DINERO)
+
 @app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
 def blackjack():
     return render_template('blackjack.html')
