@@ -13,6 +13,18 @@ body {
   margin: 0; padding: 0;
 }
 
+.girar{
+  animation: all 0.6s ease;
+  position: absolute;
+  top: 85%;
+  left: 15%;
+  z-index: 1;
+  width: 10%;
+  height: 5%;
+  text-align: center;
+  font-size: 20px;
+}
+
 .capa1-ruleta {
   float: right;
   width: 380px;
@@ -23,7 +35,7 @@ body {
   shape-outside: circle(190px);
   box-shadow: 2px 10px 30px rgba(0, 0, 0, 0.4);
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 5%;
   touch-action: none;
   overflow: visible;
@@ -127,4 +139,24 @@ body {
   left: 50%;
   margin: -7px;
   will-change: transform;
+}
+.apuestas {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    background-image: url("/static/images/ruleta/apuestas.png");
+    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+    width: 50%;
+    height: 50%;
+}
+
+.moneda {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  background-image: url("/static/images/moneda.png");
+  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+  width: 5%;
+  height: 10%;
+  cursor: pointer;
 }

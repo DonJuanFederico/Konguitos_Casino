@@ -115,7 +115,6 @@ function startRotation(speed) {
   })();
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("girarRuleta").addEventListener("click", () => {
     startRotation(100);
