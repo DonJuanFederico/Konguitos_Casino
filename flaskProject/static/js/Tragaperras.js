@@ -7,15 +7,27 @@ document.addEventListener('DOMContentLoaded', function (message) {
     const prizeElement = document.querySelector('#prize');
     const spinnerButton = document.querySelector('#spinner');
 
-    //REGLAS
+    //TOOLBAR:
+    const botonTool = document.getElementById("botonTool");
+    const opcionesTool = document.querySelector(".opcionesTool");
+    botonTool.addEventListener("click", () => {
+        // Si las opciones están ocultas, las mostramos; de lo contrario, las ocultamos
+        if (opcionesTool.style.display === "none" || opcionesTool.style.display === "") {
+            opcionesTool.style.display = "block";
+        } else {
+            opcionesTool.style.display = "none";
+        }
+    });
+    //FIN TOOLBAR
 
-
+    //BOTONES DE APUESTA
     spinnerButton.addEventListener('click', spin);
 
     // Agregamos una variable para controlar si se está realizando una animación
     let animacionEnProgreso = false;
     let spinEnProgreso = false;
 
+//REGLAS Y RECOMPENSAS BOTONES
     var botonReglas = document.getElementById("reglas");
     botonReglas.addEventListener("click", function () {
         Swal.fire({
@@ -25,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function (message) {
                 "<h3>REGLAS:</h3>" +
                 "1. Para jugar, introduce la cantidad que quieres apostar." +
                 "<br>2. Dale al Spin y GANA." +
-                "<h5>Normas a tener en cuenta:</h5>"+
+                "<h5>Normas a tener en cuenta:</h5>" +
                 "Si ganas, se te sumará el premio a tu balance." +
                 "<br>Si pierdes, se te restará la apuesta a tu balance." +
                 "<br>Si tu balance es menor a la apuesta, no podrás jugar." +
@@ -79,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function (message) {
             allowEscapeKey: true,
         });
     });
-
 
     // Inicializamos el juego
     function init(firstInit = true, groups = 1, duration = 1) {

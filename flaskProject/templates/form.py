@@ -6,7 +6,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Selec
 class inicioSesion(FlaskForm):
     username = StringField("Nombre de usuario")
     password = PasswordField()
-    submit = SubmitField()
+    submit = SubmitField("Entrar")
 
 class crearUsuario(FlaskForm):
     username = StringField()

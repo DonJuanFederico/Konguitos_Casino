@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ruleta</title>
+    <link rel="stylesheet" href="/static/css/ruleta.css">
+</head>
+<body>
+    <div id="rueda-ruleta">
+        <div class="capa1-ruleta">
+            <div class="capa2-ruleta" style="transform: rotate(0deg);"></div>
+            <div class="capa3-ruleta"></div>
+            <div class="capa4-ruleta" style="transform: rotate(0deg);"></div>
+            <div class="capa5-ruleta"></div>
+            <!--div class="ball-container" style="transform: rotate(0deg);">
+                <div class="ball"  style="transform: translate(0, -163.221px);"> </div>
+            </div-->
+            <div>
+                <svg width="380" height="380">
+                <circle
+                  cx="190"
+                  cy="190"
+                  r="190"
+                  style="touch-action: none;"
+                ></circle>
+                </svg>
+            </div>
+        </div>
+        <div class="apuestas"></div>
+        <div class="moneda"></div>
+    </div>
+    <div class="result"></div>
+    <button id="girarRuleta" class="girar">Girar</button>
+    <script src="/static/js/ruleta.js"></script>
+</body>
+</html>

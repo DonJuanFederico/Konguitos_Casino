@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Selector de Avatares</title>
+</head>
+<body>
+    <h1>Selector de Avatares</h1>
+    
+    <div id="current-photo-container">
+        <h1>Foto actual</h1>
+        <div id="current-photo" class="avatar">
+            <div class="background"></div>
+            <div class="character"></div>
+        </div>
+    </div>
+    
+    <div id="photo-container">
+        <div class="section">
+            <h1>Colores de fondo</h1>
+                <div class="image-container background-container">
+                    <div class="background white" data-background="white"></div>
+                    <div class="background red" data-background="red"></div>
+                    <div class="background blue" data-background="blue"></div>
+                    <div class="background green" data-background="green"></div>
+                    <div class="background yellow" data-background="yellow"></div>
+                    <div class="background orange" data-background="orange"></div>
+                    <!-- Agrega más opciones de colores de fondo aquí -->
+                </div>
+        </div>
+
+        
+        <div class="section">
+            <h1>Colección Conguitos</h1>
+            <div class="image-container character-container">
+                <div class="character basic" data-character="basic"></div>
+                <div class="character viking" data-character="viking" data-locked="true"></div>
+                <div class="character king" data-character="king" data-locked="true"></div>
+                <div class="character pirate" data-character="pirate" data-locked="true"></div>
+                <div class="character astronaut" data-character="astronaut" data-locked="true"></div>
+                <!-- Aquí se pueden agregar todos los personajes que queramos -->
+            </div>
+        </div>
+        
+        <div class="section">
+            <h1>Colaboraciones</h1>
+            <div class="image-container character-container">
+                <div class="character tiger" data-character="tiger" data-locked="true"></div>
+                <div class="character captain" data-character="captain" data-locked="true"></div>
+                <!-- Aquí se pueden agregar todos los personajes que queramos -->
+            </div>
+        </div>
+    </div>
+    
+    <button id="unlock-button">Desbloquear todo</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
