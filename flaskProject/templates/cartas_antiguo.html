@@ -17,8 +17,8 @@
 
         .table {
             position: relative;
-            width: 800px;
-            height: 400px;
+            width: 50%;
+            height: 48%;
             background-color: #043f04;
             border: 20px ridge #523718;
             border-radius: 10px;
@@ -103,19 +103,19 @@
             color: darkgoldenrod;
         }
 
-        #saldo {
+        /*#saldo {
             font-size: 24px;
             color: darkgoldenrod;
             margin-top: 10px;
             margin-bottom: 20px;
             -webkit-text-stroke-width: 0.1px;
             -webkit-text-stroke-color: lightgoldenrodyellow;
-        }
+        }*/
 
         #container{
             text-align: center;
             position: absolute;
-            top: 20px;
+            top: 5%;
         }
         h1{
             font-size: xxx-large;
@@ -125,7 +125,7 @@
         }
         #bet{
             position: absolute;
-            left: 20px;
+            left: 5%;
             color: white;
             text-align: center;
         }
@@ -190,8 +190,8 @@
             display: flex;
             width: 16%;
             height: 24%;
-            top: 5%;
-            left: 75%;
+            top: 1%;
+            left: 73%;
             overflow: hidden;
         }
 
@@ -217,7 +217,7 @@
             height: 50px;
             width: 50px;
             top: 15%;
-            left: 10%;
+            left: 9%;
             animation: masMonedasAnimation 2s infinite alternate;
         }
 
@@ -233,6 +233,127 @@
             }
         }
 
+        /* MENU HAMBURGUESA */
+        .bars__menu{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 90%;
+            left: 95%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+
+        .bars__menu span{
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #ffffff;
+            margin-top: 6px;
+            transform-origin: 0px 100%;
+            transition: all 300ms;
+        }
+
+        /* ANIMACION MENU PRINCIPAL */
+        .activeline1__bars-menu{
+            transform: translate(0px, 8px);
+        }
+
+        .activeline2_5__bars-menu{
+            transform: rotate(90deg) translate(-54%, -700%);
+        }
+
+        .activeline3__bars-menu{
+            opacity: 0;
+            margin-left: -30px;
+        }
+
+        /* BOTON HOME */
+        .home{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 86%;
+            left: 95%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            /*display: none;*/
+        }
+
+        .home span{
+            width: 100%;
+            height: 2px;
+            background: #ffffff;
+            margin-top: 6px;
+            transform-origin: 0px 100%;
+            transition: all 300ms;
+            position: absolute;
+        }
+
+        /* ANIMACION HOME */
+        .activeverizq{
+            transform:scale(1, 0.8) rotate(90deg) translate(-17px, -3px);
+        }
+
+        .activeverder{
+            transform:scale(1, 0.8) rotate(90deg) translate(-17px, -25px);
+        }
+
+        .activehor{
+            transform:scale(0.7, 1) translate(5px, 0px);
+        }
+
+        /* BOTON AJUSTES */
+        .ajustes{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 80%;
+            left: 95%;
+            transform: translate(-50%, -50%);
+            transition: all 400ms;
+            margin-top: 2px;
+            opacity: 0;
+            /*display: none;*/
+        }
+
+        .c_grande{
+            /* AQUI VA EL CIRCULO GRANDE */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            width: 90%;
+            height: 90%;
+            border: 2.5px solid #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 300ms;
+            box-sizing: content-box;
+        }
+
+        .c_peque{
+            /* AQUI VA EL CIRCULO PEQUEÑO | BARRA DEL OTRO MENU */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            width: 30%;
+            height: 30%;
+            border: 2.5px solid #ffffff;
+            box-sizing: initial;
+            border-radius: 50%;
+            opacity: 1;
+        }
+
+        /* ANIMACION CIRCULO GRANDE */
+        .activec_grande{
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
@@ -243,7 +364,7 @@
     </div>
     <div id="container">
         <h1> Carta más alta </h1>
-        <div id="saldo">Saldo actual: 100</div>
+        <!--<div id="saldo">Saldo actual: 100</div>-->
     </div>
     <div id="bet">
         <label for="apuesta">Apuesta:</label>
@@ -281,6 +402,26 @@
         </div>
         <br><br>
         <div id="message"></div>
+    </div>
+    <div class="barra">
+
+        <div class="bars__menu">
+            <span class="line1__bars-menu"></span>
+            <span class="line2_5__bars-menu"></span>
+            <!--<span class="line2__bars-menu"></span>-->
+            <span class="line3__bars-menu"></span>
+        </div>
+
+        <div class="home" onclick="paginaHome()">
+            <span class="verizq"></span>
+            <span class="hor"></span>
+            <span class="verder"></span>
+        </div>
+
+        <div class="ajustes" onclick="paginaAjustes()">
+            <span class="c_grande"></span>
+            <span class="c_peque"></span>
+        </div>
     </div>
 
     <script>
@@ -478,6 +619,115 @@
         //slots[3].addEventListener('click', () => {
             // La carta sola no es clickeable.
         //});
+
+        /* MENU HAMBURGUESA */
+        var menu = document.querySelector('.bars__menu');
+        var line1__bars = document.querySelector('.line1__bars-menu');
+        var line2_5__bars = document.querySelector('.line2_5__bars-menu');
+        var line3__bars = document.querySelector('.line3__bars-menu');
+
+        /* BOTON HOME */
+        var barra_izq = document.querySelector('.verizq');
+        var barra_hor = document.querySelector('.hor');
+        var barra_der = document.querySelector('.verder');
+
+        /* BOTON AJUSTES */
+        var cir_grande = document.querySelector('.c_grande');
+        var cir_peque = document.querySelector('.c_peque');
+
+        // SEMAFOROS DE CONTROL
+        let cierre = true;
+        let submenus = true;
+
+        // hacer click en las 3 rayas
+        menu.addEventListener('click', () => {
+            // animacion del menu principal al abrirse y cerrarse
+            if(cierre) {
+                cierre = false;
+                animateBars();
+            } else {
+                setTimeout(() =>{
+                   animateBars();
+                }, 400);
+            }
+            // HOME
+            if(submenus) {
+                submenus = false;
+                mostrar();
+                block = true;
+                setTimeout(() => {
+                    home();
+                }, 200);
+                setTimeout(() => {
+                    ajustes();
+                }, 400);
+            } else {
+                submenus = true;
+                ocultar();
+                block = false;
+                setTimeout(() => {
+                    home();
+                }, 200);
+                setTimeout(() => {
+                    ajustes();
+                }, 400);
+            }
+        });
+
+        // MENU PRINCIPAL - ANIMACION
+        function animateBars(){
+            // BURGER
+            line1__bars.classList.toggle('activeline1__bars-menu');
+            line2_5__bars.classList.toggle('activeline2_5__bars-menu');
+            line3__bars.classList.toggle('activeline3__bars-menu');
+        }
+
+        // BOTON HOME - ANIMACION
+        function home(){
+            barra_izq.classList.toggle('activeverizq');
+            barra_hor.classList.toggle('activehor');
+            barra_der.classList.toggle('activeverder');
+        }
+
+        // BOTON AJUSTES - ANIMACION
+        function ajustes(){
+            cir_grande.classList.toggle('activec_grande');
+        }
+
+        // mostrar los submenus
+        function mostrar(){
+            setTimeout( () => {
+                document.querySelector('.home').style.cursor = 'pointer';
+                document.querySelector('.home').style.opacity = 1;
+            }, 200);
+            setTimeout( () => {
+                document.querySelector('.ajustes').style.cursor = 'pointer';
+                document.querySelector('.ajustes').style.opacity = 1;
+            }, 300);
+        }
+
+        // ocultar los submenus
+        // NO OCURRE HASTA Q TERMINA LA ANIMACION DEL MENU PRINCIPAL
+        function ocultar(){
+            setTimeout( () => {
+                document.querySelector('.home').style.cursor = 'default';
+                document.querySelector('.home').style.opacity = 0;
+            }, 300);
+            setTimeout( () => {
+                document.querySelector('.ajustes').style.cursor = 'default';
+                document.querySelector('.ajustes').style.opacity = 0;
+            }, 200);
+        }
+
+        let block = false;
+
+        function paginaHome(){
+            if(block) document.location.assign('http://127.0.0.1:5000/Juegos/'); //window.location = "pantallaJuegos.html";
+        }
+
+        function paginaAjustes(){
+            if(block) document.location.assign('http://127.0.0.1:5000/Perfil_de_usuario/');//window.location = "perfil.html";
+        }
 
     </script>
 </body>
