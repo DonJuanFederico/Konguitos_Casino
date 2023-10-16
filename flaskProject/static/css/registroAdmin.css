@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
+html {
+  height: 100%;
+}
+
+body {
+  margin:0%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.loginPersonal-box {
+  position: absolute;
+  left: 35%;
+  top:15%;
+  width: 30%;
+  height: 70%;
+  padding: 3%;
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.loginPersonal-box h2 {
+  margin: 0 0 10%;
+  padding-right: 0;
+  color: #ffffff;
+  text-align: center;
+}
+
+.loginPersonal-box .user-box {
+  position: relative;
+}
+
+.loginPersonal-box .user-box input {
+  width: 95%;
+  padding: 3% 0;
+  font-size: 120%;
+  color: #fff;
+  margin-bottom: 10%;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.loginPersonal-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 5% 0;
+  font-size: 100%;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.loginPersonal-box .user-box input:focus ~ label,
+.loginPersonal-box .user-box input:valid ~ label {
+  top: -40%;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.registro{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  width: 80%;
+  left: 10%;
+  font-size: 150%;
+  padding:0 20%;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+
+.registro:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.registro:before,.registro:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.registro:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.registro:hover:before,.registro:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}

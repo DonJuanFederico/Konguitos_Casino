@@ -84,34 +84,34 @@ def camara():
         return redirect(url_for('camara'))
     return render_template('camara.html',form=form)
 
-@app.route('/Registro Administrador/')
+@app.route('/Registro Administrador/', methods=['GET', 'POST'])
 def registroAdmin():
-    return render_template('registroAdmin.html')
+    form = crearAdmin()
+    if form.validate_on_submit():
+        nombre = form.name.data
+        apellidos = form.surname.data
+        contraseña = form.password.data
+        correo = form.email.data
+        apellidos.split(" ")
+        nombreCompleto = nombre + " " + apellidos
+        print("Nombre Completo:", nombreCompleto)
+        #agregarAdmin(nombreCompleto, contraseña, correo)
+        print("MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN")
+        print("JUAN")
+        return redirect(url_for('interfazAdmin'))
+    return render_template('registroAdmin.html', form=form)
+
+@app.route('/Administrador/')
+def interfazAdmin():
+        return render_template('admin.html')
+
 @app.route('/Juegos/')
 def juegos():
         return render_template('pantallaJuegos.html')
 
 @app.route('/Datos Usuario/')
 def datosUsuario():
-    return render_template('cambiosUsuarioAdmin.html')
-
-@app.route('/Administrador/', methods=['GET','POST'])
-def interfazAdmin():
-    if request.method == 'POST':
-        print("ADMIN:")
-        nombre = request.form['nombre']
-        apellido = request.form['apellido']
-        idEmpresa = request.form['idEmpresa']
-        correoEmpresa = request.form['correoEmpresa']
-        contraseña = request.form['contraseña']
-        print("Nombre:", nombre)
-        print("Apellido:", apellido)
-        print("ID Empresa:", idEmpresa)
-        print("Correo Empresa:", correoEmpresa)
-        print("Contraseña:", contraseña)
-        return render_template('admin.html')
-    else:
-        return render_template('admin.html')
+    return render_template('funcionesAdmin.html')
 
 # indice de juegos
 

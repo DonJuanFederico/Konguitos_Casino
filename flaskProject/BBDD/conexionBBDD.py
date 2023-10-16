@@ -220,3 +220,23 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
         finally:
             cursor.close()
             close_connection(conn)
+
+    def crear_administrador(Nombre_Completo, contraseña, correo):
+        conn = connect()
+        if conn:
+            cursor = conn.cursor()
+            try:
+                # Cifrar la contraseña
+                contraseña_cifrada = encriptarClave(contraseña)
+
+                # Insertar el nuevo administrador en la tabla "administradores"
+                query = "INSERT INTO administradores (Nombre_Completo, Contraseña, Correo) VALUES (%s, %s, %s)"
+                cursor.execute(query, (Nombre_Completo, contraseña_cifrada, correo))
+                conn.commit()
+                print("Nuevo administrador ha sido agregado con éxito.")
+            except mysql.connector.Error as err:
+                conn.rollback()
+                print(f"Error de MySQL: {err}")
+            finally:
+                cursor.close()
+                close_connection(conn)
