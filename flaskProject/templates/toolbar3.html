@@ -98,6 +98,7 @@
             transform: translate(-50%, -50%);
             opacity: 0;
             transition: opacity 0.2s;
+            /*display: none;*/
         }
 
         .home span{
@@ -134,6 +135,7 @@
             transition: all 400ms;
             margin-top: 2px;
             opacity: 0;
+            /*display: none;*/
         }
 
         .c_grande{
@@ -147,7 +149,8 @@
             height: 90%;
             border: 2.5px solid #9A00BF;
             border-radius: 50%;
-            opacity: 1;
+            opacity: 0;
+            transition: opacity 300ms;
             box-sizing: content-box;
         }
 
@@ -166,6 +169,11 @@
             opacity: 1;
         }
 
+        /* ANIMACION CIRCULO GRANDE */
+        .activec_grande{
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
@@ -180,13 +188,13 @@
         </div>
     </div>
     <!--   OTROS AJUSTES    -->
-    <div class="home">
+    <div class="home" onclick="paginaHome()">
         <span class="verizq"></span>
         <span class="hor"></span>
         <span class="verder"></span>
     </div>
 
-    <div class="ajustes">
+    <div class="ajustes" onclick="paginaAjustes()">
         <span class="c_grande"></span>
         <span class="c_peque"></span>
     </div>
@@ -214,33 +222,41 @@
         // hacer click en las 3 rayas
         menu.addEventListener('click', () => {
             // animacion del menu principal al abrirse y cerrarse
-            animateBars();
-            //mostrar();
+            if(cierre) {
+                cierre = false;
+                animateBars();
+            } else {
+                setTimeout(() =>{
+                   animateBars();
+                }, 400);
+            }
             // HOME
             if(submenus) {
                 submenus = false;
                 document.getElementById('prueba').textContent = 'se abre';
                 mostrar();
+                bloqueo = true;
                 setTimeout(() => {
                     home();
                 }, 200);
                 setTimeout(() => {
                     ajustes();
-                }, 300);
+                }, 400);
             } else {
                 submenus = true;
                 document.getElementById('prueba').textContent = 'se cierra';
                 ocultar();
+                bloqueo = false;
                 setTimeout(() => {
                     home();
                 }, 200);
                 setTimeout(() => {
                     ajustes();
-                }, 200);
+                }, 400);
             }
-
-
         });
+
+
 
         // MENU PRINCIPAL - ANIMACION
         function animateBars(){
@@ -260,42 +276,56 @@
         // BOTON AJUSTES - ANIMACION
         function ajustes(){
             cir_grande.classList.toggle('activec_grande');
-            cir_peque.classList.toggle('activec_peque');
+            //cir_peque.classList.toggle('activec_peque');
         }
 
         // mostrar los submenus
         function mostrar(){
             setTimeout( () => {
+                //document.querySelector('.home').style.display = 'flex';
                 document.querySelector('.home').style.cursor = 'pointer';
                 document.querySelector('.home').style.opacity = 1;
             }, 200);
             setTimeout( () => {
+                //document.querySelector('.ajustes').style.display = 'flex';
                 document.querySelector('.ajustes').style.cursor = 'pointer';
                 document.querySelector('.ajustes').style.opacity = 1;
-            }, 200);
+            }, 300);
         }
 
         // ocultar los submenus
         // NO OCURRE HASTA Q TERMINA LA ANIMACION DEL MENU PRINCIPAL
         function ocultar(){
             setTimeout( () => {
+                //document.querySelector('.home').style.display = 'none';
                 document.querySelector('.home').style.cursor = 'default';
                 document.querySelector('.home').style.opacity = 0;
             }, 300);
             setTimeout( () => {
+                //document.querySelector('.ajustes').style.display = 'none';
                 document.querySelector('.ajustes').style.cursor = 'default';
                 document.querySelector('.ajustes').style.opacity = 0;
-            }, 300);
+            }, 200);
         }
 
         // cerrar el menu si haces click en otra parte de la pantalla
         // POR EDITAR Y COMPLETAR
-        document.addEventListener('click', () => {
+        /*document.addEventListener('click', () => {
             if (!cierre) {
                 animateBars();
             }
             cierre = true;
-        });
+        });*/
+
+        let bloqueo = false;
+
+        function paginaHome(){
+            if(bloqueo) window.location = "pantallaJuegos.html";
+        }
+
+        function paginaAjustes(){
+            if(bloqueo) window.location = "perfil.html";
+        }
 
     </script>
 </body>

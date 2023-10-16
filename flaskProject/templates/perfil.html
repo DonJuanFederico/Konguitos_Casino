@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .user-profile {
+            background-color: white;
+            display: flex;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-details {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .user-email {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="user-profile">
+        <div class="user-details">
+            <h2 class="user-name">Nombre de Usuario</h2>
+            <p class="user-email">correo@example.com</p>
+        </div>
+        <img class="user-avatar" src="imagen_de_perfil.jpg" alt="Foto de perfil">
+    </div>
+</body>
+</html>
