@@ -5,10 +5,7 @@
 # Puerto: 3306 (el predeterminado)
 # Ejecutar: "pip install Flask mysql-connector-python" en consola
 import hashlib
-import io
-import os
-import cv2
-import mysql.connector
+import io , os, cv2, mysql.connector
 from PIL import Image
 
 db_config = {
