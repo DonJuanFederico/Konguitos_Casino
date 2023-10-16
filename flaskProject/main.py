@@ -113,6 +113,10 @@ def juegos():
 def datosUsuario():
     return render_template('funcionesAdmin.html')
 
+@app.route('/Perfil_de_usuario/')
+def perfil():
+    return render_template('perfil.html')
+
 # indice de juegos
 
 

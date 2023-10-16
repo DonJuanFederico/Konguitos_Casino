@@ -53,7 +53,7 @@
         /* BOTONES DEL SUBMENU -- TIENE Q ESTAR ARRIBA TODO */
 
         /* PARA UN BUSCADOR
-        .ajustes{
+        .buscador{
             width: 30px;
             height: 30px;
             position: absolute;
@@ -64,7 +64,7 @@
             cursor: pointer;
         }
 
-        .opcion1{
+        .lupa{
             /* AQUI VA EL CIRCULO GRANDE
             display: flex;
             width: 70%;
@@ -74,7 +74,7 @@
             opacity: 1;
         }
 
-        .opcion2{
+        .mango{
             /* AQUI VA EL CIRCULO PEQUEÑO | BARRA DEL OTRO MENU
             width: 60%;
             height: 2px;
@@ -179,25 +179,28 @@
 <body>
 <div id="prueba"></div>
     <!-- se pueden crear mas botones aqui o en el script pero creo q es mas facil si ya existen -->
-    <div class="container">
+    <div class="barra">
+
         <div class="bars__menu">
             <span class="line1__bars-menu"></span>
             <span class="line2_5__bars-menu"></span>
             <!--<span class="line2__bars-menu"></span>-->
             <span class="line3__bars-menu"></span>
         </div>
+
+        <div class="home" onclick="paginaHome()">
+            <span class="verizq"></span>
+            <span class="hor"></span>
+            <span class="verder"></span>
+        </div>
+
+        <div class="ajustes" onclick="paginaAjustes()">
+            <span class="c_grande"></span>
+            <span class="c_peque"></span>
+        </div>
     </div>
     <!--   OTROS AJUSTES    -->
-    <div class="home" onclick="paginaHome()">
-        <span class="verizq"></span>
-        <span class="hor"></span>
-        <span class="verder"></span>
-    </div>
 
-    <div class="ajustes" onclick="paginaAjustes()">
-        <span class="c_grande"></span>
-        <span class="c_peque"></span>
-    </div>
 
     <script>
         /* MENU HAMBURGUESA */
