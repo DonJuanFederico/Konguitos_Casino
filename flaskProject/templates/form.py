@@ -25,3 +25,10 @@ class crearUsuario(FlaskForm):
 
 class TomarFoto(FlaskForm):
     submit = SubmitField('Tomar Foto')
+
+class crearAdmin(FlaskForm):
+    name = StringField()
+    surname = StringField()
+    password = PasswordField()
+    email = StringField()
+    submit = SubmitField()

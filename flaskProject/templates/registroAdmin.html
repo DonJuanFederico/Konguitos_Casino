@@ -1,44 +1,33 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Admin</title>
-    <link rel="stylesheet" href="../static/css/registroUsuario.css">
-</head>
+{% extends "base.html" %}
+{% block title %}<title> Registro Administrador </title>{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registroAdmin.css') }}">
+{% endblock %}
+{% block body %}
 <body>
-    <div class="login-box">
-      <h2 style="color: white">Registro Administrador</h2>
-        <form method="POST" action="/Administrador/">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+         <div class="loginPersonal-box">
+            <h2>Datos Personales</h2>
             <div class="user-box">
-              <input type="text" name="nombre" required="">
-              <label>Nombre</label>
+              <input required="" {{ form.name()}}
+              <label>Nombre </label>
+            </div>
+             <div class="user-box">
+              <input required="" {{ form.surname()}}
+              <label>Apellidos </label>
             </div>
             <div class="user-box">
-              <input type="text" name="apellido" required="">
-              <label>Apellido</label>
-            </div>
-            <div class="user-box">
-              <input type="text" name="idEmpresa" required="">
-              <label>ID Empresa</label>
-            </div>
-            <div class="user-box">
-              <input type="text" name="correoEmpresa" required="">
-              <label>Correo Empresa</label>
-            </div>
-            <div class="user-box">
-              <input type="text" name="nombreUsuario" required="">
-              <label>Nombre Usuario</label>
-            </div>
-            <div class="user-box">
-              <input type="password" name="contraseña" required="">
+              <input required="" {{ form.password() }}
               <label>Contraseña</label>
             </div>
-                <button type="submit" class="button-right">&gt;</button>
-        </form>
-        <form method="GET" action="/">
-            <button type="submit" class="button-left">&lt;</button>
-        </form>
-    </div>
-</body>
-</html>
+            <div class="user-box">
+              <input required="" type="email" {{ form.email() }}
+              <label>Correo</label>
+            </div>
+             <div class="user-box">
+                <button {{ form.submit(class="registro")}} Registro</button>
+            </div>
+         </div>
+    </form>
+{% endblock %}
