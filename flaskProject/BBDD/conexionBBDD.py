@@ -240,3 +240,29 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
             finally:
                 cursor.close()
                 close_connection(conn)
+
+    def adminLogIn(nombre, contraseña):
+        conn = connect()
+        if conn:
+            cursor = conn.cursor()
+            try:
+                # Cifrar la contraseña para compararla con la almacenada en la base de datos
+                contraseña_cifrada = encriptarClave(contraseña)
+
+                # Consulta para verificar si el administrador existe
+                query = "SELECT id FROM administradores WHERE Nombre_Completo = %s AND Contraseña = %s"
+                cursor.execute(query, (nombre, contraseña_cifrada))
+                resultado = cursor.fetchone()
+
+                if resultado:
+                    print("Inicio de sesión de administrador exitoso")
+                    return True
+                else:
+                    print("Inicio de sesión de administrador fallido: nombre o contraseña incorrectos")
+                    return False
+            except mysql.connector.Error as err:
+                print(f"Error de MySQL: {err}")
+                return False
+            finally:
+                cursor.close()
+                close_connection(conn)
