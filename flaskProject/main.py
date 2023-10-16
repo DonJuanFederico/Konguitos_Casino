@@ -25,7 +25,9 @@ def inicio():
         contraseña = form.password.data
         print("Nombre de usuario:", nombreUsuario)
         print("Contraseña:", contraseña)
-        if iniciar_sesion(nombreUsuario, contraseña):
+        if adminLogIn(nombreUsuario, contraseña):
+            return interfazAdmin()
+        elif iniciar_sesion(nombreUsuario, contraseña):
             return juegos()
         else:
             print("Inicio de sesión fallido: usuario o contraseña incorrectos, o BBDD apagada")
@@ -54,7 +56,7 @@ def registroUsuario():
         cvv = form.cvv.data
         print("Nombre de usuario:", nombreUsuario)
         print("NumeroTarjeta:", numeroTarjeta)
-        if agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal):
+        if agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal, None):
             print("Exito Usuario")
             if agregarTarjeta(nombreUsuario,numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv):
                 print("Exito Tarjeta")
@@ -89,18 +91,17 @@ def registroAdmin():
     form = crearAdmin()
     if form.validate_on_submit():
         nombre = form.name.data
-        apellidos = form.surname.data
         contraseña = form.password.data
         correo = form.email.data
-        apellidos.split(" ")
-        nombreCompleto = nombre + " " + apellidos
-        print("Nombre Completo:", nombreCompleto)
-        #agregarAdmin(nombreCompleto, contraseña, correo)
-        print("MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN - MÉTODO JUAN")
-        print("JUAN")
-        return redirect(url_for('interfazAdmin'))
+        print("Nombre Completo:", nombre)
+        print("Contraseña:", contraseña)
+        print("Correo:", correo)
+        if crear_administrador(nombre, contraseña, correo):
+            print("Éxito")
+            return redirect(url_for('index'))
+    else:
+        return render_template('registroAdmin.html', form=form)
     return render_template('registroAdmin.html', form=form)
-
 @app.route('/Administrador/')
 def interfazAdmin():
         return render_template('admin.html')

@@ -120,15 +120,15 @@ def retirarDinero(cantidad_a_retirar):
             cursor.close()
             close_connection(conn)
 
-def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal):
+def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal, Avatar):
     Contraseña = encriptarClave(Contraseña)
     conn = connect()
     if conn:
         cursor = conn.cursor()
         try:
             # Consulta para insertar un nuevo usuario en la tabla "usuarios"
-            query = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal))
+            query = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal, Avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal, Avatar))
             conn.commit()
             print(f"Nuevo usuario '{NombreUsuario}' ha sido agregado con éxito.")
             return True
@@ -218,9 +218,9 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
             cursor.close()
             close_connection(conn)
 
-    def crear_administrador(Nombre_Completo, contraseña, correo):
-        conn = connect()
-        if conn:
+def crear_administrador(Nombre_Completo, contraseña, correo):
+    conn = connect()
+    if conn:
             cursor = conn.cursor()
             try:
                 # Cifrar la contraseña
@@ -231,6 +231,7 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
                 cursor.execute(query, (Nombre_Completo, contraseña_cifrada, correo))
                 conn.commit()
                 print("Nuevo administrador ha sido agregado con éxito.")
+                return True
             except mysql.connector.Error as err:
                 conn.rollback()
                 print(f"Error de MySQL: {err}")
@@ -238,7 +239,7 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
                 cursor.close()
                 close_connection(conn)
 
-    def adminLogIn(nombre, contraseña):
+def adminLogIn(nombre, contraseña):
         conn = connect()
         if conn:
             cursor = conn.cursor()
@@ -264,7 +265,7 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
                 cursor.close()
                 close_connection(conn)
 
-    def obtenerImagenUsuario(id_usuario):
+def obtenerImagenUsuario(id_usuario):
         conn = connect()
         if conn:
             cursor = conn.cursor()
