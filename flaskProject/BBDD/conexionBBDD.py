@@ -5,11 +5,8 @@
 # Puerto: 3306 (el predeterminado)
 # Ejecutar: "pip install Flask mysql-connector-python" en consola
 import hashlib
-import io
-import os
-
-import cv2
-import mysql.connector
+import io , os, cv2, mysql.connector
+from PIL import Image
 
 db_config = {
     "host": "konguitoscasino.mysql.database.azure.com",
@@ -236,6 +233,61 @@ def agregarFotoUsuario(nombre_usuario, foto_blob):
                 print("Nuevo administrador ha sido agregado con éxito.")
             except mysql.connector.Error as err:
                 conn.rollback()
+                print(f"Error de MySQL: {err}")
+            finally:
+                cursor.close()
+                close_connection(conn)
+
+    def adminLogIn(nombre, contraseña):
+        conn = connect()
+        if conn:
+            cursor = conn.cursor()
+            try:
+                # Cifrar la contraseña para compararla con la almacenada en la base de datos
+                contraseña_cifrada = encriptarClave(contraseña)
+
+                # Consulta para verificar si el administrador existe
+                query = "SELECT id FROM administradores WHERE Nombre_Completo = %s AND Contraseña = %s"
+                cursor.execute(query, (nombre, contraseña_cifrada))
+                resultado = cursor.fetchone()
+
+                if resultado:
+                    print("Inicio de sesión de administrador exitoso")
+                    return True
+                else:
+                    print("Inicio de sesión de administrador fallido: nombre o contraseña incorrectos")
+                    return False
+            except mysql.connector.Error as err:
+                print(f"Error de MySQL: {err}")
+                return False
+            finally:
+                cursor.close()
+                close_connection(conn)
+
+    def obtenerImagenUsuario(id_usuario):
+        conn = connect()
+        if conn:
+            cursor = conn.cursor()
+            try:
+                # Consultar la imagen en formato BLOB para el usuario especificado
+                query = "SELECT FotoIMG FROM usuarios WHERE id = %s"
+                cursor.execute(query, (id_usuario,))
+                resultado = cursor.fetchone()
+
+                if resultado:
+                    foto_blob = resultado[0]
+                    # Crear una imagen a partir de los datos BLOB
+                    imagen = Image.open(io.BytesIO(foto_blob))
+
+                    # Obtener la extensión del archivo (PNG o JPEG)
+                    extension = "png" if imagen.format == "PNG" else "jpg"
+
+                    # Guardar la imagen en formato PNG o JPEG según la extensión
+                    imagen.save(f"imagen_usuario_{id_usuario}.{extension}")
+                    print(f"Imagen guardada como imagen_usuario_{id_usuario}.{extension}")
+                else:
+                    print("No se encontró la imagen para el usuario con ID:", id_usuario)
+            except mysql.connector.Error as err:
                 print(f"Error de MySQL: {err}")
             finally:
                 cursor.close()
