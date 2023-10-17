@@ -69,6 +69,8 @@ body {
   display: inline-block;
   padding: 10px 10px;
   color: #484848;
+  width: 50%;
+  height: 20%;
   letter-spacing: 4px;
   font-size: 17px;
   text-decoration: none;
@@ -94,6 +96,8 @@ body {
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
+  width: 50%;
+  height: 20%;
   overflow: hidden;
   transition: .5s;
   margin-top: 30px;
@@ -116,6 +120,8 @@ body {
   padding: 10px 10px;
   color: #484848;
   font-size: 16px;
+  width: 50%;
+  height: 20%;
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;

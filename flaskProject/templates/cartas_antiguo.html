@@ -524,7 +524,8 @@
                     messageDiv.textContent = '';
                     // Pide la apuesta al usuario
                     apuesta = parseFloat(document.getElementById('apuesta').value);
-
+                    saldo = Math.round((parseFloat(saldo) - parseFloat(apuesta)) * 100)/ 100;
+                    document.getElementById('monedas').textContent = saldo;
                     // Verifica si la apuesta es válida
                     if (apuesta <= 0) {
                         alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
@@ -586,7 +587,7 @@
                 if (saldo > 0 && apuesta <= saldo) {
                     let gananciaPerdida = apuesta;
                     if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
-                        saldo += apuesta;
+                        saldo += 2 * apuesta;
                         agregarDinero();
                     /*} else if (messageDiv.textContent === 'Konguito caido... :´(') {
                         gananciaPerdida = -apuesta;
@@ -594,6 +595,8 @@
                     } else if (messageDiv.textContent === 'Empate') {
                         gananciaPerdida = -apuesta / 2;
                         saldo -= apuesta / 2;
+                        apuesta = apuesta / 2;
+                        retirarDinero();
                     }
                     document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
                     // Muestra el saldo actualizado
@@ -728,6 +731,10 @@
         function paginaAjustes(){
             if(block) document.location.assign('http://127.0.0.1:5000/Perfil_de_usuario/');//window.location = "perfil.html";
         }
+
+        masMonedas.addEventListener("click", function() {
+            window.location.href = "/dinero/";
+        });
 
     </script>
 </body>
