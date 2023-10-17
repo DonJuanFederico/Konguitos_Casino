@@ -127,7 +127,6 @@
 <script>
     function agregarDinero() {
         var monto = parseFloat(document.getElementById("ingresar").value);
-        monto = monto * 100;
         if (!isNaN(monto) && monto > 0) {
             // Enviar solicitud HTTP a tu servidor Flask
             var xhr = new XMLHttpRequest();
@@ -151,7 +150,6 @@
 
     function retirarDinero() {
         var monto = parseFloat(document.getElementById("retirar").value);
-        monto = monto * 100;
         if (!isNaN(monto) && monto > 0) {
             // Enviar solicitud HTTP a tu servidor Flask
             var xhr = new XMLHttpRequest();
