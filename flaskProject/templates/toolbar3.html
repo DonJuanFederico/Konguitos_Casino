@@ -52,42 +52,6 @@
 
         /* BOTONES DEL SUBMENU -- TIENE Q ESTAR ARRIBA TODO */
 
-        /* PARA UN BUSCADOR
-        .buscador{
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            top: 86%;
-            left: 95%;
-            transform: translate(-50%, -50%);
-            margin-top: 2px;
-            cursor: pointer;
-        }
-
-        .lupa{
-            /* AQUI VA EL CIRCULO GRANDE
-            display: flex;
-            width: 70%;
-            height: 70%;
-            border: 2px solid #9A00BF;
-            border-radius: 50%;
-            opacity: 1;
-        }
-
-        .mango{
-            /* AQUI VA EL CIRCULO PEQUEÑO | BARRA DEL OTRO MENU
-            width: 60%;
-            height: 2px;
-            display: inline-block;
-            background-color: #9A00BF;
-            transform: rotate(45deg) translate(2px, -18px);
-        }
-
-        .activeopcion1{}
-
-        .activeopcion2{}
-        */
-
         /* BOTON HOME */
         .home{
             width: 30px;
@@ -107,7 +71,7 @@
             background: #9A00BF;
             margin-top: 6px;
             transform-origin: 0px 100%;
-            transition: all 300ms;
+            transition: all 400ms;
             position: absolute;
         }
 
@@ -150,7 +114,7 @@
             border: 2.5px solid #9A00BF;
             border-radius: 50%;
             opacity: 0;
-            transition: opacity 300ms;
+            transition: opacity 100ms;
             box-sizing: content-box;
         }
 
@@ -174,33 +138,109 @@
             opacity: 1;
         }
 
+        /* PARA UN BUSCADOR */
+        .buscador{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 75%;
+            left: 95%;
+            transform: translate(-50%, -50%);
+            margin-top: 2px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .lupa{
+            /* AQUI VA EL CIRCULO GRANDE */
+            display: flex;
+            width: 70%;
+            height: 70%;
+            border: 2px solid #9A00BF;
+            border-radius: 50%;
+            transition: 300ms;
+            transform: translate(4px, 4px);
+        }
+
+        .mango{
+            /* AQUI VA EL CIRCULO PEQUEÑO | BARRA DEL OTRO MENU */
+            width: 60%;
+            height: 2px;
+            display: inline-block;
+            background-color: #9A00BF;
+            transition: 300ms;
+            transform: rotate(45deg) translate(-10px, -18px);
+        }
+
+        .activelupa{
+            transform: translate(0px, 0px);
+        }
+
+        .activemango{
+            transform: rotate(45deg) translate(2px, -18px);
+        }
+
+        /*  BARRA BUSCADOR EMERGENTE */
+        .barra {
+            display: none;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, -5%);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: rgba(211, 211, 211, 0.4);
+        }
+        button{
+            background-color: darkgoldenrod;
+            color: white;
+            border-radius: 5px;
+            width: 70px;
+        }
+
     </style>
 </head>
 <body>
 <div id="prueba"></div>
+<form class="barra">
+    <input type="search" placeholder="Buscar" list="lista">
+    <datalist id="lista">
+        <option value="opcion 1"></option>
+        <option value="opcion 2"></option>
+        <option value="opcion 3"></option>
+        <option value="opcion 4"></option>
+    </datalist>
+    <button> Buscar </button>
+</form>
     <!-- se pueden crear mas botones aqui o en el script pero creo q es mas facil si ya existen -->
-    <div class="barra">
+    <div class="toolbar">
 
-        <div class="bars__menu">
+        <div title="Menu" class="bars__menu">
             <span class="line1__bars-menu"></span>
             <span class="line2_5__bars-menu"></span>
             <!--<span class="line2__bars-menu"></span>-->
             <span class="line3__bars-menu"></span>
         </div>
 
-        <div class="home" onclick="paginaHome()">
+        <div title="Home" class="home" onclick="paginaHome()">
             <span class="verizq"></span>
             <span class="hor"></span>
             <span class="verder"></span>
         </div>
 
-        <div class="ajustes" onclick="paginaAjustes()">
+        <div title="Ajustes" class="ajustes" onclick="paginaAjustes()">
             <span class="c_grande"></span>
             <span class="c_peque"></span>
         </div>
-    </div>
-    <!--   OTROS AJUSTES    -->
 
+        <div title="Buscador" class="buscador" onclick="ponerBuscador()">
+            <span class="lupa"></span>
+            <span class="mango"></span>
+        </div>
+        <!--   OTROS AJUSTES    -->
+    </div>
 
     <script>
         /* MENU HAMBURGUESA */
@@ -216,7 +256,10 @@
 
         /* BOTON AJUSTES */
         var cir_grande = document.querySelector('.c_grande');
-        var cir_peque = document.querySelector('.c_peque');
+
+        /* BUSCADOR */
+        var lupa = document.querySelector('.lupa');
+        var mango = document.querySelector('.mango');
 
         // SEMAFOROS DE CONTROL
         let cierre = true;
@@ -239,23 +282,29 @@
                 document.getElementById('prueba').textContent = 'se abre';
                 mostrar();
                 bloqueo = true;
-                setTimeout(() => {
+                setTimeout(() => {   // tiempos q tardan en mostrarse
                     home();
                 }, 200);
                 setTimeout(() => {
                     ajustes();
                 }, 400);
+                setTimeout(() => {
+                    buscador();
+                }, 600);
             } else {
                 submenus = true;
                 document.getElementById('prueba').textContent = 'se cierra';
                 ocultar();
                 bloqueo = false;
-                setTimeout(() => {
+                setTimeout(() => {   // tiempos q tardan en ocultarse
                     home();
                 }, 200);
                 setTimeout(() => {
                     ajustes();
                 }, 400);
+                setTimeout(() => {
+                    buscador();
+                }, 200);
             }
         });
 
@@ -282,7 +331,13 @@
             //cir_peque.classList.toggle('activec_peque');
         }
 
-        // mostrar los submenus
+        // BUSCADOR - ANIMACION
+        function buscador(){
+            lupa.classList.toggle('activelupa');
+            mango.classList.toggle('activemango');
+        }
+
+        // mostrar los submenus (RETARDO DE LAS ANIMACIONES)
         function mostrar(){
             setTimeout( () => {
                 //document.querySelector('.home').style.display = 'flex';
@@ -294,6 +349,11 @@
                 document.querySelector('.ajustes').style.cursor = 'pointer';
                 document.querySelector('.ajustes').style.opacity = 1;
             }, 300);
+            setTimeout( () => {
+                //document.querySelector('.ajustes').style.display = 'flex';
+                document.querySelector('.buscador').style.cursor = 'pointer';
+                document.querySelector('.buscador').style.opacity = 1;
+            }, 400);
         }
 
         // ocultar los submenus
@@ -303,11 +363,16 @@
                 //document.querySelector('.home').style.display = 'none';
                 document.querySelector('.home').style.cursor = 'default';
                 document.querySelector('.home').style.opacity = 0;
-            }, 300);
+            }, 400);
             setTimeout( () => {
                 //document.querySelector('.ajustes').style.display = 'none';
                 document.querySelector('.ajustes').style.cursor = 'default';
                 document.querySelector('.ajustes').style.opacity = 0;
+            }, 300);
+            setTimeout( () => {
+                //document.querySelector('.ajustes').style.display = 'flex';
+                document.querySelector('.buscador').style.cursor = 'default';
+                document.querySelector('.buscador').style.opacity = 0;
             }, 200);
         }
 
@@ -322,6 +387,7 @@
 
         let bloqueo = false;
 
+        // CAMBIO DE PAGINA DE UNA A OTRA
         function paginaHome(){
             if(bloqueo) window.location = "pantallaJuegos.html";
         }
@@ -330,6 +396,11 @@
             if(bloqueo) window.location = "perfil.html";
         }
 
+        var barra = document.querySelector('.barra');
+        // PONER BUSCADOR
+        function ponerBuscador(){
+            barra.style.display = 'block';
+        }
     </script>
 </body>
 </html>
