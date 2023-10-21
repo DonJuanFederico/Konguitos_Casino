@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function (message) {
     const prizeElement = document.querySelector('#prize');
     const spinnerButton = document.querySelector('#spinner');
 
-    //BOTONES DE APUESTA
+    //BOTON DE SPIN donde clickas y se ejecuta la funcion spin
     spinnerButton.addEventListener('click', spin);
 
     // Agregamos una variable para controlar si se está realizando una animación
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function (message) {
 
         for (const slot of posicionamiento) {
             if (firstInit) {
+                // Establecer el atributo "spinned" en "0" al inicializar
                 slot.dataset.spinned = '0';
             }
 
@@ -93,36 +94,36 @@ document.addEventListener('DOMContentLoaded', function (message) {
             const pool = ['❓'];
 
             if (!firstInit) {
+                // Crear un arreglo con los símbolos a mostrar
                 const arr = [];
                 for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
                     arr.push(...items);
                 }
                 pool.push(...shuffle(arr));
-                boxesClone.addEventListener(
-                    'transitionstart',
-                    function () {
-                        slot.dataset.spinned = '1';
-                        this.querySelectorAll('.symbol').forEach((symbol) => {
-                            symbol.style.filter = 'blur(1px)';
-                        });
-                    },
-                    {once: true}
-                );
 
-                boxesClone.addEventListener(
-                    'transitionend',
-                    function () {
-                        this.querySelectorAll('.symbol').forEach((symbol, index) => {
-                            symbol.style.filter = 'blur(0)';
-                            if (index > 0) this.removeChild(symbol);
-                        });
-                        slot.dataset.spinned = '0'; // Restablece el estado de la animación
-                        animacionEnProgreso = false; // La animación ha terminado
-                        spinnerButton.removeAttribute('disabled'); // Habilitamos el botón "Play" nuevamente
-                    },
-                    {once: true}
-                );
+                // Agregar eventos de inicio y final de transición
+                boxesClone.addEventListener('transitionstart', function () {
+                    // Iniciar la animación y desenfocar los símbolos
+                    slot.dataset.spinned = '1';
+                    this.querySelectorAll('.symbol').forEach((symbol) => {
+                        symbol.style.filter = 'blur(1px)';
+                    });
+                }, {once: true});
+
+                boxesClone.addEventListener('transitionend', function () {
+                    // Restablecer el enfoque de los símbolos y terminar la animación
+                    this.querySelectorAll('.symbol').forEach((symbol, index) => {
+                        symbol.style.filter = 'blur(0)';
+                        if (index > 0) this.removeChild(symbol);
+                    });
+                    slot.dataset.spinned = '0'; // Restablecer el estado de la animación
+                    animacionEnProgreso = false; // La animación ha terminado
+                    spinnerButton.removeAttribute('disabled'); // Habilitar el botón "Play" nuevamente
+                }, {once: true});
             }
+
+            // Crear símbolos y agregarlos a la caja clonada
+            // La caja clonada se usa para que la animación se pueda repetir
             for (let i = pool.length - 1; i >= 0; i--) {
                 const symbol = document.createElement('div');
                 symbol.classList.add('symbol');
@@ -131,11 +132,17 @@ document.addEventListener('DOMContentLoaded', function (message) {
                 symbol.textContent = pool[i];
                 boxesClone.appendChild(symbol);
             }
+
+            // Configurar duración de la animación y transformación
             boxesClone.style.transitionDuration = `${duration > 0 ? duration : 1}s`;
             boxesClone.style.transform = `translateY(-${slot.clientHeight * (pool.length - 1)}px)`;
+
+            // Reemplazar las cajas originales con las clonadas
             slot.replaceChild(boxesClone, boxes);
         }
+
         let animacionEnProgreso = false;
+
     }
 
     //Función al darle al spin
@@ -169,7 +176,8 @@ document.addEventListener('DOMContentLoaded', function (message) {
         balanceElement.textContent = nuevoBalance;
         init(false, 1, 2);
 
-        for (const slot of posicionamiento) { //Este for es para que se muevan los slots
+        //Este for es para que se muevan los slots de arriba a abajo (no es lo mismo que el shuffle)
+        for (const slot of posicionamiento) {
             const boxes = slot.querySelector('.boxes');
             const duration = parseInt(boxes.style.transitionDuration);
             boxes.style.transform = 'translateY(0)';
@@ -233,7 +241,9 @@ document.addEventListener('DOMContentLoaded', function (message) {
         return arr;
     }
 
+    //Funcion para verificar si hay ganancia
     function verificarGanancia() {
+        //ver lo que ha tocado en cada slot
         const slotValues = [
             posicionamiento[0].querySelector('.symbol').textContent,
             posicionamiento[1].querySelector('.symbol').textContent,
@@ -243,27 +253,30 @@ document.addEventListener('DOMContentLoaded', function (message) {
         const apuesta = parseInt(document.querySelector('#bet').value);
         const balanceActual = parseInt(balanceElement.textContent);
 
-        // Definir un objeto para almacenar los premios
+        // tres es el multiplicador de la apuesta introducida cuando salen 3 iguales
+        // dos es el multiplicador de la apuesta introducida cuando salen 2 iguales
+        // symbol es el simbolo que se ha repetido
         const premios = {
-            '🍭': 5,
-            '🤡': 7,
-            '❌': 7,
-            '️⛄️': 7,
-            '😒': 7,
-            '🙏': 7,
-            '🎅': 7,
-            '🧙': 7,
-            '🎁': 50,
-            '🤑': 100,
-            '💀': 1000,
+            '🍭': {tres: 5, dos: 1.5},
+            '🤡': {tres: 7, dos: 2},
+            '❌': {tres: 7, dos: 2},
+            '️⛄️': {tres: 7, dos: 2},
+            '😒': {tres: 7, dos: 2},
+            '🙏': {tres: 7, dos: 2},
+            '🎅': {tres: 7, dos: 3},
+            '🧙': {tres: 7, dos: 3},
+            '🎁': {tres: 50, dos: 5},
+            '🤑': {tres: 100, dos: 10},
+            '💀': {tres: 1000, dos: 100}
         };
 
+        // Inicializar el premio a 0 siempre
         let premio = 0;
 
         // Comprobar si hay tres símbolos iguales
         for (const symbol in premios) {
             if (slotValues.every(value => value === symbol)) {
-                premio = apuesta * premios[symbol];
+                premio = apuesta * premios[symbol].tres;
                 break;
             }
         }
@@ -272,19 +285,16 @@ document.addEventListener('DOMContentLoaded', function (message) {
         const symbolsSet = new Set(slotValues);
         for (const symbol of symbolsSet) {
             if (slotValues.filter(value => value === symbol).length === 2) {
-                premio = apuesta * 2;
+                premio = apuesta * premios[symbol].dos;
                 break;
             }
         }
 
+        //METODOS DE ACTUALIZAR GANADO Y SALDO
         if (premio > 0) {
-            console.log("Tenías " + balanceElement.textContent + "€");
             const nuevoBalance = balanceActual + premio;
             balanceElement.textContent = nuevoBalance;
             prizeElement.textContent = premio + parseInt(prizeElement.textContent);
-            console.log("Has ganado: " + premio + "€");
-        } else {
-            console.log("No has ganado. Inténtalo de nuevo.");
         }
     }
 

@@ -3,7 +3,6 @@ body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    /*background: #1a2b45;*/
     background-image: url("/static/images/tragaperras/fondoTragaperras2.png");
     background-size: cover;
     overflow-y: hidden;
