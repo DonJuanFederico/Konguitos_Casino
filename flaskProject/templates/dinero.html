@@ -2,177 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ingreso/Retiro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0; /* Eliminar el margen predeterminado del body */
-            background: url('/static/images/FondoCompras.jpg') center center fixed; /* Cambia la URL a tu imagen de fondo */
-            background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
-        }
-
-        #info-box {
-            color: #ffffff;
-            background-color: #1a2b45;
-            position: absolute;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 20px; /* Espacio entre el recuadro y el contenido principal */
-            left: 0;
-            top: 0;
-            margin-top: 5px;
-            margin-left: 5px;
-        }
-
-        #I {
-            background-color: rgb(214, 225, 56);
-            padding: 10px 20px;
-            border-radius: 20px;
-            top:300px;
-            left: 500px;
-            color: #050505;
-            position: absolute;
-        }
-
-        #R {
-            background-color: rgb(219, 225, 56);
-            padding: 10px 20px;
-            border-radius: 20px;
-            top: 300px;
-            left: 800px;
-            color: #070707;
-            position: absolute;
-        }
-
-        #Saldo {
-            top: 400px;
-            left: 700px;
-            color: #ffffff;
-            position: absolute;
-        }
-
-        #titulo {
-            background-color: rgba(241, 241, 241, 0.89); /* Color de fondo del título */
-            padding: 10px 20px; /* Espaciado interior para separar el texto del borde */
-            border-radius: 20px; /* Borde redondeado para crear una forma suave */
-            position: absolute;
-            top: 100px;
-            color: #333; /* Color del texto del título */
-            text-align: center; /* Centro el texto horizontalmente */
-        }
-
-
-        h1 {
-            margin-top: 20px;
-        }
-
-        form {
-            margin: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin: 10px 0;
-        }
-
-        input {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 5px 10px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .card-container{
-            position: relative;
-            margin-top: 22%;
-            margin-right: 60%;
-            width: 230px;
-            height: 220px;
-            perspective: 1000px;
-            display: inline-block;
-        }
-
-         .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-            cursor: pointer;
-            animation: rotate 2s linear infinite;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotateY(0deg);
-            }
-            to {
-                transform: rotateY(360deg);
-            }
-        }
-
-        .card.flipped {
-            pointer-events: none;
-        }
-
-        .card-face {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            background-image: url("/static/images/moneda_dorada.png");
-            background-size: cover;
-            color: white;
-            border-radius: 5px;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            background-image: url("/static/images/moneda_dorada.png");
-        }
-    </style>
-</head>
+    <title>Mercado</title>
+    <link rel="stylesheet" href="/static/css/dinero.css">
+    <script src="/static/js/dinero.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <body>
 <div id="titulo">
     <h1>¡Bievenido al mercado de las KongoCoins!</h1>
 </div>
-<div id="info-box">
-    <h3>NOTA:</h3>
-    100KC* = 1€
-    <h6>*KC se refiere a KongoCoin que es la moneda del casino.</h6>
-</div>
 <h3 id="Saldo">Saldo disponible: {{ DINERO }} KC</h3>
 <div>
-    <form id="I">
-        <label for="ingresar">Ingresar:</label>
+    <form id="Ingreso">
+        <label for="ingresar">Ingresar: €</label>
         <input type="number" id="ingresar" name="ingresar">
-        <button id="botonIngresar" type="button" onclick="agregarDinero()">Ingresar </button>
+        <button id="botonIngresar" type="button" onclick="agregarDinero()">Ingresar</button>
     </form>
-    <form id="R">
-        <label for="retirar">Retirar:</label>
+    <form id="Retiro">
+        <label for="retirar">Retirar: €</label>
         <input type="number" id="retirar" name="retirar">
         <button id="botonRetirar" type="button" onclick="retirarDinero()">Retirar</button>
     </form>
@@ -183,54 +29,5 @@
         <div class="card-face card-back"></div>
     </div>
 </div>
-
-<script>
-    const card = document.getElementById('card');
-    function agregarDinero() {
-        var monto = parseFloat(document.getElementById("ingresar").value);
-        if (!isNaN(monto) && monto > 0) {
-            // Enviar solicitud HTTP a tu servidor Flask
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/agregar_dinero", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        alert("Ingreso realizado");
-                    } else {
-                        alert("Error al procesar la solicitud");
-                    }
-                    location.reload(); // Recarga la página
-                }
-            };
-            xhr.send("&cantidad_a_agregar=" + monto);
-        } else {
-            alert("Por favor ingresa un número positivo con dos decimales como máximo.");
-        }
-    }
-
-    function retirarDinero() {
-        var monto = parseFloat(document.getElementById("retirar").value);
-        if (!isNaN(monto) && monto > 0) {
-            // Enviar solicitud HTTP a tu servidor Flask
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/retirar_dinero", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        alert("Retiro realizado");
-                    } else {
-                        alert("Error al procesar la solicitud");
-                    }
-                    location.reload(); // Recarga la página
-                }
-            };
-            xhr.send("&cantidad_a_retirar=" + monto);
-        } else {
-            alert("Por favor ingresa un número positivo con dos decimales como máximo.");
-        }
-    }
-</script>
 </body>
 </html>
