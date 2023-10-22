@@ -1,4 +1,5 @@
 body {
+    height: 100vh;
     font-family: Arial, sans-serif;
     text-align: center;
     display: flex;
@@ -7,6 +8,7 @@ body {
     margin: 0; /* Eliminar el margen predeterminado del body */
     background: url('/static/images/FondoCompras.jpg') center center fixed; /* Cambia la URL a tu imagen de fondo */
     background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+    overflow: hidden;
 }
 
 
@@ -31,9 +33,12 @@ body {
 }
 
 #Saldo {
+    font-family: Arial, sans-serif;
+    font-size: 150%;
+    margin-top: 2%;
     top: 400px;
     left: 700px;
-    color: #ffffff;
+    color: #e70a0a;
     position: absolute;
 }
 
