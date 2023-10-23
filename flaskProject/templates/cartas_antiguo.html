@@ -397,28 +397,76 @@
             transform: rotate(45deg) translate(2px, -18px);
         }
 
-        /*  BARRA BUSCADOR EMERGENTE */
-        .barra {
+        /* BARRA DE BUSQUEDA */
+        #ctn-bars-search{
             display: none;
-            position: absolute;
-            top: 3%;
-            left: 50%;
-            transform: translate(-50%, -5%);
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: rgba(211, 211, 211, 0.4);
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            z-index: 9;
+            transition: all 400ms;
         }
-        button{
-            background-color: darkgoldenrod;
-            color: white;
-            border-radius: 5px;
-            width: 70px;
+
+        #ctn-bars-search input{
+            display: block;
+            width: 1200px;
+            margin: auto;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        #box-search{
+            display: none;
+            position: fixed;
+            top: 8.8%;
+            left: 50%;
+            transform: translate(-50%);
+            width: 1200px;
+            background: white;
+            overflow: hidden;
+            z-index: 8;
+        }
+
+        #box-search li a{
+            display: block;
+            width: 1200px;
+            color: #777777;
+            padding: 8px 20px;
+            text-decoration: none;
+        }
+
+        #box-search li a:hover{
+            background: #f3f3f3;
+        }
+        /* COVER PARA BLOQUEAR EL FONDO (SE SUPERPONE) */
+        #cover-ctn-search{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 7;
         }
 
     </style>
 </head>
 <body>
+    <div id="ctn-bars-search">
+        <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" onclick="resultadosBusqueda()">
+    </div>
+
+    <ul id="box-search">
+        <li> <a href="#"> HTML </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' -->
+        <li> <a href="#"> CSS </a></li>
+        <li> <a href="#"> Java </a></li>
+        <li> <a href="#"> VS Code </a></li>
+    </ul>
+
+    <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
     <div id = prueba3>
         <img id ="fotoMoneda" src="/static/images/moneda.png">
         <img id = "masMonedas" src="/static/images/masMonedas.png">
@@ -465,17 +513,6 @@
         <br><br>
         <div id="message"></div>
     </div>
-
-    <form class="barra">
-        <input type="search" placeholder="Buscar" list="lista">
-        <datalist id="lista">
-            <option value="opcion 1"></option>
-            <option value="opcion 2"></option>
-            <option value="opcion 3"></option>
-            <option value="opcion 4"></option>
-        </datalist>
-        <button> Buscar </button>
-    </form>
 
     <div class="toolbar">
 
@@ -825,6 +862,31 @@
             }, 200);
         }
 
+        var pene = document.querySelector('#ctn-bars-search');
+        var coño = document.querySelector('#cover-ctn-search');
+        var ano = document.querySelector('#box-search');
+        // PONER BUSCADOR
+        function ponerBuscador(){
+            pene.style.display = 'block';
+            setTimeout(() => {
+                pene.style.opacity = 1;
+                coño.style.display = 'block';
+            }, 100);
+        }
+
+        function cerrarBuscador(){
+            pene.style.opacity = 0;
+                coño.style.display = 'none';
+                ano.style.display = 'none';
+            setTimeout(() => {
+                pene.style.display = 'none';
+            }, 100);
+        }
+
+        function resultadosBusqueda(){
+            ano.style.display = 'block';
+        }
+
         let block = false;
 
         function paginaHome(){
@@ -834,13 +896,7 @@
         function paginaAjustes(){
             if(block) document.location.assign('http://127.0.0.1:5000/Perfil_de_usuario/');//window.location = "perfil.html";
         }
-
-         var barra = document.querySelector('.barra');
-        // PONER BUSCADOR
-        function ponerBuscador(){
-            barra.style.display = 'block';
-        }
-
+        
         masMonedas.addEventListener("click", function() {
             window.location.href = "/dinero/";
         });
@@ -848,9 +904,3 @@
     </script>
 </body>
 </html>
-
-<!--
-PUEDO HACER ESTO PARA PONER EL REVERSO:
-cambiar el face-down por un reverso y editarlo para q tenga el fondo q quiera
-el problema es q el valor de las cartas sigue impreso y quiero q lo muestre despues
--->
