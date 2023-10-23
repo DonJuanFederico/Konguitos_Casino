@@ -208,6 +208,7 @@ def plinko():
     DINERO = obtenerDinero()
     return render_template('plinko.html', DINERO = DINERO)
 
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
