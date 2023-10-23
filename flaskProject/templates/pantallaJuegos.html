@@ -22,7 +22,9 @@
             /*background-repeat: no-repeat;
             background-size: cover;*/
         }
-
+        .audio-player {
+             display: none;
+        }
         .container {
             display: flex;
             align-items: center;
@@ -145,6 +147,9 @@
     </style>
 </head>
 <body>
+    <audio autoplay loop class="audio-player">
+        <source src="../static/audio/Loonboon.mp3" type="audio/mpeg">
+    </audio>
     <h1> Opciones de juego </h1>
     <div class="container">
         <div class="scroll-button left" id="scroll-left">←</div>
