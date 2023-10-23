@@ -148,7 +148,7 @@
             left: 95%;
             transform: translate(-50%, -50%);
             margin-top: 2px;
-            cursor: pointer;
+            cursor: default;
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -213,6 +213,7 @@
             background: white;
             overflow: hidden;
             z-index: 8;
+            cursor: pointer;
         }
 
         #box-search li a{
@@ -237,6 +238,12 @@
             z-index: 7;
         }
 
+        #prueba{
+            margin-top: 200px;
+            margin-left: 20px;
+            font-size: 30px;
+        }
+
     </style>
 </head>
 <body>
@@ -246,10 +253,8 @@
 </div>
 
 <ul id="box-search">
-    <li> <a href="#"> HTML </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' -->
-    <li> <a href="#"> CSS </a></li>
-    <li> <a href="#"> Java </a></li>
-    <li> <a href="#"> VS Code </a></li>
+    <li> <a onclick="paginaHome()"> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
+    <li> <a onclick="paginaAjustes()"> Perfil </a></li>
 </ul>
 
 <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
@@ -275,7 +280,7 @@
             <span class="c_peque"></span>
         </div>
 
-        <div title="Buscador" class="buscador" onclick="ponerBuscador()">
+        <div title="Buscador" class="buscador" onclick="abrirBuscador()">
             <span class="lupa"></span>
             <span class="mango"></span>
         </div>
@@ -410,33 +415,39 @@
             setTimeout( () => {
                 //document.querySelector('.ajustes').style.display = 'flex';
                 document.querySelector('.buscador').style.cursor = 'default';
-                document.querySelector('.buscador').style.opacity = 0;
+                document.querySelector('.buscador').style.opacity = 0;            // no se oculta si haces click rapido
             }, 200);
         }
 
-        var pene = document.querySelector('#ctn-bars-search');
-        var coño = document.querySelector('#cover-ctn-search');
-        var ano = document.querySelector('#box-search');
+        let bloqueo = false;
+        var pene = document.getElementById('ctn-bars-search');
+        var conno = document.getElementById('cover-ctn-search');
+        var ano = document.getElementById('box-search');
+        var pelo = document.getElementById('inputSearch')
         // PONER BUSCADOR
-        function ponerBuscador(){
-            pene.style.display = 'block';
-            setTimeout(() => {
-                pene.style.opacity = 1;
-                coño.style.display = 'block';
-            }, 100);
+        function abrirBuscador(){
+            if(bloqueo){
+                pelo.value = '';
+                pene.style.display = 'block';
+                setTimeout(() => {
+                    pene.style.opacity = 1;
+                    conno.style.display = 'block';
+                    pelo.focus();
+                }, 100);
+            }
         }
 
         function cerrarBuscador(){
             pene.style.opacity = 0;
-                coño.style.display = 'none';
-                ano.style.display = 'none';
+            conno.style.display = 'none';
+            ano.style.display = 'none';
             setTimeout(() => {
                 pene.style.display = 'none';
             }, 100);
         }
 
         function resultadosBusqueda(){
-            ano.style.display = 'block';
+            //ano.style.display = 'block';   //muestra el indice de busquedas al hacer click en el buscadoer
         }
 
         // cerrar el menu si haces click en otra parte de la pantalla
@@ -448,8 +459,6 @@
             cierre = true;
         });*/
 
-        let bloqueo = false;
-
         // CAMBIO DE PAGINA DE UNA A OTRA
         function paginaHome(){
             if(bloqueo) window.location = "pantallaJuegos.html";
@@ -458,6 +467,33 @@
         function paginaAjustes(){
             if(bloqueo) window.location = "perfil.html";
         }
+
+        var filter = '';
+        var li = '';
+        var textValue = '';
+        // CREANDO FILTRADO DE BUSQUEDA
+        document.getElementById("inputSearch").addEventListener("keyup", () => {
+            filter = pelo.value.toUpperCase();
+            li = ano.getElementsByTagName("li");
+            // recorriendo elementos a filtrar mediante los 'li'
+            for(let i = 0; i < li.length; i++){
+                a = li[i].getElementsByTagName("a")[0];
+                textValue = a.textContent || a.innerText;
+
+                if(textValue.toUpperCase().indexOf(filter) > -1){  // como en SO de si funciona o no devuelve 'x' valor
+                    li[i].style.display = '';
+                    ano.style.display = 'block';
+
+                    if(pelo.value === ''){
+                        ano.style.display = 'none';
+                    }
+
+                } else {
+                    li[i].style.display = 'none';
+                }
+            }
+        });
+
 
     </script>
 </body>

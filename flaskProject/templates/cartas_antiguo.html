@@ -363,7 +363,7 @@
             left: 95%;
             transform: translate(-50%, -50%);
             margin-top: 2px;
-            cursor: pointer;
+            cursor: default;
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -421,7 +421,7 @@
         #box-search{
             display: none;
             position: fixed;
-            top: 8.8%;
+            top: 7%;
             left: 50%;
             transform: translate(-50%);
             width: 1200px;
@@ -460,10 +460,8 @@
     </div>
 
     <ul id="box-search">
-        <li> <a href="#"> HTML </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' -->
-        <li> <a href="#"> CSS </a></li>
-        <li> <a href="#"> Java </a></li>
-        <li> <a href="#"> VS Code </a></li>
+        <li> <a onclick="paginaHome()"> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
+        <li> <a onclick="paginaAjustes()"> Perfil </a></li>
     </ul>
 
     <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
@@ -862,32 +860,58 @@
             }, 200);
         }
 
-        var pene = document.querySelector('#ctn-bars-search');
-        var coño = document.querySelector('#cover-ctn-search');
-        var ano = document.querySelector('#box-search');
+        let block = false;
+        var pene = document.getElementById('ctn-bars-search');
+        var conno = document.getElementById('cover-ctn-search');
+        var ano = document.getElementById('box-search');
+        var pelo = document.getElementById('inputSearch')
         // PONER BUSCADOR
         function ponerBuscador(){
-            pene.style.display = 'block';
-            setTimeout(() => {
-                pene.style.opacity = 1;
-                coño.style.display = 'block';
-            }, 100);
+            if(block){
+                pelo.value = '';
+                pene.style.display = 'block';
+                setTimeout(() => {
+                    pene.style.opacity = 1;
+                    conno.style.display = 'block';
+                    pelo.focus();
+                }, 100);
+            }
         }
 
         function cerrarBuscador(){
             pene.style.opacity = 0;
-                coño.style.display = 'none';
-                ano.style.display = 'none';
+            conno.style.display = 'none';
+            ano.style.display = 'none';
             setTimeout(() => {
                 pene.style.display = 'none';
             }, 100);
         }
 
-        function resultadosBusqueda(){
-            ano.style.display = 'block';
-        }
+        var filter = '';
+        var li = '';
+        var textValue = '';
+        // CREANDO FILTRADO DE BUSQUEDA
+        document.getElementById("inputSearch").addEventListener("keyup", () => {
+            filter = pelo.value.toUpperCase();
+            li = ano.getElementsByTagName("li");
+            // recorriendo elementos a filtrar mediante los 'li'
+            for(let i = 0; i < li.length; i++){
+                a = li[i].getElementsByTagName("a")[0];
+                textValue = a.textContent || a.innerText;
 
-        let block = false;
+                if(textValue.toUpperCase().indexOf(filter) > -1){  // como en SO de si funciona o no devuelve 'x' valor
+                    li[i].style.display = '';
+                    ano.style.display = 'block';
+
+                    if(pelo.value === ''){
+                        ano.style.display = 'none';
+                    }
+
+                } else {
+                    li[i].style.display = 'none';
+                }
+            }
+        });
 
         function paginaHome(){
             if(block) document.location.assign('http://127.0.0.1:5000/Juegos/'); //window.location = "pantallaJuegos.html";
@@ -896,7 +920,7 @@
         function paginaAjustes(){
             if(block) document.location.assign('http://127.0.0.1:5000/Perfil_de_usuario/');//window.location = "perfil.html";
         }
-        
+
         masMonedas.addEventListener("click", function() {
             window.location.href = "/dinero/";
         });
