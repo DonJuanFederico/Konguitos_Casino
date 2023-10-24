@@ -255,6 +255,16 @@
 <ul id="box-search">
     <li> <a onclick="paginaHome()"> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
     <li> <a onclick="paginaAjustes()"> Perfil </a></li>
+    <li> <a onclick="cartas()"> Carta más alta </a></li>
+    <li> <a onclick="blackJack()"> BlackJack </a></li>
+    <li> <a onclick="poker()"> Poker </a></li>
+    <li> <a onclick="craps()"> Dados craps </a></li>
+    <li> <a onclick="ruleta()"> Ruleta </a></li>
+    <li> <a onclick="kongoRun()"> Kongo Run </a></li>
+    <li> <a onclick="tragaperras()"> Tragaperras </a></li>
+    <li> <a onclick="plinko()"> Plinko </a></li>
+    <li> <a onclick="bingo()"> Bingo </a></li>
+    <li> <a onclick="eventos()"> Eventos </a></li>
 </ul>
 
 <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
@@ -447,7 +457,7 @@
         }
 
         function resultadosBusqueda(){
-            //ano.style.display = 'block';   //muestra el indice de busquedas al hacer click en el buscadoer
+            ano.style.display = 'block';   //muestra el indice de busquedas al hacer click en el buscadoer
         }
 
         // cerrar el menu si haces click en otra parte de la pantalla
@@ -467,6 +477,38 @@
         function paginaAjustes(){
             if(bloqueo) window.location = "perfil.html";
         }
+
+        function cartas(){
+            if(bloqueo) window.location = "carta_mas_alta.html";
+        }
+        function blackJack(){
+            if(bloqueo) window.location = "blackjack.html";
+        }
+        function poker(){
+            if(bloqueo) window.location = "poker.html";
+        }
+        function craps(){
+            if(bloqueo) window.location = "craps.html";
+        }
+        function ruleta(){
+            if(bloqueo) window.location = "ruleta.html";
+        }
+        function tragaperras(){
+            if(bloqueo) window.location = "Tragaperras.html";
+        }
+        function plinko(){
+            if(bloqueo) window.location = "plinko.html";
+        }
+        function kongoRun(){
+            if(bloqueo) window.location = "konguitoRun.html";
+        }
+        function bingo(){
+            if(bloqueo) window.location = "bingo.html";
+        }
+        function eventos(){
+            if(bloqueo) window.location = "eventos.html";
+        }
+
 
         var filter = '';
         var li = '';
