@@ -352,3 +352,27 @@ def editarUsuario(id_usuario, nombre_usuario, contraseña, correo, dni, dinero, 
         finally:
             cursor.close()
             close_connection(conn)
+
+def obtenerUsuariosConTarjetas():
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Consulta SQL para obtener todos los usuarios y sus tarjetas
+            query = """
+            SELECT usuarios.id AS UsuarioID, usuarios.NombreUsuario, usuarios.Contraseña, usuarios.Correo,
+                   usuarios.DNI, usuarios.Dinero, usuarios.Telefono, usuarios.FotoIMG, usuarios.FechaDeCreacion,
+                   usuarios.Calle, usuarios.CodigoPostal,
+                   tarjetas.id AS TarjetaID, tarjetas.NumeroTarjeta, tarjetas.NombreTitular, tarjetas.FechaCaducidad, tarjetas.CVV
+            FROM usuarios
+            LEFT JOIN tarjetas ON usuarios.id = tarjetas.id
+            """
+            cursor.execute(query)
+            resultados = cursor.fetchall()
+
+            return resultados  # Devuelve la lista de usuarios con sus tarjetas
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
