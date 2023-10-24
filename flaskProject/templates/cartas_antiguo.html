@@ -375,7 +375,7 @@
             height: 60%;
             border: 2px solid #ffffff;
             border-radius: 50%;
-            transition: 300ms;
+            transition: 200ms;
             transform: translate(4px, 4px);
         }
 
@@ -385,7 +385,7 @@
             height: 2px;
             display: inline-block;
             background-color: #ffffff;
-            transition: 300ms;
+            transition: 200ms;
             transform: rotate(45deg) translate(-10px, -18px);
         }
 
@@ -421,7 +421,7 @@
         #box-search{
             display: none;
             position: fixed;
-            top: 7%;
+            top: 8%;
             left: 50%;
             transform: translate(-50%);
             width: 1200px;
@@ -456,7 +456,7 @@
 </head>
 <body>
     <div id="ctn-bars-search">
-        <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" onclick="resultadosBusqueda()">
+        <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off" onclick="resultadosBusqueda()">
     </div>
 
     <ul id="box-search">
@@ -898,7 +898,7 @@
         }
 
         function resultadosBusqueda(){
-            ano.style.display = 'block';   
+            ano.style.display = 'block';
         }
 
         var filter = '';
