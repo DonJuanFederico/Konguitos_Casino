@@ -14,6 +14,10 @@
             background-image: url("https://static.vecteezy.com/system/resources/previews/019/864/512/non_2x/abstract-dark-red-elegant-painting-texture-background-vintage-grunge-dark-backdrop-for-aesthetic-creative-design-free-photo.jpg");
             color: white;
         }
+        .audio-player {
+             display: none;
+        }
+
 
         .table {
             position: relative;
@@ -455,6 +459,9 @@
     </style>
 </head>
 <body>
+    <audio controls autoplay loop class="audio-player">
+        <source src="/static/audio/VictorJoel.mp3" type="audio/mpeg">
+    </audio>
     <div id="ctn-bars-search">
         <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off" onclick="resultadosBusqueda()">
     </div>

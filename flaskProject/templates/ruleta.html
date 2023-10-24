@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <title>Ruleta</title>
     <link rel="stylesheet" href="/static/css/ruleta.css">
+    <style>
+
+        .audio-player {
+             display: none;
+        }
+
+    </style>
 </head>
 <body>
+    <audio controls autoplay loop class="audio-player">
+        <source src="../static/audio/VictorJoel.mp3" type="audio/mpeg">
+    </audio>
     <div id="rueda-ruleta">
         <div class="capa1-ruleta">
             <div class="capa2-ruleta" style="transform: rotate(0deg);"></div>

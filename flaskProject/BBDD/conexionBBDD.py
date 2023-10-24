@@ -293,3 +293,86 @@ def obtenerImagenUsuario(id_usuario):
             finally:
                 cursor.close()
                 close_connection(conn)
+
+
+def editarTarjeta(id_tarjeta, numero_tarjeta, nombre_titular, fecha_caducidad, cvv):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Actualizar los datos de la tarjeta en la tabla "tarjetas"
+            query = "UPDATE tarjetas SET NumeroTarjeta = %s, NombreTitular = %s, FechaCaducidad = %s, CVV = %s WHERE id = %s"
+            cursor.execute(query, (numero_tarjeta, nombre_titular, fecha_caducidad, cvv, id_tarjeta))
+            conn.commit()
+            print(f"Tarjeta con ID {id_tarjeta} ha sido actualizada con éxito.")
+            return True
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+            return False
+        finally:
+            cursor.close()
+            close_connection(conn)
+            return False  # En caso de error
+
+def editarForoImagen(id_usuario, nueva_foto_img):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Actualizar la columna "ForoIMG" del usuario en la tabla "usuarios"
+            query = "UPDATE usuarios SET FotoIMG = %s WHERE id = %s"
+            cursor.execute(query, (nueva_foto_img, id_usuario))
+            conn.commit()
+            print(f"Imagen del foto para el usuario con ID {id_usuario} ha sido actualizada con éxito.")
+            return True
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+            return False
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+def editarUsuario(id_usuario, nombre_usuario, contraseña, correo, dni, dinero, telefono, calle, codigo_postal):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Actualizar los datos del usuario en la tabla "usuarios" sin modificar la fecha de creación
+            query = "UPDATE usuarios SET NombreUsuario = %s, Contraseña = %s, Correo = %s, DNI = %s, Dinero = %s, Telefono = %s, Calle = %s, CodigoPostal = %s WHERE id = %s"
+            cursor.execute(query, (nombre_usuario, contraseña, correo, dni, dinero, telefono, calle, codigo_postal, id_usuario))
+            conn.commit()
+            print(f"Usuario con ID {id_usuario} ha sido actualizado con éxito.")
+            return True
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+            return False
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+def obtenerUsuariosConTarjetas():
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Consulta SQL para obtener todos los usuarios y sus tarjetas
+            query = """
+            SELECT usuarios.id AS UsuarioID, usuarios.NombreUsuario, usuarios.Contraseña, usuarios.Correo,
+                   usuarios.DNI, usuarios.Dinero, usuarios.Telefono, usuarios.FotoIMG, usuarios.FechaDeCreacion,
+                   usuarios.Calle, usuarios.CodigoPostal,
+                   tarjetas.id AS TarjetaID, tarjetas.NumeroTarjeta, tarjetas.NombreTitular, tarjetas.FechaCaducidad, tarjetas.CVV
+            FROM usuarios
+            LEFT JOIN tarjetas ON usuarios.id = tarjetas.id
+            """
+            cursor.execute(query)
+            resultados = cursor.fetchall()
+
+            return resultados  # Devuelve la lista de usuarios con sus tarjetas
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
