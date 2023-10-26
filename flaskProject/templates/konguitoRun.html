@@ -11,55 +11,55 @@
     <audio controls autoplay loop class="audio-player">
         <source src="/static/audio/VictorJoel.mp3" type="audio/mpeg">
     </audio>
-         <div id = board>
-            <div id = "fondo">
-                <div class = "scoreContainer">
+         <div id = contenedorJuego>
+            <div id = "fondoDinamico">
+                <div class = "contenedorMultiplicador">
                     <!--
                         Usar span para controlarlo con JS
                     -->
-                    Multiplicador: <span id = "score">0</span>
+                    Multiplicador: <span id = "valorMultiplicador">0</span>
                 </div>
-                <div id = "prueba">
-                    <img id = "fotoMoneda" src="/static/images/moneda.png">
-                    <div id = "prueba2">
+                <div id = "marcoMonedas">
+                    <img id = "imagenKonguitoCoin" src="/static/images/moneda.png">
+                    <div id = "divMonedasUsuario">
                         <!--
                             A partir de las 16 cifras ya no se ve el número completo
                         -->
-                        <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
-                        <img id = "masMonedas" src="/static/images/masMonedas.png">
+                        <span style="color: white" id= "monedasUsuario">{{ DINERO }}</span><br><br>
+                        <img id = "botonComprarMonedas" src="/static/images/masMonedas.png">
                     </div>
                 </div>
             </div>
-            <div id = "player">
+            <div id = "konguitoDino">
                 <!--
-                    En caso de no poder mostrar la imagen del dinosaurio, muestra el texto Konguito
+                    En caso de no poder mostrar la imagen del dinosaurio, muestra el texto Konguito con alt
                 -->
-                <img src="/static/images/konguito_run/Corriendo1.png" alt="Konguito" id="konguitoDino">
+                <img src="/static/images/konguito_run/Corriendo1.png" alt="Konguito" id="imagenKonguitoDino">
             </div>
         </div>
-        <div id = "tablero">
-            <div id = "tableroImagen">
-                <div class = "menu1">
-                    <button id = "buttonPlayStop" class = "button"></button>
-                    <button id = "restartGame" >Retirarse</button>
+        <div id = "panelBotones">
+            <div id = "imagenPanelBotones">
+                <div class = "menuBotonesJuego">
+                    <button id = "botonIniciarPausar" class = "botonIniciarPausar"></button>
+                    <button id = "botonRetirarApuesta" >Retirarse</button>
                 </div>
-                <div class = "menu2">
-                    <form id="miFormulario">
+                <div class = "menuApuestasUsuario">
+                    <form>
                         <label for="cantidadApostada">Apuesta</label>
                         <input id ="cantidadApostada" type="number" min="0.01" step="0.01" value="0.01"><br><br>
                         <label for="limiteApostado">Límite</label>
                         <input id ="limiteApostado" type="number" min="1.00" step="0.05" value="1.01"><br><br>
                     </form>
                 </div>
-                <div class = "menu3">
+                <div class = "menuRecompensa">
                     <p>Recompensa: <span id = "recompensa">0</span></p>
                 </div>
             </div>
             <div id = "logoCasino">
-                <img src="/static/images/konguito_run/KonguitosSinFondo.png" id="konguitos">
+                <img src="/static/images/konguito_run/KonguitosSinFondo.png" id="imagenKonguitosCasino">
             </div>
             <div id = "logoJuego">
-                <img src="/static/images/konguito_run/konguitoRun.png" id="konguitos">
+                <img src="/static/images/konguito_run/konguitoRun.png">
             </div>
         </div>
 {% endblock %}
