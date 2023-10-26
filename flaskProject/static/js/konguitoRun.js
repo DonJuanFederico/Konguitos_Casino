@@ -1,49 +1,70 @@
-const player = document.getElementById("player");
-const fondo = document.getElementById("fondo");
+const konguitoDino = document.getElementById("konguitoDino");
+const fondoDinamico = document.getElementById("fondoDinamico");
+const contenedorJuego = document.getElementById("contenedorJuego");
+const botonIniciarPausar = document.getElementById("botonIniciarPausar");
+const botonRetirarApuesta = document.getElementById("botonRetirarApuesta");
 
 let scoreInterval;
 let dinoAnimation;
 let incremento = 0;
-/*
-    Cuando haces click en el documento:document.addEventListener("click", function()
-*/
-const board = document.getElementById("board");
-board.addEventListener("click", function(){
-    addClassJump();
-});
-
-player.addEventListener("animationend", () =>{
-    removeClassJump();
-});
-
 let score = 0.95;
+let imagen;
+let cantidadApostada;
+let limiteApostado;
+let recompensa = 1;
+let inicio = 0;
+let tiempoFrame;
+let numeroImagen;
+let pararJuego;
+let volverPrincipal = document.getElementById("imagenKonguitosCasino");
+let botonComprarMonedas = document.getElementById("botonComprarMonedas");
 
-function addClassJump(){
-    player.classList.add("playerJump");
-}
-
-function removeClassJump(){
-    player.classList.remove("playerJump");
-}
-
+//Nada mas cargar la página se ejecuta esta función
 stopAnimation();
 
 function stopAnimation(){
-    fondo.style.animationPlayState = "paused";
-    player.style.animationPlayState = "paused";
+    fondoDinamico.style.animationPlayState = "paused";
+    konguitoDino.style.animationPlayState = "paused";
     mantenerImagen();
 }
+contenedorJuego.addEventListener("click", function(){
+    annadirDesplazamientoKonguitoDino();
+});
 
-function resumeAnimation(){
-    fondo.style.animationPlayState = "running";
-    player.style.animationPlayState = "running";
-    reanudarImagen();
+function annadirDesplazamientoKonguitoDino(){
+    konguitoDino.classList.add("desplazamientoKonguitoDino");
+}
+
+konguitoDino.addEventListener("animationend", () =>{
+    eliminarDesplazamientoKonguitoDino();
+});
+
+function eliminarDesplazamientoKonguitoDino(){
+    konguitoDino.classList.remove("desplazamientoKonguitoDino");
 }
 
 function resumeGame(){
-    resumeAnimation();
-    resumeScore();
+    reanudarAnimation();
+    reanudarMarcador();
 
+}
+
+function reanudarAnimation(){
+    fondoDinamico.style.animationPlayState = "running";
+    konguitoDino.style.animationPlayState = "running";
+    reanudarImagen();
+}
+
+function reanudarMarcador(){
+    scoreInterval = setInterval(() => {
+        if(getComputedStyle(konguitoDino).animationPlayState === "running"){
+            score = score + 0.01;
+            recompensa = cantidadApostada * score;
+        }
+        document.getElementById("valorMultiplicador").innerText = score.toFixed(2);
+        recompensa = Math.floor(recompensa * 100) / 100; // Trunca a dos decimales. No los aproxima
+        document.getElementById("recompensa").innerText = recompensa.toFixed(2);
+    }, 50);
 }
 
 function reanudarImagen(){
@@ -52,24 +73,6 @@ function reanudarImagen(){
 
 function mantenerImagen(){
     incremento = 0;
-}
-
-let imagen;
-let cantidadApostada;
-let limiteApostado;
-let recompensa = 1;
-
-
-function resumeScore(){
-    scoreInterval = setInterval(() => {
-        if(getComputedStyle(player).animationPlayState === "running"){
-            score = score + 0.01;
-            recompensa = cantidadApostada * score;
-        }
-        document.getElementById("score").innerText = score.toFixed(2);
-        recompensa = Math.floor(recompensa * 100) / 100; // Trunca a dos decimales. No los aproxima
-        document.getElementById("recompensa").innerText = recompensa.toFixed(2);
-    }, 50);
 }
 
 function stopScore(){
@@ -85,18 +88,14 @@ function pauseGame(){
     stopScore();
 }
 
-const buttonPlayStop = document.getElementById("buttonPlayStop");
-
-let inicio = 0;
-
-buttonPlayStop.addEventListener("click", () => {
-    if(!buttonPlayStop.classList.contains("pausa")){
+botonIniciarPausar.addEventListener("click", () => {
+    if(!botonIniciarPausar.classList.contains("pausa")){
         posibleCantidad = parseFloat(document.getElementById("cantidadApostada").value);
         if(posibleCantidad >= (0.01) && document.getElementById("limiteApostado").value >= 1.01){
             if(inicio > 0) {
                 resumeGame();
             }else if(posibleCantidad - parseFloat(posibleCantidad.toFixed(2)) == 0){
-                if(parseFloat(document.getElementById("cantidadApostada").value) <= parseFloat(document.getElementById("monedas").innerText)) {
+                if(parseFloat(document.getElementById("cantidadApostada").value) <= parseFloat(document.getElementById("monedasUsuario").innerText)) {
                     //Primera vez que le da al play en la partida
                     if (inicio === 0) {
                         cantidadApostada = parseFloat(document.getElementById("cantidadApostada").value);
@@ -104,25 +103,25 @@ buttonPlayStop.addEventListener("click", () => {
                         inicio++;
                         //Quitar el dinero de la cuenta y mostrarlo en el marcado:
                         retirarDinero();
-                        marcador = document.getElementById("monedas");
-                        marcador.innerText = Math.round((parseFloat(marcador.innerText) - cantidadApostada) * 100)/ 100;
+                        contenedorMonedasUsuario = document.getElementById("monedasUsuario");
+                        contenedorMonedasUsuario.innerText = Math.round((parseFloat(contenedorMonedasUsuario.innerText) - cantidadApostada) * 100)/ 100;
                     }
                     //Reanudar el juego.
                     resumeGame();
                 }else {
-                    buttonPlayStop.classList.toggle("pausa");
+                    botonIniciarPausar.classList.toggle("pausa");
                     alert("Cantidad insuficiente");
                 }
             }else{
                 //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
-                buttonPlayStop.classList.toggle("pausa");
+                botonIniciarPausar.classList.toggle("pausa");
                 alert("Dos decimales solo");
                 document.getElementById("cantidadApostada").value = 0.01;
                 document.getElementById("limiteApostado").value = 1.01;
             }
         }else{
             //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
-            buttonPlayStop.classList.toggle("pausa");
+            botonIniciarPausar.classList.toggle("pausa");
             alert("NADA DE APUESTAS NEGATIVAS Y LÍMITES SIN SENTIDO. ¡JUEGA LIMPIO!");
             document.getElementById("cantidadApostada").value = 0.01;
             document.getElementById("limiteApostado").value = 1.01;
@@ -132,17 +131,17 @@ buttonPlayStop.addEventListener("click", () => {
     }
     /*
         Toggle hace la funcion de if:
-        if buttonPlayStop.classList tiene la clase play: se quita
+        if botonIniciarPausar.classList tiene la clase play: se quita
         else: la añado
     */
-    buttonPlayStop.classList.toggle("pausa");
+    botonIniciarPausar.classList.toggle("pausa");
     //Si es un botón de play continua el juego
     //Si es un botón de pausa, para el juego
 })
 
-const restartButton = document.getElementById("restartGame");
 
-restartButton.addEventListener("click", solicitarRetirarse);
+
+botonRetirarApuesta.addEventListener("click", solicitarRetirarse);
 
 function solicitarRetirarse(){
     if(inicio === 1){
@@ -155,28 +154,27 @@ function retirarse(motivo){
         recompensa = cantidadApostada * limiteApostado;
         recompensa = recompensa.toFixed(2);
     }
-    marcador.innerText = Math.round((parseFloat(marcador.innerText) + parseFloat(recompensa)) * 100) / 100;
+    contenedorMonedasUsuario.innerText = Math.round((parseFloat(contenedorMonedasUsuario.innerText) + parseFloat(recompensa)) * 100) / 100;
     alert("Se retira ganando: " + recompensa);
     agregarDinero()
     restartGame();
 }
 
 function restartGame(){
-    if(buttonPlayStop.classList.toggle("pausa")){
-        buttonPlayStop.classList.toggle("pausa");
+    if(botonIniciarPausar.classList.toggle("pausa")){
+        botonIniciarPausar.classList.toggle("pausa");
     }
-    document.getElementById("score").innerText = 0;
+    document.getElementById("valorMultiplicador").innerText = 0;
     pauseGame();
     score = 0.95;
     inicio = 0;
     generarLimite();
 }
 
-let tiempoFrame;
-let numeroImagen;
 
 
-imagen = document.getElementById('konguitoDino');
+
+imagen = document.getElementById('imagenKonguitoDino');
 numeroImagen = 1;
 incremento = 0;
 tiempoFrame = 90; // Cambiado a 90 para una animación más rápida
@@ -189,7 +187,7 @@ function cambiarImagenes() {
     }
     if (numeroImagen === 5) {
         incremento = -1;
-    } else if (numeroImagen === 1 && buttonPlayStop.classList.contains("pausa")) {
+    } else if (numeroImagen === 1 && botonIniciarPausar.classList.contains("pausa")) {
         incremento = 1;
     }
     numeroImagen += incremento;
@@ -204,51 +202,6 @@ function cambiarImagenes() {
 }
 
 setInterval(cambiarImagenes, tiempoFrame);
-
-let boton = document.getElementById("boton");
-
-/*const ModalWindow = {
-    init() {
-        document.body.addEventListener("click", e => {
-            if (e.target.classList.contains("modal__close")) {
-                this.closeModal(e.target);
-            }
-        });
-      
-      this.openModal();
-    },
-
-    getHtmlTemplate(modalOptions) {
-        return `
-            <div class="modal__overlay">
-                <div class="modal__window">
-                    <div class="modal__titlebar">
-                        <span class="modal__title">${modalOptions.title}</span>
-                        <button class="modal__close material-icons">close</button>
-                    </div>
-                    <div class="modal__content">
-                        ${modalOptions.content}
-                    </div>
-                </div>
-            </div>
-        `;
-    },
-
-    openModal(modalOptions = {}) {
-        modalOptions = Object.assign({
-            title: 'Atención',
-            content: 'Rellene los campos para jugar'
-        }, modalOptions);
-
-        const modalTemplate = this.getHtmlTemplate(modalOptions);
-        document.body.insertAdjacentHTML("afterbegin", modalTemplate);
-    },
-
-    closeModal(closeButton) {
-        const modalOverlay = closeButton.parentElement.parentElement.parentElement;
-        document.body.removeChild(modalOverlay);
-    }
-};*/
 
 function generarNumeroNormal(media, desviacion) {
     let u1 = Math.random();
@@ -266,21 +219,17 @@ function generarNumeroNormal(media, desviacion) {
     return x;
 }
 
-let pararJuego;
+
 
 function generarLimite(){
     pararJuego = generarNumeroNormal(2, 3).toFixed(2);
 }
 
-let volverPrincipal = document.getElementById("konguitos");
-
 volverPrincipal.addEventListener("click", function() {
     window.location.href = "/Juegos";
 });
 
-let masMonedas = document.getElementById("masMonedas");
-
-masMonedas.addEventListener("click", function() {
+botonComprarMonedas.addEventListener("click", function() {
     window.location.href = "/dinero/";
 });
 
