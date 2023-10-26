@@ -164,7 +164,7 @@ def event():
 
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():
-    return render_template('juegos_extra.html')
+    return render_template('juegosExtra.html')
 
 # dineros
 @app.route('/dinero/', methods=['GET'])
