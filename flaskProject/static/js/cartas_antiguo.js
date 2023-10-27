@@ -1,5 +1,5 @@
-const deck = document.getElementById('deck');
-const slots = document.querySelectorAll('.slot');
+var deck = document.getElementById('deck');
+var slots = document.querySelectorAll('.slot');
 const suits = [' ♠', ' ♥', ' ♦', ' ♣'];
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 let dealerCard = null;
@@ -50,19 +50,16 @@ function dealCards() {
     }
 }
 
- let bloqueo = false;
+let bloqueo = true;
 
 // IMPORTANTE: LA CARTA Nº 1 ES LA DEL DEALER
 for (let i = 1; i < slots.length; i++) {
     slots[i].addEventListener('click', () => {
-        if(!bloqueo) {
+        if (!bloqueo) {
             bloqueo = true;
 
             slots[i].style.backgroundColor = 'rebeccapurple';
-            /*
-            cambiar los estilos de los diferentes metodos y comprobar si se cambia de color
-             */
-
+            /* cambiar los estilos de los diferentes metodos y comprobar si se cambia de color */
             dealCards();
             const card = slots[i].querySelector('.card-back');
             if (card.classList.contains('card-face')) {
@@ -76,7 +73,7 @@ for (let i = 1; i < slots.length; i++) {
                 const dealerCardValue = dealerCard.textContent;
                 compareCards(selectedCardValue, dealerCardValue);
                 setTimeout(() => {
-                    //revealAllCards(); // Revelar todas las cartas después de 1 segundo
+                    // revealAllCards(); // Revelar todas las cartas después de 1 segundo
                     repartir = false;
                 }, 300);
             }
@@ -85,7 +82,6 @@ for (let i = 1; i < slots.length; i++) {
 }
 
 let repartir = false;
-
 deck.addEventListener('click', () => {
     for (let i = 1; i < slots.length; i++) {
         slots[i].style.backgroundColor = '';
@@ -108,6 +104,8 @@ deck.addEventListener('click', () => {
                 return;
             }
             hideCards();
+            //document.getElementById('.slot1').style.cursor = 'none';
+            messageDiv.textContent = document.querySelector('.slot').getAttribute('cursor');
         }
     } else {
         alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
@@ -178,23 +176,6 @@ function compareCards(selectedCardValue, dealerCardValue) {
             document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
         }
 }
-
-/*function revealAllCards() {
-    for (let i = 1; i < slots.length; i++) {
-        const card = slots[i].querySelector('.card-face');
-        repartir = false;
-        if (card.classList.contains('flipped')) {
-            messageDiv.textContent = 'toto';
-            //card.classList.remove('card-face');
-            card.classList.toggle('flipped');
-        }
-    }
-    //repartir = false;
-}*/
-
-//slots[3].addEventListener('click', () => {
-    // La carta sola no es clickeable.
-//});
 
 /* MENU HAMBURGUESA */
 var menu = document.querySelector('.bars__menu');
@@ -380,42 +361,18 @@ inputSearch.addEventListener("keyup", () => {
 });
 
 // redirigimiento de paginas en el buscador
-function paginaHome(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/'); //window.location = "pantallaJuegos.html";
-}
-function paginaAjustes() {
-    if (block) document.location.assign('http://127.0.0.1:5000/Perfil_de_usuario/');
-}
-function cartas(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/Carta_mas_alta/?');
-}
-function blackJack(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/Blackjack/?');
-}
-function poker(){
-    if(block) document.location.assign('hhttp://127.0.0.1:5000/Juegos/Indice_cartas/Poker/?');
-}
-function craps(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_Dados/Craps/?');
-}
-function ruleta(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Ruleta/?');
-}
-function tragaperras(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/Slots');
-}
-function plinko(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/Plinko');
-}
-function kongoRun(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/KonguitoRun');
-}
-function bingo(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/Bingo');
-}
-function eventos(){
-    if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Eventos/?');
-}
+function paginaHome(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/');} //window.location = "pantallaJuegos.html";
+function paginaAjustes() { if (block) document.location.assign('http://127.0.0.1:5000/Perfil_de_usuario/');}
+function cartas(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/Carta_mas_alta/?');}
+function blackJack(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/Blackjack/?');}
+function poker(){ if(block) document.location.assign('hhttp://127.0.0.1:5000/Juegos/Indice_cartas/Poker/?');}
+function craps(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_Dados/Craps/?');}
+function ruleta(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Ruleta/?');}
+function tragaperras(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/Slots');}
+function plinko(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/Plinko');}
+function kongoRun(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/KonguitoRun');}
+function bingo(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Juegos_extra/Bingo');}
+function eventos(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Eventos/?');}
 
 // ir a ingresar dinero
 function ingresarDinero(){
