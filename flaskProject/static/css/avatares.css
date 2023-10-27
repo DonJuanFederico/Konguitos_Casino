@@ -50,31 +50,31 @@ body {
 }
 
 .character.basic {
-    background-image: url('img/basic.png');
+    background-image: url('../images/avatares/basic.png');
 }
 
 .character.viking {
-    background-image: url('img/viking.png');
+    background-image: url('../images/avatares/viking.png');
 }
 
 .character.king {
-    background-image: url('img/king.png');
+    background-image: url('../images/avatares/king.png');
 }
 
 .character.pirate {
-    background-image: url('img/pirate.png');
+    background-image: url('../images/avatares/pirate.png');
 }
 
 .character.astronaut {
-    background-image: url('img/astronaut.png');
+    background-image: url('../images/avatares/astronaut.png');
 }
 
 .character.tiger {
-    background-image: url('img/tiger.png');
+    background-image: url('../images/avatares/tiger.png');
 }
 
 .character.captain {
-    background-image: url('img/captain.png');
+    background-image: url('../images/avatares/captain.png');
 }
 
 .avatar {
@@ -105,7 +105,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url('img/basic.png');
+    background-image: url('../images/avatares/basic.png');
     background-size: cover;
     top: 0;
     left: 0;
