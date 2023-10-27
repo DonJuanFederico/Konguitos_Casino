@@ -4,11 +4,6 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alineación vertical desde la parte superior */
-    min-height: 100vh; /* Establece una altura mínima para ocupar toda la ventana */
-    flex-direction: row; /* Cambia la dirección del flex a horizontal */
 }
 
 /* Estilo de la barra lateral */
@@ -21,7 +16,69 @@ body {
     height: 100%;
     overflow: auto;
     top: 0;
+}
+
+/* Estilo para la barra derecha */
+.sidebar-right {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    width: 200px;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    top: 0;
+    right: 0;
+}
+
+/* Estilo de la barra lateral izquierda */
+.sidebar-left {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    width: 200px;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    top: 0;
     left: 0;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0 220px;
+}
+
+/* Estilo para la sección de reglas del juego */
+.rules {
+    float: right;
+    width: calc(100% - 320px);
+    padding: 20px;
+    text-align: left;
+}
+
+/* Estilo para el título de las reglas */
+.rules h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Estilo para la lista de reglas */
+.rules ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* Estilo para los elementos de la lista */
+.rules ul li {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
 }
 
 /* Estilo del título de la barra lateral */
@@ -49,19 +106,19 @@ body {
 
 /* Estilo del contenido principal */
 .content {
-    margin: 0 auto; /* Centra la columna de contenido principal horizontalmente */
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Coloca los elementos en sucesión vertical */
-    align-items: center; /* Centra los elementos horizontalmente */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 /* Estilo del contenedor de los dados */
 #dice-container {
     display: flex;
-    flex-direction: row; /* Coloca los dados en una fila horizontal */
-    align-items: center; /* Centra los elementos horizontalmente */
-    margin-top: 20px; /* Espacio entre la barra lateral y el contenido principal */
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
 }
 
 /* Estilo de los dados */
@@ -73,9 +130,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px; /* Espacio entre los dados */
+    margin: 10px;
     background-color: #fff;
 }
+
+
 
 
 
