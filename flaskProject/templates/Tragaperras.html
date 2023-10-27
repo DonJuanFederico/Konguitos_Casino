@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tragaperras</title>
-    <link rel="stylesheet" href="/static/css/Tragaperras.css">
-    <script src="/static/js/Tragaperras.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<body>
-
+{% block stylesheets %}
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tragaperras</title>
+<link rel="stylesheet" href="/static/css/Tragaperras.css">
+{% endblock %}
+{% block body %}
 <div id="app">
+    <div id="marcoMonedas">
+        <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
+        <div id="divMonedasUsuario">
+            <!--
+                A partir de las 16 cifras ya no se ve el número completo
+            -->
+            <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
+            <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
+        </div>
+    </div>
 
-    <--! Botones de reglas y recompensas -->
+    <!-- Botones de reglas y recompensas -->
     <div class="botonDeReglas">
         <buttonRR id="reglas">Reglas</buttonRR>
     </div>
@@ -18,7 +26,7 @@
         <buttonRR id="recompensas">Recompensas</buttonRR>
     </div>
 
-    <--! Slots -->
+    <!-- Slots -->
     <div class="posicionamiento">
         <div class="slot">
             <div class="boxes">
@@ -35,7 +43,7 @@
         </div>
     </div>
 
-    <--! Botones -->
+    <!-- Botones -->
     <div class="buttonSpin">
         <button id="spinner">Spin</button>
     </div>
@@ -43,10 +51,12 @@
         <label id="apostado">Apostado:</label>
         <input type="number" id="bet" value="1" min="1">
     </div>
+    <!--
     <div class="recuadroSaldo">
         <label for="balance">Saldo:</label>
         <span id="balance">100</span>
     </div>
+    -->
     <div class="recuadroGanado" id="mensaje-gananado">
         <label for="prize">Ganado:</label>
         <span id="prize">0</span>
@@ -58,5 +68,9 @@
     </div>
 
 </div>
-</body>
-</html>
+{% endblock %}
+{% block javascripts %}
+<script src="/static/js/Tragaperras.js"></script>
+<script src="/static/js/TragaperrasAlertas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

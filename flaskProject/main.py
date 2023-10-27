@@ -150,10 +150,6 @@ def craps():
 def ruleta():
     return render_template('ruleta.html')
 
-@app.route('/Juegos/Tragaperras/')
-def tragaperras():
-    return render_template('Tragaperras.html')
-
 @app.route('/Juegos/DinoKongo/', methods=['GET'])
 def dino():
     return open('games/dinosaurio/index.html')
@@ -191,12 +187,8 @@ def bingo():
 
 @app.route('/Juegos/Juegos_extra/Slots')
 def slots():
-    return render_template('Tragaperras.html')
-    '''
-        Cuando ya este el juego adaptado para ir con el dinero de la cuenta descomentar
-    '''
-    '''DINERO = obtenerDinero()
-    return render_template('Tragaperras.html', DINERO = DINERO) '''
+    DINERO = obtenerDinero()
+    return render_template('Tragaperras.html', DINERO = DINERO)
 
 @app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():

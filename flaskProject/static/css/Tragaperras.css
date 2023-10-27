@@ -203,3 +203,56 @@ buttonRR {
     height: 150%;
     background: #dbe138;
 }
+
+/*SALDO*/
+
+#marcoMonedas {
+    background-image: url("/static/images/marcoCasino.png");
+    position: absolute;
+    top: 0%;
+    right: 4%;
+    width: 20%;
+    height: 20%;
+    background-size: 100% 100%;
+    display: flex;
+}
+
+#divMonedasUsuario {
+    position: relative;
+    right: 15%;
+    margin-right: 2%;
+    width: 50%;
+    height: 15%;
+    top: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#divMonedasUsuario span {
+    position: absolute;
+    font-size: 200%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#imagenKonguitoCoin {
+    margin-left: 5%;
+    margin-top: -3%;
+    transform: scale(0.3);
+}
+
+#botonComprarMonedas {
+    margin-left: -190%;
+    margin-top: -30%;
+    transform: scale(0.07);
+    animation: animacionBotonComprarMonedas 2s infinite alternate;
+}
+
+#monedasUsuario {
+    color: #fafaf7;
+    font-size: 1.5rem;
+}
