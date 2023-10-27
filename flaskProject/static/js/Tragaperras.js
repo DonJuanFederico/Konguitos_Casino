@@ -2,86 +2,24 @@ document.addEventListener('DOMContentLoaded', function (message) {
     const items = [
         '🍭', '❌', '⛄️', "😒", "🤡", "🎁", "🤑", "💀", "🙏", "🎅", "🧙"
     ];
+
+    //SLOTS
     const posicionamiento = document.querySelectorAll('.slot');
-    const monedasUsuarioElement = document.querySelector('#monedasUsuario');
+
+    //RECUADRO DE SALDO DE CLIENTE
+    let monedasUsuarioElement = document.querySelector('#monedasUsuario');
+
+
+    //RECUADRO DE GANADO
     const prizeElement = document.querySelector('#prize');
+
+    //BOTON DE SPIN
     const spinnerButton = document.querySelector('#spinner');
-
-
     //BOTON DE SPIN donde clickas y se ejecuta la funcion spin
     spinnerButton.addEventListener('click', spin);
 
     // Agregamos una variable para controlar si se está realizando una animación
     let animacionEnProgreso = false;
-    let spinEnProgreso = false;
-
-    let premio;
-
-    //Alerta de Reglas
-    var botonReglas = document.getElementById("reglas");
-    botonReglas.addEventListener("click", function () {
-        Swal.fire({
-            title: 'REGLAS',
-            html: "<div style='text-align: center;'>" +
-                " Bievenido al mejor tragaperras existente (No es para nada un timo)" +
-                "<h3>REGLAS:</h3>" +
-                "1. Para jugar, introduce la cantidad que quieres apostar." +
-                "<br>2. Dale al Spin y GANA." +
-                "<h5>Normas a tener en cuenta:</h5>" +
-                "Si ganas, se te sumará el premio a tu balance." +
-                "<br>Si pierdes, se te restará la apuesta a tu balance." +
-                "<br>Si tu balance es menor a la apuesta, no podrás jugar." +
-                "<br>Si tu apuesta es menor o igual a 0, no podrás jugar." +
-                "<br>Si tu balance es menor a 0, no podrás jugar." +
-                "</div>",
-            confirmButtonText: '¡Dejame Jugar!',
-            confirmButtonColor: '#3085d6',
-            backdrop: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-        });
-    });
-
-    //Alerta de Recompensas
-    var botonRecompensas = document.getElementById("recompensas");
-    botonRecompensas.addEventListener("click", function () {
-        Swal.fire({
-            title: 'RECOMPENSAS',
-            html: "<div style='text-align: center;'>" +
-                "Esta son las recompensas que puedes obtener:" +
-                "<h3>Tres Iguales:</h3>" +
-                "🍭🍭🍭 = x5" +
-                "<br>🤡🤡🤡 = x7" +
-                "<br>❌❌❌ = x7" +
-                "<br>⛄️⛄️⛄️ = x7" +
-                "<br>😒😒😒 = x7" +
-                "<br>🙏🙏🙏 = x7" +
-                "<br>🎅🎅🎅 = x7" +
-                "<br>🧙🧙🧙 = x7" +
-                "<br>🎁🎁🎁 = x50" +
-                "<br>🤑🤑🤑 = x100" +
-                "<br>💀💀💀 = x1000" +
-                "<h3>Dos Iguales:</h3>" +
-                "🍭🍭 = x2" +
-                "<br>🤡🤡 = x2" +
-                "<br>❌❌ = x2" +
-                "<br>😒😒 = x2" +
-                "<br>⛄️⛄️ = x4" +
-                "<br>🎁🎁 = x7" +
-                "<br>🙏🙏 = x2" +
-                "<br>🎅🎅 = x2" +
-                "<br>🧙🧙 = x2" +
-                "<br>🎁🎁 = x7" +
-                "<br>🤑🤑 = x10" +
-                "<br>💀💀 = x25" +
-                "</div>",
-            confirmButtonText: 'Salir',
-            confirmButtonColor: '#3085d6',
-            backdrop: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-        });
-    });
 
     // Inicializamos el juego
     function init(firstInit = true, groups = 1, duration = 1) {
@@ -156,16 +94,7 @@ document.addEventListener('DOMContentLoaded', function (message) {
         spinnerButton.setAttribute('disabled', 'disabled');
         animacionEnProgreso = true;
 
-        // Restamos la apuesta al balance
-        const apuesta = parseInt(document.querySelector('#bet').value);
-        console.log("Apuesta: " + apuesta);  // Verificar el valor de la apuesta
-
-// {{DINERO}} es el dinero del usuario
-        const balanceActual = parseInt(monedasUsuarioElement.textContent);
-        console.log("Balance actual: " + balanceActual);  // Verificar el balance actual
-
-        monedasUsuarioElement.textContent = balanceActual - apuesta;
-        console.log("Nuevo balance: " + monedasUsuarioElement.textContent);  // Verificar el nuevo balance
+        FuncionDeApuesta();
 
         init(false, 1, 2);
 
@@ -193,6 +122,29 @@ document.addEventListener('DOMContentLoaded', function (message) {
         //Desbloqueo de Play
         animacionEnProgreso = false;
         spinnerButton.removeAttribute('disabled');
+    }
+
+    function FuncionDeApuesta() {
+        //Funcion para restar el dinero de la apuesta
+        apuesta = parseFloat(document.querySelector('#bet').value);
+
+        let balanceActual = parseFloat(monedasUsuarioElement.textContent);
+        //Aqui se comprueba si el usuario tiene suficiente dinero para apostar
+        if (apuesta <= 0) {
+            alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
+            return;
+        } else if (apuesta > balanceActual) {
+            alert('No tienes suficiente saldo para esta apuesta.');
+            return;
+        }
+
+        //Aqui se resta el dinero de la apuesta al saldo del cliente en la pagina
+        monedasUsuarioElement.textContent = monedasUsuarioElement.textContent - apuesta
+        console.log("Apuesta: " + apuesta);
+
+        //Aqui funcion para actualizar la base de datos con el nuevo saldo del cliente
+        retirarDinero()
+        console.log("Balance actual: " + balanceActual + " - " + apuesta + " = " + (balanceActual - apuesta));
     }
 
     //Funcion para desordenar los items (animacion de los slots)
@@ -244,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function (message) {
         ];
 
         const apuesta = parseInt(document.querySelector('#bet').value);
-        const balanceActual = parseInt(monedasUsuarioElement.textContent);
+        let balanceActual = parseInt(monedasUsuarioElement.textContent);
 
         // tres es el multiplicador de la apuesta introducida cuando salen 3 iguales
         // dos es el multiplicador de la apuesta introducida cuando salen 2 iguales
@@ -263,13 +215,14 @@ document.addEventListener('DOMContentLoaded', function (message) {
             '💀': {tres: 1000, dos: 100}
         };
 
-        // Inicializar el premio a 0 siempre
         let premio = 0;
+        prizeElement.textContent = premio;
 
         // Comprobar si hay tres símbolos iguales
         for (const symbol in premios) {
             if (slotValues.every(value => value === symbol)) {
                 premio = apuesta * premios[symbol].tres;
+                prizeElement.textContent = premio;
                 break;
             }
         }
@@ -279,17 +232,23 @@ document.addEventListener('DOMContentLoaded', function (message) {
         for (const symbol of symbolsSet) {
             if (slotValues.filter(value => value === symbol).length === 2) {
                 premio = apuesta * premios[symbol].dos;
+                prizeElement.textContent = premio;
                 break;
             }
         }
-
         //METODO DE ACTUALIZAR EL BALANCE
         if (premio > 0) {
-            monedasUsuarioElement.textContent = balanceActual + premio;
-            //Actualizar el premio
-            prizeElement.textContent = premio + parseInt(prizeElement.textContent);
+            //ACTUALIZAMOS EL SALDO DEL CLIENTE EN LA BASE DE DATOS Y EN LA PAGINA
+            let balanceActual = parseFloat(monedasUsuarioElement.textContent);
+            console.log("Premio: " + premio)
+            console.log("Balance actual: " + balanceActual + " + " + premio + " = " + (balanceActual + premio));
+            //PAGINA:
+            monedasUsuarioElement.textContent = Math.round((parseFloat(monedasUsuarioElement.textContent) + parseFloat(premio)) * 100) / 100;
+            //BASE DE DATOS:
+            agregarDinero()
         }
     }
+
 
     //Te redirige a la pagina de comprar monedas
     document.getElementById("botonComprarMonedas").addEventListener("click", function () {
@@ -297,19 +256,23 @@ document.addEventListener('DOMContentLoaded', function (message) {
     });
 
     function retirarDinero() {
+        // MONTO EN ESTE CASO ES VALOR DE LA APUESTA
+        var monto = apuesta;
         // Enviar solicitud HTTP a tu servidor Flask
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/retirar_dinero", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("&cantidad_a_retirar=" + cantidadApostada);
+        xhr.send("&cantidad_a_retirar=" + monto);
     }
 
     function agregarDinero() {
+        // MONTO EN ESTE CASO ES VALOR DE LO GANADO (MIRAR TRAGAPERRAS PARA VERLO BIEN)
+        var monto = parseInt(prizeElement.textContent);
         // Enviar solicitud HTTP a tu servidor Flask
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/agregar_dinero", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("&cantidad_a_agregar=" + premio);
+        xhr.send("&cantidad_a_agregar=" + monto);
     }
     init()
 });
