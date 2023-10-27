@@ -376,3 +376,54 @@ def obtenerUsuariosConTarjetas():
         finally:
             cursor.close()
             close_connection(conn)
+def obtenerUsuariosConTarjetas():
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Consulta SQL para obtener todos los usuarios y sus tarjetas
+            query = """
+            SELECT usuarios.id AS UsuarioID, usuarios.NombreUsuario, usuarios.Contraseña, usuarios.Correo,
+                   usuarios.DNI, usuarios.Dinero, usuarios.Telefono, usuarios.FotoIMG, usuarios.FechaDeCreacion,
+                   usuarios.Calle, usuarios.CodigoPostal,
+                   tarjetas.id AS TarjetaID, tarjetas.NumeroTarjeta, tarjetas.NombreTitular, tarjetas.FechaCaducidad, tarjetas.CVV
+            FROM usuarios
+            LEFT JOIN tarjetas ON usuarios.id = tarjetas.id
+            """
+            cursor.execute(query)
+            resultados = cursor.fetchall()
+
+            return resultados  # Devuelve la lista de usuarios con sus tarjetas
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+def obtenerArrayDatosUsuario(id_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Consulta SQL para obtener los datos del usuario por ID (excluyendo ForoIMG y Contraseña)
+            query = """
+            SELECT NombreUsuario, Correo, DNI, Dinero, Telefono, FechaDeCreacion, Calle, CodigoPostal
+            FROM usuarios
+            WHERE id = %s
+            """
+            cursor.execute(query, (id_usuario,))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                # Crear un array con los datos del usuario
+                datos_usuario = [resultado["NombreUsuario"], resultado["Correo"], resultado["DNI"], resultado["Dinero"],
+                                 resultado["Telefono"], resultado["FechaDeCreacion"], resultado["Calle"], resultado["CodigoPostal"]]
+                return datos_usuario
+            else:
+                print("Usuario con ID", id_usuario, "no encontrado.")
+                return None
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)

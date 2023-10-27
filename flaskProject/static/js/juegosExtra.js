@@ -1,19 +1,15 @@
-imagenBingo = document.getElementById("cargarBingo");
-imagenBingo.addEventListener("click", function(){
+document.getElementById("cargarBingo").addEventListener("click", function(){
     window.location.href = "/Juegos/Juegos_extra/Bingo";
 });
 
-imagenSlots = document.getElementById("cargarSlots");
-imagenSlots.addEventListener("click", function(){
+document.getElementById("cargarSlots").addEventListener("click", function(){
     window.location.href = "/Juegos/Juegos_extra/Slots";
 });
 
-imagenDino = document.getElementById("cargarDino");
-imagenDino.addEventListener("click", function(){
+document.getElementById("cargarDino").addEventListener("click", function(){
     window.location.href = "/Juegos/Juegos_extra/KonguitoRun";
 });
 
-imagenPlinko = document.getElementById("cargarPlinko");
-imagenPlinko.addEventListener("click", function(){
+document.getElementById("cargarPlinko").addEventListener("click", function(){
     window.location.href = "/Juegos/Juegos_extra/Plinko";
 });

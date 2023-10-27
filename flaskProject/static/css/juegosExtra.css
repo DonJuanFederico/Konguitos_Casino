@@ -89,7 +89,7 @@ body {
   }
 }
 
-.total{
+.contenedorTotal{
   position: absolute;
   top: 0;
   left: 0;
@@ -100,7 +100,7 @@ body {
   background-position: center 70%;
 }
 
-.contenedor{
+.contenedorJuegos{
   top: 8%;
   position: relative;
   display: flex;
@@ -160,7 +160,7 @@ article::before{
 }
 
 
-#probando:hover ~ img:last-child {
+#cartelJuego:hover ~ img:last-child {
   opacity: 1;
   transform: translateY(15%);
 }

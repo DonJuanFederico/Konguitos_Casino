@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', function (message) {
         '🍭', '❌', '⛄️', "😒", "🤡", "🎁", "🤑", "💀", "🙏", "🎅", "🧙"
     ];
     const posicionamiento = document.querySelectorAll('.slot');
-    const balanceElement = document.querySelector('#balance');
+    const monedasUsuarioElement = document.querySelector('#monedasUsuario');
     const prizeElement = document.querySelector('#prize');
     const spinnerButton = document.querySelector('#spinner');
+
 
     //BOTON DE SPIN donde clickas y se ejecuta la funcion spin
     spinnerButton.addEventListener('click', spin);
@@ -13,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function (message) {
     // Agregamos una variable para controlar si se está realizando una animación
     let animacionEnProgreso = false;
     let spinEnProgreso = false;
+
+    let premio;
 
     //Alerta de Reglas
     var botonReglas = document.getElementById("reglas");
@@ -149,31 +152,21 @@ document.addEventListener('DOMContentLoaded', function (message) {
     async function spin() {
         // Si la animación está en progreso, no hacemos nada
         if (animacionEnProgreso) return;
-        // Si el balance es menor o igual a 0, no hacemos nada
-        if (parseInt(balanceElement.textContent) <= 0) return;
-        // Si el balance es menor a la apuesta, no hacemos nada
-        if (parseInt(balanceElement.textContent) < parseInt(document.querySelector('#bet').value)) return;
-        // Si la apuesta es menor o igual a 0, no hacemos nada
-        if (parseInt(document.querySelector('#bet').value) <= 0) return;
-        //No permitimos meter letras y simbolos en el input
-        if (isNaN(document.querySelector('#bet').value)) return;
-        // Si el balance es menor a la apuesta, no hacemos nada
-        if (parseInt(balanceElement.textContent) < parseInt(document.querySelector('#bet').value)) return;
-
-
         // Bloqueo de Play
         spinnerButton.setAttribute('disabled', 'disabled');
-        if (animacionEnProgreso || spinEnProgreso) {
-            alert('Ya se está realizando una animación');
-            return;
-        }
         animacionEnProgreso = true;
 
         // Restamos la apuesta al balance
         const apuesta = parseInt(document.querySelector('#bet').value);
-        const balanceActual = parseInt(balanceElement.textContent);
-        const nuevoBalance = balanceActual - apuesta;
-        balanceElement.textContent = nuevoBalance;
+        console.log("Apuesta: " + apuesta);  // Verificar el valor de la apuesta
+
+// {{DINERO}} es el dinero del usuario
+        const balanceActual = parseInt(monedasUsuarioElement.textContent);
+        console.log("Balance actual: " + balanceActual);  // Verificar el balance actual
+
+        monedasUsuarioElement.textContent = balanceActual - apuesta;
+        console.log("Nuevo balance: " + monedasUsuarioElement.textContent);  // Verificar el nuevo balance
+
         init(false, 1, 2);
 
         //Este for es para que se muevan los slots de arriba a abajo (no es lo mismo que el shuffle)
@@ -251,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function (message) {
         ];
 
         const apuesta = parseInt(document.querySelector('#bet').value);
-        const balanceActual = parseInt(balanceElement.textContent);
+        const balanceActual = parseInt(monedasUsuarioElement.textContent);
 
         // tres es el multiplicador de la apuesta introducida cuando salen 3 iguales
         // dos es el multiplicador de la apuesta introducida cuando salen 2 iguales
@@ -290,14 +283,33 @@ document.addEventListener('DOMContentLoaded', function (message) {
             }
         }
 
-        //METODOS DE ACTUALIZAR GANADO Y SALDO
+        //METODO DE ACTUALIZAR EL BALANCE
         if (premio > 0) {
-            const nuevoBalance = balanceActual + premio;
-            balanceElement.textContent = nuevoBalance;
+            monedasUsuarioElement.textContent = balanceActual + premio;
+            //Actualizar el premio
             prizeElement.textContent = premio + parseInt(prizeElement.textContent);
         }
     }
 
+    //Te redirige a la pagina de comprar monedas
+    document.getElementById("botonComprarMonedas").addEventListener("click", function () {
+        window.location.href = "/dinero/";
+    });
 
+    function retirarDinero() {
+        // Enviar solicitud HTTP a tu servidor Flask
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/retirar_dinero", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&cantidad_a_retirar=" + cantidadApostada);
+    }
+
+    function agregarDinero() {
+        // Enviar solicitud HTTP a tu servidor Flask
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/agregar_dinero", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&cantidad_a_agregar=" + premio);
+    }
     init()
 });

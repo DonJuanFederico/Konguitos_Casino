@@ -2,46 +2,50 @@ const konguitoDino = document.getElementById("konguitoDino");
 const fondoDinamico = document.getElementById("fondoDinamico");
 const contenedorJuego = document.getElementById("contenedorJuego");
 const botonIniciarPausar = document.getElementById("botonIniciarPausar");
-const botonRetirarApuesta = document.getElementById("botonRetirarApuesta");
+const tiempoFrame = 90; //Velocidad en milisegundos
 
-let scoreInterval;
-let dinoAnimation;
-let incremento = 0;
-let score = 0.95;
-let imagen;
+let intervalosMultiplicador;
+let pararJuego;
 let cantidadApostada;
 let limiteApostado;
-let recompensa = 1;
+let incremento = 0;
+let multiplicador = 0.95;
+let recompensa;
 let inicio = 0;
-let tiempoFrame;
-let numeroImagen;
-let pararJuego;
-let volverPrincipal = document.getElementById("imagenKonguitosCasino");
-let botonComprarMonedas = document.getElementById("botonComprarMonedas");
+let numeroImagen = 1;
+
+let imagenKonguitoDino = document.getElementById('imagenKonguitoDino');
 
 //Nada mas cargar la página se ejecuta esta función
 stopAnimation();
 
+document.addEventListener("DOMContentLoaded", () => generarLimite());
+
+document.getElementById("botonRetirarApuesta").addEventListener("click", () => {
+    if (inicio === 1) retirarse(1);
+});
+
+document.getElementById("imagenKonguitosCasino").addEventListener("click", function() {
+    window.location.href = "/Juegos";
+});
+
+document.getElementById("botonComprarMonedas").addEventListener("click", function() {
+    window.location.href = "/dinero/";
+});
+
 function stopAnimation(){
     fondoDinamico.style.animationPlayState = "paused";
     konguitoDino.style.animationPlayState = "paused";
-    mantenerImagen();
+    incremento = 0;
 }
-contenedorJuego.addEventListener("click", function(){
-    annadirDesplazamientoKonguitoDino();
-});
-
-function annadirDesplazamientoKonguitoDino(){
+contenedorJuego.addEventListener("click", () => {
     konguitoDino.classList.add("desplazamientoKonguitoDino");
-}
-
-konguitoDino.addEventListener("animationend", () =>{
-    eliminarDesplazamientoKonguitoDino();
 });
 
-function eliminarDesplazamientoKonguitoDino(){
+konguitoDino.addEventListener("animationend", () => {
     konguitoDino.classList.remove("desplazamientoKonguitoDino");
-}
+});
+
 
 function resumeGame(){
     reanudarAnimation();
@@ -52,82 +56,66 @@ function resumeGame(){
 function reanudarAnimation(){
     fondoDinamico.style.animationPlayState = "running";
     konguitoDino.style.animationPlayState = "running";
-    reanudarImagen();
+    incremento = 1;
 }
 
 function reanudarMarcador(){
-    scoreInterval = setInterval(() => {
+    intervalosMultiplicador = setInterval(() => {
         if(getComputedStyle(konguitoDino).animationPlayState === "running"){
-            score = score + 0.01;
-            recompensa = cantidadApostada * score;
+            multiplicador = multiplicador + 0.01;
+            recompensa = cantidadApostada * multiplicador;
         }
-        document.getElementById("valorMultiplicador").innerText = score.toFixed(2);
+        document.getElementById("valorMultiplicador").innerText = multiplicador.toFixed(2);
         recompensa = Math.floor(recompensa * 100) / 100; // Trunca a dos decimales. No los aproxima
         document.getElementById("recompensa").innerText = recompensa.toFixed(2);
     }, 50);
 }
 
-function reanudarImagen(){
-    incremento = 1;
-}
-
-function mantenerImagen(){
-    incremento = 0;
-}
-
-function stopScore(){
-    clearInterval(scoreInterval);
-}
-
-function stopDinoAnimation(){
-    clearInterval(dinoAnimation);
-}
-
-function pauseGame(){
-    stopAnimation();
-    stopScore();
-}
-
 botonIniciarPausar.addEventListener("click", () => {
     if(!botonIniciarPausar.classList.contains("pausa")){
         posibleCantidad = parseFloat(document.getElementById("cantidadApostada").value);
-        if(posibleCantidad >= (0.01) && document.getElementById("limiteApostado").value >= 1.01){
-            if(inicio > 0) {
+        //Ya ha apostado anteriormente, y solo reanuda el juego
+        if(inicio > 0) {
                 resumeGame();
-            }else if(posibleCantidad - parseFloat(posibleCantidad.toFixed(2)) == 0){
-                if(parseFloat(document.getElementById("cantidadApostada").value) <= parseFloat(document.getElementById("monedasUsuario").innerText)) {
-                    //Primera vez que le da al play en la partida
-                    if (inicio === 0) {
-                        cantidadApostada = parseFloat(document.getElementById("cantidadApostada").value);
-                        limiteApostado = parseFloat(document.getElementById("limiteApostado").value);
-                        inicio++;
-                        //Quitar el dinero de la cuenta y mostrarlo en el marcado:
-                        retirarDinero();
-                        contenedorMonedasUsuario = document.getElementById("monedasUsuario");
-                        contenedorMonedasUsuario.innerText = Math.round((parseFloat(contenedorMonedasUsuario.innerText) - cantidadApostada) * 100)/ 100;
+        }else {
+            //Comprobar que los valores que introduce al apostar tienen sentido
+            if (posibleCantidad >= (0.01) && document.getElementById("limiteApostado").value >= 1.01) {
+                if (posibleCantidad - parseFloat(posibleCantidad.toFixed(2)) == 0) {
+                    if (parseFloat(document.getElementById("cantidadApostada").value) <= parseFloat(document.getElementById("monedasUsuario").innerText)) {
+                        //Primera vez que le da al play en la partida
+                        if (inicio === 0) {
+                            cantidadApostada = parseFloat(document.getElementById("cantidadApostada").value);
+                            limiteApostado = parseFloat(document.getElementById("limiteApostado").value);
+                            inicio++;
+                            //Quitar el dinero de la cuenta y mostrarlo en el marcado:
+                            retirarDinero();
+                            contenedorMonedasUsuario = document.getElementById("monedasUsuario");
+                            contenedorMonedasUsuario.innerText = Math.round((parseFloat(contenedorMonedasUsuario.innerText) - cantidadApostada) * 100) / 100;
+                        }
+                        //Reanudar el juego.
+                        resumeGame();
+                    } else {
+                        botonIniciarPausar.classList.toggle("pausa");
+                        alert("Cantidad insuficiente");
                     }
-                    //Reanudar el juego.
-                    resumeGame();
-                }else {
+                } else {
+                    //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
                     botonIniciarPausar.classList.toggle("pausa");
-                    alert("Cantidad insuficiente");
+                    alert("Dos decimales solo");
+                    document.getElementById("cantidadApostada").value = 0.01;
+                    document.getElementById("limiteApostado").value = 1.01;
                 }
-            }else{
+            } else {
                 //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
                 botonIniciarPausar.classList.toggle("pausa");
-                alert("Dos decimales solo");
+                alert("NADA DE APUESTAS NEGATIVAS Y LÍMITES SIN SENTIDO. ¡JUEGA LIMPIO!");
                 document.getElementById("cantidadApostada").value = 0.01;
                 document.getElementById("limiteApostado").value = 1.01;
             }
-        }else{
-            //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
-            botonIniciarPausar.classList.toggle("pausa");
-            alert("NADA DE APUESTAS NEGATIVAS Y LÍMITES SIN SENTIDO. ¡JUEGA LIMPIO!");
-            document.getElementById("cantidadApostada").value = 0.01;
-            document.getElementById("limiteApostado").value = 1.01;
         }
     }else{
-        pauseGame();
+        stopAnimation();
+        clearInterval(intervalosMultiplicador);
     }
     /*
         Toggle hace la funcion de if:
@@ -139,16 +127,6 @@ botonIniciarPausar.addEventListener("click", () => {
     //Si es un botón de pausa, para el juego
 })
 
-
-
-botonRetirarApuesta.addEventListener("click", solicitarRetirarse);
-
-function solicitarRetirarse(){
-    if(inicio === 1){
-        retirarse(1);
-    }
-}
-
 function retirarse(motivo){
     if(motivo === 0){
         recompensa = cantidadApostada * limiteApostado;
@@ -157,59 +135,53 @@ function retirarse(motivo){
     contenedorMonedasUsuario.innerText = Math.round((parseFloat(contenedorMonedasUsuario.innerText) + parseFloat(recompensa)) * 100) / 100;
     alert("Se retira ganando: " + recompensa);
     agregarDinero()
-    restartGame();
+    reiniciarJuego();
 }
 
-function restartGame(){
+function reiniciarJuego(){
     if(botonIniciarPausar.classList.toggle("pausa")){
         botonIniciarPausar.classList.toggle("pausa");
     }
     document.getElementById("valorMultiplicador").innerText = 0;
-    pauseGame();
-    score = 0.95;
+    stopAnimation();
+    clearInterval(intervalosMultiplicador);
+    multiplicador = 0.95;
     inicio = 0;
     generarLimite();
 }
 
 
-
-
-imagen = document.getElementById('imagenKonguitoDino');
-numeroImagen = 1;
-incremento = 0;
-tiempoFrame = 90; // Cambiado a 90 para una animación más rápida
-
 function cambiarImagenes() {
-    imagen.src = `/static/images/konguito_run/Corriendo${numeroImagen}.png`;
-    //Se buguea y a veces no sale la imagen konguitoDino ARREGLAR, solución temporal:
+    imagenKonguitoDino.src = `/static/images/konguito_run/Corriendo${numeroImagen}.png`;
+    //Si por algun casual supera el 0 o el 6, vuelve al 1:
     if(numeroImagen <= 0 || numeroImagen >= 6){
-        imagen.src = `/static/images/konguito_run/Corriendo1.png`
+        imagenKonguitoDino.src = `/static/images/konguito_run/Corriendo1.png`
     }
+    //Límite de la serie, hay que decrementar
     if (numeroImagen === 5) {
         incremento = -1;
     } else if (numeroImagen === 1 && botonIniciarPausar.classList.contains("pausa")) {
         incremento = 1;
     }
     numeroImagen += incremento;
-    if(score >= limiteApostado && limiteApostado <= pararJuego){
+    //Comprobar que no ha superado el tiempo para hacer el retiro
+    if(multiplicador >= limiteApostado && limiteApostado <= pararJuego){
         retirarse(0);
-        restartGame();
+        reiniciarJuego();
     }
-    if(score > pararJuego){
+    if(multiplicador > pararJuego){
         alert("Se te pasó el tiempo, paró en el: " + pararJuego);
-        restartGame();
+        reiniciarJuego();
     }
 }
 
 setInterval(cambiarImagenes, tiempoFrame);
 
-function generarNumeroNormal(media, desviacion) {
-    let u1 = Math.random();
-    let u2 = Math.random();
-    
-    let z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-    
-    let x = media + desviacion * z;
+function generarNumeroPararJuego() {
+    /*
+        El 2 es la media y el tres la desviación
+     */
+    let x = 2 + 3 * Math.sqrt(-2 * Math.log(Math.random())) * Math.cos(2 * Math.PI * Math.random());
     
     if (x < 1) {
         x = 1;
@@ -219,36 +191,22 @@ function generarNumeroNormal(media, desviacion) {
     return x;
 }
 
-
-
 function generarLimite(){
-    pararJuego = generarNumeroNormal(2, 3).toFixed(2);
+    pararJuego = generarNumeroPararJuego().toFixed(2);
 }
 
-volverPrincipal.addEventListener("click", function() {
-    window.location.href = "/Juegos";
-});
-
-botonComprarMonedas.addEventListener("click", function() {
-    window.location.href = "/dinero/";
-});
-
-document.addEventListener("DOMContentLoaded", () => generarLimite());
-
 function retirarDinero() {
-    var monto = cantidadApostada;
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/retirar_dinero", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("&cantidad_a_retirar=" + monto);
+    xhr.send("&cantidad_a_retirar=" + cantidadApostada);
 }
 
 function agregarDinero() {
-    var monto = recompensa;
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/agregar_dinero", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("&cantidad_a_agregar=" + monto);
+    xhr.send("&cantidad_a_agregar=" + recompensa);
 }
