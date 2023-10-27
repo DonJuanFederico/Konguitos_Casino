@@ -101,7 +101,7 @@ function updateUI() {
         // Mostrar solo la primera carta de la banca, ocultando la segunda
         document.getElementById('dealer-hand').textContent = dealerHand[0] + ', ???';
     }
-
+    
     if (!dealerHiddenCard) {
         document.getElementById('dealer-hand').textContent = dealerHand.join(', ');
     }
