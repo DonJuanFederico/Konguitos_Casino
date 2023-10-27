@@ -10,7 +10,7 @@ let cantidadApostada;
 let limiteApostado;
 let incremento = 0;
 let multiplicador = 0.95;
-let recompensa = 1;
+let recompensa;
 let inicio = 0;
 let numeroImagen = 1;
 
