@@ -104,8 +104,6 @@ deck.addEventListener('click', () => {
                 return;
             }
             hideCards();
-            //document.getElementById('.slot1').style.cursor = 'none';
-            messageDiv.textContent = document.querySelector('.slot').getAttribute('cursor');
         }
     } else {
         alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
@@ -150,7 +148,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
     } else {
         message = 'Konguito caido... :´(';
     }
-    messageDiv.textContent = message //+ '  |  ' + card_1 + '  |  ' + card_2;
+    messageDiv.textContent = message
 
     //apostar
     apuesta = parseFloat(document.getElementById('apuesta').value);
@@ -160,9 +158,6 @@ function compareCards(selectedCardValue, dealerCardValue) {
             if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
                 saldo += 2 * apuesta;
                 agregarDinero();
-            /*} else if (messageDiv.textContent === 'Konguito caido... :´(') {
-                gananciaPerdida = -apuesta;
-                saldo -= apuesta;*/
             } else if (messageDiv.textContent === 'Empate') {
                 gananciaPerdida = -apuesta / 2;
                 saldo -= apuesta / 2;
@@ -179,37 +174,12 @@ function compareCards(selectedCardValue, dealerCardValue) {
 
 /* MENU HAMBURGUESA */
 var menu = document.querySelector('.bars__menu');
-var line1__bars = document.querySelector('.line1__bars-menu');
-var line2_5__bars = document.querySelector('.line2_5__bars-menu');
-var line3__bars = document.querySelector('.line3__bars-menu');
-
-/* BOTON HOME */
-var barra_izq = document.querySelector('.verizq');
-var barra_hor = document.querySelector('.hor');
-var barra_der = document.querySelector('.verder');
-
-/* BOTON AJUSTES */
-var cir_grande = document.querySelector('.c_grande');
-
-/* BUSCADOR */
-var lupa = document.querySelector('.lupa');
-var mango = document.querySelector('.mango');
 
 // SEMAFOROS DE CONTROL
-let cierre = true;
 let submenus = true;
 
 // hacer click en las 3 rayas
 menu.addEventListener('click', () => {
-    // animacion del menu principal al abrirse y cerrarse
-    if(cierre) {
-        cierre = false;
-        animateBars();
-    } else {
-        setTimeout(() =>{
-           animateBars();
-        }, 400);
-    }
     // HOME
     if(submenus) {
         submenus = false;
@@ -230,7 +200,7 @@ menu.addEventListener('click', () => {
         block = false;
         setTimeout(() => {
             home();
-        }, 200);
+        }, 600);
         setTimeout(() => {
             ajustes();
         }, 400);
@@ -239,32 +209,6 @@ menu.addEventListener('click', () => {
         }, 200);
     }
 });
-
-// MENU PRINCIPAL - ANIMACION
-function animateBars(){
-    // BURGER
-    line1__bars.classList.toggle('activeline1__bars-menu');
-    line2_5__bars.classList.toggle('activeline2_5__bars-menu');
-    line3__bars.classList.toggle('activeline3__bars-menu');
-}
-
-// BOTON HOME - ANIMACION
-function home(){
-    barra_izq.classList.toggle('activeverizq');
-    barra_hor.classList.toggle('activehor');
-    barra_der.classList.toggle('activeverder');
-}
-
-// BOTON AJUSTES - ANIMACION
-function ajustes(){
-    cir_grande.classList.toggle('activec_grande');
-}
-
-// BUSCADOR - ANIMACION
-function buscador(){
-    lupa.classList.toggle('activelupa');
-    mango.classList.toggle('activemango');
-}
 
 // mostrar los submenus
 function mostrar(){

@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carta más alta</title>
     <link rel="stylesheet" href="/static/css/cartas_antiguo.css" type="text/css">
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <audio controls autoplay loop class="audio-player">
-        <source src="/static/audio/victorJoel.mp3" type="audio/mpeg">
+        <source src="/static/audio/lecon_particuliere.mp3" type="audio/mpeg">
     </audio>
     <div id="ctn-bars-search">
         <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off" onclick="resultadosBusqueda()">
     </div>
 
     <ul id="box-search">
-        <li> <a onclick="paginaHome()"> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
-        <li> <a onclick="paginaAjustes()"> Perfil </a></li>
-        <li> <a onclick="cartas()"> Carta más alta </a></li>
-        <li> <a onclick="blackJack()"> BlackJack </a></li>
-        <li> <a onclick="poker()"> Poker </a></li>
-        <li> <a onclick="craps()"> Dados craps </a></li>
-        <li> <a onclick="ruleta()"> Ruleta </a></li>
-        <li> <a onclick="kongoRun()"> Kongo Run </a></li>
-        <li> <a onclick="tragaperras()"> Tragaperras </a></li>
-        <li> <a onclick="plinko()"> Plinko </a></li>
-        <li> <a onclick="bingo()"> Bingo </a></li>
-        <li> <a onclick="eventos()"> Eventos </a></li>
+        <li> <a onclick="paginaHome()"><i class="fa-solid fa-magnifying-glass"></i> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
+        <li> <a onclick="paginaAjustes()"><i class="fa-solid fa-magnifying-glass"></i> Perfil </a></li>
+        <li> <a onclick="cartas()"><i class="fa-solid fa-magnifying-glass"></i> Carta más alta </a></li>
+        <li> <a onclick="blackJack()"><i class="fa-solid fa-magnifying-glass"></i> BlackJack </a></li>
+        <li> <a onclick="poker()"><i class="fa-solid fa-magnifying-glass"></i> Poker </a></li>
+        <li> <a onclick="craps()"><i class="fa-solid fa-magnifying-glass"></i> Dados craps </a></li>
+        <li> <a onclick="ruleta()"><i class="fa-solid fa-magnifying-glass"></i> Ruleta </a></li>
+        <li> <a onclick="kongoRun()"><i class="fa-solid fa-magnifying-glass"></i> Kongo Run </a></li>
+        <li> <a onclick="tragaperras()"><i class="fa-solid fa-magnifying-glass"></i> Tragaperras </a></li>
+        <li> <a onclick="plinko()"><i class="fa-solid fa-magnifying-glass"></i> Plinko </a></li>
+        <li> <a onclick="bingo()"><i class="fa-solid fa-magnifying-glass"></i> Bingo </a></li>
+        <li> <a onclick="eventos()"><i class="fa-solid fa-magnifying-glass"></i> Eventos </a></li>
     </ul>
 
     <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
@@ -67,25 +68,19 @@
     <div class="toolbar">
 
         <div title="Menú" class="bars__menu">
-            <span class="line1__bars-menu"></span>
-            <span class="line2_5__bars-menu"></span>
-            <span class="line3__bars-menu"></span>
+            <i class="fa-solid fa-bars fa-bounce fa-2xl" id="menu_animado"></i>
         </div>
 
         <div title="Home" class="home" onclick="paginaHome()">
-            <span class="verizq"></span>
-            <span class="hor"></span>
-            <span class="verder"></span>
+            <i class="fa-solid fa-house fa-2xl"></i>
         </div>
 
-        <div title="Ajustes" class="ajustes" onclick="paginaAjustes()">
-            <span class="c_grande"></span>
-            <span class="c_peque"></span>
+        <div title="Perfil" class="ajustes" onclick="paginaAjustes()">
+            <i class="fa-solid fa-gear fa-spin fa-2xl"></i>
         </div>
 
         <div title="Buscador" class="buscador" onclick="ponerBuscador()">
-            <span class="lupa"></span>
-            <span class="mango"></span>
+            <i class="fa-solid fa-magnifying-glass fa-fade fa-2xl"></i>
         </div>
     </div>
 
