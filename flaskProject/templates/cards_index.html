@@ -1,112 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            color: #910000;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000000;
-            background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
-        }
-
-        .container {
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            border-radius: 5px;
-        }
-
-        .scroll-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .button {
-            width: 300px;
-            height: 600px;
-            background-color: black;
-            color: white;
-            /*-webkit-text-stroke-width: 0.2px;
-            -webkit-text-stroke-color: white;*/
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 5px;
-            border: 1px solid white;
-            cursor: pointer;
-        }
-        h1{
-            font-size: xxx-large;
-            position: absolute;
-            top: 0px;
-            text-align: center;
-            text-decoration: underline;
-            color: #910000;
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: white;
-        }
-
-        .cartas{
-            background-image: url("https://i.pinimg.com/236x/f1/a7/45/f1a745b63804db389feb5ffcfda22f49.jpg");
-            /*
-            MAS OPCIONES
-            https://i.pinimg.com/236x/63/32/fc/6332fc4fbe8aeb5ac5a3d4cd25b0e818.jpg
-            https://i.pinimg.com/236x/63/11/81/63118170dc2bfe5f89f591adb0b57a4e.jpg     ACTUAL
-            https://i.pinimg.com/236x/74/37/04/743704de30b5f40855bf481f93f5f9d5.jpg
-            https://i.pinimg.com/236x/45/33/90/45339077aca3d2321b14dbe654f85960.jpg
-            https://i.pinimg.com/236x/f1/a7/45/f1a745b63804db389feb5ffcfda22f49.jpg
-            https://i.pinimg.com/236x/5b/ba/e2/5bbae296edfb8e24783efe7a3cfcc2d2.jpg
-             */
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        .black{
-            background-image: url("https://i.pinimg.com/236x/44/55/e5/4455e5fa1fd201dbcf9d685fae1ac840.jpg");
-            /*
-            MAS OPCIONES
-
-             */
-            background-size: cover;
-        }
-        .poker{
-            background-image: url("https://i.pinimg.com/236x/3c/0a/25/3c0a25d99ea9b6103ae0323a644f046a.jpg");
-            /*
-            MAS OPCIONES
-            https://i.pinimg.com/236x/3c/0a/25/3c0a25d99ea9b6103ae0323a644f046a.jpg
-             */
-            background-size: cover;
-        }
-
-    </style>
-</head>
-<body>
-    <h1> JUEGOS DE CARTAS: </h1>
-    <div class="container">
-        <div class="scroll-container" id="scroll-container">
-            <form method="GET" action="/Juegos/Indice_cartas/Carta_mas_alta/">
-                <button class="button cartas" type="submit"> CARTA MÁS ALTA </button>
-            </form>
-            <form method="GET" action="/Juegos/Indice_cartas/Blackjack/">
-                <button class="button black" type="submit"> BLACKJACK </button>
-            </form>
-            <form method="GET" action="/Juegos/Indice_cartas/Poker/">
-                <button class="button poker" type="submit"> POKER </button>
-            </form>
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/css/juegosCartas.css">
+    <title>Juegos Extra</title>
+{% endblock %}
+{% block body %}
+    <audio controls autoplay>
+        <source src="/static/audio/BadPiggies.mp3" type="audio/mpeg">
+    </audio>
+    <div class = "contenedorTotal">
+        <div class="container">
+          <h2 class="title">
+            <span class="title-word title-word-1">Juegos</span>
+            <span class="title-word title-word-2">de</span>
+            <span class="title-word title-word-3">cartas</span>
+          </h2>
+        </div>
+        <div class = "contenedorJuegos">
+            <article id="cargarBingo">
+                <img id="cartelJuego" src="/static/images/juegos_cartas/cartaMasAltaCartel.png">
+                <img src="/static/images/juegos_cartas/cartaMasAltaFrontal2.png">
+            </article>
+            <article id="cargarSlots">
+                <img id="cartelJuego" src="/static/images/juegos_cartas/cartaMasAltaCartel.png">
+                <img src="/static/images/juegos_cartas/cartaMasAltaFrontal.png">
+            </article>
+            <article id="cargarDino">
+                <img id="cartelJuego" src="/static/images/juegos_cartas/cartaMasAltaCartel.png">
+                <img src="/static/images/juegos_cartas/cartaMasAltaFrontal.png">
+            </article>
         </div>
     </div>
-
-</body>
-</html>
+{% endblock %}
+{% block javascripts %}
+    <script src="/static/js/juegosCartas.js"></script>
+{% endblock %}
