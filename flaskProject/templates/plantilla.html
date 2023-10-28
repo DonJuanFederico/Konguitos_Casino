@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/plantilla.css">
+    {% block stylesheets %} {% endblock %}
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- CONTROLA LO QUE SE REPITE EN TODAS LOS HIJOS -->
+    <div id="ctn-bars-search">
+        <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off" onclick="resultadosBusqueda()">
+    </div>
+
+    <ul id="box-search">
+        <li> <a onclick="paginaHome()"><i class="fa-solid fa-magnifying-glass"></i> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
+        <li> <a onclick="paginaAjustes()"><i class="fa-solid fa-magnifying-glass"></i> Perfil </a></li>
+        <li> <a onclick="cartas()"><i class="fa-solid fa-magnifying-glass"></i> Carta más alta </a></li>
+        <li> <a onclick="blackJack()"><i class="fa-solid fa-magnifying-glass"></i> BlackJack </a></li>
+        <li> <a onclick="poker()"><i class="fa-solid fa-magnifying-glass"></i> Poker </a></li>
+        <li> <a onclick="craps()"><i class="fa-solid fa-magnifying-glass"></i> Dados craps </a></li>
+        <li> <a onclick="ruleta()"><i class="fa-solid fa-magnifying-glass"></i> Ruleta </a></li>
+        <li> <a onclick="kongoRun()"><i class="fa-solid fa-magnifying-glass"></i> Kongo Run </a></li>
+        <li> <a onclick="tragaperras()"><i class="fa-solid fa-magnifying-glass"></i> Tragaperras </a></li>
+        <li> <a onclick="plinko()"><i class="fa-solid fa-magnifying-glass"></i> Plinko </a></li>
+        <li> <a onclick="bingo()"><i class="fa-solid fa-magnifying-glass"></i> Bingo </a></li>
+        <li> <a onclick="eventos()"><i class="fa-solid fa-magnifying-glass"></i> Eventos </a></li>
+    </ul>
+
+    <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
+
+    <div class="toolbar">
+        <div title="Menú" class="bars__menu">
+            <i class="fa-solid fa-bars fa-bounce fa-2xl" id="menu_animado"></i>
+        </div>
+
+        <div title="Home" class="home" onclick="paginaHome()">
+            <i class="fa-solid fa-house fa-2xl"></i>
+        </div>
+
+        <div title="Perfil" class="ajustes" onclick="paginaAjustes()">
+            <i class="fa-solid fa-gear fa-spin fa-2xl"></i>
+        </div>
+
+        <div title="Buscador" class="buscador" onclick="ponerBuscador()">
+            <i class="fa-solid fa-magnifying-glass fa-fade fa-2xl"></i>
+        </div>
+    </div>
+
+    <script src="/static/js/plantilla.js"></script>
+
+    {% block body %} {% endblock %}  <!-- CAMBIAR EL ORDEN CAMBIA LA DISPOSICION VISUAL -->
+    {% block javascript %} {% endblock %}
+</body>
+</html>
