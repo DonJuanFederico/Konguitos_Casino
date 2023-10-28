@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <!-- Box icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- static -->
+    <link rel="stylesheet" href="../../static/css/toolBarAdmin.css">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <aside class="aside active" id="aside">
+        <div class="head">
+            <div class="profile">
+                <img src="../../static/images/avatares/astronaut.png">
+                <p> NOMBRE ADMIN</p>
+            </div>
+            <i class='bx bx-menu' id="menu" ></i>
+        </div>
+        <div class="options">
+            <div>
+                <i class="bx bxs-dashboard"></i>
+                <span class="option">Dashboard</span>
+            </div>
+            <div>
+                <i class="bx bxs-user"></i>
+                <span class="option">Usuarios</span>
+            </div>
+            <div>
+                <i class='bx bx-credit-card' ></i>
+                <span class="option">Tarjetas</span>
+            </div>
+        </div>
+    </aside>
+    {% block body %} {% endblock %}
+    <script>
+        const aside = document.getElementById('aside'),
+        menu = document.getElementById('menu');
+
+        menu.onclick = () => aside.classList.toggle('active');{
+            console.log("click");
+            aside.classList.toggle('active');
+        }
+        {% block javascripts %}{% endblock %}
+    </script>
+</body>
+</html>

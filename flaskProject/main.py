@@ -102,17 +102,16 @@ def registroAdmin():
     else:
         return render_template('registroAdmin.html', form=form)
     return render_template('registroAdmin.html', form=form)
+
+#Funciones Administrador
 @app.route('/Administrador/')
 def interfazAdmin():
-        return render_template('admin.html')
+        return render_template('funcionesAdmin/descripcion.html')
 
 @app.route('/Juegos/')
 def juegos():
         return render_template('pantallaJuegos.html')
 
-@app.route('/Datos Usuario/')
-def datosUsuario():
-    return render_template('funcionesAdmin.html')
 
 @app.route('/Perfil_de_usuario/')
 def perfil():

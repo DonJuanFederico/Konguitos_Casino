@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function changeCharacter(characterImage) {
-        currentCharacter.style.backgroundImage = `url('img/${characterImage}.png')`;
+        currentCharacter.style.backgroundImage = `url('../static/images/avatares/${characterImage}.png')`;
     }
 
     backgroundElements.forEach((element) => {
