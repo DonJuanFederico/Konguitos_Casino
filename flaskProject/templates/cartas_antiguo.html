@@ -1,16 +1,6 @@
-<<<<<<< HEAD
 {% extends 'plantilla.html' %}
 {% block title %} Carta más alta {% endblock %}
 {% block stylesheets %}
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carta más alta</title>
->>>>>>> b4811de89de448ddd92427d26b3c08aa9c42d16b
     <link rel="stylesheet" href="/static/css/cartas_antiguo.css" type="text/css">
 {% endblock %}
 {% block body %}
@@ -25,6 +15,9 @@
     </div>
     <div id="container">
         <h1> Carta más alta </h1>
+    </div>
+    <div class="reglas">
+        <button id="botonReglas">Reglas</button>
     </div>
     <div id="bet">
         <label for="apuesta">Apuesta:</label>
@@ -54,4 +47,5 @@
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/cartas_antiguo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

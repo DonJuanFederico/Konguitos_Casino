@@ -172,3 +172,30 @@ function compareCards(selectedCardValue, dealerCardValue) {
         }
 }
 
+var botonReglas = document.getElementById("botonReglas");
+    botonReglas.addEventListener("click", function () {
+        Swal.fire({
+            title: '¡BIENVENIDO!',
+            width: 600,
+            height: 700,
+            html: "<div>" +
+                " <strong><h3 style='text-decoration: underline; text-align: center' >REGLAS:</h3></strong>" +
+                "<br><strong>1.</strong> Se reparten 4 cartas boca abajo en total." +
+                "<br><strong>2.</strong> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador." +
+                "<br><strong>3.</strong> Al jugador se le da la opción de elegir una de las 3 cartas que posee." +
+                "<br><strong>4.</strong> Se desvela la carta del jugador y posteriormente la de la banca." +
+                "<br><strong>5.</strong> Se comparan las cartas y la de mayor valor ganará." +
+                "<br><strong>6.</strong> En caso de empate se perderá el 50% de la apuesta principal." +
+                "</div>",
+            confirmButtonText: '¡Dejame Jugar!',
+            confirmButtonColor: 'darkgoldenrod',
+            backdrop: `rgba(0,0,0,0.4)`,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            customClass: {
+                confirmButton: 'custom-button',
+                htmlContainer: 'custom-container'
+              },
+        });
+    });
+

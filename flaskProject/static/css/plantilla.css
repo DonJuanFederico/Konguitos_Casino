@@ -79,7 +79,7 @@
 #box-search{
     display: none;
     position: fixed;
-    top: 7%;
+    top: 8%;
     left: 50%;
     transform: translate(-50%);
     width: 1200px;
@@ -87,7 +87,7 @@
     overflow: hidden;
     z-index: 9;
     cursor: pointer;
-    padding: 10px;
+    /*padding-left: 20px;*/
 }
 
 #box-search li a{
@@ -95,6 +95,7 @@
     width: 1200px;
     color: #777777;
     padding: 8px 0px;
+    padding-left: 20px;
     /*text-decoration: none;*/
 }
 

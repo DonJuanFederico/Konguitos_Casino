@@ -126,9 +126,6 @@ def perfil():
 def cartas():
     return render_template('cards_index.html')
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
-def carta_mas_alta():
-    return render_template('carta_mas_alta.html')
-@app.route('/Juegos/Indice_cartas/Carta_mas_alta/A_Jugar/', methods=['GET'])
 def A_Jugar():
     DINERO = obtenerDinero()
     return render_template('cartas_antiguo.html', DINERO = DINERO)
