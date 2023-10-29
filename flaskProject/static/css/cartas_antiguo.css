@@ -62,6 +62,10 @@ body {
     border-radius: 10px;
     margin: 0 10px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 #slot4{
@@ -69,9 +73,10 @@ body {
 }
 
 #message{
-    font-size: x-large;
+    /*font-size: x-large;
     color: darkgoldenrod;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);*/
+    display: none;
 }
 
 #container{

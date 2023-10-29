@@ -143,10 +143,31 @@ function compareCards(selectedCardValue, dealerCardValue) {
     // Lógica de comparación de cartas (personaliza según tus reglas)
     if (card_1 === card_2) {
         message = 'Empate';
+        Swal.fire({
+            imageUrl: `/static/images/carta_mas_alta/draw_3.png`,
+            showCancelButton: false,
+            showConfirmButton: false,
+            backdrop: `rgba(0,0,0,0.6)`,
+            background: `none`,
+        });
     } else if (card_1 > card_2) {
         message = '¡¡¡KONGUITO GANADOORRRR!!!';
+        Swal.fire({
+            imageUrl: `/static/images/carta_mas_alta/mensaje_win.png`,
+            showCancelButton: false,
+            showConfirmButton: false,
+            backdrop: `rgba(0,0,0,0.6)`,
+            background: `none`,
+        });
     } else {
         message = 'Konguito caido... :´(';
+        Swal.fire({
+            imageUrl: `/static/images/carta_mas_alta/loser.png`,
+            showCancelButton: false,
+            showConfirmButton: false,
+            backdrop: `rgba(0,0,0,0.6)`,
+            background: `none`,
+        });
     }
     messageDiv.textContent = message
 
