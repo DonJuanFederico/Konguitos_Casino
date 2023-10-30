@@ -4,275 +4,59 @@
     <link rel="stylesheet" href="/static/css/perfil.css">
 {% endblock %}
 {% block body %}
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Usuario</title>
-    <style>
-        body{
-            background-image: url("https://static.vecteezy.com/system/resources/previews/019/864/512/non_2x/abstract-dark-red-elegant-painting-texture-background-vintage-grunge-dark-backdrop-for-aesthetic-creative-design-free-photo.jpg");
-            color: white;
-        }
-
-        .container_son{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            height: 90%;
-            font-size: x-large;
-        }
-
-        h1{
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translate(-50%, -5%);
-            font-size: 48px;
-            color: black;
-            -webkit-text-stroke-width: 0.5px;
-            -webkit-text-stroke-color: white;
-        }
-
-        .datos{
-            position: absolute;
-            border: 2px solid black;
-            top: 25%;
-            left: 20%;
-            background-color: rgba(108, 85, 57, 0.65);
-            width: 700px;
-            height: 400px;
-        }
-
-        .nombre_usuario{
-            position: absolute;
-            top: 15%;
-            left: 10%;
-        }
-
-        .password{
-            position: absolute;
-            top: 35%;
-            left: 10%;
-        }
-
-        .email{
-            position: absolute;
-            top: 55%;
-            left: 10%;
-        }
-
-        .tarjeta{
-            position: absolute;
-            top: 75%;
-            left: 10%;
-        }
-
-        .avatar{
-            background-color: #6b0193;
-            border: 2px solid black;
-            position: absolute;
-            height: 400px;
-            width: 200px;
-            top: 25%;
-            left: 70%;
-        }
-
-        .imagen{
-            height: 380px;
-            width: 200px;
-            background-image: url("https://i.pinimg.com/236x/52/01/5f/52015f81939f893c56b492a99c27d553.jpg");
-            background-size: cover;
-
-        }
-
-        .nombre{       /* FOTO ARRIBA DE AVATAR */
-            position: absolute;
-            background-color: #9A00BF;
-            width: 200px;
-            text-align: center;
-            border-top: 2px solid black;
-            top: 100%;
-            left: 50%;
-            transform: translate(-50%, -100%);
-        }
-
-        #introducir{
-            position: absolute;
-            left: 180%;
-        }
-        #introducir1{
-            position: absolute;
-            left: 262%;
-        }
-        #introducir2{
-            position: absolute;
-            left: 468%;
-        }
-        #introducir3{
-            position: absolute;
-            left: 410%;
-        }
-
-        .edit{
-            position: absolute;
-            top: 88%;
-            left: 59%;
-        }
-
-        /* MENU HAMBURGUESA */
-        .bars__menu{
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            top: 90%;
-            left: 95%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-        }
-
-        .bars__menu span{
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #ffffff;
-            margin-top: 6px;
-            transform-origin: 0px 100%;
-            transition: all 300ms;
-        }
-
-        /* ANIMACION MENU PRINCIPAL */
-        .activeline1__bars-menu{
-            transform: translate(0px, 8px);
-        }
-
-        .activeline2_5__bars-menu{
-            transform: rotate(90deg) translate(-54%, -700%);
-        }
-
-        .activeline3__bars-menu{
-            opacity: 0;
-            margin-left: -30px;
-        }
-
-        /* BOTON HOME */
-        .home{
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            top: 86%;
-            left: 95%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.2s;
-            /*display: none;*/
-        }
-
-        .home span{
-            width: 100%;
-            height: 2px;
-            background: #ffffff;
-            margin-top: 6px;
-            transform-origin: 0px 100%;
-            transition: all 300ms;
-            position: absolute;
-        }
-
-        /* ANIMACION HOME */
-        .activeverizq{
-            transform:scale(1, 0.8) rotate(90deg) translate(-17px, -3px);
-        }
-
-        .activeverder{
-            transform:scale(1, 0.8) rotate(90deg) translate(-17px, -25px);
-        }
-
-        .activehor{
-            transform:scale(0.7, 1) translate(5px, 0px);
-        }
-
-        /* BOTON AJUSTES */
-        .ajustes{
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            top: 80%;
-            left: 95%;
-            transform: translate(-50%, -50%);
-            transition: all 400ms;
-            margin-top: 2px;
-            opacity: 0;
-            /*display: none;*/
-        }
-
-        .c_grande{
-            /* AQUI VA EL CIRCULO GRANDE */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            width: 90%;
-            height: 90%;
-            border: 2.5px solid #ffffff;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 300ms;
-            box-sizing: content-box;
-        }
-
-        .c_peque{
-            /* AQUI VA EL CIRCULO PEQUEÑO | BARRA DEL OTRO MENU */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            width: 30%;
-            height: 30%;
-            border: 2.5px solid #ffffff;
-            box-sizing: initial;
-            border-radius: 50%;
-            opacity: 1;
-        }
-
-        /* ANIMACION CIRCULO GRANDE */
-        .activec_grande{
-            opacity: 1;
-        }
-
-    </style>
-</head>
-<body>
-    <div class="container_son">
+    <div class="container">
         <h1> Perfil de usuario </h1>
         <div class="datos">
-            <label class="nombre_usuario"> Nombre Usuario:
-                <input id="introducir" type="text" value="mi nombre" disabled>
-            </label>
-            <label class="password"> Contraseña:
-                <input id="introducir1" type="password" value="mi contraseña" disabled>
-            </label>
-            <label class="email"> Email:
-                <input id="introducir2" type="email" value="mi email" disabled>
-            </label>
-            <label class="tarjeta"> Tarjeta:
-                <input id="introducir3" type="text" value="mi tarjeta" disabled>
-            </label>
-            <button class="edit"> Editar datos </button>
-        </div>
-        <div class="avatar">
-            <div class="imagen"></div>
-            <div class="nombre"> Avatar </div>
+            <div class="info">
+                <div class="etiquetas">
+                    <label class="nombre_usuario"> Apodo: </label><br><br>
+                    <label class="email"> Email:</label><br><br>
+                    <label class="password"> Contraseña: </label><br><br>
+                    <label class="address"> Dirección:</label><br><br><br>
+                    <label class="tarjeta"> Tarjeta:</label>
+                </div>
+
+                <div class="atributos">
+                    <div class="input_usuario">
+                        <input id="introducir" type="text" placeholder="Mi nombre" disabled>
+                    </div>
+                    <div class="input_email">
+                        <input id="introducir1" type="email" placeholder="Mi email" disabled>
+                    </div>
+                    <div class="input_pass">
+                        <input id="introducir2" type="password" placeholder="Mi contraseña" disabled>
+                        <button class="ver" onclick="verContrasenna()"><i class="fa-solid fa-eye" style="color: #857c14;"></i></button>
+                        <button class="no_ver" onclick="verContrasenna()"><i class="fa-solid fa-eye-slash" style="color: #857c14;"></i></button>
+                    </div>
+                    <div class="input_dir">
+                        <input id="introducir3" type="text" placeholder="Calle" disabled>
+                        <input id="introducir4" type="number" placeholder="Código postal" disabled>
+                    </div>
+                    <div class="input_card">
+                        <input id="introducir5" type="text" placeholder="Número de tarjeta" minlength="13" maxlength="18" disabled>
+                        <input id="introducir6" type="text" placeholder="Titular" disabled>
+                        <input id="introducir7" type="date" placeholder="Fecha de caducidad" disabled>
+                        <input id="introducir8" type="number" placeholder="CVV" maxlength="3" disabled>
+                    </div>
+                </div>
+
+                <div class="mas_datos">
+                    <label class="foto"></label><br>
+                    <label class="dni"> DNI:</label>
+                    <input class="input_dni" type="text" placeholder="Mi DNI" disabled><br>
+                </div>
+            </div>
+            <button class="edit" onclick="editarDatos()"> Editar datos </button>
+            <div class="avatar">
+                <div class="imagen"></div>
+                <div class="nombre"> Avatar </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/perfil.js"></script>
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 <!-- POR EDITAR Y MEJORAR -->
