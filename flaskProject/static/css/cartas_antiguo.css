@@ -228,8 +228,8 @@ button:hover{
 
 #masMonedas{
     position: absolute;
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
     top: 15%;
     left: 7%;
     animation: masMonedasAnimation 2s infinite alternate;
