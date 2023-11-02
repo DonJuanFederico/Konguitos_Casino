@@ -5,10 +5,11 @@ body {
     height: 100vh;
     margin: 0;
     background-image: url("https://static.vecteezy.com/system/resources/previews/019/864/512/non_2x/abstract-dark-red-elegant-painting-texture-background-vintage-grunge-dark-backdrop-for-aesthetic-creative-design-free-photo.jpg");
+    background-size: cover;
     color: white;
 }
 
-.audio-player {
+#audio-player {
      display: none;
 }
 
@@ -23,7 +24,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 1);
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.8);
 }
 
 .deck {

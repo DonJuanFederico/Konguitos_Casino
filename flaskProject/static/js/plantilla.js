@@ -11,63 +11,60 @@ menu.addEventListener('click', () => {
         submenus = false;
         mostrar();
         block = true;
-        setTimeout(() => {
-            home();
-        }, 200);
-        setTimeout(() => {
-            ajustes();
-        }, 400);
-        setTimeout(() => {
-            buscador();
-        }, 600);
     } else {
         submenus = true;
         ocultar();
         block = false;
-        setTimeout(() => {
-            home();
-        }, 600);
-        setTimeout(() => {
-            ajustes();
-        }, 400);
-        setTimeout(() => {
-            buscador();
-        }, 200);
     }
 });
 
 // mostrar los submenus
 function mostrar(){
     setTimeout( () => {
+        document.querySelector('.out').style.cursor = 'pointer';
+        document.querySelector('.out').style.opacity = 1;
+    }, 200);
+    setTimeout( () => {
         document.querySelector('.home').style.cursor = 'pointer';
         document.querySelector('.home').style.opacity = 1;
-    }, 200);
+    }, 300);
     setTimeout( () => {
         document.querySelector('.ajustes').style.cursor = 'pointer';
         document.querySelector('.ajustes').style.opacity = 1;
-    }, 300);
+    }, 400);
     setTimeout( () => {
-        //document.querySelector('.ajustes').style.display = 'flex';
         document.querySelector('.buscador').style.cursor = 'pointer';
         document.querySelector('.buscador').style.opacity = 1;
-    }, 400);
+    }, 500);
+    setTimeout( () => {
+        document.querySelector('.volume').style.cursor = 'pointer';
+        document.querySelector('.volume').style.opacity = 1;
+    }, 600);
 }
 
 // ocultar los submenus
 // NO OCURRE HASTA Q TERMINA LA ANIMACION DEL MENU PRINCIPAL
 function ocultar(){
     setTimeout( () => {
-        document.querySelector('.home').style.cursor = 'default';
-        document.querySelector('.home').style.opacity = 0;
-    }, 400);
-    setTimeout( () => {
-        document.querySelector('.ajustes').style.cursor = 'default';
-        document.querySelector('.ajustes').style.opacity = 0;
-    }, 300);
+        document.querySelector('.volume').style.cursor = 'default';
+        document.querySelector('.volume').style.opacity = 0;
+    }, 200);
     setTimeout( () => {
         document.querySelector('.buscador').style.cursor = 'default';
         document.querySelector('.buscador').style.opacity = 0;
-    }, 200);
+    }, 300);
+    setTimeout( () => {
+        document.querySelector('.ajustes').style.cursor = 'default';
+        document.querySelector('.ajustes').style.opacity = 0;
+    }, 400);
+    setTimeout( () => {
+        document.querySelector('.home').style.cursor = 'default';
+        document.querySelector('.home').style.opacity = 0;
+    }, 500);
+    setTimeout( () => {
+        document.querySelector('.out').style.cursor = 'default';
+        document.querySelector('.out').style.opacity = 0;
+    }, 600);
 }
 
 let block = false;
@@ -97,9 +94,9 @@ function cerrarBuscador(){
     }, 100);
 }
 
-function resultadosBusqueda(){
-    box_search.style.display = 'block';
-}
+function resultadosBusqueda(){box_search.style.display = 'block';}
+
+function cerrarSesion(){if(block) document.location.assign('http://127.0.0.1:5000/Inicio/');}
 
 var filter = '';
 var li = '';
@@ -149,16 +146,19 @@ function ingresarDinero(){
     window.location.href = "/dinero/";
 }
 
+//var localizacion = '';
 // eventos de teclado
 function teclaPresionada(){
     tecla = event.keyCode;
-
     if(tecla === 27){
         return cerrarBuscador();
     }
     else if(tecla === 13){
         if(miBusqueda ===  'HOME') paginaHome();
-        else if(miBusqueda === 'PERFIL') paginaAjustes();
+        else if(miBusqueda === 'PERFIL') {
+            //localizacion = window.location;
+            paginaAjustes();
+        }
         else if(miBusqueda === 'CARTA MÁS ALTA') cartas();
         else if(miBusqueda === 'BLACKJACK') blackJack();
         else if(miBusqueda === 'POKER') poker();

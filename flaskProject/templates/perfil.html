@@ -1,11 +1,11 @@
 {% extends 'plantilla.html' %}
-{% block title %} Perfil de Usuario {% endblock %}
+{% block title %} Ajustes de Usuario {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="/static/css/perfil.css">
 {% endblock %}
 {% block body %}
     <div class="container">
-        <h1> Perfil de usuario </h1>
+        <h1> Ajustes de usuario </h1>
         <div class="datos">
             <div class="info">
                 <div class="etiquetas">
@@ -46,11 +46,15 @@
                     <input class="input_dni" type="text" placeholder="Mi DNI" disabled><br>
                 </div>
             </div>
+            <div class="terminosYcondiciones" onclick="irATerminos()"> Términos y condiciones </div>
             <button class="edit" onclick="editarDatos()"> Editar datos </button>
             <div class="avatar">
-                <div class="imagen"></div>
+                <div class="imagen" onclick="cambiarAvatar()"></div>
                 <div class="nombre"> Avatar </div>
             </div>
+        </div>
+        <div class="botones">
+            <div class="idioma"><i class="fa-solid fa-globe"></i></div>
         </div>
     </div>
 {% endblock %}

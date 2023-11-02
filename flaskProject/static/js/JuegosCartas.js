@@ -1,4 +1,4 @@
-document.getElementById("cargarBingo").addEventListener("click", function(){
+document.getElementById("cargarCartaMasAlta").addEventListener("click", function(){
     window.location.href = "/Juegos/Indice_cartas/Carta_mas_alta/";
 });
 

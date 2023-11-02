@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'plantilla.html' %}
+{% block title %} Carta más alta {% endblock %}
+{% block stylesheets %}
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <meta charset="UTF-8">
     <title>Ruleta</title>
     <link rel="stylesheet" href="/static/css/ruleta.css">
-    <style>
-
-        .audio-player {
-             display: none;
-        }
-
-    </style>
-</head>
-<body>
+{% endblock %}
+{% block body %}
     <audio controls autoplay loop class="audio-player">
         <source src="../static/audio/VictorJoel.mp3" type="audio/mpeg">
     </audio>
@@ -42,6 +34,7 @@
     </div>
     <div class="result"></div>
     <button id="girarRuleta" class="girar">Girar</button>
+{% endblock %}
+{% block javascript %}
     <script src="/static/js/ruleta.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,113 @@
+body {
+    z-index: 1;
+    color: white;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
+}
+.audio-player {
+     display: none;
+}
+.container {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.scroll-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease;
+}
+
+.button {
+    width: 400px;
+    height: 600px;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.scroll-button {
+    position: absolute;
+    background-color: rgba(169, 169, 169, 0.1);
+    color: #fff;
+    width: 50px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.scroll-button.left {
+    left: 0;
+}
+
+.scroll-button.right {
+    right: 0;
+}
+h1{
+    font-size: xxx-large;
+    position: absolute;
+    top: 5%;
+    text-align: center;
+    text-decoration: underline;
+    color: #910000;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
+.cartas{
+    background-image: url("https://i.pinimg.com/236x/32/d1/82/32d182f9e994eadef1d3631b064d3eb8.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.ruleta{
+    background-image: url("https://i.pinimg.com/236x/03/2c/3b/032c3be96eeee110deb2220191e0eb3e.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.dados{
+    background-image: url("https://i.pinimg.com/236x/ac/71/25/ac7125f1290a068c7e327d7577ecf9d4.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.tragap{
+    background-image: url("https://i.pinimg.com/236x/ac/1f/f6/ac1ff689a606abb72ce0660ca035c634.jpg");
+    background-size: cover;
+}
+.dino{
+    background-image: url("https://i.pinimg.com/236x/73/fe/36/73fe36fc591b187d0c0cacf2e6a67d55.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.event{
+    background-image: url("https://i.pinimg.com/236x/bb/47/f3/bb47f329a5db13fc46c34179c6ee8697.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.extra{
+    background-image: url("https://i.pinimg.com/236x/ea/cd/ff/eacdff1ad46e3270c1af80f0ff7d0880.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}

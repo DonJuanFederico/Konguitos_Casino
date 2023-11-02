@@ -1,3 +1,6 @@
+body{
+  color: white;
+}
 .title-word {
   animation: color-animation 4s linear infinite;
 }

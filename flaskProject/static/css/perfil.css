@@ -4,6 +4,7 @@ body{
 }
 
 .container{
+    /*background-color: rgba(108, 85, 57, 0.65);*/
     display: flex;
     position: absolute;
     top: 50%;
@@ -20,8 +21,8 @@ h1{
     left: 50%;
     transform: translate(-50%, -5%);
     font-size: 48px;
-    color: black;
-    -webkit-text-stroke-width: 0.5px;
+    color: darkgoldenrod;
+    -webkit-text-stroke-width: 0.3px;
     -webkit-text-stroke-color: white;
 }
 /* contenedor de dats del usuario */
@@ -161,6 +162,7 @@ input[type=number] { -moz-appearance:textfield; }
     border-radius: 50%;
     background-image: url("https://i.pinimg.com/236x/52/01/5f/52015f81939f893c56b492a99c27d553.jpg");
     background-size: cover;
+    cursor: pointer;
 }
 
 .nombre{       /* FOTO ARRIBA DE AVATAR */
@@ -171,6 +173,20 @@ input[type=number] { -moz-appearance:textfield; }
     height: 10%;
     width: 100%;
     border: 2px solid black;
+
+}
+
+.terminosYcondiciones{
+    position: absolute;
+    top: 91.5%;
+    left: 76%;
+    font-size: 18px;
+    text-decoration: underline;
+    cursor: pointer ;
+}
+
+.terminosYcondiciones:hover{
+    color: darkgoldenrod;
 }
 
 .edit{
@@ -187,4 +203,18 @@ input[type=number] { -moz-appearance:textfield; }
 
 .edit:hover{
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
+}
+
+.botones{
+    position: absolute;
+    top: 73%;
+    left: 87%;
+    width: 70px;
+    /*border: 2px solid black;*/
+    display: flex;
+    justify-content: space-between;
+}
+
+.idioma{
+    cursor: pointer;
 }

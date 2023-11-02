@@ -71,6 +71,9 @@ def registroUsuario():
 def terminos():
     return render_template('terminosCondiciones.html')
 
+@app.route('/Perfil_de_usuario/Avatar/')
+def avatar():
+    return render_template('avatares.html')
 
 @app.route('/Camara/',methods=['GET','POST'])
 def camara():

@@ -13,6 +13,7 @@ var picture = document.getElementById('introducir10');
 var ver = document.querySelector('.ver');
 var no_ver = document.querySelector('.no_ver');
 
+// funcion para permitir la edicion de datos
 function editarDatos() {
     if(password.type === 'text'){
         password.type = 'password';
@@ -30,6 +31,7 @@ function editarDatos() {
     picture.disabled = !picture.disabled;
 }
 
+// funcion para ver al contraseña
 function verContrasenna(){
     if (password.type === 'password') {
         password.type = 'text';
@@ -41,4 +43,21 @@ function verContrasenna(){
         ver.style.opacity = 0;
         no_ver.style.opacity = 1;
     }
+}
+
+// funcion para "cambiar el avatar"
+function cambiarAvatar(){document.location.assign('http://127.0.0.1:5000//Perfil_de_usuario/Avatar/')}
+
+// funcion para leer los terminos y condiciones
+function irATerminos(){document.location.assign('http://127.0.0.1:5000/Registro/terminosCondiciones.html');}
+
+var bontonAtras = document.querySelector('.back');
+
+// funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
+let prevUrl = document.referrer;
+function volverAtras(){
+    if(prevUrl.indexOf(window.location.host) !== -1) {
+    // Ir a la página anterior
+    window.history.back();
+}
 }

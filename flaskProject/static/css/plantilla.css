@@ -3,7 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+body{
+    z-index: 8;
+}
 /* MENU HAMBURGUESA */
 .bars__menu{
     width: 30px;
@@ -14,45 +16,50 @@
     transform: translate(-50%, -50%);
     cursor: pointer;
 }
-
-/* BOTON HOME */
-.home{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 85%;
-    left: 94.8%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.2s;
-    /*display: none;*/
+.bars__menu:hover, .home:hover, .ajustes:hover, .buscador:hover, .volume:hover, .out:hover{
+    color: darkgoldenrod;
+    filter: drop-shadow(10px 10px 10px rgba(0,0,0,1));
 }
 
-/* BOTON AJUSTES */
-.ajustes{
+.bars__menu, .home, .ajustes, .buscador, .volume, .out{
+    z-index: 8;
     width: 30px;
     height: 30px;
     position: absolute;
-    top: 80%;
     left: 95%;
     transform: translate(-50%, -50%);
-    transition: all 400ms;
-    margin-top: 2px;
-    opacity: 0;
 }
-
-/* PARA UN BUSCADOR */
-.buscador{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 75%;
-    left: 95%;
-    transform: translate(-50%, -50%);
-    margin-top: 2px;
-    cursor: default;
+.home, .ajustes, .buscador, .volume, .out{
     opacity: 0;
     transition: opacity 0.4s;
+    margin-top: 2px;
+}
+
+/* BOTON HOME */
+.home{top: 80%;}
+
+/* BOTON AJUSTES */
+.ajustes{top: 75%;}
+
+/* PARA UN BUSCADOR */
+.buscador{top: 70%;}
+
+.out{top: 85%;}
+
+.volume{top: 65%;}
+#vOn{
+    opacity: 1;
+    display: block;
+    position: absolute;
+    top: 20%;
+    left: 0;
+}
+#vOff{
+    position: absolute;
+    top: 20%;
+    left: 0;
+    /*opacity: 0;*/
+    display: none;
 }
 
 /* BARRA DE BUSQUEDA */
@@ -87,7 +94,6 @@
     overflow: hidden;
     z-index: 9;
     cursor: pointer;
-    /*padding-left: 20px;*/
 }
 
 #box-search li a{
@@ -112,4 +118,18 @@
     left: 0;
     background: rgba(0,0,0,0.5);
     z-index: 7;
+}
+
+.back{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 90%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.back:hover{
+    color: darkgoldenrod;
+    filter: drop-shadow(10px 10px 10px rgba(0,0,0,1));
 }

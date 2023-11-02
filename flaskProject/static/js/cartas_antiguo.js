@@ -24,6 +24,7 @@ function shuffle(array) {
     }
 }
 
+// funcion para ocultar las cartas
 function hideCards() {
     retirarDinero();
     for (let i = 0; i < slots.length; i++) {
@@ -51,8 +52,8 @@ function dealCards() {
 }
 
 let bloqueo = true;
-
 // IMPORTANTE: LA CARTA Nº 1 ES LA DEL DEALER
+// funcion para elegir la carta y q todas se den la vuelta y se revelen
 for (let i = 1; i < slots.length; i++) {
     slots[i].addEventListener('click', () => {
         if (!bloqueo) {
@@ -82,6 +83,7 @@ for (let i = 1; i < slots.length; i++) {
 }
 
 let repartir = false;
+// funcion para reaprtir las cartas boca abajo
 deck.addEventListener('click', () => {
     for (let i = 1; i < slots.length; i++) {
         slots[i].style.backgroundColor = '';
@@ -131,7 +133,7 @@ function agregarDinero() {
     xhr.send("&cantidad_a_agregar=" + monto);
 }
 
-
+// funcion para comparar las cartas y repartir el dinero apostado
 function compareCards(selectedCardValue, dealerCardValue) {
     let message = '';
     // valores para poder comparar letras
@@ -174,49 +176,69 @@ function compareCards(selectedCardValue, dealerCardValue) {
     //apostar
     apuesta = parseFloat(document.getElementById('apuesta').value);
     // Realiza la apuesta
-        if (saldo > 0 && apuesta <= saldo) {
-            let gananciaPerdida = apuesta;
-            if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
-                saldo += 2 * apuesta;
-                agregarDinero();
-            } else if (messageDiv.textContent === 'Empate') {
-                gananciaPerdida = -apuesta / 2;
-                saldo -= apuesta / 2;
-                apuesta = apuesta / 2;
-                retirarDinero();
-            }
-            document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
-            // Muestra el saldo actualizado
-            document.getElementById('monedas').textContent = `${saldo}`;
-        } else {
-            document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
+    if (saldo > 0 && apuesta <= saldo) {
+        let gananciaPerdida = apuesta;
+        if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
+            saldo += 2 * apuesta;
+            agregarDinero();
+        } else if (messageDiv.textContent === 'Empate') {
+            gananciaPerdida = -apuesta / 2;
+            saldo -= apuesta / 2;
+            apuesta = apuesta / 2;
+            retirarDinero();
         }
+        document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
+        // Muestra el saldo actualizado
+        document.getElementById('monedas').textContent = `${saldo}`;
+    } else {
+        document.getElementById('dinero').textContent = `Ganancias/Pérdidas: No hay`;
+    }
 }
 
 var botonReglas = document.getElementById("botonReglas");
-    botonReglas.addEventListener("click", function () {
-        Swal.fire({
-            title: '¡BIENVENIDO!',
-            width: 600,
-            height: 700,
-            html: "<div>" +
-                " <strong><h3 style='text-decoration: underline; text-align: center' >REGLAS:</h3></strong>" +
-                "<br><strong>1.</strong> Se reparten 4 cartas boca abajo en total." +
-                "<br><strong>2.</strong> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador." +
-                "<br><strong>3.</strong> Al jugador se le da la opción de elegir una de las 3 cartas que posee." +
-                "<br><strong>4.</strong> Se desvela la carta del jugador y posteriormente la de la banca." +
-                "<br><strong>5.</strong> Se comparan las cartas y la de mayor valor ganará." +
-                "<br><strong>6.</strong> En caso de empate se perderá el 50% de la apuesta principal." +
-                "</div>",
-            confirmButtonText: '¡Dejame Jugar!',
-            confirmButtonColor: 'darkgoldenrod',
-            backdrop: `rgba(0,0,0,0.4)`,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            customClass: {
-                confirmButton: 'custom-button',
-                htmlContainer: 'custom-container'
-              },
-        });
+// funcion para mostrar las reglas
+botonReglas.addEventListener("click", function () {
+    Swal.fire({
+        title: '¡BIENVENIDO!',
+        width: 600,
+        height: 700,
+        html: "<div>" +
+            " <strong><h3 style='text-decoration: underline; text-align: center' >REGLAS:</h3></strong>" +
+            "<br><strong>1.</strong> Se reparten 4 cartas boca abajo en total." +
+            "<br><strong>2.</strong> De estas, 1 de ellas se le reparte a la banca y las otras 3 al jugador." +
+            "<br><strong>3.</strong> Al jugador se le da la opción de elegir una de las 3 cartas que posee." +
+            "<br><strong>4.</strong> Se desvela la carta del jugador y posteriormente la de la banca." +
+            "<br><strong>5.</strong> Se comparan las cartas y la de mayor valor ganará." +
+            "<br><strong>6.</strong> En caso de empate se perderá el 50% de la apuesta principal." +
+            "</div>",
+        confirmButtonText: '¡Dejame Jugar!',
+        confirmButtonColor: 'darkgoldenrod',
+        backdrop: `rgba(0,0,0,0.4)`,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        customClass: {
+            confirmButton: 'custom-button',
+            htmlContainer: 'custom-container'
+          },
     });
+});
 
+const audio = document.getElementById("audio-player");
+const volume_on = document.getElementById("vOn");
+const volume_off = document.getElementById("vOff");
+// funcion para quitar el volumen de la pantalla
+function quitarVolumen(){
+    if (audio.muted) {
+        audio.muted = false;
+        volume_on.style.display = 'block';
+        volume_off.style.display = 'none';
+    } else {
+        audio.muted = true;
+        volume_on.style.display = 'none';
+        volume_off.style.display = 'block';
+    }
+}
+
+var bontonAtras = document.querySelector('.back');
+// funcion para ir a la ventana de atras
+function volverAtras(){document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/')}

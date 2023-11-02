@@ -33,20 +33,31 @@
 
     <div class="toolbar">
         <div title="Menú" class="bars__menu">
-            <i class="fa-solid fa-bars fa-bounce fa-2xl" id="menu_animado"></i>
+            <i class="fa-solid fa-bars fa-2xl" id="menu_animado"></i>  <!-- fa-bounce -->
         </div>
 
         <div title="Home" class="home" onclick="paginaHome()">
-            <i class="fa-solid fa-house-chimney fa-2xl"></i>
+            <i class="fa-solid fa-house-chimney fa-2xl"></i>  <!-- fa-beat-fade -->
         </div>
 
         <div title="Perfil" class="ajustes" onclick="paginaAjustes()">
-            <i class="fa-solid fa-gear fa-spin fa-2xl"></i>
+            <i class="fa-solid fa-gear fa-2xl"></i>  <!-- fa-spin -->
         </div>
 
         <div title="Buscador" class="buscador" onclick="ponerBuscador()">
-            <i class="fa-solid fa-magnifying-glass fa-beat-fade fa-2xl"></i>
+            <i class="fa-solid fa-magnifying-glass fa-2xl"></i> <!-- fa-beat-fade -->
         </div>
+        <div title="Cerrar sesión" class="out" onclick="cerrarSesion()">
+            <i class="fa-solid fa-arrow-right-from-bracket fa-2xl"></i>
+        </div>
+        <div title="volumen" class="volume" onclick="quitarVolumen()">
+            <i id="vOn" class="fa-solid fa-volume-high fa-xl"></i>
+            <i id="vOff" class="fa-solid fa-volume-xmark fa-xl"></i>
+        </div>
+    </div>
+
+    <div title="Atrás" class="back" onclick="volverAtras()">
+        <i class="fa-solid fa-circle-left fa-2xl"></i>
     </div>
 
     <script src="/static/js/plantilla.js"></script>
@@ -57,7 +68,7 @@
 </html>
 
 <!--
-- AÑADIR UN CERRAR SESION:  <i class="fa-solid fa-arrow-right-to-bracket"></i>
+- AÑADIR UN CERRAR SESION:  <i class="fa-solid fa-arrow-right-from-bracket"></i>
 - RECOMPENSAS: <i class="fa-solid fa-award"></i>
 - EN CASO DE PONER CHAT HAY EMOJIS EN: fontawesome.com
 
