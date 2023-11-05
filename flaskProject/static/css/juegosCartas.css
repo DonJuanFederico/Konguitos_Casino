@@ -74,6 +74,7 @@ article{
 }
 
 article img:first-child{
+  cursor: pointer;
   box-shadow: 0 60px 60px -60px rgba(0, 30, 255, 0.5);
   border-radius: 4px;
   object-fit: cover;
@@ -82,6 +83,7 @@ article img:first-child{
 }
 
 article img:last-child{
+  cursor: pointer;
   position: absolute;
   right: 0;
   left: 0;

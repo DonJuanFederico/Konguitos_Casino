@@ -22,6 +22,16 @@ input{
     margin: 2px;
 }
 
+.custom-swal-container {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.custom-swal-image {
+    max-width: 90%;
+    max-height: 90%;
+}
+
 .audio-player {
      display: none;
 }
@@ -40,6 +50,7 @@ input{
 }
 
 .botonIniciarPausar{
+    cursor: pointer;
     width: 0;
     height: 74px;
     background: transparent;
@@ -138,6 +149,7 @@ input{
 }
 
 #botonComprarMonedas {
+    cursor: pointer;
     margin-left: -190%;
     margin-top: -30%;
     transform: scale(0.07);
@@ -174,6 +186,7 @@ input{
   }
 
 #logoCasino img{
+    cursor: pointer;
     width: 70%;
     height: 110%;
     text-align: center;
@@ -194,6 +207,7 @@ input{
 }
 
 #logoJuego img{
+    cursor: pointer;
     width: 80%;
     height: 120%;
     text-align: center;

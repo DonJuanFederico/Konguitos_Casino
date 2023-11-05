@@ -96,19 +96,43 @@ botonIniciarPausar.addEventListener("click", () => {
                         resumeGame();
                     } else {
                         botonIniciarPausar.classList.toggle("pausa");
-                        alert("Cantidad insuficiente");
+                        Swal.fire({
+                            title: 'Cantidad insuficiente',
+                            confirmButtonText: '¡Aceptar!',
+                            confirmButtonColor: '#31a820',
+                            backdrop: true,
+                            allowOutsideClick: true,
+                            allowEscapeKey: true,
+                            allowEnterKey: true,
+                        });
                     }
                 } else {
                     //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
                     botonIniciarPausar.classList.toggle("pausa");
-                    alert("Dos decimales solo");
+                    Swal.fire({
+                        title: 'Las KongoCoin solo tienen dos decimales',
+                        confirmButtonText: '¡Aceptar!',
+                        confirmButtonColor: '#31a820',
+                        backdrop: true,
+                        allowOutsideClick: true,
+                        allowEscapeKey: true,
+                        allowEnterKey: true,
+                    });
                     document.getElementById("cantidadApostada").value = 0.01;
                     document.getElementById("limiteApostado").value = 1.01;
                 }
             } else {
                 //Mantenga el botón de play, y no se ponga el de pausa aunque no se inicie el juego
                 botonIniciarPausar.classList.toggle("pausa");
-                alert("NADA DE APUESTAS NEGATIVAS Y LÍMITES SIN SENTIDO. ¡JUEGA LIMPIO!");
+                Swal.fire({
+                    title: 'No se pueden apostar cantidades negativas ni límites sin sentido',
+                    confirmButtonText: '¡Aceptar!',
+                    confirmButtonColor: '#31a820',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                    allowEnterKey: true,
+                });
                 document.getElementById("cantidadApostada").value = 0.01;
                 document.getElementById("limiteApostado").value = 1.01;
             }
@@ -127,13 +151,25 @@ botonIniciarPausar.addEventListener("click", () => {
     //Si es un botón de pausa, para el juego
 })
 
+
 function retirarse(motivo){
     if(motivo === 0){
         recompensa = cantidadApostada * limiteApostado;
         recompensa = recompensa.toFixed(2);
     }
     contenedorMonedasUsuario.innerText = Math.round((parseFloat(contenedorMonedasUsuario.innerText) + parseFloat(recompensa)) * 100) / 100;
-    alert("Se retira ganando: " + recompensa);
+    Swal.fire({
+        html: `<div style="font-size: 30px;">Has ganado ${recompensa} KonguitoCoins</div>`,
+        imageUrl: `/static/images/konguito_run/GanarKonguito.png`,
+        showCancelButton: false,
+        showConfirmButton: false,
+        backdrop: `rgb(181, 245, 156)`,
+        background: `none`,
+        customClass: {
+            container: 'custom-swal-container',
+            image: 'custom-swal-image'
+        }
+    });
     agregarDinero()
     reiniciarJuego();
 }
@@ -170,7 +206,15 @@ function cambiarImagenes() {
         reiniciarJuego();
     }
     if(multiplicador > pararJuego){
-        alert("Se te pasó el tiempo, paró en el: " + pararJuego);
+        //alert("Se te pasó el tiempo, paró en el: " + pararJuego);
+        Swal.fire({
+            html: `<div style="font-size: 30px;">Se te pasó el tiempo, paró en el: ${pararJuego}</div>`,
+            imageUrl: `/static/images/konguito_run/PerderKonguito.png`,
+            showCancelButton: false,
+            showConfirmButton: false,
+            backdrop: `rgb(175, 243, 236)`,
+            background: `none`,
+        });
         reiniciarJuego();
     }
 }
@@ -210,3 +254,24 @@ function agregarDinero() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("&cantidad_a_agregar=" + recompensa);
 }
+
+document.getElementById("logoJuego").addEventListener("click", function() {
+    Swal.fire({
+        title: 'Instrucciones de juego',
+        html: "<div class='custom-content'>" +
+            " Bievenido a KonguitoRun" +
+            "<h3>Reglas:</h3>" +
+            "1. En \"Apuesta\" inserte la cantidad monetaria que desea apostar." +
+            "<br>2. El campo \"Límite\" sirve para hacer un retiro automático." +
+            "<br>2. El botón \"Retirarse\" le permite sacar su dinero cuando considere oportuno." +
+            "<h5>Y recuerda:</h5>" +
+            "<img src='/static/images/konguito_run/recordatorio.png' style='max-width:70%;'>" +
+            "</div>",
+        confirmButtonText: '¡A apostar!',
+        confirmButtonColor: '#31a820',
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        allowEnterKey: true,
+    });
+});
