@@ -22,16 +22,6 @@ input{
     margin: 2px;
 }
 
-.custom-swal-container {
-    max-width: 100vw;
-    max-height: 100vh;
-}
-
-.custom-swal-image {
-    max-width: 90%;
-    max-height: 90%;
-}
-
 .audio-player {
      display: none;
 }
