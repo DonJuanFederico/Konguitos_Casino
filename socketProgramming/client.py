@@ -1,11 +1,10 @@
 import socket
 
-
 HEADER = 64
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "Desconectado"
-SERVER = "10.60.58.46"
+SERVER = "10.60.58.92"
 ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -21,4 +20,12 @@ def send(msg):
     print(client.recv(2048).decode(FORMAT))
 
 send("Hello server")
-send(DISCONNECT_MESSAGE)
+
+while True:
+    user_input = input("Ingrese un mensaje (o 'exit' para salir): ")
+    send(user_input)
+
+    if user_input == 'exit':
+        break
+
+client.close()
