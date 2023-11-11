@@ -8,12 +8,7 @@ body{
 }
 /* MENU HAMBURGUESA */
 .bars__menu{
-    width: 30px;
-    height: 30px;
-    position: absolute;
     top: 90%;
-    left: 95%;
-    transform: translate(-50%, -50%);
     cursor: pointer;
 }
 .bars__menu:hover, .home:hover, .ajustes:hover, .buscador:hover, .volume:hover, .out:hover{
