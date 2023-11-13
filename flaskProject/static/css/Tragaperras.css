@@ -8,6 +8,10 @@ body {
     overflow-y: hidden;
 }
 
+.audio-player {
+     display: none;
+}
+
 #app {
     display: flex;
     position: absolute;
