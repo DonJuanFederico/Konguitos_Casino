@@ -65,6 +65,7 @@ audio{
   position: relative;
   display: flex;
   justify-content: center;
+  /*border: 2px solid red;*/
 }
 
 /* la imagen sin moverse */
@@ -139,53 +140,36 @@ article.hover:hover img:last-child{
   transform: translateY(15%);
 }
 
-/* TEMPORIZADORES */
-.contendorTimers{
-  top: 10%;
-  height: 8%;
-  position: relative;
+/* USANDO SIMPLYCOUNTDOWN */
+.tempos{
+  /*border: 2px dashed #40ff00;*/
+}
+#cuenta, #cuenta2, #cuenta3 {
+  margin-top: 1%;
   display: flex;
-  /*border: 3px dashed lightgreen;*/
-  color: white;
+  /*border: 3px solid yellow;*/
 }
 
-#temporizadorE1, #temporizadorE2, #temporizadorE3{
-  display: flex;
-  position: absolute;
-  justify-content: center;
-}
-#temporizadorE1{
-  left: 20.5%;
-}
-#temporizadorE2{
-  left: 43%;
-}
-#temporizadorE3{
-  left: 64.5%;
-}
-
-.contendorTimers #temporizadorE1 .bloque, .contendorTimers #temporizadorE2 .bloque, .contendorTimers #temporizadorE3 .bloque{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 4px;
-}
-
-.contendorTimers #temporizadorE1 .bloque div, .contendorTimers #temporizadorE2 .bloque div, .contendorTimers #temporizadorE3 .bloque div{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(80,80,80);
-  box-shadow: 0 0 6px 2px #727272 inset;
-  font-size: 40px;
-  font-weight: bold;
-  width: 45px;
-  height: 100%;
+.simply-section {
+  background: #d49191;
+  width: 4%;
+  height: 4%;
+  margin: 0 0.5%;
   border-radius: 5px;
-  border: 2px solid lightblue;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border: 2px solid lightseagreen;
 }
 
-.contendorTimers #temporizadorE1 .bloque p, .contendorTimers #temporizadorE2 .bloque p, .contendorTimers #temporizadorE3 .bloque p{
-  font-size: 12px;
-  font-weight: bold;
+.simply-amount {
+  display: block;
+  font-size: 200%;
+  font-weight: 700;
+}
+
+.simply-word {
+  font-weight: 300;
+  font-size: 150%;
 }
