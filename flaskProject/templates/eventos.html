@@ -10,25 +10,85 @@
     <div class = "contenedorTotal">
         <div class="container">
           <h2 class="title">
-            <span class="title-word title-word-1">Eventos</span>
+            <span class="title-word title-word-1">Ev</span><span class="title-word title-word-2">ent</span><span class="title-word title-word-3">os</span>
           </h2>
         </div>
         <div class = "contenedorJuegos">
-            <article id="cargarCartaMasAlta" onclick="jugarCartaMasAlta()">
-                <img src="/static/images/juegos_cartas/cartaMasAltaCartel.png">
-                <img src="/static/images/juegos_cartas/cartaMasAltaFrontal2.png">
+            <article id="cargarCartaMasAlta">
+                <img src="/static/images/juegos_cartas/cartaMasAltaCartel.png" onclick="evento_1()">
+                <img class="blackout" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEvento()">
+                <img class="pop-up" src="/static/images/juegos_cartas/cartaMasAltaFrontal2.png">
             </article>
             <article id="cargarBlackJack">
-                <img src="/static/images/juegos_cartas/blackJackCartel.png">
-                <img src="/static/images/juegos_cartas/blackJackFrontal.png">
+                <img src="/static/images/juegos_cartas/blackJackCartel.png" onclick="evento_2()">
+                <img class="blackout_2" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEvento2()">
+                <img class="pop-up2" src="/static/images/juegos_cartas/blackJackFrontal.png">
             </article>
             <article id="cargarDino">
-                <img src="/static/images/juegos_cartas/cartaMasAltaCartel.png">
-                <img src="/static/images/juegos_cartas/cartaMasAltaFrontal.png">
+                <img src="/static/images/juegos_cartas/cartaMasAltaCartel.png" onclick="evento_3()">
+                <img class="blackout_3" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEvento3()">
+                <img class="pop-up3"src="/static/images/juegos_cartas/cartaMasAltaFrontal.png">
             </article>
+        </div>
+        <div class="contendorTimers">
+            <div id="temporizadorE1">
+                <div class="bloque">
+                    <div id="daysE1">00</div>
+                    <p>Days</p>
+                </div>
+                <div class="bloque">
+                    <div id="hoursE1">00</div>
+                    <p>Hours</p>
+                </div>
+                <div class="bloque">
+                    <div id="minsE1">00</div>
+                    <p>Mins</p>
+                </div>
+                <div class="bloque">
+                    <div id="secsE1">00</div>
+                    <p>Secs</p>
+                </div>
+            </div>
+            <div id="temporizadorE2">
+                <div class="bloque">
+                    <div id="daysE2E1">00</div>
+                    <p>Days</p>
+                </div>
+                <div class="bloque">
+                    <div id="hoursE2">00</div>
+                    <p>Hours</p>
+                </div>
+                <div class="bloque">
+                    <div id="minsE2">00</div>
+                    <p>Mins</p>
+                </div>
+                <div class="bloque">
+                    <div id="secsE2">00</div>
+                    <p>Secs</p>
+                </div>
+            </div>
+            <div id="temporizadorE3">
+                <div class="bloque">
+                    <div id="daysE3">00</div>
+                    <p>Days</p>
+                </div>
+                <div class="bloque">
+                    <div id="hoursE3">00</div>
+                    <p>Hours</p>
+                </div>
+                <div class="bloque">
+                    <div id="minsE3">00</div>
+                    <p>Mins</p>
+                </div>
+                <div class="bloque">
+                    <div id="secsE3">00</div>
+                    <p>Secs</p>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 {% block javascripts %}
     <script src="/static/js/eventos.js"></script>
+    <!--script src="https://raw.githubusercontent.com/VincentLoy/simplyCountdown.js/develop/dist/simplyCountdown.min.js"></script>-->
 {% endblock %}
