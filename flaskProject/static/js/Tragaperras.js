@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', function (message) {
     const items = [
         '🍭', '❌', '⛄️', "😒", "🤡", "🎁", "🤑", "💀", "🙏", "🎅", "🧙"
     ];
@@ -275,4 +274,4 @@ document.addEventListener('DOMContentLoaded', function (message) {
         xhr.send("&cantidad_a_agregar=" + monto);
     }
     init()
-});
+
