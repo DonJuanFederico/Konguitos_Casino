@@ -1,27 +1,15 @@
-body {
+body, html {
     margin: 0;
     padding: 0;
+    border: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     background-image: url("/static/images/tragaperras/fondoTragaperras2.png");
     background-size: cover;
     overflow-y: hidden;
 }
-
 .audio-player {
      display: none;
-}
-
-#app {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 /* Control de 3 filas o 3 columnas. Actual: 3 columnas*/
