@@ -157,6 +157,10 @@ def dino():
 def event():
     return render_template('eventos.html')
 
+@app.route('/Juegos/Eventos/RuletaRusa', methods=['GET'])
+def ruletaRusa():
+    return render_template('ruleta_rusa.html')
+
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():
     return render_template('juegosExtra.html')

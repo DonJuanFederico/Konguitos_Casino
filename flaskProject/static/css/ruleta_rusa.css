@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    background-size: cover;
+    overflow-y: hidden;
+}
+
+buttonDisparo{
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    background: #494949;
+    color: #fff; /* Añadido color de texto para mejorar la legibilidad */
+}
+buttonDisparo:hover {
+    background: #000000; /* Puedes ajustar el color al hacer hover según tu preferencia */
+}
+
+#botonDisparar{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+}
+
+buttonRetiro{
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    background: #944700;
+    color: #fff; /* Añadido color de texto para mejorar la legibilidad */
+}
+buttonRetiro:hover {
+    background: #562b0f; /* Puedes ajustar el color al hacer hover según tu preferencia */
+}
+
+#botonRetirar{
+    position: absolute;
+    top: 70%;
+    left: 60%;
+}
+
+buttonRR {
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    background: #ff0202;
+    color: #fff; /* Añadido color de texto para mejorar la legibilidad */
+}
+
+/* Estilo adicional para dar feedback visual al hacer hover sobre el botón */
+buttonRR:hover {
+    background: #e60000; /* Puedes ajustar el color al hacer hover según tu preferencia */
+}
+
+#botonDeReglas {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+}
+
+#botonDeRecompensas {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+}
