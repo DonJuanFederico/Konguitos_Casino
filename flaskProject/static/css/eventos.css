@@ -1,8 +1,13 @@
 body{
   color: white;
-  background-image: url("/static/images/eventos/fondo_evento2.jpg"); /* https://i.pinimg.com/originals/24/7d/52/247d52b719689f3a71dae786bff5dce3.png */
+  background-image: url("https://fondosmil.com/fondo/23110.jpg");
+  /*
+  https://i.pinimg.com/originals/24/7d/52/247d52b719689f3a71dae786bff5dce3.png
+  https://static.videezy.com/system/resources/thumbnails/000/044/998/original/1046256Abstract-neon-light-background-_HD_BG.jpg
+  */
   background-size: cover;
   background-position: center 100%;
+  z-index: 1;
 }
 
 audio{
@@ -24,30 +29,30 @@ audio{
 }
 
 .title-word-1 {
-  --color-1: #FFD700;
-  --color-2: #00BFFF;
-  --color-3: #FF00FF;
+  --color-1: #47EFFC;
+  --color-2: #7E098E;
+  --color-3: #228cb9;
 }
 
 .title-word-2 {
-  --color-1: #ff5000;
-  --color-2: #9B59B6;
-  --color-3: #27AE60;
+  --color-1: #db11e8;
+  --color-2: #7776C7;
+  --color-3: #6729b6;
 }
 
 .title-word-3 {
-  --color-1: #3498DB;
-  --color-2: #eeac56;
-  --color-3: #00FF00;
+  --color-1: #389cc5;
+  --color-2: #61349A;
+  --color-3: #939393;
 }
 
 @keyframes color-animation {
   0%    {color: var(--color-1)}
-  32%   {color: var(--color-3)}
-  33%   {color: var(--color-2)}
+  32%   {color: var(--color-2)}
+  33%   {color: var(--color-3)}
   65%   {color: var(--color-1)}
-  66%   {color: var(--color-3)}
-  99%   {color: var(--color-2)}
+  66%   {color: var(--color-2)}
+  99%   {color: var(--color-3)}
   100%  {color: var(--color-1)}
 }
 
@@ -65,7 +70,6 @@ audio{
   position: relative;
   display: flex;
   justify-content: center;
-  /*border: 2px solid red;*/
 }
 
 /* la imagen sin moverse */
@@ -106,7 +110,7 @@ article img:last-child{
   margin: auto;
   transform: translateY(25%);
   transition: 0.3s ease;
-  opacity: 0;
+  display: none;
 }
 
 article:hover img:first-child, article:hover [class="blackout"], article:hover [class="blackout_2"], article:hover [class="blackout_3"]{
@@ -136,40 +140,52 @@ article::before{
 
 /* añado la clase hover para q aparezca cuando se desbloquee */
 article.hover:hover img:last-child{
-  opacity: 1;
+  display: none;
   transform: translateY(15%);
 }
 
-/* USANDO SIMPLYCOUNTDOWN */
-.tempos{
-  /*border: 2px dashed #40ff00;*/
-}
-#cuenta, #cuenta2, #cuenta3 {
-  margin-top: 1%;
+/* TEMPORIZADOR */
+
+.contendorTimers{
+  margin-top: 4%;
+  top: 20%;
+  height: 15%;
+  position: relative;
   display: flex;
-  /*border: 3px solid yellow;*/
+  color: white;
+  justify-content: center;
 }
 
-.simply-section {
-  background: #d49191;
-  width: 4%;
-  height: 4%;
+#temporizador{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.contendorTimers #temporizador .bloque{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   margin: 0 0.5%;
-  border-radius: 5px;
+  width: 7%;
+  height: 80%;
+  background-color: rgb(80,80,80);
+  box-shadow: 0 0 10px 7px #727272 inset;
+  border-radius: 10px;
+  border: 3px solid lightblue;
+}
+
+.contendorTimers #temporizador .bloque div{
+  position: relative;
   display: flex;
   align-items: center;
-  text-align: center;
   justify-content: center;
-  border: 2px solid lightseagreen;
-}
-
-.simply-amount {
-  display: block;
-  font-size: 200%;
-  font-weight: 700;
-}
-
-.simply-word {
-  font-weight: 300;
-  font-size: 150%;
+  font-size: 60px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  height: 60%;
+  top: 10%;
 }

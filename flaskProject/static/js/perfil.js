@@ -51,13 +51,16 @@ function cambiarAvatar(){document.location.assign('http://127.0.0.1:5000//Perfil
 // funcion para leer los terminos y condiciones
 function irATerminos(){document.location.assign('http://127.0.0.1:5000/Registro/terminosCondiciones.html');}
 
-var bontonAtras = document.querySelector('.back');
-
 // funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
 let prevUrl = document.referrer;
 function volverAtras(){
     if(prevUrl.indexOf(window.location.host) !== -1) {
     // Ir a la página anterior
     window.history.back();
+    }
 }
-}
+
+// hacer un swal.fire para realizar el cambio de idioma
+/*
+    Para traducir la pagina la idea es q lea el texto de cada pagina y la traduzca (la aplicacion entera)
+ */
