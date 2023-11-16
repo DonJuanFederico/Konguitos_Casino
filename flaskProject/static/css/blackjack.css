@@ -2,6 +2,14 @@
     text-align: center;
 }
 
+.card-image {
+    width: 100px; /* Ajusta el ancho y el alto según sea necesario */
+    height: 150px;
+    margin: 5px; /* Añade márgenes si es necesario */
+    /* Agrega cualquier otro estilo necesario */
+}
+
+
 #result {
     font-size: 24px;
 }
@@ -66,4 +74,19 @@
     left: 7%;
     animation: masMonedasAnimation 2s infinite alternate;
     cursor: pointer;
+}
+
+.audio-player {
+     display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+    background-image: url('https://image.freepik.com/free-vector/poker-table-background-green-color_47243-1068.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
 }
