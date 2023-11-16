@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body %}
     <audio controls autoplay>
-        <source src="/static/audio/BadPiggies.mp3" type="audio/mpeg">
+        <source src="/static/audio/Sonic.mp3" type="audio/mpeg">
     </audio>
     <div class = "contenedorTotal">
         <div class="container">
@@ -26,23 +26,32 @@
                     <img class="blackout_2" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEvento2()">
                     <img class="pop-up2" src="/static/images/juegos_cartas/blackJackFrontal.png">
                 </article>
-                <article id="cargarDino">
-                    <img src="/static/images/juegos_cartas/cartaMasAltaCartel.png" onclick="evento_3()">
-                    <img class="blackout_3" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEvento3()">
-                    <img class="pop-up3"src="/static/images/juegos_cartas/cartaMasAltaFrontal.png">
-                </article>
             </div>
-            <div class="tempos">
-                <div id="cuenta"></div>
-                <div id="cuenta2"></div>
-                <div id="cuenta3"></div>
+            <div class="contendorTimers">
+                <div id="temporizador">
+                    <div class="bloque">
+                        <div id="dias">00</div>
+                        <p>Days</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="horas">00</div>
+                        <p>Hours</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="minutos">00</div>
+                        <p>Mins</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="segundos">00</div>
+                        <p>Secs</p>
+                    </div>
+                </div>
             </div>
+            <div class="lau"></div>
         </div>
     </div>
 
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/eventos.js"></script>
-    <script src="/static/js/simplyCountdown.min.js"></script>
-    <script src="/static/js/countdown.js"></script>
 {% endblock %}
