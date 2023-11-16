@@ -133,9 +133,7 @@ def A_Jugar():
     DINERO = obtenerDinero()
     return render_template('cartas_antiguo.html', DINERO = DINERO)
 
-@app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
-def blackjack():
-    return render_template('blackjack.html')
+
 
 #indice de juegos de dados
 @app.route('/Juegos/Indice_Dados/', methods=['GET'])
@@ -188,6 +186,11 @@ def bingo():
 def slots():
     DINERO = obtenerDinero()
     return render_template('Tragaperras.html', DINERO = DINERO)
+
+@app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
+def blackjack():
+    DINERO = obtenerDinero()
+    return render_template('blackjack.html', DINERO = DINERO)
 
 @app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():
