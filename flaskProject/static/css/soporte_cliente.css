@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.support-form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.support-form input[type="text"], .support-form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.support-form button {
+    width: 100%;
+}
