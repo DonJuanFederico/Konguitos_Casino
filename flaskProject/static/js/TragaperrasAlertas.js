@@ -1,5 +1,4 @@
-var botonReglas = document.getElementById("reglas");
-    botonReglas.addEventListener("click", function () {
+function reglas(){
         Swal.fire({
             title: 'REGLAS',
             html: "<div style='text-align: center;'>" +
@@ -20,11 +19,10 @@ var botonReglas = document.getElementById("reglas");
             allowOutsideClick: true,
             allowEscapeKey: true,
         });
-    });
+    }
 
     //Alerta de Recompensas
-    var botonRecompensas = document.getElementById("recompensas");
-    botonRecompensas.addEventListener("click", function () {
+function recompensas() {
         Swal.fire({
             title: 'RECOMPENSAS',
             html: "<div style='text-align: center;'>" +
@@ -61,4 +59,4 @@ var botonReglas = document.getElementById("reglas");
             allowOutsideClick: true,
             allowEscapeKey: true,
         });
-    });
+    }

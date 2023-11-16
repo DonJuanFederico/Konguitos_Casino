@@ -13,3 +13,57 @@
 #bet-container {
     margin: 20px;
 }
+
+.recuadroSaldo {
+    position: absolute;
+    background-color: #050505;
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    right:70%;
+    top:60%;
+}
+
+#cajaApuesta{
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
+    background-size: cover;
+    position: absolute;
+    display: flex;
+    width: 16%;
+    height: 22%;
+    top: 1%;
+    left: 73%;
+    overflow: hidden;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.9));
+}
+
+#cajaApuesta span {
+    top: 35%;
+    left: 40%;
+    position: absolute;
+    font-size: 200%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+#fotoMoneda {
+    margin-left: -14%;
+    margin-top: -7%;
+    transform: scale(0.23);
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+}
+
+#masMonedas{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 15%;
+    left: 7%;
+    animation: masMonedasAnimation 2s infinite alternate;
+    cursor: pointer;
+}

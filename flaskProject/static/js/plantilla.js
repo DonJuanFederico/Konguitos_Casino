@@ -40,6 +40,10 @@ function mostrar(){
         document.querySelector('.volume').style.cursor = 'pointer';
         document.querySelector('.volume').style.opacity = 1;
     }, 600);
+    setTimeout( () => {
+        document.querySelector('.headset').style.cursor = 'pointer';
+        document.querySelector('.headset').style.opacity = 1;
+    }, 700);
 }
 
 // ocultar los submenus
@@ -65,6 +69,10 @@ function ocultar(){
         document.querySelector('.out').style.cursor = 'default';
         document.querySelector('.out').style.opacity = 0;
     }, 600);
+    setTimeout( () => {
+        document.querySelector('.headset').style.cursor = 'default';
+        document.querySelector('.headset').style.opacity = 0;
+    }, 700);
 }
 
 let block = false;
@@ -130,6 +138,7 @@ inputSearch.addEventListener("keyup", () => {
 // redirigimiento de paginas en el buscador
 function paginaHome(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/');} //window.location = "pantallaJuegos.html";
 function paginaAjustes() { if (block) document.location.assign('http://127.0.0.1:5000/Perfil_de_usuario/');}
+function ayuda() { if (block) document.location.assign('http://127.0.0.1:5000/soporte_cliente/');}
 function cartas(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/Carta_mas_alta/?');}
 function blackJack(){ if(block) document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/Blackjack/?');}
 function poker(){ if(block) document.location.assign('hhttp://127.0.0.1:5000/Juegos/Indice_cartas/Poker/?');}

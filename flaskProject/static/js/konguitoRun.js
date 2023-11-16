@@ -44,7 +44,7 @@ contenedorJuego.addEventListener("click", () => {
 
 konguitoDino.addEventListener("animationend", () => {
     konguitoDino.classList.remove("desplazamientoKonguitoDino");
-});
+})
 
 
 function resumeGame(){
