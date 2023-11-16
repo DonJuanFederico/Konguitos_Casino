@@ -1,0 +1,45 @@
+{% extends 'plantilla.html' %}
+{% block stylesheets %}
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruleta Rusa</title>
+<link rel="stylesheet" href="/static/css/ruleta_rusa.css">
+<link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+{% endblock %}
+{% block body %}
+<div>
+    <div id="marcoMonedas">
+        <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
+        <div id="divMonedasUsuario">
+            <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
+            <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
+        </div>
+    </div>
+    <div id="botonDisparar">
+        <buttonDisparo onclick="disparar()">Disparar</buttonDisparo>
+    </div>
+    <div id="botonRetirar">
+        <buttonRetiro onclick="retirarse()">Retirarse</buttonRetiro>
+    </div>
+    <div id="Bloque">
+        <div id="resultado"></div>
+        <div id="balas">Recámaras restantes: 6</div>
+        <div id="puntaje">Puntaje: 0</div>
+        <div id="puntajeMax">Puntaje Maximo: 0</div>
+    </div>
+        <!--- Reglas y recompensas --->
+    <div id="botonDeReglas">
+        <buttonRR onclick="reglas()">Reglas</buttonRR>
+    </div>
+    <div id="botonDeRecompensas">
+        <buttonRR onclick="recompensas()">Recompensas</buttonRR>
+    </div>
+
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="/static/js/ruleta_rusa.js"></script>
+<script src="/static/js/ruleta_rusa_alertas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

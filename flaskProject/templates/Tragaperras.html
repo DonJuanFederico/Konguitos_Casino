@@ -1,3 +1,4 @@
+
 {% block stylesheets %}
 <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
 <meta charset="UTF-8">
@@ -7,16 +8,13 @@
 <link rel="stylesheet" href="/static/css/Tragaperras.css">
 {% endblock %}
 {% block body %}
-<div id="app">
+<div>
     <audio controls autoplay loop class="audio-player">
         <source src="/static/audio/wii.mp3" type="audio/mpeg">
     </audio>
     <div id="marcoMonedas">
         <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
         <div id="divMonedasUsuario">
-            <!--
-                A partir de las 16 cifras ya no se ve el número completo
-            -->
             <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
             <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
         </div>
@@ -24,10 +22,10 @@
 
     <!-- Botones de reglas y recompensas -->
     <div class="botonDeReglas">
-        <buttonRR id="reglas">Reglas</buttonRR>
+        <buttonRR onclick="reglas()">Reglas</buttonRR>
     </div>
     <div class="botonDeRecompensas">
-        <buttonRR id="recompensas">Recompensas</buttonRR>
+        <buttonRR onclick="recompensas()">Recompensas</buttonRR>
     </div>
 
     <!-- Slots -->
@@ -66,7 +64,7 @@
         <span id="prize">0</span>
     </div>
 
-    <--! Imagenes -->
+    <!-- Imagenes -->
     <div id="player">
         <img src="/static/images/tragaperras/1def.png" alt="ImagenTragaperras" id="KonguitoTragaperras">
     </div>

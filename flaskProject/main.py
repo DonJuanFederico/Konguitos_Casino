@@ -120,6 +120,10 @@ def juegos():
 def perfil():
     return render_template('perfil.html')
 
+@app.route('/soporte_cliente/')
+def ayuda():
+    return render_template('soporte_cliente.html')
+
 # indice de juegos
 
 
@@ -154,6 +158,10 @@ def dino():
 @app.route('/Juegos/Eventos/', methods=['GET'])
 def event():
     return render_template('eventos.html')
+
+@app.route('/Juegos/Eventos/RuletaRusa', methods=['GET'])
+def ruletaRusa():
+    return render_template('ruleta_rusa.html')
 
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():

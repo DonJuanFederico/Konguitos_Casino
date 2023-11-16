@@ -41,3 +41,6 @@ function evento_3(){
         window.location.href = '';
     }
 }
+document.getElementById("cargarRuletaRusa").addEventListener("click", function(){
+    window.location.href = "/Juegos/Eventos/RuletaRusa";
+});
