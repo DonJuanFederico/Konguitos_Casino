@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.support-form {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+
+}
+
+.support-form input[type="text"], .support-form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.support-form button {
+    width: 100%;
+}
+
+.support-form .error {
+    color: red;
+}
+
+.support-form .success {
+    color: green;
+}

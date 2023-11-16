@@ -120,6 +120,10 @@ def juegos():
 def perfil():
     return render_template('perfil.html')
 
+@app.route('/soporte_cliente/')
+def ayuda():
+    return render_template('soporte_cliente.html')
+
 # indice de juegos
 
 
@@ -133,9 +137,7 @@ def A_Jugar():
     DINERO = obtenerDinero()
     return render_template('cartas_antiguo.html', DINERO = DINERO)
 
-@app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
-def blackjack():
-    return render_template('blackjack.html')
+
 
 #indice de juegos de dados
 @app.route('/Juegos/Indice_Dados/', methods=['GET'])
@@ -156,6 +158,11 @@ def dino():
 @app.route('/Juegos/Eventos/', methods=['GET'])
 def event():
     return render_template('eventos.html')
+
+@app.route('/Juegos/Eventos/RuletaRusa', methods=['GET'])
+def ruletaRusa():
+    DINERO = obtenerDinero()
+    return render_template('ruleta_rusa.html', DINERO = DINERO)
 
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():
@@ -188,6 +195,11 @@ def bingo():
 def slots():
     DINERO = obtenerDinero()
     return render_template('Tragaperras.html', DINERO = DINERO)
+
+@app.route('/Juegos/Indice_cartas/Blackjack/', methods=['GET'])
+def blackjack():
+    DINERO = obtenerDinero()
+    return render_template('blackjack.html', DINERO = DINERO)
 
 @app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():

@@ -1,11 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+{% block stylesheets %}
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/eventos.css">
+    <title> Eventos </title>
+{% endblock %}
+{% block body %}
+    <audio controls autoplay>
+        <source src="/static/audio/Sonic.mp3" type="audio/mpeg">
+    </audio>
+    <div class = "contenedorTotal">
+        <div class="container">
+          <h2 class="title">
+            <span class="title-word title-word-1">Ev</span><span class="title-word title-word-2">ent</span><span class="title-word title-word-3">os</span>
+          </h2>
+        </div>
+        <div class="datos">
+            <div class = "contenedorJuegos">
+                <article id="cargarCartaMasAlta">
+                    <img src="/static/images/juegos_cartas/cartaMasAltaCartel.png" onclick="evento_1()">
+                    <img class="blackout" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEvento()">
+                    <img class="pop-up" src="/static/images/juegos_cartas/cartaMasAltaFrontal2.png">
+                </article>
+                <article id="cargarRuletaRusa">
+                    <img src="/static/images/ruleta_rusa/MesaMafiosa.png" onclick="evento_2()">
+                    <img class="blackout_2" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEvento2()">
+                    <img class="pop-up2" src="/static/images/juegos_cartas/blackJackFrontal.png">
+                </article>
+            </div>
+            <div class="contendorTimers">
+                <div id="temporizador">
+                    <div class="bloque">
+                        <div id="dias">00</div>
+                        <p>Days</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="horas">00</div>
+                        <p>Hours</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="minutos">00</div>
+                        <p>Mins</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="segundos">00</div>
+                        <p>Secs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lau"></div>
+        </div>
+    </div>
 
-</body>
-</html>
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/eventos.js"></script>
+{% endblock %}

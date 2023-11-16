@@ -3,6 +3,10 @@ body{
     color: white;
 }
 
+audio{
+    display: none;
+}
+
 .container{
     /*background-color: rgba(108, 85, 57, 0.65);*/
     display: flex;

@@ -83,7 +83,7 @@ for (let i = 1; i < slots.length; i++) {
 }
 
 let repartir = false;
-// funcion para reaprtir las cartas boca abajo
+// funcion para repartir las cartas boca abajo
 deck.addEventListener('click', () => {
     for (let i = 1; i < slots.length; i++) {
         slots[i].style.backgroundColor = '';

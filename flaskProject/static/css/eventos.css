@@ -1,0 +1,191 @@
+body{
+  color: white;
+  background-image: url("https://fondosmil.com/fondo/23110.jpg");
+  /*
+  https://i.pinimg.com/originals/24/7d/52/247d52b719689f3a71dae786bff5dce3.png
+  https://static.videezy.com/system/resources/thumbnails/000/044/998/original/1046256Abstract-neon-light-background-_HD_BG.jpg
+  */
+  background-size: cover;
+  background-position: center 100%;
+  z-index: 1;
+}
+
+audio{
+  display: none;
+}
+
+.title-word {
+  animation: color-animation 4s linear infinite;
+}
+
+.title {
+  margin: 0;
+  place-items: center;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 8.5vw;
+  text-transform: uppercase;
+}
+
+.title-word-1 {
+  --color-1: #47EFFC;
+  --color-2: #7E098E;
+  --color-3: #228cb9;
+}
+
+.title-word-2 {
+  --color-1: #db11e8;
+  --color-2: #7776C7;
+  --color-3: #6729b6;
+}
+
+.title-word-3 {
+  --color-1: #389cc5;
+  --color-2: #61349A;
+  --color-3: #939393;
+}
+
+@keyframes color-animation {
+  0%    {color: var(--color-1)}
+  32%   {color: var(--color-2)}
+  33%   {color: var(--color-3)}
+  65%   {color: var(--color-1)}
+  66%   {color: var(--color-2)}
+  99%   {color: var(--color-3)}
+  100%  {color: var(--color-1)}
+}
+
+.contenedorTotal{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.contenedorJuegos{
+  top: 5%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* la imagen sin moverse */
+article{
+  margin: 0 1%;
+  position: relative;
+  width: 20%;
+  transition: all 0.3s ease;
+}
+/* la imagen inclinada */
+article img:first-child{
+  cursor: pointer;
+  box-shadow: 0 60px 60px -60px rgba(143, 15, 229, 1);
+  border-radius: 4px;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+/* bloquear el evento */
+article [class="blackout"], article [class="blackout_2"], article [class="blackout_3"]{
+  position: absolute;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+/* la imagen saliente con el hover */
+article img:last-child{
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 90%;
+  margin: auto;
+  transform: translateY(25%);
+  transition: 0.3s ease;
+  display: none;
+}
+
+article:hover img:first-child, article:hover [class="blackout"], article:hover [class="blackout_2"], article:hover [class="blackout_3"]{
+  transform:
+      perspective(250px)
+      rotateX(10deg)
+      translateZ(0)
+      translateY(-5%);
+}
+
+article::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-image:
+      linear-gradient(
+          to bottom,
+          transparent 10%,
+          rgba(0, 0, 0, 0.5) 50%,
+          rgba(0, 0, 0) 95%
+      );
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* añado la clase hover para q aparezca cuando se desbloquee */
+article.hover:hover img:last-child{
+  display: none;
+  transform: translateY(15%);
+}
+
+/* TEMPORIZADOR */
+
+.contendorTimers{
+  margin-top: 4%;
+  top: 20%;
+  height: 15%;
+  position: relative;
+  display: flex;
+  color: white;
+  justify-content: center;
+}
+
+#temporizador{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.contendorTimers #temporizador .bloque{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 0.5%;
+  width: 7%;
+  height: 80%;
+  background-color: rgb(80,80,80);
+  box-shadow: 0 0 10px 7px #727272 inset;
+  border-radius: 10px;
+  border: 3px solid lightblue;
+}
+
+.contendorTimers #temporizador .bloque div{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  height: 60%;
+  top: 10%;
+}
