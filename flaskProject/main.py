@@ -163,7 +163,8 @@ def event():
 
 @app.route('/Juegos/Eventos/RuletaRusa', methods=['GET'])
 def ruletaRusa():
-    return render_template('ruleta_rusa.html')
+    DINERO = obtenerDinero()
+    return render_template('ruleta_rusa.html', DINERO = DINERO)
 
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():

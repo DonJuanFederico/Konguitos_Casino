@@ -6,6 +6,11 @@ body {
     background-size: cover;
     background-image: url("/static/images/ruleta_rusa/MesaMafiosa.png");
     overflow-y: hidden;
+    color: #f4f4f4;
+}
+
+.audio-player {
+     display: none;
 }
 
 buttonDisparo{

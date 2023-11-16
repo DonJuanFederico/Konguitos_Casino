@@ -50,6 +50,10 @@ function mostrar(){
 // NO OCURRE HASTA Q TERMINA LA ANIMACION DEL MENU PRINCIPAL
 function ocultar(){
     setTimeout( () => {
+        document.querySelector('.headset').style.cursor = 'default';
+        document.querySelector('.headset').style.opacity = 0;
+    }, 100);
+    setTimeout( () => {
         document.querySelector('.volume').style.cursor = 'default';
         document.querySelector('.volume').style.opacity = 0;
     }, 200);
@@ -69,10 +73,6 @@ function ocultar(){
         document.querySelector('.out').style.cursor = 'default';
         document.querySelector('.out').style.opacity = 0;
     }, 600);
-    setTimeout( () => {
-        document.querySelector('.headset').style.cursor = 'default';
-        document.querySelector('.headset').style.opacity = 0;
-    }, 700);
 }
 
 let block = false;
