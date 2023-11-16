@@ -120,6 +120,10 @@ def juegos():
 def perfil():
     return render_template('perfil.html')
 
+@app.route('/soporte_cliente/')
+def ayuda():
+    return render_template('soporte_cliente.html')
+
 # indice de juegos
 
 

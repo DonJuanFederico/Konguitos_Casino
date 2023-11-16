@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Página de Soporte al Cliente</title>
-    <link rel="stylesheet" href="/static/css/soporte_cliente.css">
-    <script src="/static/js/soporte_cliente.js"></script>
-</head>
-<body>
-    <h1>Soporte al Cliente</h1>
-    <div class="support-form">
-        <input type="text" id="name" placeholder="Nombre">
-        <input type="text" id="email" placeholder="Correo Electrónico">
-        <textarea id="message" placeholder="Mensaje"></textarea>
-        <button onclick="submitForm()">Enviar</button>
-    </div>
-</body>
-</html>
+{% extends 'plantilla.html' %}
+{% block stylesheets %}
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soporte al Cliente</title>
+<link rel="stylesheet" href="/static/css/soporte_cliente.css">
+{% endblock %}
+{% block body %}
+<h1>Soporte al Cliente</h1>
+<div class="support-form">
+    <input type="text" id="name" placeholder="Nombre">
+    <input type="text" id="email" placeholder="Correo Electrónico">
+    <textarea id="message" placeholder="Mensaje"></textarea>
+    <button onclick="submitForm()">Enviar</button>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="/static/js/soporte_cliente.js"></script>
+{% endblock %}
