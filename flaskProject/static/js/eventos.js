@@ -27,27 +27,21 @@ function unclockEvento2(){
     evento2.classList.add('hover');
     bloqueoEvento = false;
 }
-function unclockEvento3(){
-    blackout_3.style.display = 'none';
-    evento3.classList.add('hover');
-    bloqueoEvento = false;
-}
 function evento_1(){
     if(!bloqueoEvento){
         window.location.href = '';  // GASHAPON
     }
 }
-function evento_2(){
-    if(!bloqueoEvento){
-        window.location.href = '';  // RULETA RUSA
-    }
+function ruletaRusa(){
+    //if(!bloqueoEvento){
+        window.location.href = "/Juegos/Eventos/RuletaRusa";  // RULETA RUSA
+    //}
 }
 function evento_3(){
     if(!bloqueoEvento){
         window.location.href = '';  // EVENTO 3
     }
 }
-<<<<<<< HEAD
 
 document.addEventListener('DOMContentLoaded', function() {
     // Define la fecha y hora de reinicio (lunes a las 00:00:00)
@@ -105,8 +99,3 @@ document.addEventListener('DOMContentLoaded', function() {
     FALTA Q LOS LUNES QUEDE ABIERTO EL TEMPORIZADOR (DESAPAREZCA)
     Y CUANDO SEA MARTES VUELVA A APARECER EL TEMPORIZADOR
  */
-=======
-document.getElementById("cargarRuletaRusa").addEventListener("click", function(){
-    window.location.href = "/Juegos/Eventos/RuletaRusa";
-});
->>>>>>> 7701cb3956c7ffc3388f57d568455c41b97b9019

@@ -140,7 +140,7 @@ article::before{
 
 /* añado la clase hover para q aparezca cuando se desbloquee */
 article.hover:hover img:last-child{
-  display: none;
+  display: flex;
   transform: translateY(15%);
 }
 
