@@ -1,13 +1,16 @@
-FROM python:3.9-alpine3.15
+FROM python:3.11
 
 # Instalar dependencias del sistema
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     gcc \
     gfortran \
-    musl-dev \
     libffi-dev \
-    openssl-dev \
-    python3-dev
+    libssl-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    python3-dev \
+    cmake \
+    build-essential
 
 WORKDIR /app
 COPY . /app
