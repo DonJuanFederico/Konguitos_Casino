@@ -3,7 +3,15 @@ function sumarIncremento() {
 }
 
 function resetear() {
-    fetch("/resetear_valor", { method: "POST" });
+    fetch("/resetear_valor", { method: "POST" })
+        .then(response => {
+            if (response.ok) {
+                actualizarValor(); // Actualizar valor después de resetear
+            } else {
+                throw new Error('Error al resetear el valor');
+            }
+        })
+        .catch(error => console.error("Error:", error));
 }
 
 // Función para realizar la solicitud AJAX y actualizar el valor en el DOM
