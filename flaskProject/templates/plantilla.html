@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    {% block body %} {% endblock %}  <!-- CAMBIAR EL ORDEN CAMBIA LA DISPOSICION VISUAL -->
     <!-- CONTROLA LO QUE SE REPITE EN TODAS LOS HIJOS -->
     <div id="ctn-bars-search">
         <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off" onclick="resultadosBusqueda()">
@@ -52,7 +53,7 @@
             <i id="vOff" class="fa-solid fa-volume-xmark fa-xl"></i>
         </div>
         <div title="Soporte Cliente" class="headset" onclick="ayuda()">
-            <i class="fa-solid fa-headset fa-xl"></i>
+            <i class="fa-solid fa-headset fa-2xl"></i>
         </div>
     </div>
 
@@ -62,7 +63,7 @@
 
     <script src="/static/js/plantilla.js"></script>
 
-    {% block body %} {% endblock %}  <!-- CAMBIAR EL ORDEN CAMBIA LA DISPOSICION VISUAL -->
+
     {% block javascript %} {% endblock %}
 </body>
 </html>

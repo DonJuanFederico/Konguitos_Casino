@@ -1,3 +1,5 @@
+
+
 var nombre_usuario = document.getElementById('introducir');
 var email = document.getElementById('introducir1');
 var password = document.getElementById('introducir2');
@@ -59,6 +61,7 @@ function volverAtras(){
     window.history.back();
     }
 }
+
 
 // hacer un swal.fire para realizar el cambio de idioma
 /*

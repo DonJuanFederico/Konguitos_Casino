@@ -52,10 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function actualizarTemporizador() {
         const ahora = new Date();
         const diaDeLaSemana = ahora.getDay();
-        const horaDelDia = ahora.getHours();
+        const horaDelDia = ahora.getMinutes();
         // Oculta el temporizador los lunes (día 1) y muestra los demás días
-        const mostrarTemporizador = diaDeLaSemana !== 1; //&& (horaActual < 8 || horaActual >= 17); // el contador se muestra a 0
+        const mostrarTemporizador = diaDeLaSemana !== 1; //&& (horaDelDia < 8 || horaDelDia >= 17); // el contador se muestra a 0
 
+        document.querySelector('.lau').innerHTML = horaDelDia;
 
         const tiempoRestante = restartTime - ahora;
 

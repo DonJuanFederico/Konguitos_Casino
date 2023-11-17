@@ -229,6 +229,7 @@ const volume_off = document.getElementById("vOff");
 // funcion para quitar el volumen de la pantalla
 function quitarVolumen(){
     if (audio.muted) {
+        audio.
         audio.muted = false;
         volume_on.style.display = 'block';
         volume_off.style.display = 'none';
