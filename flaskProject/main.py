@@ -188,23 +188,6 @@ def edicion():
             return redirect(url_for('interfazAdmin'))
     return render_template('funcionesAdmin/edicion.html')
 
-
-@app.route('/Informacion_Usuario/', methods=['GET', 'POST'])
-def info():
-    if request.method == 'POST':
-        nombreUsuario = request.form.get('introducir')
-        contraseña = request.form.get('introducir2')
-        correo = request.form.get('introducir1')
-        DNI = request.form.get('dni')
-        calle = request.form.get('introducir3')
-        codigoPostal = request.form.get('introducir4')
-        numeroTarjeta = request.form.get('introducir5')
-        titulanteTarjeta = request.form.get('introducir6')
-        caducidadTarjeta = request.form.get('introducir7')
-        cvv = request.form.get('introducir8')
-        print(nombreUsuario, contraseña, correo, DNI, calle, codigoPostal)
-        print(numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv)
-    return render_template('perfil.html')
 @app.route('/Juegos/')
 def juegos():
         return render_template('pantallaJuegos.html')
