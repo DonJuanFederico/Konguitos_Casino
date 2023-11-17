@@ -334,14 +334,14 @@ def editarForoImagen(id_usuario, nueva_foto_img):
             cursor.close()
             close_connection(conn)
 
-def editarUsuario(id_usuario, nombre_usuario, contraseña, correo, dni, dinero, telefono, calle, codigo_postal):
+def editarUsuario(id_usuario, nombre_usuario, correo, dni, dinero, telefono, calle, codigo_postal):
     conn = connect()
     if conn:
         cursor = conn.cursor()
         try:
             # Actualizar los datos del usuario en la tabla "usuarios" sin modificar la fecha de creación
-            query = "UPDATE usuarios SET NombreUsuario = %s, Contraseña = %s, Correo = %s, DNI = %s, Dinero = %s, Telefono = %s, Calle = %s, CodigoPostal = %s WHERE id = %s"
-            cursor.execute(query, (nombre_usuario, contraseña, correo, dni, dinero, telefono, calle, codigo_postal, id_usuario))
+            query = "UPDATE usuarios SET NombreUsuario = %s, Correo = %s, DNI = %s, Dinero = %s, Telefono = %s, Calle = %s, CodigoPostal = %s WHERE id = %s"
+            cursor.execute(query, (nombre_usuario, correo, dni, dinero, telefono, calle, codigo_postal, id_usuario))
             conn.commit()
             print(f"Usuario con ID {id_usuario} ha sido actualizado con éxito.")
             return True
@@ -360,31 +360,8 @@ def obtenerUsuariosConTarjetas():
         try:
             # Consulta SQL para obtener todos los usuarios y sus tarjetas
             query = """
-            SELECT usuarios.id AS UsuarioID, usuarios.NombreUsuario, usuarios.Contraseña, usuarios.Correo,
-                   usuarios.DNI, usuarios.Dinero, usuarios.Telefono, usuarios.FotoIMG, usuarios.FechaDeCreacion,
-                   usuarios.Calle, usuarios.CodigoPostal,
-                   tarjetas.id AS TarjetaID, tarjetas.NumeroTarjeta, tarjetas.NombreTitular, tarjetas.FechaCaducidad, tarjetas.CVV
-            FROM usuarios
-            LEFT JOIN tarjetas ON usuarios.id = tarjetas.id
-            """
-            cursor.execute(query)
-            resultados = cursor.fetchall()
-
-            return resultados  # Devuelve la lista de usuarios con sus tarjetas
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-def obtenerUsuariosConTarjetas():
-    conn = connect()
-    if conn:
-        cursor = conn.cursor(dictionary=True)
-        try:
-            # Consulta SQL para obtener todos los usuarios y sus tarjetas
-            query = """
-            SELECT usuarios.id AS UsuarioID, usuarios.NombreUsuario, usuarios.Contraseña, usuarios.Correo,
-                   usuarios.DNI, usuarios.Dinero, usuarios.Telefono, usuarios.FotoIMG, usuarios.FechaDeCreacion,
+            SELECT usuarios.id AS UsuarioID, usuarios.NombreUsuario, usuarios.Correo,
+                   usuarios.DNI, usuarios.Dinero, usuarios.Telefono, usuarios.FechaDeCreacion,
                    usuarios.Calle, usuarios.CodigoPostal,
                    tarjetas.id AS TarjetaID, tarjetas.NumeroTarjeta, tarjetas.NombreTitular, tarjetas.FechaCaducidad, tarjetas.CVV
             FROM usuarios
@@ -419,6 +396,33 @@ def obtenerArrayDatosUsuario(id_usuario):
                 datos_usuario = [resultado["NombreUsuario"], resultado["Correo"], resultado["DNI"], resultado["Dinero"],
                                  resultado["Telefono"], resultado["FechaDeCreacion"], resultado["Calle"], resultado["CodigoPostal"]]
                 return datos_usuario
+            else:
+                print("Usuario con ID", id_usuario, "no encontrado.")
+                return None
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+def obtenerArrayDatosTarjeta(id_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Consulta SQL para obtener los datos de la tarjeta por ID (excluyendo FotoIMG y Contraseña)
+            query = """
+            SELECT NumeroTarjeta, NombreTitular, FechaCaducidad, CVV
+            FROM tarjetas
+            WHERE id = %s
+            """
+            cursor.execute(query, (id_usuario,))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                # Crear un array con los datos de la tarjeta
+                datos_tarjetas = [resultado["NumeroTarjeta"], resultado["NombreTitular"], resultado["FechaCaducidad"], resultado["CVV"]]
+                return datos_tarjetas
             else:
                 print("Usuario con ID", id_usuario, "no encontrado.")
                 return None

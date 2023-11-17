@@ -1,0 +1,45 @@
+{% extends  'funcionesAdmin/toolBarAdmin.html'%}
+{% block title %} Usuarios {% endblock %}
+{% block textTitle %} Tabla Usuarios {% endblock %}
+{% block content %}
+    <br>
+    <hr>
+    <div class="table-listUser">
+            <table
+              id="tbl_empleados"
+              class="table table-striped table-bordered"
+              width="100%">
+                <thead>
+                    <tr>
+                        <th> idUsuario</th>
+                        <th> Usuario</th>
+                        <th> Correo</th>
+                        <th> DNI</th>
+                        <th> Dinero </th>
+                        <th> Teléfono</th>
+                        <th> Calle</th>
+                        <th> Código Postal</th>
+                        <th> Operaciones</th>
+                    </tr>
+              </thead>
+              <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.UsuarioID}}</td>
+                    <td>{{ usuario.NombreUsuario }}</td>
+                    <td>{{ usuario.Correo }}</td>
+                    <td>{{ usuario.DNI }}</td>
+                    <td> {{ usuario.Dinero }}</td>
+                    <td> {{ usuario.Telefono }}</td>
+                    <td> {{ usuario.Calle }}</td>
+                    <td> {{ usuario.CodigoPostal }}</td>
+                    <td>
+                        <a href="/EditarUsuario/{{ usuario.UsuarioID }}"> editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    <br><br><br>
+{% endblock %}

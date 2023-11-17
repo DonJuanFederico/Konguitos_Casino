@@ -1,0 +1,39 @@
+{% extends  'funcionesAdmin/toolBarAdmin.html'%}
+{% block title %}Tarjetas {% endblock %}
+{% block textTitle %} Tabla Tarjeta {% endblock %}
+{% block content %}
+    <br>
+    <hr>
+    <div class="table-listUser">
+            <table
+              id="tbl_empleados"
+              class="table table-striped table-bordered"
+              width="100%">
+                <thead>
+                    <tr>
+                        <th> idTarjeta</th>
+                        <th> Numero Tarjeta</th>
+                        <th> Titulante</th>
+                        <th> Fecha Caducidad</th>
+                        <th> CVV</th>
+                        <th> Operaciones </th>
+                    </tr>
+              </thead>
+              <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td> {{ usuario.UsuarioID}}</td>
+                    <td> {{ usuario.NumeroTarjeta }}</td>
+                    <td> {{ usuario.NombreTitular }}</td>
+                    <td> {{ usuario.FechaCaducidad }}</td>
+                    <td> {{ usuario.CVV }}</td>
+                    <td>
+                        <a href="/EditarTarjeta/{{ usuario.UsuarioID }}"> editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    <br><br><br>
+{% endblock %}
