@@ -11,7 +11,7 @@
               width="100%">
                 <thead>
                     <tr>
-                        <th> idUsuario</th>
+                        <th> Numero Tarjeta</th>
                         <th> Usuario</th>
                         <th> Correo</th>
                         <th> DNI</th>
@@ -25,7 +25,7 @@
               <tbody>
                 {% for usuario in usuarios %}
                 <tr>
-                    <td>{{ usuario.UsuarioID}}</td>
+                    <td>{{ usuario.NumeroTarjeta}}</td>
                     <td>{{ usuario.NombreUsuario }}</td>
                     <td>{{ usuario.Correo }}</td>
                     <td>{{ usuario.DNI }}</td>
