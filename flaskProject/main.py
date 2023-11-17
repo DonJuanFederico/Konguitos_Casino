@@ -109,7 +109,84 @@ def registroAdmin():
 #Funciones Administrador
 @app.route('/Administrador/')
 def interfazAdmin():
-        return render_template('funcionesAdmin/descripcion.html')
+    return render_template('funcionesAdmin/descripcion.html')
+
+
+@app.route('/Administrador/Usuarios/')
+def tablaUsuarios():
+    usuarios = obtenerUsuariosConTarjetas()
+    print(usuarios)
+    return render_template('funcionesAdmin/usuarios.html', usuarios=usuarios)
+
+
+@app.route('/Administrador/Tarjetas/')
+def tablaTarjetas():
+    usuarios = obtenerUsuariosConTarjetas()
+    return render_template('funcionesAdmin/tarjetas.html', usuarios=usuarios)
+
+
+@app.route('/EditarUsuario/<string:id>/', methods=['GET', 'POST'])
+def editarUsuario_funcionesAdmin(id):
+    data = obtenerArrayDatosUsuario(id)
+    print(data)
+    username = request.form.get('username')
+    email = request.form.get('email')
+    dni = request.form.get('dni')
+    money = request.form.get('money')
+    phone = request.form.get('phone')
+    street = request.form.get('street')
+    postal_code = request.form.get('postal_code')
+    if request.method == 'POST':
+        if editarUsuario(id, username, email, dni, money, phone, street, postal_code):
+            return redirect(url_for('tablaUsuarios'))
+        else:
+            return redirect(url_for('editarUsuario_funcionesAdmin'))
+    return render_template("funcionesAdmin/editarUsuario.html", data=data)
+
+
+@app.route('/EditarTarjeta/<string:id>/', methods=['GET', 'POST'])
+def editarTarjetas_funcionesAdmin(id):
+    data2 = obtenerArrayDatosTarjeta(id)
+    print(data2)
+    if request.method == 'POST':
+        card_number = request.form.get('card_number')
+        card_holder = request.form.get('card_holder')
+        expiration_date = request.form.get('expiration_date')
+        cvv = request.form.get('cvv')
+        if editarTarjeta(id, card_number, card_holder, expiration_date, cvv):
+            return redirect(url_for('tablaTarjetas'))
+    return render_template("funcionesAdmin/editarTarjeta.html", data2=data2)
+
+
+@app.route('/Administrador/Edición/', methods=['GET', 'POST'])
+def edicion():
+    if request.method == 'POST':
+        nombreUsuario = request.form.get('username')
+        contraseña = request.form.get('password')
+        correo = request.form.get('email')
+        DNI = request.form.get('dni')
+        dinero = request.form.get('money')
+        telefono = request.form.get('phone')
+        foto = None
+        calle = request.form.get('street')
+        codigoPostal = request.form.get('postal_code')
+
+        numeroTarjeta = request.form.get('card_number')
+        titulanteTarjeta = request.form.get('card_holder')
+        caducidadTarjeta = request.form.get('expiration_date')
+        cvv = request.form.get('cvv')
+        print(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal)
+        print(numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv)
+        if agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal, None):
+            print("Exito Usuario")
+            if agregarTarjeta(nombreUsuario, numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv):
+                print("Exito Tarjeta")
+                return redirect(url_for('tablaTarjetas'))
+            else:
+                return redirect(url_for('tablaUsuarios'))
+        else:
+            return redirect(url_for('interfazAdmin'))
+    return render_template('funcionesAdmin/edicion.html')
 
 @app.route('/Juegos/')
 def juegos():
@@ -217,4 +294,4 @@ def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=3000)

@@ -34,14 +34,14 @@ function dealCard(hand) {
     const card = deck.pop();
     hand.push(card);
 
-    const cardElement = document.createElement('span');
-    cardElement.textContent = card;
+    const cardElement = document.createElement('img');
+    const cardFileName = card.replace(/ /g, '') + '.png'; // Obtener el nombre del archivo de la carta
+    cardElement.src = `/static/images/cards/${cardFileName}`; // Establecer la ruta de la imagen
 
-    if (hand === playerHand) {
-        document.getElementById('player-hand').appendChild(cardElement);
-    } else {
-        document.getElementById('dealer-hand').appendChild(cardElement);
-    }
+    cardElement.classList.add('card-image'); // Agregar una clase para dar estilo a la imagen si es necesario
+
+    const container = hand === playerHand ? 'player-hand' : 'dealer-hand';
+    document.getElementById(container).appendChild(cardElement);
 
     updateUI();
 }
@@ -67,18 +67,51 @@ function calculateHandValue(hand) {
 }
 
 function updateUI() {
-    document.getElementById('player-hand').textContent = playerHand.join(', ');
+    const playerHandContainer = document.getElementById('player-hand');
+    const dealerHandContainer = document.getElementById('dealer-hand');
 
-    if (gameOver) {
-        document.getElementById('dealer-hand').textContent = dealerHand.join(', ');
+    // Limpiar los contenedores de las manos
+    playerHandContainer.innerHTML = '';
+    dealerHandContainer.innerHTML = '';
+
+    // Mostrar las imágenes de la mano del jugador
+    playerHand.forEach(card => {
+        const cardElement = document.createElement('img');
+        const cardFileName = card.replace(/ /g, '') + '.png';
+        cardElement.src = `/static/images/cards/${cardFileName}`;
+        cardElement.classList.add('card-image'); // Puedes añadir clases para estilizar las cartas si es necesario
+        playerHandContainer.appendChild(cardElement);
+    });
+
+    // Mostrar la mano de la banca, con la carta oculta si es necesario
+    dealerHand.forEach((card, index) => {
+        const cardElement = document.createElement('img');
+        let cardFileName;
+
+        if (index === 1 && !gameOver && dealerHiddenCard) {
+            cardFileName = 'reverse.png'; // Nombre de archivo de la carta oculta
+        } else {
+            cardFileName = card.replace(/ /g, '') + '.png';
+        }
+
+        cardElement.src = `/static/images/cards/${cardFileName}`;
+        cardElement.classList.add('card-image'); // Puedes añadir clases para estilizar las cartas si es necesario
+        dealerHandContainer.appendChild(cardElement);
+    });
+
+    // Mostrar el valor numérico de las manos
+    document.getElementById('player-hand-value').textContent = calculateHandValue(playerHand);
+
+    if (gameOver || !dealerHiddenCard) {
+        document.getElementById('dealer-hand-value').classList.remove('hidden');
+        document.getElementById('dealer-hand-value').textContent = calculateHandValue(dealerHand);
+
     } else {
-        document.getElementById('dealer-hand').textContent = dealerHand[0] + ', ???';
+        document.getElementById('dealer-hand-value').classList.add('hidden');
     }
 
-    if (!dealerHiddenCard) {
-        document.getElementById('dealer-hand').textContent = dealerHand.join(', ');
-    }
 }
+
 
 function checkResult() {
     const playerValue = calculateHandValue(playerHand);
@@ -139,6 +172,7 @@ function newGame() {
 
 function startGame(){
     retirarDinero(betAmount);
+
     deck = [];
     playerHand = [];
     dealerHand = [];
