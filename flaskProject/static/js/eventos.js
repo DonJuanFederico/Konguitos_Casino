@@ -56,8 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Oculta el temporizador los lunes (día 1) y muestra los demás días
         const mostrarTemporizador = diaDeLaSemana !== 1; //&& (horaDelDia < 8 || horaDelDia >= 17); // el contador se muestra a 0
 
-        document.querySelector('.lau').innerHTML = horaDelDia;
-
         const tiempoRestante = restartTime - ahora;
 
         // Calcula días, horas, minutos y segundos restantes
