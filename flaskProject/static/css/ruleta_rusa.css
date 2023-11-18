@@ -10,10 +10,10 @@ body {
 }
 
 .audio-player {
-     display: none;
+    display: none;
 }
 
-buttonDisparo{
+buttonIniciar {
     cursor: pointer;
     font-size: 1.2rem;
     border: none;
@@ -22,17 +22,18 @@ buttonDisparo{
     background: #494949;
     color: #fff; /* Añadido color de texto para mejorar la legibilidad */
 }
-buttonDisparo:hover {
+
+buttonIniciar:hover {
     background: #000000; /* Puedes ajustar el color al hacer hover según tu preferencia */
 }
 
-#botonDisparar{
+#iniciarJuego {
     position: absolute;
     top: 70%;
-    left: 50%;
+    left: 45%;
 }
 
-buttonRetiro{
+buttonParar {
     cursor: pointer;
     font-size: 1.2rem;
     border: none;
@@ -41,14 +42,15 @@ buttonRetiro{
     background: #944700;
     color: #fff; /* Añadido color de texto para mejorar la legibilidad */
 }
-buttonRetiro:hover {
+
+buttonParar:hover {
     background: #562b0f; /* Puedes ajustar el color al hacer hover según tu preferencia */
 }
 
-#botonRetirar{
+#Parar {
     position: absolute;
-    top: 70%;
-    left: 60%;
+    top: 25%;
+    left: 100%;
 }
 
 buttonRR {
@@ -132,9 +134,51 @@ buttonRR:hover {
     font-size: 1.5rem;
 }
 
-#Bloque{
+#Bloque {
     position: absolute;
-    top: 40%;
+    top: 55%;
     left: 40%;
     color: #fafaf7;
+}
+
+/* Recamaras*/
+#recamaras-container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.recamara {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    background-color: #64676e; /* Color de fondo del círculo */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.recamara:hover {
+    background-color: #32363b; /* Color de fondo del círculo al hacer hover */
+}
+
+#contador-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#contador {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
 }
