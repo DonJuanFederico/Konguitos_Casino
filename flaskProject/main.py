@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = 'ded843028a32eb605772926d'
 
 
 @app.route('/')
-def index():
+def index(:
     return redirect(url_for('inicio'))
 
 
