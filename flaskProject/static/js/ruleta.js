@@ -53,11 +53,12 @@ function startRotation(speed) {
   //P0: (0.165,0.84) P1: (0.44,1.005)
   const bezier = [0.165, 0.84, 0.44, 1.005];
 
-  const newWheelIndex = currentWheelIndex - speed;
-  const result = getRouletteWheelNumber(newWheelIndex);
-  const resultColor = getRouletteWheelColor(newWheelIndex);
-  (() => {
+  const randomIndex = Math.floor(Math.random() * rouletteWheelNumbers.length);
+  console.log(randomIndex);
+  const result = getRouletteWheelNumber(randomIndex);
+  const resultColor = getRouletteWheelColor(randomIndex);
 
+  (() => {
     const newRotation = currentWheelRotation + (360 / 37) * speed;
     console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
 
@@ -71,7 +72,7 @@ function startRotation(speed) {
       ruletaCasillas.style.transition = "none";
       ruletaCentro.style.transition = "none";
       currentWheelRotation = newRotation;
-      currentWheelIndex = newWheelIndex; // Set newWheelIndex as appropriate
+      currentWheelIndex = randomIndex; // Usar el índice aleatorio
     }, duration);
   })();
 
