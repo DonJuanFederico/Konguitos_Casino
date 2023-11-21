@@ -246,4 +246,8 @@ messageDiv.textContent = direccionIP + ":" + puerto;
 
 var bontonAtras = document.querySelector('.back');
 // funcion para ir a la ventana de atras
-function volverAtras(){document.location.assign('http://127.0.0.1:3000/Juegos/Indice_cartas/')}
+function volverAtras(){document.location.href = '/Juegos/Indice_cartas/';}
+
+document.getElementById("back").addEventListener("click", function(){
+    window.location.href = "/Juegos/Juegos_extra/Plinko";
+});
