@@ -1,6 +1,7 @@
 body{
     background-image: url("https://static.vecteezy.com/system/resources/previews/019/864/512/non_2x/abstract-dark-red-elegant-painting-texture-background-vintage-grunge-dark-backdrop-for-aesthetic-creative-design-free-photo.jpg");
     color: white;
+    display: flex;
 }
 
 audio{
@@ -43,7 +44,7 @@ h1{
 
 /* contenedor de informacion */
 .info{
-    position: absolute;
+    position: relative;
     top: 10%;
     left: 10%;
     height: 80%;
@@ -58,49 +59,19 @@ h1{
 
 .atributos{
     position: absolute;
-    top: 10%;
+    top: 9%;
     left: 36%;
     height: 80%;
     width: 20%;
 }
 
-input{
-    height: 25px;
+.input_email, .input_pass, .input_dir, .input_card {
+    margin: 17% 0;
+    position: relative;
+    text-align: center;
+}
+#requestPass, #introducir, #introducir1, #introducir3, #introducir4, #introducir5, #introducir6, #introducir7, #introducir8{
     width: 100%;
-    margin-bottom: 5%;
-}
-
-.input_email{
-    position: absolute;
-    top: 14%;
-}
-
-.input_pass{
-    position: absolute;
-    top: 28%;
-}
-
-.ver, .no_ver{
-    position: absolute;
-    top: 12%;
-    left: 110%;
-    height: 25px;
-    cursor: pointer;
-    width: 30px;
-}
-
-.ver:hover, .no_ver:hover{
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
-}
-
-.input_dir{
-    position: absolute;
-    top: 42%;
-}
-
-.input_card{
-    position: absolute;
-    top: 63%;
 }
 
 /* quitar las flechas del input */
@@ -110,10 +81,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 input[type=number] { -moz-appearance:textfield; }
-
-.ver{
-    opacity: 0;
-}
 
 .mas_datos{
     position: absolute;
@@ -181,9 +148,8 @@ input[type=number] { -moz-appearance:textfield; }
 }
 
 .terminosYcondiciones{
-    position: absolute;
     top: 91.5%;
-    left: 76%;
+    left: 70%;
     font-size: 18px;
     text-decoration: underline;
     cursor: pointer ;
@@ -196,9 +162,8 @@ input[type=number] { -moz-appearance:textfield; }
 .edit{
     height: 40px;
     width: 120px;
-    position: absolute;
     top: 90%;
-    left: 90%;
+    left: 88%;
     border: 2px solid black;
     border-radius: 5px;
     background-color: darkgoldenrod;
@@ -209,16 +174,22 @@ input[type=number] { -moz-appearance:textfield; }
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
 }
 
-.botones{
-    position: absolute;
-    top: 73%;
-    left: 87%;
-    width: 70px;
-    /*border: 2px solid black;*/
-    display: flex;
-    justify-content: space-between;
+.idioma{
+    top: 91%;
+    left: 66%;
+    cursor: pointer;
 }
 
-.idioma{
-    cursor: pointer;
+.idioma:hover{
+    filter:drop-shadow(5px 5px 5px rgba(0, 0, 0, 1));
+    color: darkgoldenrod;
+}
+.extras{
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    top: 90%;
+    left: 70%;
+    width: 30%;
 }

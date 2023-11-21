@@ -239,6 +239,11 @@ function quitarVolumen(){
     }
 }
 
+
+var direccionIP = "{{ direccion_ip }}";
+var puerto = "{{ puerto }}";
+messageDiv.textContent = direccionIP + ":" + puerto;
+
 var bontonAtras = document.querySelector('.back');
 // funcion para ir a la ventana de atras
-function volverAtras(){document.location.assign('http://127.0.0.1:5000/Juegos/Indice_cartas/')}
+function volverAtras(){document.location.assign('http://127.0.0.1:3000/Juegos/Indice_cartas/')}

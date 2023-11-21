@@ -4,9 +4,9 @@
     <link rel="stylesheet" href="/static/css/perfil.css">
 {% endblock %}
 {% block body %}
-    <audio controls autoplay loop id="audio-player">
+    <!--<audio controls autoplay loop id="audio-player">
         <source src="/static/audio/MarioGalaxy.mp3" type="audio/mpeg">
-    </audio>
+    </audio>-->
     <div class="container">
         <h1> Ajustes de usuario </h1>
         <div class="datos">
@@ -27,9 +27,7 @@
                         <input id="introducir1" type="email" placeholder="Mi email" disabled>
                     </div>
                     <div class="input_pass">
-                        <input id="introducir2" type="password" placeholder="Mi contraseña" disabled>
-                        <button class="ver" onclick="verContrasenna()"><i class="fa-solid fa-eye" style="color: #857c14;"></i></button>
-                        <button class="no_ver" onclick="verContrasenna()"><i class="fa-solid fa-eye-slash" style="color: #857c14;"></i></button>
+                        <button id="requestPass" onclick="requestContrasena()"> Cambiar contraseña </button>
                     </div>
                     <div class="input_dir">
                         <input id="introducir3" type="text" placeholder="Calle" disabled>
@@ -38,7 +36,7 @@
                     <div class="input_card">
                         <input id="introducir5" type="text" placeholder="Número de tarjeta" minlength="13" maxlength="18" disabled>
                         <input id="introducir6" type="text" placeholder="Titular" disabled>
-                        <input id="introducir7" type="date" placeholder="Fecha de caducidad" disabled>
+                        <input id="introducir7" type="date" disabled>
                         <input id="introducir8" type="number" placeholder="CVV" maxlength="3" disabled>
                     </div>
                 </div>
@@ -49,15 +47,15 @@
                     <input class="input_dni" type="text" placeholder="Mi DNI" disabled><br>
                 </div>
             </div>
-            <div class="terminosYcondiciones" onclick="irATerminos()"> Términos y condiciones </div>
-            <button class="edit" onclick="editarDatos()"> Editar datos </button>
             <div class="avatar">
                 <div class="imagen" onclick="cambiarAvatar()"></div>
                 <div class="nombre"> Avatar </div>
             </div>
-        </div>
-        <div class="botones">
-            <div class="idioma"><i class="fa-solid fa-globe"></i></div>
+            <div class="extras">
+                <div class="idioma"><i class="fa-solid fa-globe"></i></div>
+                <div class="terminosYcondiciones" onclick="irATerminos()"> Términos y condiciones </div>
+                <button class="edit" onclick="editarDatos()"> Editar datos </button>
+            </div>
         </div>
     </div>
 {% endblock %}

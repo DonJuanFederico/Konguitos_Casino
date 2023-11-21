@@ -104,8 +104,10 @@ function cerrarBuscador(){
 
 function resultadosBusqueda(){box_search.style.display = 'block';}
 
-function cerrarSesion(){if(block) document.location.assign('http://127.0.0.1:5000/Inicio/');}
+// Obtener la dirección IP y el puerto desde la plantilla de Flask
 
+function cerrarSesion(){if(block) document.location.assign('http://' + direccionIP + ":" + puerto + '/Inicio/');}
+''
 var filter = '';
 var li = '';
 var textValue = '';
@@ -136,7 +138,7 @@ inputSearch.addEventListener("keyup", () => {
 });
 
 // redirigimiento de paginas en el buscador
-function paginaHome(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/');} //window.location = "pantallaJuegos.html";
+function paginaHome(){ if(block) document.location.replace('http://' + direccionIP + ":" + puerto + '/Juegos/');} //window.location = "pantallaJuegos.html";
 function paginaAjustes() { if (block) document.location.assign('http://127.0.0.1:3000/Perfil_de_usuario/');}
 function ayuda() { if (block) document.location.assign('http://127.0.0.1:3000/soporte_cliente/');}
 function cartas(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Indice_cartas/Carta_mas_alta/?');}
@@ -181,4 +183,4 @@ function teclaPresionada(){
     }
 }
 
-window.onkeydown = teclaPresionada;z
+window.onkeydown = teclaPresionada;
