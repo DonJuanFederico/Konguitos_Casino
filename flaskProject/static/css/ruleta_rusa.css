@@ -168,9 +168,15 @@ buttonRR:hover {
     background-color: #32363b; /* Color de fondo del círculo al hacer hover */
 }
 
+.recamara.active {
+    background-color: #ff0202; /* Color de fondo del círculo activo */
+}
+
+/* Contador */
 #contador-container {
-    text-align: center;
-    margin-top: 10px;
+    position: absolute;
+    top: 3%;
+    left: 47%;
 }
 
 #contador {
@@ -182,3 +188,20 @@ buttonRR:hover {
     border-radius: 5px;
     display: inline-block;
 }
+
+#Mensaje-container{
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+
+#mensaje {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: rgba(98, 89, 89, 0.48);
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
