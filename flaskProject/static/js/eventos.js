@@ -4,12 +4,10 @@ var bloqueoEvento = true;
 // obtenemos las cadenas
 var blackout = document.querySelector('.blackout');
 var blackout_2 = document.querySelector('.blackout_2');
-var blackout_3 = document.querySelector('.blackout_3');
 
 // obtenemos los diferentes eventos
-var evento1 = document.getElementById('cargarCartaMasAlta');
-var evento2 = document.getElementById('cargarBlackJack');
-var evento3 = document.getElementById('cargarDino');
+var eventoGashapon = document.getElementById('cargarCartaMasAlta');
+var eventoRuleta = document.getElementById('cargarRuletaRusa');
 
 // obtenemos todos los valores de todos los temporizadores
 var dias = document.getElementById('dias');
@@ -17,17 +15,19 @@ var horas = document.getElementById('horas');
 var minutos = document.getElementById('minutos');
 var segundos = document.getElementById('segundos');
 
-function unclockEvento(){
+function unclockEventoGashapon(){
     blackout.style.display = 'none';   // quitar cadenas del evento 1
-    evento1.classList.add('hover');    // hacemos q el evento del hover este disponible y visible
+    eventoGashapon.classList.add('hover');    // hacemos q el evento del hover este disponible y visible
     bloqueoEvento = false;
 }
-function unclockEvento2(){
-    blackout_2.style.display = 'none';
-    evento2.classList.add('hover');
+
+function unclockEventoRuleta(){
+    blackout_2.style.display = 'none';   // quitar cadenas del evento 1
+    eventoRuleta.classList.add('hover');    // hacemos q el evento del hover este disponible y visible
     bloqueoEvento = false;
 }
-function evento_1(){
+
+function gashapon(){
     if(!bloqueoEvento){
         window.location.href = '';  // GASHAPON
     }

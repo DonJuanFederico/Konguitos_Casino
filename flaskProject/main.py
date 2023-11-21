@@ -208,7 +208,7 @@ def ayuda():
 #idice de juegos de cartas
 @app.route('/Juegos/Indice_cartas/', methods=['GET'])
 def cartas():
-    return render_template('cards_index.html')
+    return render_template('juegosCartas.html')
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
 def A_Jugar():
     DINERO = obtenerDinero()
