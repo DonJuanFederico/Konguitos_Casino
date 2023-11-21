@@ -15,15 +15,6 @@ app.config['SECRET_KEY'] = 'ded843028a32eb605772926d'
 @app.route('/')
 def index():
     return redirect(url_for('inicio'))
-#@app.route('/direccion_ip/')
-#def obtener_direccion_ip_y_puerto():
-#    direccion_ip, puerto = request.host.split(':')
-#    return f'{direccion_ip}:{puerto}'
-
-@app.route('/direccion_ip/')
-def dirIP():
-    direccion_ip, puerto = request.host.split(':')
-    return render_template('plantilla.html', direccion_ip=direccion_ip, puerto=puerto)
 
 @app.route('/Inicio/', methods=['GET', 'POST'])
 def inicio():
@@ -218,8 +209,7 @@ def cartas():
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
 def A_Jugar():
     DINERO = obtenerDinero()
-    direccion_ip, puerto = request.host.split(':')
-    return render_template('cartas_antiguo.html', DINERO = DINERO, direccion_ip=direccion_ip, puerto=puerto)
+    return render_template('cartas_antiguo.html', DINERO = DINERO)
 
 #indice de juegos de dados
 @app.route('/Juegos/Indice_Dados/', methods=['GET'])

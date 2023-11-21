@@ -239,15 +239,14 @@ function quitarVolumen(){
     }
 }
 
-
-var direccionIP = "{{ direccion_ip }}";
-var puerto = "{{ puerto }}";
-messageDiv.textContent = direccionIP + ":" + puerto;
-
 var bontonAtras = document.querySelector('.back');
 // funcion para ir a la ventana de atras
+<<<<<<< HEAD
 function volverAtras(){document.location.href = '/Juegos/Indice_cartas/';}
 
 document.getElementById("back").addEventListener("click", function(){
     window.location.href = "/Juegos/Juegos_extra/Plinko";
 });
+=======
+function volverAtras(){document.location.href = '/Juegos/Indice_cartas';}
+>>>>>>> 9769f7d3f6e80865da7ed824068406e9f05d8638

@@ -138,19 +138,19 @@ inputSearch.addEventListener("keyup", () => {
 });
 
 // redirigimiento de paginas en el buscador
-function paginaHome(){ if(block) document.location.replace('http://' + direccionIP + ":" + puerto + '/Juegos/');} //window.location = "pantallaJuegos.html";
-function paginaAjustes() { if (block) document.location.assign('http://127.0.0.1:3000/Perfil_de_usuario/');}
-function ayuda() { if (block) document.location.assign('http://127.0.0.1:3000/soporte_cliente/');}
-function cartas(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Indice_cartas/Carta_mas_alta/?');}
-function blackJack(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Indice_cartas/Blackjack/?');}
-function poker(){ if(block) document.location.assign('hhttp://127.0.0.1:3000/Juegos/Indice_cartas/Poker/?');}
-function craps(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Indice_Dados/Craps/?');}
-function ruleta(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Ruleta/?');}
-function tragaperras(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Juegos_extra/Slots');}
-function plinko(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Juegos_extra/Plinko');}
-function kongoRun(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Juegos_extra/KonguitoRun');}
-function bingo(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Juegos_extra/Bingo');}
-function eventos(){ if(block) document.location.assign('http://127.0.0.1:3000/Juegos/Eventos/?');}
+function paginaHome(){ if(block) document.location.href = '/Juegos/';} //window.location = "pantallaJuegos.html";
+function paginaAjustes() { if (block) document.location.href = '/Perfil_de_usuario/';}
+function ayuda() { if (block) document.location.href = '/soporte_cliente/';}
+function cartas(){ if(block) document.location.href = '/Juegos/Indice_cartas/Carta_mas_alta/?';}
+function blackJack(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Indice_cartas/Blackjack/?';}
+function poker(){ if(block) document.location.href = 'hhttp://127.0.0.1:3000/Juegos/Indice_cartas/Poker/?';}
+function craps(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Indice_Dados/Craps/?';}
+function ruleta(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Ruleta/?';}
+function tragaperras(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Juegos_extra/Slots';}
+function plinko(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Juegos_extra/Plinko';}
+function kongoRun(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Juegos_extra/KonguitoRun';}
+function bingo(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Juegos_extra/Bingo';}
+function eventos(){ if(block) document.location.href = 'http://127.0.0.1:3000/Juegos/Eventos/?';}
 
 // ir a ingresar dinero
 function ingresarDinero(){
