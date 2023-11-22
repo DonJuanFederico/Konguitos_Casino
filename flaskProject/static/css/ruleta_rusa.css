@@ -148,6 +148,7 @@ buttonRR:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
+    flex-direction: row;
 }
 
 .recamara {
@@ -161,15 +162,62 @@ buttonRR:hover {
     justify-content: center;
     align-items: center;
     margin: 0 5px;
-    cursor: pointer;
-}
-
-.recamara:hover {
-    background-color: #32363b; /* Color de fondo del círculo al hacer hover */
 }
 
 .recamara.active {
     background-color: #ff0202; /* Color de fondo del círculo activo */
+}
+
+
+/* Recuadros */
+#recuadros-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+}
+
+.seleccion-recamara {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #050505;
+    background-color: #c4bd1e; /* Color de fondo del círculo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+
+/* Mensajes */
+#mensajeDeSeleccion {
+    position: absolute;
+    top: 47.5%;
+    left: 25%;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: rgba(98, 89, 89, 0.77);
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+#mensajeDeInstrucciones {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: rgba(98, 89, 89, 0.48);
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
 }
 
 /* Contador */
@@ -189,19 +237,4 @@ buttonRR:hover {
     display: inline-block;
 }
 
-#Mensaje-container{
-    position: absolute;
-    top: 20%;
-    left: 40%;
-}
-
-#mensaje {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: rgba(98, 89, 89, 0.48);
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
 
