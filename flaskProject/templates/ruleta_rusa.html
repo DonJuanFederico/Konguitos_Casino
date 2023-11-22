@@ -21,9 +21,7 @@
 <div id="contador-container">
     <div id="contador">10</div>
 </div>
-<div id="Mensaje-container">
-    <div id="mensaje">Presiona: Iniciar Juego</div>
-</div>
+<div id="mensajeDeInstrucciones">Presiona: Iniciar Juego</div>
 <div id="recamaras-container">
     <div id="recamara1" class="recamara">1</div>
     <div id="recamara2" class="recamara">2</div>
@@ -35,15 +33,24 @@
         <buttonParar onclick="pararJuego()">Parar</buttonParar>
     </div>
 </div>
+<div id="mensajeDeSeleccion">Selecciona una recamara:</div>
+<div id="recuadros-container">
+    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(1)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(2)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(3)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(4)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(5)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(6)"></div>
+</div>
 <div id="iniciarJuego">
     <buttonIniciar onclick="iniciarJuego()">Iniciar Juego</buttonIniciar>
 </div>
 <!--- Reglas y recompensas --->
 <div id="botonDeReglas">
-    <button onclick="reglas()">Reglas</button>
+    <buttonRR onclick="reglas()">Reglas</buttonRR>
 </div>
 <div id="botonDeRecompensas">
-    <button onclick="recompensas()">Recompensas</button>
+    <buttonRR onclick="recompensas()">Recompensas</buttonRR>
 </div>
 {% endblock %}
 {% block javascript %}

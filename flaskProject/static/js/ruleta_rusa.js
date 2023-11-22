@@ -1,9 +1,11 @@
-let selectedChamber = null;
 let gameInterval = null;
 let contadorInterval = null;
-const mensaje = document.querySelector('#mensaje');
+const mensaje = document.querySelector('#mensajeDeInstrucciones');
 // Poner una bala en cualquier recámara
 const bala = Math.floor(Math.random() * 6) + 1;
+document.querySelector('#mensajeDeSeleccion').style.display = 'none';
+let seleccionActual = null;
+
 
 function iniciarJuego() {
     // Oculta el botón de inicio
@@ -11,7 +13,9 @@ function iniciarJuego() {
     // Inicia la animación de encender recámaras
     EncenderRecamaras(() => {
         // Después de que EncenderRecamaras haya terminado, inicia la selección de recámara
-        seleccionarRecamara();
+        seleccionarDeRecamara(() => {
+            disparos(6);
+        });
     });
 }
 
@@ -60,35 +64,22 @@ function EncenderRecamaras(callback) {
     }, 10000);
 }
 
-
-//--------------------------------------------------------------
-function pararJuego() {
-    // Muestra el botón de inicio
-    document.getElementById('iniciarJuego').style.display = 'block';
-
-    // Apaga todas las recámaras
+function seleccionarDeRecamara(recamaraSeleccionada) {
+    console.log(recamaraSeleccionada);
     for (let i = 1; i <= 6; i++) {
-        document.getElementById(`recamara${i}`).style.backgroundColor = "#64676e";
+        document.querySelector(`.seleccion-recamara:nth-child(${i})`).style.backgroundColor = "#c4bd1e";
     }
-
-    // Habilita el botón de inicio
-    document.getElementById('iniciarJuego').disabled = false;
-
-    document.getElementById('contador').innerHTML = 10;
-    clearInterval(contadorInterval);
-    clearInterval(gameInterval);
-
-    // Aquí puedes agregar cualquier otra lógica que necesites cuando el juego se detiene
+    // Poner en color amarillo la recámara seleccionada
+    document.querySelector(`.seleccion-recamara:nth-child(${recamaraSeleccionada})`).style.backgroundColor = "#1ec492";
 }
 
-//--------------------------------------------------------------
-function seleccionarRecamara() {
+
+function disparos(numDisparos) {
     document.getElementById('contador').innerHTML = 0;
-    // Actualiza el mensaje a "Seleccione una recámara
-    mensaje.textContent = "Seleccione una recámara:";
-    mensaje.style.color = "#FF0000";
-    mensaje.style.backgroundColor = "#dbe138";
-    // CONTADOR:
+    mensaje.textContent = "Realizando disparos...";
+    mensaje.style.color = "#000";
+    mensaje.style.backgroundColor = "#fff";
+
     let tiempo = 10;
     contadorInterval = setInterval(() => {
         document.getElementById('contador').innerHTML = tiempo;
@@ -98,46 +89,32 @@ function seleccionarRecamara() {
             clearInterval(contadorInterval);
         }
     }, 1000);
-    // Agrega listeners de click a las recámaras para la selección
-    for (let i = 1; i <= 6; i++) {
-        document.getElementById(`recamara${i}`).addEventListener('click', () => evaluarSeleccion(i));
+
+    // Función para disparar una recámara y avanzar al siguiente después de un retraso
+    function dispararRecamara(recamara) {
+        setTimeout(() => {
+            // Marcar la recámara actual
+            if (recamara === bala) {
+                document.getElementById(`recamara${recamara}`).style.backgroundColor = "#a52a2a"; // Marrón
+            } else {
+                document.getElementById(`recamara${recamara}`).style.backgroundColor = "#000"; // Negro
+            }
+
+            // Mostrar el resultado después de los disparos
+            if (recamara === numDisparos) {
+                setTimeout(() => {
+                    mostrarResultadoDisparos();
+                }, 1000);
+            }
+        }, (recamara - 1) * (10000 / 6)); // Cada recámara se dispara cada 10/6 segundos
+    }
+
+    // Iniciar el disparo para cada recámara
+    for (let recamara = 1; recamara <= numDisparos; recamara++) {
+        dispararRecamara(recamara);
     }
 }
 
-function evaluarSeleccion(numero) {
-    // Quitar listeners de click para evitar selecciones adicionales
-    for (let i = 1; i <= 6; i++) {
-        document.getElementById(`recamara${i}`).removeEventListener('click', () => evaluarSeleccion(i));
-    }
-    let recamara = 1;
-    let fin = false;
-
-    while (fin === false) {
-        // Verificar si la recámara seleccionada es la correcta
-        if (recamara === bala && numero === recamara) {
-            // Detener el juego si la recámara seleccionada es la correcta
-            mensaje.textContent = "Has ganado." + "\n" + "La bala estaba: " + bala;
-            fin = true;
-            pararJuego();
-        } else if (recamara === bala && numero !== recamara) {
-            // Detener el juego si la recámara seleccionada es la correcta
-            mensaje.textContent = "Has perdido." + "\n" + "La bala estaba: " + bala;
-            fin = true;
-            pararJuego();
-        } else {
-            //Poner una x en la recamara
-            document.getElementById(`recamara${numero}`).innerHTML = "X";
-            // Avanza a la siguiente recámara
-            recamara = recamara % 6 + 1;
-        }
-    }
-    clearInterval(contadorInterval);
-}
-
-// Agrega los listeners de click a las recámaras inicialmente
-for (let i = 1; i <= 6; i++) {
-    document.getElementById(`recamara${i}`).addEventListener('click', () => evaluarSeleccion(i));
-}
 
 
 
