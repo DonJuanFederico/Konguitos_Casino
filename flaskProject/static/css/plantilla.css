@@ -5,6 +5,7 @@
 }
 body{
     z-index: 8;
+    color: white;
 }
 /* MENU HAMBURGUESA */
 .bars__menu{

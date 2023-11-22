@@ -1,10 +1,6 @@
 body{
   color: white;
   background-image: url("https://fondosmil.com/fondo/23110.jpg");
-  /*
-  https://i.pinimg.com/originals/24/7d/52/247d52b719689f3a71dae786bff5dce3.png
-  https://static.videezy.com/system/resources/thumbnails/000/044/998/original/1046256Abstract-neon-light-background-_HD_BG.jpg
-  */
   background-size: cover;
   background-position: center 100%;
   z-index: 1;
@@ -56,6 +52,7 @@ audio{
   100%  {color: var(--color-1)}
 }
 
+/* contenedor global */
 .contenedorTotal{
   position: absolute;
   top: 0;
@@ -65,6 +62,7 @@ audio{
   background-color: rgba(0,0,0,0.2);
 }
 
+/* contenedor de los juegos */
 .contenedorJuegos{
   top: 5%;
   position: relative;
@@ -145,7 +143,6 @@ article.hover:hover img:last-child{
 }
 
 /* TEMPORIZADOR */
-
 .contendorTimers{
   margin-top: 4%;
   top: 20%;

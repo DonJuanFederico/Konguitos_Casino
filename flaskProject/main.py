@@ -193,7 +193,7 @@ def edicion():
 def juegos():
         return render_template('pantallaJuegos.html')
 
-@app.route('/Perfil_de_usuario/')
+@app.route('/Perfil_de_usuario/', methods=['GET'])
 def perfil():
     return render_template('perfil.html')
 

@@ -1,9 +1,11 @@
-var deck = document.getElementById('deck');
-var slots = document.querySelectorAll('.slot');
+// variables de las cartas
 const suits = [' ♠', ' ♥', ' ♦', ' ♣'];
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 let dealerCard = null;
+// variables del mensaje del resultado de la partida y las cartas a repartir y repartidas
 const messageDiv = document.getElementById('message');
+var deck = document.getElementById('deck');
+var slots = document.querySelectorAll('.slot');
 
 // Pone los palos a las cartas
 function createDeck() {
@@ -51,7 +53,9 @@ function dealCards() {
     }
 }
 
+// variable cerrojo para la eleccion de cartas
 let bloqueo = true;
+
 // IMPORTANTE: LA CARTA Nº 1 ES LA DEL DEALER
 // funcion para elegir la carta y q todas se den la vuelta y se revelen
 for (let i = 1; i < slots.length; i++) {
@@ -82,6 +86,7 @@ for (let i = 1; i < slots.length; i++) {
     });
 }
 
+// otra variable cerrojo para repartir las cartas
 let repartir = false;
 // funcion para repartir las cartas boca abajo
 deck.addEventListener('click', () => {
@@ -112,9 +117,11 @@ deck.addEventListener('click', () => {
     }
 });
 
+// variables de saldo y apuesta
 let saldo = document.getElementById('monedas').textContent;
 let apuesta = parseFloat(document.getElementById('apuesta').value);
 
+// funcion para retirar la cantidad de dinero apoostado
 function retirarDinero() {
     var monto = apuesta;
     // Enviar solicitud HTTP a tu servidor Flask
@@ -124,6 +131,7 @@ function retirarDinero() {
     xhr.send("&cantidad_a_retirar=" + monto);
 }
 
+// funcion para agregar el dinero ganado de la partida
 function agregarDinero() {
     var monto = apuesta * 2;
     // Enviar solicitud HTTP a tu servidor Flask
@@ -171,7 +179,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
             background: `none`,
         });
     }
-    messageDiv.textContent = message
+    //messageDiv.textContent = message
 
     //apostar
     apuesta = parseFloat(document.getElementById('apuesta').value);
@@ -195,6 +203,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
     }
 }
 
+// variable de las reglas del juego
 var botonReglas = document.getElementById("botonReglas");
 // funcion para mostrar las reglas
 botonReglas.addEventListener("click", function () {
@@ -223,9 +232,11 @@ botonReglas.addEventListener("click", function () {
     });
 });
 
+// variables de sonido
 const audio = document.getElementById("audio-player");
 const volume_on = document.getElementById("vOn");
 const volume_off = document.getElementById("vOff");
+
 // funcion para quitar el volumen de la pantalla
 function quitarVolumen(){
     if (audio.muted) {
@@ -239,6 +250,7 @@ function quitarVolumen(){
     }
 }
 
+// boton de la toolbar de marcha atras
 var bontonAtras = document.querySelector('.back');
 // funcion para ir a la ventana de atras
 function volverAtras(){document.location.href = '/Juegos/Indice_cartas';}

@@ -11,21 +11,25 @@
     <div id = prueba3>
         <img id ="fotoMoneda" src="/static/images/moneda.png">
         <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
-        <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
+        <span id= "monedas"> {{ DINERO }} </span>
     </div>
-    <div id="container">
-        <h1> Carta más alta </h1>
-    </div>
+
+    <h1 id="titulo"> Carta más alta </h1>
+
     <div class="reglas">
         <button id="botonReglas">Reglas</button>
     </div>
+
     <div id="bet">
         <label for="apuesta">Apuesta:</label>
         <input type="number" id="apuesta" min="0.01" step= "0.01" max="saldo" placeholder="Min de 0.01 KC.">
         <div id="dinero"></div>
     </div>
+
     <div class="table">
-        <div class="deck" id="deck">Repartir</div>
+        <div class="deck" id="deck">
+            <div class="fondo_negro"> REPARTIR </div>
+        </div>
         <div class="card-container">
             <div class="slot" id="slot4"></div>
         </div>
@@ -42,8 +46,8 @@
             </div>
         </div>
         <br><br>
-        <div id="message"></div>
     </div>
+    <div id="message"></div>
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/cartas_antiguo.js"></script>

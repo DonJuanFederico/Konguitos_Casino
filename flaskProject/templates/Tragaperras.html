@@ -1,78 +1,76 @@
 
 {% block stylesheets %}
-<link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tragaperras</title>
-<link rel="stylesheet" href="/static/css/Tragaperras.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tragaperras</title>
+    <link rel="stylesheet" href="/static/css/Tragaperras.css">
+    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
 {% endblock %}
 {% block body %}
-<div>
-    <audio controls autoplay loop class="audio-player">
-        <source src="/static/audio/wii.mp3" type="audio/mpeg">
-    </audio>
-    <div id="marcoMonedas">
-        <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
-        <div id="divMonedasUsuario">
-            <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
-            <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
-        </div>
-    </div>
-
-    <!-- Botones de reglas y recompensas -->
-    <div class="botonDeReglas">
-        <buttonRR onclick="reglas()">Reglas</buttonRR>
-    </div>
-    <div class="botonDeRecompensas">
-        <buttonRR onclick="recompensas()">Recompensas</buttonRR>
-    </div>
-
-    <!-- Slots -->
-    <div class="posicionamiento">
-        <div class="slot">
-            <div class="boxes">
-            </div>
-        </div>
-        <div class="slot">
-            <div class="boxes">
+    <div>
+        <audio controls autoplay loop class="audio-player">
+            <source src="/static/audio/wii.mp3" type="audio/mpeg">
+        </audio>
+        <div id="marcoMonedas">
+            <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
+            <div id="divMonedasUsuario">
+                <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
+                <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
             </div>
         </div>
 
-        <div class="slot">
-            <div class="boxes">
+        <!-- Botones de reglas y recompensas -->
+        <div class="botonDeReglas">
+            <buttonRR onclick="reglas()">Reglas</buttonRR>
+        </div>
+        <div class="botonDeRecompensas">
+            <buttonRR onclick="recompensas()">Recompensas</buttonRR>
+        </div>
+
+        <!-- Slots -->
+        <div class="posicionamiento">
+            <div class="slot">
+                <div class="boxes">
+                </div>
+            </div>
+            <div class="slot">
+                <div class="boxes">
+                </div>
+            </div>
+
+            <div class="slot">
+                <div class="boxes">
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Botones -->
-    <div class="buttonSpin">
-        <button id="spinner">Spin</button>
-    </div>
-    <div class="recuadroApuesta">
-        <label id="apostado">Apostado:</label>
-        <input type="number" id="bet" value="1" min="1">
-    </div>
-    <!--
-    <div class="recuadroSaldo">
-        <label for="balance">Saldo:</label>
-        <span id="balance">100</span>
-    </div>
-    -->
-    <div class="recuadroGanado" id="mensaje-gananado">
-        <label for="prize">Ganado:</label>
-        <span id="prize">0</span>
-    </div>
+        <!-- Botones -->
+        <div class="buttonSpin">
+            <button id="spinner">Spin</button>
+        </div>
+        <div class="recuadroApuesta">
+            <label id="apostado">Apostado:</label>
+            <input type="number" id="bet" value="1" min="1">
+        </div>
+        <!--
+        <div class="recuadroSaldo">
+            <label for="balance">Saldo:</label>
+            <span id="balance">100</span>
+        </div>
+        -->
+        <div class="recuadroGanado" id="mensaje-gananado">
+            <label for="prize">Ganado:</label>
+            <span id="prize">0</span>
+        </div>
 
-    <!-- Imagenes -->
-    <div id="player">
-        <img src="/static/images/tragaperras/1def.png" alt="ImagenTragaperras" id="KonguitoTragaperras">
-    </div>
+        <!-- Imagenes -->
+        <div id="player">
+            <img src="/static/images/tragaperras/1def.png" alt="ImagenTragaperras" id="KonguitoTragaperras">
+        </div>
 
-</div>
+    </div>
 {% endblock %}
 {% block javascripts %}
-<script src="/static/js/Tragaperras.js"></script>
-<script src="/static/js/TragaperrasAlertas.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/Tragaperras.js"></script>
+    <script src="/static/js/TragaperrasAlertas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}
