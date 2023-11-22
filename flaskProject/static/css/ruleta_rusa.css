@@ -192,9 +192,6 @@ buttonRR:hover {
     cursor: pointer;
 }
 
-.seleccion-recamara:hover {
-    background-color: #81662a; /* Color de fondo del círculo al hacer hover */
-}
 
 /* Mensajes */
 #mensajeDeSeleccion {

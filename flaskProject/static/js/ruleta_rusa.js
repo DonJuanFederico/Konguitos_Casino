@@ -1,28 +1,15 @@
 let gameInterval = null;
 let contadorInterval = null;
 const mensaje = document.querySelector('#mensajeDeInstrucciones');
-// Poner una bala en cualquier recámara
-const bala = Math.floor(Math.random() * 6) + 1;
 document.querySelector('#mensajeDeSeleccion').style.display = 'none';
+document.querySelector('#recuadros-container').style.display = 'none';
 let seleccionActual = null;
+let bala;
+let tiempo;
 
-
-function iniciarJuego() {
-    // Oculta el botón de inicio
-    document.getElementById('iniciarJuego').style.display = 'none';
-    // Inicia la animación de encender recámaras
-    EncenderRecamaras(() => {
-        // Después de que EncenderRecamaras haya terminado, inicia la selección de recámara
-        seleccionarDeRecamara(() => {
-            disparos(6);
-        });
-    });
-}
-
-function EncenderRecamaras(callback) {
-    // CONTADOR:
-    let tiempo = 9;
-    contadorInterval = setInterval(() => {
+//Hazme una funcion que te de un tiempo y lo conviertas en un contador hasta 0
+function contador(tiempo) {
+    let contadorInterval = setInterval(() => {
         document.getElementById('contador').innerHTML = tiempo;
         if (tiempo > 0) {
             tiempo--;
@@ -30,7 +17,36 @@ function EncenderRecamaras(callback) {
             clearInterval(contadorInterval);
         }
     }, 1000);
+}
 
+async function iniciarJuego() {
+    // Oculta el botón de inicio
+    document.getElementById('iniciarJuego').style.display = 'none';
+    const bala = Math.floor(Math.random() * 6) + 1;
+    console.log("Bala: " + bala);
+
+    // Inicia la animación de encender recámaras
+    await EncenderRecamaras();
+
+    if(tiempo===0) {
+        await seleccionarDeRecamara();
+        bloquearSeleccion();
+        if(tiempo===0) {
+            await disparos(6);
+        }
+    }
+}
+
+
+function bloquearSeleccion() {
+    console.log("Bloqueando selección")
+    mensaje.textContent = "Selección bloqueada.";
+    mensaje.style.color = "#f00"; // Color rojo para indicar bloqueo
+    document.querySelector('#recuadros-container').style.pointerEvents = 'none';
+}
+
+async function EncenderRecamaras() {
+    contador(4)//Es 4 porque el contador tarda un segundo al parecer en inciar
     let recamaraIluminada = 1;
     gameInterval = setInterval(() => {
         // Apaga todas las recámaras
@@ -48,33 +64,33 @@ function EncenderRecamaras(callback) {
         recamaraIluminada = Math.floor(Math.random() * 6) + 1;
 
 
-    }, 10000 / 100);
-
+    }, 5000 / 50);
     // Detener la animación después de 5 segundos
-    setTimeout(() => {
-        clearInterval(gameInterval);
-        clearInterval(contadorInterval);
-        for (let i = 1; i <= 6; i++) {
-            document.getElementById(`recamara${i}`).style.backgroundColor = "#64676e";
-        }
-        // Llamar al callback para continuar con la lógica después de EncenderRecamaras
-        if (typeof callback === 'function') {
-            callback();
-        }
-    }, 10000);
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    //poner todas las recamras como antes:
+    for (let i = 1; i <= 6; i++) {
+        document.getElementById(`recamara${i}`).style.backgroundColor = "#64676e";
+    }
+    clearInterval(gameInterval);
 }
 
-function seleccionarDeRecamara(recamaraSeleccionada) {
-    console.log(recamaraSeleccionada);
+async function seleccionarDeRecamara(recamaraSeleccionada) {
+    contador(10)
+    mensaje.textContent = "Selecciona una recámara...";
+    mensaje.style.color = "#f4a003";
+    mensaje.style.backgroundColor = "#000";
+    document.querySelector('#mensajeDeSeleccion').style.display = 'block';
+    document.querySelector('#recuadros-container').style.display = 'flex';
+    seleccionActual = recamaraSeleccionada;
+    console.log("Has seleccionado: " + recamaraSeleccionada);
     for (let i = 1; i <= 6; i++) {
         document.querySelector(`.seleccion-recamara:nth-child(${i})`).style.backgroundColor = "#c4bd1e";
     }
-    // Poner en color amarillo la recámara seleccionada
+    // Poner en color la recámara seleccionada
     document.querySelector(`.seleccion-recamara:nth-child(${recamaraSeleccionada})`).style.backgroundColor = "#1ec492";
 }
 
-
-function disparos(numDisparos) {
+async function disparos(numDisparos) {
     document.getElementById('contador').innerHTML = 0;
     mensaje.textContent = "Realizando disparos...";
     mensaje.style.color = "#000";
@@ -113,8 +129,18 @@ function disparos(numDisparos) {
     for (let recamara = 1; recamara <= numDisparos; recamara++) {
         dispararRecamara(recamara);
     }
+    verficarResultado();
 }
 
+function verficarResultado() {
+    if (seleccionActual == null) {
+        console.log("no has seleccionado nada")
+    } else if (bala === seleccionActual) {
+        console.log("Has ganado")
+    } else {
+        console.log("Has perdido")
+    }
+}
 
 
 
