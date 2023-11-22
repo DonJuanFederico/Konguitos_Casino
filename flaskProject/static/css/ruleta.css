@@ -18,6 +18,7 @@ body {
   overflow: visible;
 }
 
+/* ---- Ruleta --- */
 .roulette-wheel {
   float: right;
   width: 380px;
@@ -28,7 +29,9 @@ body {
   shape-outside: circle(190px);
   margin: 0 0 1em 1em;
   box-shadow: 2px 10px 30px rgba(0,0,0,.4);
-  position: relative;
+  position: absolute;
+  top: 200px;
+  left: 100px;
   touch-action: none;
   overflow: visible;
 }
