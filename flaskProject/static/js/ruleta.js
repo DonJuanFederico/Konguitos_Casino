@@ -45,11 +45,14 @@ const rouletteWheelNumbers = [
 ];
 
 const getRouletteWheelNumber = index =>
-  rouletteWheelNumbers[index >= 0 ? index % 37 : 37 - Math.abs(index % 37)];
+  console.log("index", index) ||
+  rouletteWheelNumbers[index >= 0 ? index % 37 : (37 - Math.abs(index % 37)) % 37];
+
 
 const getRouletteWheelColor = index => {
   const i = index >= 0 ? index % 37 : 37 - Math.abs(index % 37);
-  return i == 0 ? "green" : i % 2 == 0 ? "black" : "red";
+  console.log("i", i);
+  return i == 37 ? "green" : i % 2 == 0 ? "black" : "red";
 };
 
 window.rouletteWheelNumbers = rouletteWheelNumbers;
@@ -82,7 +85,6 @@ function startRotation(speed) {
   const writeResult = addFlipper();
 
   const bezier = [0.165, 0.84, 0.44, 1.005];
-
   const newWheelIndex = currentWheelIndex - speed;
   const result = getRouletteWheelNumber(newWheelIndex);
   const resultColor = getRouletteWheelColor(newWheelIndex);
@@ -95,7 +97,7 @@ function startRotation(speed) {
         return newRotaion;
       },
       duration: function() {
-        return 5000;
+        return 10000;
       },
       loop: 1,
       // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
@@ -119,9 +121,9 @@ function startRotation(speed) {
         { value: 25, duration: 900 },
         { value: 50, duration: 1000 }
       ],
-      rotate: [{ value: newRotaion, duration: 4000 }],
+      rotate: [{ value: newRotaion, duration: 9000 }],
       duration: function() {
-        return 4000; // anime.random(800, 1400);
+        return 7000; // anime.random(800, 1400);
       },
       loop: 1,
       easing: `cubicBezier(${bezier.join(",")})`,
@@ -140,3 +142,9 @@ document.querySelector(".roulette-wheel").addEventListener(
   },
   { passive: false }
 );
+
+
+
+
+
+/* ------------------------------------ APUESTAS ------------------------------------*/

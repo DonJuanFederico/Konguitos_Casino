@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="/static/css/ruleta.css" />
       <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 {% endblock %}
-{% block body %}>
+{% block body %}
     <div id="app">
       <div>
         <div class="roulette-wheel">
@@ -34,7 +34,13 @@
       </div>
     </div>
     <div class="result"></div>
-    <button onclick="startRotation(100)">START </button>
+    <button class="girar" onclick="startRotation(Math.floor(Math.random() * (148 - 75 + 1)) + 75)"> GIRAR </button>
+    <div class="apuesta"></div>
+    <div class="moneda">
+        <div class="moneda-plata"></div>
+        <div class="moneda-oro"></div>
+    </div>
+
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/ruleta.js"></script>
