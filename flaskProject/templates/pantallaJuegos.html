@@ -8,29 +8,80 @@
     <audio autoplay loop class="audio-player">
         <source src="../static/audio/Loonboon.mp3" type="audio/mpeg">
     </audio>
-    <h1> Opciones de juego </h1>
-    <div class="container">
-        <div class="scroll-button left" id="scroll-left">←</div>
-        <div class="scroll-container" id="scroll-container">
-            <form method="GET" action="/Juegos/Indice_cartas/">
-                <button class="button cartas" type="submit"> CARTAS </button>
-            </form>
-            <form method="GET" action="/Juegos/Indice_Dados/">
-                <button class="button dados" type="submit"> DADOS </button>
-            </form>
-            <form method="GET" action="/Juegos/Ruleta/">
-                <button class="button ruleta" type="submit"> RULETA </button>
-            </form>
-            <form method="GET" action="/Juegos/Eventos/">
-                <button class="button event" type="submit"> EVENTOS </button>
-            </form>
-            <form method="GET" action="/Juegos/Juegos_extra/">
-                <button class="button extra" type="submit"> JUEGOS EXTRA </button>
-            </form>
+    <div id = "total">
+        <div id = "texto">
         </div>
-        <div class="scroll-button right" id="scroll-right">→</div>
+        <div id = "mostrar">
+            <h1>
+                <span></span>
+                <div class="message">
+                    <div class="word1">{{ NOMBRE }}</div>
+                    <div class="word2">a KonguitosCasino</div>
+                </div>
+            </h1>
+        </div>
+        <div id="slider-container2" class="slider_container2">
+            <div class="slider2" id="slider2">
+                <div class="slider_element">
+                    <img class = "cartas" src="/static/images/seleccion_caterogia/juegosCartasCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "dados" src="/static/images/seleccion_caterogia/juegosDadosCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "ruleta" src="/static/images/seleccion_caterogia/ruletaCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "extra" src="/static/images/seleccion_caterogia/juegosExtraCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "eventos" src="/static/images/seleccion_caterogia/eventosCartel.png">
+                </div>
+            </div>
+        </div>
+        <div id="slider-container3" class="slider_container3">
+            <div class="slider3" id="slider3">
+                <div class="slider_element">
+                    <img class = "ruleta" src="/static/images/seleccion_caterogia/ruletaCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "extra" src="/static/images/seleccion_caterogia/juegosExtraCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "eventos" src="/static/images/seleccion_caterogia/eventosCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "cartas" src="/static/images/seleccion_caterogia/juegosCartasCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "dados" src="/static/images/seleccion_caterogia/juegosDadosCartel.png">
+                </div>
+            </div>
+        </div>
+        <div id="slider-container" class="slider_container">
+            <div class="slider" id="slider">
+                <div class="slider_element">
+                    <img class = "dados" src="/static/images/seleccion_caterogia/juegosDadosCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "ruleta" src="/static/images/seleccion_caterogia/ruletaCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "extra" src="/static/images/seleccion_caterogia/juegosExtraCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "eventos" src="/static/images/seleccion_caterogia/eventosCartel.png">
+                </div>
+                <div class="slider_element">
+                    <img class = "cartas" src="/static/images/seleccion_caterogia/juegosCartasCartel.png">
+                </div>
+            </div>
+        </div>
+        <div class="slider-buttons">
+            <button id = "botonIzquierda" class = "botonIzquierda"></button>
+            <button id = "botonDerecha" class = "botonDerecha"></button>
+        <div>
     </div>
-
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/pantallaJuegos.js"></script>
