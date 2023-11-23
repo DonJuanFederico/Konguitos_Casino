@@ -4,13 +4,13 @@ const mensaje = document.querySelector('#mensajeDeInstrucciones');
 document.querySelector('#mensajeDeSeleccion').style.display = 'none';
 document.querySelector('#recuadros-container').style.display = 'none';
 let seleccionActual = null;
-let bala=null;
-let tiempo;
+let bala = null;
+apuesta = parseInt(document.querySelector('#bet').value);
+console.log(apuesta)
+dineroUsuario = parseFloat(document.querySelector('#monedasUsuario').textContent);
+console.log(dineroUsuario)
 
-function controladorApostado() {
 
-
-}
 //Hazme una funcion que te de un tiempo y lo conviertas en un contador hasta 0
 function contador(tiempo) {
     let contadorInterval = setInterval(() => {
@@ -24,6 +24,7 @@ function contador(tiempo) {
 }
 
 async function iniciarJuego() {
+    document.querySelector('#recuadroApuesta').style.display = "none";
     // Oculta el botón de inicio
     document.getElementById('iniciarJuego').style.display = 'none';
     bala = Math.floor(Math.random() * 6) + 1;
@@ -89,11 +90,11 @@ async function seleccionarRecamara(recamaraSeleccionada) {
     await new Promise(resolve => setTimeout(resolve, 10000));
     // Bloquear la selección
     bloquearSeleccion();
-    await Animaciondisparos(6);
+    await Animaciondisparos(6, recamaraSeleccionada);
 }
 
 
-async function Animaciondisparos(numDisparos) {
+async function Animaciondisparos(numDisparos, recamaraSeleccionada) {
     document.getElementById('contador').innerHTML = 0;
     mensaje.textContent = "Realizando disparos...";
     mensaje.style.color = "#000";
@@ -113,7 +114,7 @@ async function Animaciondisparos(numDisparos) {
             // Mostrar el resultado después de los disparos
             if (recamara === numDisparos) {
                 setTimeout(() => {
-                    verficarResultado();
+                    verficarResultado(recamaraSeleccionada);
                 }, 1000);
             }
         }, (recamara - 1) * (10000 / 6)); // Cada recámara se dispara cada 10/6 segundos
@@ -125,16 +126,24 @@ async function Animaciondisparos(numDisparos) {
     }
 }
 
-function verficarResultado() {
-    if (seleccionActual == null) {
-        console.log("no has seleccionado nada")
-        mensaje.textContent="No has seleccionado nada";
-    } else if (bala === seleccionActual) {
-        console.log("Has ganado")
-        mensaje.textContent="Has ganado";
+function verficarResultado(recamaraSeleccionada) {
+    if (recamaraSeleccionada == null) {
+        console.log("no has seleccionado nada");
+        mensaje.textContent = "No has seleccionado nada";
+    } else if (bala === recamaraSeleccionada) {
+        console.log("Has ganado");
+        mensaje.textContent = "Has ganado";
+        console.log(dineroUsuario)
+        console.log(apuesta)
+        dineroUsuario += apuesta;
+        agregarDinero(); // Agrega el monto de la apuesta a la cuenta
     } else {
-        console.log("Has perdido")
-        mensaje.textContent="Has perdido";
+        console.log("Has perdido");
+        mensaje.textContent = "Has perdido";
+        console.log(dineroUsuario)
+        console.log(apuesta)
+        dineroUsuario -= apuesta;
+        retirarDinero(); // Retira el monto de la apuesta de la cuenta
     }
 }
 
@@ -156,7 +165,7 @@ function retirarDinero() {
 
 function agregarDinero() {
     // MONTO EN ESTE CASO ES VALOR DE LO GANADO (MIRAR TRAGAPERRAS PARA VERLO BIEN)
-    var monto = parseInt(prizeElement.textContent);
+    var monto = apuesta;
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/agregar_dinero", true);
