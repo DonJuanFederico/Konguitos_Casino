@@ -1,4 +1,4 @@
-let balance = 20;
+let balance = 20
 
 
 let primaryBets = {
@@ -255,6 +255,78 @@ function sBetEnded(){
     updateBalance();
     updateSecondaryBets();
 }
+
+document.getElementById("masMonedas").addEventListener("click", function () {
+        window.location.href = "/dinero/";
+});
+
+function agregarDinero(monto) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + monto);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            // Verificar la respuesta del servidor y actualizar el saldo en el cliente si es necesario
+            if (xhr.status === 200) {
+                balance += monto;
+                updateBalance(); // Actualizar la visualización del saldo en la interfaz
+            } else {
+                // Manejar errores si la solicitud al servidor falla
+                console.error('Error al agregar dinero.');
+            }
+        }
+    };
+}
+
+function retirarDinero(monto) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + monto);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            // Verificar la respuesta del servidor y actualizar el saldo en el cliente si es necesario
+            if (xhr.status === 200) {
+                balance -= monto;
+                updateBalance(); // Actualizar la visualización del saldo en la interfaz
+            } else {
+                // Manejar errores si la solicitud al servidor falla
+                console.error('Error al retirar dinero.');
+            }
+        }
+    };
+}
+
+var botonReglas = document.getElementById("botonReglas");
+// funcion para mostrar las reglas
+botonReglas.addEventListener("click", function () {
+    Swal.fire({
+        title: '¡BIENVENIDO!',
+        width: 600,
+        height: 700,
+        html: "<div>" +
+            " <strong><h3 style='text-decoration: underline; text-align: center' >REGLAS:</h3></strong>" +
+            "<br><strong>1.</strong> Para comenzar realiza una apuesta primaria entre las siguientes opciones:" +
+            "<br><strong>2.</strong> " +
+            "<br><strong>3.</strong> " +
+            "<br><strong>4.</strong> " +
+            "<br><strong>5.</strong> " +
+            "<br><strong>6.</strong> " +
+            "</div>",
+        confirmButtonText: '¡A Jugar!',
+        confirmButtonColor: 'darkgoldenrod',
+        backdrop: `rgba(0,0,0,0.4)`,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        customClass: {
+            confirmButton: 'custom-button',
+            htmlContainer: 'custom-container'
+          },
+    });
+});
 
 
 

@@ -79,7 +79,7 @@ function updateUI() {
         const cardElement = document.createElement('img');
         const cardFileName = card.replace(/ /g, '') + '.png';
         cardElement.src = `/static/images/cards/${cardFileName}`;
-        cardElement.classList.add('card-image'); // Puedes añadir clases para estilizar las cartas si es necesario
+        cardElement.classList.add('card-image');
         playerHandContainer.appendChild(cardElement);
     });
 
@@ -95,7 +95,7 @@ function updateUI() {
         }
 
         cardElement.src = `/static/images/cards/${cardFileName}`;
-        cardElement.classList.add('card-image'); // Puedes añadir clases para estilizar las cartas si es necesario
+        cardElement.classList.add('card-image');
         dealerHandContainer.appendChild(cardElement);
     });
 
