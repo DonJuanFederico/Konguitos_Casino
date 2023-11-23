@@ -4,9 +4,13 @@ const mensaje = document.querySelector('#mensajeDeInstrucciones');
 document.querySelector('#mensajeDeSeleccion').style.display = 'none';
 document.querySelector('#recuadros-container').style.display = 'none';
 let seleccionActual = null;
-let bala;
+let bala=null;
 let tiempo;
 
+function controladorApostado() {
+
+
+}
 //Hazme una funcion que te de un tiempo y lo conviertas en un contador hasta 0
 function contador(tiempo) {
     let contadorInterval = setInterval(() => {
@@ -22,19 +26,11 @@ function contador(tiempo) {
 async function iniciarJuego() {
     // Oculta el botón de inicio
     document.getElementById('iniciarJuego').style.display = 'none';
-    const bala = Math.floor(Math.random() * 6) + 1;
+    bala = Math.floor(Math.random() * 6) + 1;
     console.log("Bala: " + bala);
 
     // Inicia la animación de encender recámaras
     await EncenderRecamaras();
-
-    if(tiempo===0) {
-        await seleccionarDeRecamara();
-        bloquearSeleccion();
-        if(tiempo===0) {
-            await disparos(6);
-        }
-    }
 }
 
 
@@ -72,10 +68,11 @@ async function EncenderRecamaras() {
         document.getElementById(`recamara${i}`).style.backgroundColor = "#64676e";
     }
     clearInterval(gameInterval);
+    contador(10)
+    await seleccionarRecamara()
 }
 
-async function seleccionarDeRecamara(recamaraSeleccionada) {
-    contador(10)
+async function seleccionarRecamara(recamaraSeleccionada) {
     mensaje.textContent = "Selecciona una recámara...";
     mensaje.style.color = "#f4a003";
     mensaje.style.backgroundColor = "#000";
@@ -88,30 +85,27 @@ async function seleccionarDeRecamara(recamaraSeleccionada) {
     }
     // Poner en color la recámara seleccionada
     document.querySelector(`.seleccion-recamara:nth-child(${recamaraSeleccionada})`).style.backgroundColor = "#1ec492";
+    // Esperar a que se seleccione una recámara
+    await new Promise(resolve => setTimeout(resolve, 10000));
+    // Bloquear la selección
+    bloquearSeleccion();
+    await Animaciondisparos(6);
 }
 
-async function disparos(numDisparos) {
+
+async function Animaciondisparos(numDisparos) {
     document.getElementById('contador').innerHTML = 0;
     mensaje.textContent = "Realizando disparos...";
     mensaje.style.color = "#000";
     mensaje.style.backgroundColor = "#fff";
 
-    let tiempo = 10;
-    contadorInterval = setInterval(() => {
-        document.getElementById('contador').innerHTML = tiempo;
-        if (tiempo > 0) {
-            tiempo--;
-        } else {
-            clearInterval(contadorInterval);
-        }
-    }, 1000);
-
     // Función para disparar una recámara y avanzar al siguiente después de un retraso
     function dispararRecamara(recamara) {
+        console.log("disparar " + bala)
         setTimeout(() => {
             // Marcar la recámara actual
             if (recamara === bala) {
-                document.getElementById(`recamara${recamara}`).style.backgroundColor = "#a52a2a"; // Marrón
+                document.getElementById(`recamara${recamara}`).style.backgroundColor = "#d70c0c"; // Marrón
             } else {
                 document.getElementById(`recamara${recamara}`).style.backgroundColor = "#000"; // Negro
             }
@@ -119,7 +113,7 @@ async function disparos(numDisparos) {
             // Mostrar el resultado después de los disparos
             if (recamara === numDisparos) {
                 setTimeout(() => {
-                    mostrarResultadoDisparos();
+                    verficarResultado();
                 }, 1000);
             }
         }, (recamara - 1) * (10000 / 6)); // Cada recámara se dispara cada 10/6 segundos
@@ -129,17 +123,45 @@ async function disparos(numDisparos) {
     for (let recamara = 1; recamara <= numDisparos; recamara++) {
         dispararRecamara(recamara);
     }
-    verficarResultado();
 }
 
 function verficarResultado() {
     if (seleccionActual == null) {
         console.log("no has seleccionado nada")
+        mensaje.textContent="No has seleccionado nada";
     } else if (bala === seleccionActual) {
         console.log("Has ganado")
+        mensaje.textContent="Has ganado";
     } else {
         console.log("Has perdido")
+        mensaje.textContent="Has perdido";
     }
+}
+
+//Funciones de Añadir y retirar dinero:
+//Te redirige a la pagina de comprar monedas
+document.getElementById("botonComprarMonedas").addEventListener("click", function () {
+    window.location.href = "/dinero/";
+});
+
+function retirarDinero() {
+    // MONTO EN ESTE CASO ES VALOR DE LA APUESTA
+    var monto = apuesta;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + monto);
+}
+
+function agregarDinero() {
+    // MONTO EN ESTE CASO ES VALOR DE LO GANADO (MIRAR TRAGAPERRAS PARA VERLO BIEN)
+    var monto = parseInt(prizeElement.textContent);
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + monto);
 }
 
 

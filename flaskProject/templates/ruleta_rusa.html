@@ -32,12 +32,12 @@
 </div>
 <div id="mensajeDeSeleccion">Selecciona una recamara:</div>
 <div id="recuadros-container">
-    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(1)"></div>
-    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(2)"></div>
-    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(3)"></div>
-    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(4)"></div>
-    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(5)"></div>
-    <div class="seleccion-recamara" onclick="seleccionarDeRecamara(6)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarRecamara(1)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarRecamara(2)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarRecamara(3)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarRecamara(4)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarRecamara(5)"></div>
+    <div class="seleccion-recamara" onclick="seleccionarRecamara(6)"></div>
 </div>
 <div id="iniciarJuego">
     <buttonIniciar onclick="iniciarJuego()">Iniciar Juego</buttonIniciar>
@@ -48,6 +48,11 @@
 </div>
 <div id="botonDeRecompensas">
     <buttonRR onclick="recompensas()">Recompensas</buttonRR>
+</div>
+<!--- Apuesta --->
+<div class="recuadroApuesta">
+    <label id="apostado">Apostado:</label>
+    <input type="number" id="bet" value="1" min="1">
 </div>
 {% endblock %}
 {% block javascript %}

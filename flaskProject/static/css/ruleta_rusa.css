@@ -237,4 +237,15 @@ buttonRR:hover {
     display: inline-block;
 }
 
+/* Apuesta */
+.recuadroApuesta {
+    position: absolute;
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    right:70%;
+    top:70%;
+}
 

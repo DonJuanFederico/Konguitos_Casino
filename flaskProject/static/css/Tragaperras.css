@@ -1,4 +1,4 @@
-body, html {
+body {
     margin: 0;
     padding: 0;
     border: 0;
@@ -9,15 +9,13 @@ body, html {
     overflow-y: hidden;
     z-index: 1;
     position: relative;
+    height: 100vh; /* Establecer la altura al 100% de la ventana gráfica */
 }
+
 .audio-player {
      display: none;
 }
 
-#marcoMonedas, .botonDeReglas, .botonDeRecompensas, .posicionamiento, .buttonSpin, .recuadroApuesta, .recuadroGanado, #player{
-    position: relative;
-    z-index: 9;
-}
 /* Control de 3 filas o 3 columnas. Actual: 3 columnas*/
 .posicionamiento {
     position: absolute;
