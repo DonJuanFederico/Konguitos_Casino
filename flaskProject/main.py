@@ -191,7 +191,7 @@ def edicion():
 
 @app.route('/Juegos/')
 def juegos():
-        return render_template('pantallaJuegos.html')
+        return render_template('pantallaJuegos.html', NOMBRE = obtener_nombre())
 
 @app.route('/Perfil_de_usuario/', methods=['GET'])
 def perfil():
