@@ -9,6 +9,15 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 {% endblock %}
 {% block body %}
+
+
+    <div id="marcoMonedas">
+            <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
+            <div id="divMonedasUsuario">
+                <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
+                <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
+            </div>
+    </div>
     <div id="app">
       <div>
         <div class="roulette-wheel">

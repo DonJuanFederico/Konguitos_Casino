@@ -219,9 +219,10 @@ def dados():
 def craps():
     return render_template("craps.html")
 
-@app.route('/Juegos/Ruleta/', methods=['GET'])
+@app.route('/Juegos/Ruleta/')
 def ruleta():
-    return render_template('ruleta.html')
+    DINERO = obtenerDinero()
+    return render_template('ruleta.html', DINERO = DINERO)
 
 @app.route('/Juegos/DinoKongo/', methods=['GET'])
 def dino():

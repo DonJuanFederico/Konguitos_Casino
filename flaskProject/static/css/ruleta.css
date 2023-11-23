@@ -19,6 +19,7 @@ body {
 }
 
 /* ---- Ruleta --- */
+
 .roulette-wheel {
   float: right;
   width: 380px;
@@ -31,15 +32,28 @@ body {
   box-shadow: 2px 10px 30px rgba(0,0,0,.4);
   position: absolute;
   top: 60px;
-  left: 100px;
+  left: 10%;
   touch-action: none;
   overflow: visible;
+    z-index: 1;
 }
+
+
+.animacionKoniguito{
+    width: 360px;
+    height: 360px;
+    background: url(/static/images/ruleta/felt.png);
+    position: absolute;
+    top: 10%;
+    animation: animacion 2s;
+    z-index: -1;
+}
+
 
 .apuesta {
     position: absolute;
-    top: 17%;
-    left: 40%;
+    top: 20%;
+    left: 50%;
     background-image: url("/static/images/ruleta/apuestas.png");
     background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
     width: 50%;
@@ -47,7 +61,6 @@ body {
 }
 
 .girar{
-  animation: all 0.6s ease;
   position: absolute;
   top: 85%;
   left: 17%;
@@ -56,6 +69,29 @@ body {
   height: 5%;
   text-align: center;
   font-size: 20px;
+}
+
+
+@keyframes animacion {
+    0% { background-image: url('/static/images/ruleta/framesRuleta/1.png'); }
+    5.56% { background-image: url('/static/images/ruleta/framesRuleta/2.png'); }
+    11.11% { background-image: url('/static/images/ruleta/framesRuleta/3.png'); }
+    16.67% { background-image: url('/static/images/ruleta/framesRuleta/4.png'); }
+    22.22% { background-image: url('/static/images/ruleta/framesRuleta/5.png'); }
+    27.78% { background-image: url('/static/images/ruleta/framesRuleta/6.png'); }
+    33.33% { background-image: url('/static/images/ruleta/framesRuleta/7.png'); }
+    38.89% { background-image: url('/static/images/ruleta/framesRuleta/8.png'); }
+    44.44% { background-image: url('/static/images/ruleta/framesRuleta/9.png'); }
+    50% { background-image: url('/static/images/ruleta/framesRuleta/10.png'); }
+    55.56% { background-image: url('/static/images/ruleta/framesRuleta/11.png'); }
+    61.11% { background-image: url('/static/images/ruleta/framesRuleta/12.png'); }
+    66.67% { background-image: url('/static/images/ruleta/framesRuleta/13.png'); }
+    72.22% { background-image: url('/static/images/ruleta/framesRuleta/14.png'); }
+    77.78% { background-image: url('/static/images/ruleta/framesRuleta/15.png'); }
+    83.33% { background-image: url('/static/images/ruleta/framesRuleta/16.png'); }
+    88.89% { background-image: url('/static/images/ruleta/framesRuleta/17.png'); }
+    94.44% { background-image: url('/static/images/ruleta/framesRuleta/18.png'); }
+    100% { background-image: url('/static/images/ruleta/framesRuleta/18.png'); } /* Última imagen al final de la animación */
 }
 
 .moneda {
@@ -95,27 +131,33 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: 380px 380px
+  background-size: 380px 380px;
+    z-index: 1;
 }
 
 .roulette-wheel .layer-2, .roulette-wheel .layer-4, .ball-container {
-  will-change: transform
+  will-change: transform;
+    z-index: 1;
 }
 
 .roulette-wheel .layer-2 {
-  background-image: url(/static/images/ruleta/roulette_2.png)
+  background-image: url(/static/images/ruleta/roulette_2.png);
+    z-index: 1;
 }
 
 .roulette-wheel .layer-3 {
-  background-image: url(/static/images/ruleta/roulette_3.png)
+  background-image: url(/static/images/ruleta/roulette_3.png);
+    z-index: 1;
 }
 
 .roulette-wheel .layer-4 {
   background-image: url(/static/images/ruleta/roulette_4.png);
+    z-index: 1;
 }
 
 .roulette-wheel .layer-5 {
   background-image: url(/static/images/ruleta/roulette_5.png);
+    z-index: 1;
 }
 
 
@@ -240,4 +282,56 @@ body {
     margin-right: 20px;
     margin-bottom: 20px;
   }
+}
+
+
+#marcoMonedas {
+    background-image: url("/static/images/marcoCasino.png");
+    position: absolute;
+    top: 0%;
+    right: 4%;
+    width: 20%;
+    height: 20%;
+    background-size: 100% 100%;
+    display: flex;
+}
+
+#divMonedasUsuario {
+    position: relative;
+    right: 15%;
+    margin-right: 2%;
+    width: 50%;
+    height: 15%;
+    top: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#divMonedasUsuario span {
+    position: absolute;
+    font-size: 200%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#imagenKonguitoCoin {
+    margin-left: 5%;
+    margin-top: -3%;
+    transform: scale(0.3);
+}
+
+#botonComprarMonedas {
+    margin-left: -190%;
+    margin-top: -30%;
+    transform: scale(0.07);
+    animation: animacionBotonComprarMonedas 2s infinite alternate;
+}
+
+#monedasUsuario {
+    color: #fafaf7;
+    font-size: 1.5rem;
 }
