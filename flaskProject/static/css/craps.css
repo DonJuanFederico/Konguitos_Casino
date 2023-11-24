@@ -148,7 +148,7 @@ body {
 }
 
 #cajaApuesta{
-    background-image: url("../images/konguito_run/marcoCasino.png");
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
     background-size: cover;
     position: absolute;
     display: flex;
@@ -189,37 +189,39 @@ body {
     cursor: pointer;
 }
 
-/* BOTON DE REGLAS */
-#botonReglas{
+.botonDeReglas {
     position: absolute;
-    top: 40%;
-    left: 8%;
+    top: 20%;
+    left: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     text-align: center;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
+    width: 3%;
 }
 
-button1 {
+.botonDeRecompensas {
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 3%;
+}
+
+buttonRR {
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    border: none;
     border-radius: 5px;
     padding: 10px 15px;
-    width: 10%;
-    height: 4%;
-    background: darkgoldenrod;
-    border: 2px solid black;
-}
-
-button1:hover{
-    background-color: goldenrod;
-}
-/* ALERTA DE LAS REGLAS */
-/* BOTON */
-.custom-button{
-    height: 40px;
-    width: 150px;
+    width: 400%;
+    height: 150%;
+    background: #dbe138;
 }
 
 
