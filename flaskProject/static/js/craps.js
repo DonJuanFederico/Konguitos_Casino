@@ -154,7 +154,9 @@ function rollDice() {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                     document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                     alert("Perdiste la apuesta de Línea de Pase.");
-                    alert("Perdiste la apuesta de Gabela a Favor.");
+                    if(tipoApuestaS === "gabelaAFavor"){
+                        alert("Perdiste la apuesta de Gabela a Favor.");
+                    }
                     puntoActual = 0; // Se reinicia el punto
                     betEnded();
                     sBetEnded();
@@ -219,7 +221,10 @@ function rollDice() {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
                     document.getElementById("punto-actual").style.color = "black"; // Restablece el color
                     alert("Perdiste la apuesta de Barra de no Pase.");
-                    alert("Perdiste la apuesta de Gabela en Contra.");
+                    if (tipoApuestaS === "gabelaEnContra"){
+                        alert("Perdiste la apuesta de Gabela en Contra.");
+                    }
+
                     puntoActual = 0; // Se reinicia el punto
                     betEnded();
                     sBetEnded();
