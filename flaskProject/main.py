@@ -196,24 +196,8 @@ def juegos():
 @app.route('/Perfil_de_usuario/<string:id>', methods=['GET', 'POST'])
 def perfil(id):
     data = obtenerArrayDatosUsuario(id)
-
-    print(data)
-    user = data[0]
-
-    email = data[1]
-    street = data[6]
-    postal_code = data[7]
-    dni = data[2]
-
-    card_data = obtenerArrayDatosTarjeta(id)
-    card_number = card_data[0]
-    owner = card_data[1]
-    date = card_data[2]
-    cvv = card_data[3]
-
-    return render_template('perfil.html', user=user, email=email, street=street, postal_code=postal_code,
-                           dni=dni, card_number=card_number, owner=owner, date=date, cvv=cvv)
-
+    data2 = obtenerArrayDatosTarjeta(id)
+    return render_template('perfil.html',data=data, data2=data2)
 @app.route('/soporte_cliente/')
 
 def ayuda():
