@@ -146,3 +146,5 @@ $(document).ready(function () {
 		}
 	});
 });
+
+function volverAtras(){document.location.href = '/Juegos/Juegos_extra/';}

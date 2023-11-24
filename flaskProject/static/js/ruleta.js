@@ -216,3 +216,5 @@ function seleccionarMoneda(elemento) {
         valorMoneda = 250;
     }
 }
+
+function volverAtras(){document.location.href = '/Juegos/';}
