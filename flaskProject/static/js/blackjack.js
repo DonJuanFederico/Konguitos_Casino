@@ -89,7 +89,7 @@ function updateUI() {
         let cardFileName;
 
         if (index === 1 && !gameOver && dealerHiddenCard) {
-            cardFileName = 'reverse.png'; // Nombre de archivo de la carta oculta
+            cardFileName = 'reverse.jpg'; // Nombre de archivo de la carta oculta
         } else {
             cardFileName = card.replace(/ /g, '') + '.png';
         }
