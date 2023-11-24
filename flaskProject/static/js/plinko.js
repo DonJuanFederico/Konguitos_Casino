@@ -17,3 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 100);
     });
   });
+
+
+/*
+    Hacer que la bola elija entre derecha o izquierda con +1 o -1 respectivamente y calcular en q multiplicador cae con
+    respecto a la suma total del camino tomado:
+        es decir si cae en un multiplicador q sea -4 es q ha tomado 4 izquierdas mas q derechas.
+*/

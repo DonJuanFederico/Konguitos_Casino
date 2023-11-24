@@ -1,8 +1,15 @@
-from flask import Flask, render_template, request, jsonify
+from time import localtime, strftime
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from waitress import serve
 from bbdd import *
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
+from Jugador import Jugador
 
 app = Flask(__name__)
+
+#Inicializar flask socketio
+socketio = SocketIO(app)
+ROOMS = ["lounge", "news", "games", "coding"]
 
 #Setter
 def almacenar_nombre(nombre):
@@ -42,20 +49,47 @@ def obtener_valor_actualizado():
 
 @app.route('/guardar_datos', methods=['POST'])
 def guardar_datos():
-    '''Desencriptar datos'''
     nombre = request.form.get('nombre')
     almacenar_nombre(nombre)
     id = request.form.get('id')
+    global id_jugador
+    id_jugador = Jugador(id)
     guardarPartida(nombre, id)
-    return jsonify({'message': 'Datos guardados correctamente'})
+    # Aquí se genera la redirección a la vista chat con el parámetro id
+    return redirect(url_for('chat'))
 
-@app.route('/unirse', methods=['POST'])
+
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+    return render_template('chat.html', username=obtenerNombre(id_jugador.get_id()), rooms = ROOMS)
+
+'''@app.route('/unirse', methods=['POST'])
 def unirse():
     id = request.form.get('id')
     nombre = buscarAnfitrion(id)
     print("Mi nombre ahora es " + nombre)
     almacenar_nombre(nombre)
-    return jsonify({'message': 'Datos guardados correctamente'})
+    return jsonify({'message': 'Datos guardados correctamente'})'''
+
+@socketio.on("message")
+def message(data):
+    send({"msg": data["msg"], "username": data["username"], "time_stamp": strftime("%b-%d %I:%M%p", localtime())}, room = data["room"])
+    print(f"{data}")
+    #Evento personalizado:
+    #emit("some-event", "this is a custom event message")
+
+@socketio.on("join")
+def join(data):
+    #Antes del send especificar la sala
+    join_room(data["room"])
+    send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room = data["room"])
+
+@socketio.on("leave")
+def leave(data):
+    leave_room(data["room"])
+    send({"msg": data["username"] + " se ha salido de la sala " + data["room"]}, room = data["room"])
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port = 8000)
+    socketio.run(app, debug = True)
+

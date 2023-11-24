@@ -45,13 +45,11 @@ const rouletteWheelNumbers = [
 ];
 
 const getRouletteWheelNumber = index =>
-  console.log("index", index) ||
   rouletteWheelNumbers[index >= 0 ? index % 37 : (37 - Math.abs(index % 37)) % 37];
 
 
 const getRouletteWheelColor = index => {
   const i = index >= 0 ? index % 37 : 37 - Math.abs(index % 37);
-  console.log("i", i);
   return i == 37 ? "green" : i % 2 == 0 ? "black" : "red";
 };
 
@@ -68,7 +66,6 @@ function addFlipper() {
   const back = mkDiv("back-face");
   flipper.appendChild(front);
   flipper.appendChild(back);
-  document.querySelector(".result").appendChild(flipper);
   return (number, color) => {
     flipper.classList.add("flip", color);
     back.innerText = number;
@@ -118,7 +115,6 @@ function startRotation(speed) {
 
     (() => {
       const newRotaion = -4 * 360 + currentBallRotation;
-      console.log("newRotaion", newRotaion);
       var myAnimation1 = anime({
         targets: ".ball-container",
         translateY: [
@@ -141,6 +137,7 @@ function startRotation(speed) {
       });
     })();}, 500);
 }
+
 document.querySelector(".roulette-wheel").addEventListener(
   "touchmove",
   e => {
@@ -151,6 +148,71 @@ document.querySelector(".roulette-wheel").addEventListener(
 
 
 
-
-
 /* ------------------------------------ APUESTAS ------------------------------------*/
+let montosDinero = {};
+let valorMoneda;
+let moneda = "";
+
+function colocarFicha(casilla, top, left, width, height) {
+    // Verificar el rango del contador y actualizar la clase moneda
+    const numero = casilla.className;
+
+    if (!montosDinero[numero]) {
+        montosDinero[numero] = 0;
+    }
+
+    montosDinero[numero] += valorMoneda;
+
+    // Crear un div para la ficha
+    const ficha = document.createElement('div');
+    ficha.className = `${moneda}`;
+    ficha.style.position = 'absolute';
+    ficha.style.left = left + '%';
+    ficha.style.top = top + '%';
+    ficha.style.width = width + '%';
+    ficha.style.height = height + '%';
+    ficha.style.display = 'flex';
+    ficha.style.flexDirection = 'column';
+    ficha.style.alignItems = 'center';
+
+    // Añadir el valor del dinero dentro de la ficha
+    ficha.textContent = montosDinero[numero];
+
+    // Agregar la ficha a la casilla
+    casilla.appendChild(ficha);
+
+    // Actualizar la clase moneda después de agregar la ficha
+    if (montosDinero[numero] < 10) {
+        moneda = 'moneda-cobre';
+    } else if (10 <= montosDinero[numero] && montosDinero[numero] < 50) {
+        moneda = 'moneda-plata';
+    } else if (50 <= montosDinero[numero] && montosDinero[numero] < 100) {
+        moneda = 'moneda-rubi';
+    } else if (100 <= montosDinero[numero] && montosDinero[numero] < 250) {
+        moneda = 'moneda-oro';
+    } else if (250 <= montosDinero[numero]) {
+        moneda = 'moneda-diamante';
+    }
+
+    // Actualizar el contenido dinámico en el contenedor de dinero
+    const miContenedor = document.getElementById(`dineroApostado_${numero}`);
+    const htmlDinamico = `<p>${montosDinero[numero]}</p>`;
+    miContenedor.innerHTML = htmlDinamico;
+    console.log("Dinero:", montosDinero[numero]);
+}
+
+function seleccionarMoneda(elemento) {
+    // Obtener la clase de la moneda desde el elemento clicado
+    moneda = elemento.className;
+    if (moneda === 'moneda-cobre') {
+        valorMoneda = 1;
+    } else if (moneda === 'moneda-plata') {
+        valorMoneda = 10;
+    } else if (moneda === 'moneda-rubi') {
+        valorMoneda = 50;
+    } else if (moneda === 'moneda-oro') {
+        valorMoneda = 100;
+    } else if (moneda === 'moneda-diamante') {
+        valorMoneda = 250;
+    }
+}

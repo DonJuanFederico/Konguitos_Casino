@@ -9,8 +9,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 {% endblock %}
 {% block body %}
-
-
     <div id="marcoMonedas">
             <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
             <div id="divMonedasUsuario">
@@ -44,13 +42,34 @@
     </div>
     <div class="result"></div>
     <button class="girar" onclick="startRotation(Math.floor(Math.random() * (148 - 75 + 1)) + 75)"> GIRAR </button>
-    <div class="apuesta"></div>
-    <div class="moneda">
-        <div class="moneda-plata"></div>
-        <div class="moneda-oro"></div>
+
+
+    <div class="botonDeReglas">
+        <buttonRR onclick="reglas()">Reglas</buttonRR>
+    </div>
+    <div class="botonDeLeyenda">
+        <buttonRR onclick="leyenda()">Leyenda</buttonRR>
+    </div>
+    <div class="botonDeRecompensas">
+        <buttonRR onclick="recompensas()">Recompensas</buttonRR>
     </div>
 
+
+    <div class="moneda">
+        <div class="moneda-cobre" id="moneda-cobre" onclick="seleccionarMoneda(this)"></div>
+        <div class="moneda-plata" id="moneda-plata" onclick="seleccionarMoneda(this)"></div>
+        <div class="moneda-rubi" id="moneda-rubi" onclick="seleccionarMoneda(this)"></div>
+        <div class="moneda-oro" id="moneda-oro" onclick="seleccionarMoneda(this)"></div>
+        <div class="moneda-diamante" id="moneda-diamante" onclick="seleccionarMoneda(this)"></div>
+    </div>
+
+    <div class="tablero_apuestas" id="tablero_apuestas">
+        <div class="numero_0" onclick="colocarFicha(this, 25,-20, 120, 50)"></div>
+        <div class="numero_1_to_18" onclick="colocarFicha(this,20,0, 100,100 )"></div>
+    </div>
 {% endblock %}
 {% block javascript %}
+    <script src="/static/js/ruleta_alertas.js"></script>
     <script src="/static/js/ruleta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

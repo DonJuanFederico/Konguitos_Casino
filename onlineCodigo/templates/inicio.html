@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ProbarOnline</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
 </head>
 <body>
-    <form method="GET" action="/index">
+    <form id="chatForm" method="POST" action="/guardar_datos">
         <label for="lname">Nombre:</label><br>
-        <input type="text" id="lname" name="lname" value=""><br>
+        <input type="text" id="lname" name="nombre" value=""><br>
         <label for="numeroId">Id:</label><br>
-        <input type="text" id="numeroId" name="lname" value=""><br>
-        <button class="button black" type="submit" onclick="guardarId()">Jugar1</button>
-        <button class="button black" type="submit" onclick="unirse()">Unirse</button>
+        <input type="text" id="numeroId" name="id" value=""><br>
+        <button class="button black" type="submit">Jugar</button>
     </form>
     <script src="/static/js/inicio.js"></script>
+
 </body>
 </html>

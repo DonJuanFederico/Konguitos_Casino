@@ -1,9 +1,61 @@
 html, body {
   margin: 0; padding: 0;
 }
+
+
+.botonDeReglas {
+    position: absolute;
+    left: 40%;
+    top:0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 10%;
+}
+
+.botonDeRecompensas {
+    position: absolute;
+    left: 50%;
+    top:0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 10%;
+}
+
+.botonDeLeyenda{
+    position: absolute;
+    left: 61%;
+    top: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 10%;
+}
+buttonRR {
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    background: #ff0202;
+    color: #fff; /* Añadido color de texto para mejorar la legibilidad */
+}
+
+/* Estilo adicional para dar feedback visual al hacer hover sobre el botón */
+buttonRR:hover {
+    background: #e60000; /* Puedes ajustar el color al hacer hover según tu preferencia */
+}
+
 body {
   font-family: sans-serif;
-  background-image: url(/static/images/ruleta/felt.png), -webkit-radial-gradient(50% 40%,circle farthest-corner,#527c14,#243a0a);
+  background-image: url(/static/images/ruleta/felt.png), -webkit-radial-gradient(50% 40%,#527c14,#243a0a);
   background-size: 180px 180px,auto;
   background-attachment: fixed;
   user-select: none;
@@ -49,15 +101,6 @@ body {
 }
 
 
-.apuesta {
-    position: absolute;
-    top: 25%;
-    left: 45%;
-    background-image: url("/static/images/ruleta/apuestas.png");
-    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-    width: 45%;
-    height: 45%;
-}
 
 .girar{
   position: absolute;
@@ -95,14 +138,14 @@ body {
 
 .moneda {
   position: absolute;
-  top: 75%;
+  top: 80%;
   left: 10%;
   width: 80%;
   height: 20%;
-  border-color: rgba(67, 155, 83, 0.37);
+  border-color: rgba(0, 0, 0, 0.33);
   border-width: 5px;
   border-top-style: solid;
-  background: rgba(67, 155, 83, 0.37);
+  background: rgba(0, 0, 0, 0.33);
 }
 
 @media screen and (max-width: 2640px) {
@@ -157,28 +200,6 @@ body {
 .roulette-wheel .layer-5 {
   background-image: url(/static/images/ruleta/roulette_5.png);
     z-index: 1;
-}
-
-
-
-.moneda .moneda-plata {
-  position: absolute;
-  bottom: 20%;
-  left: 55%;
-  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-  width: 10%;
-  height: 50%;
-  background-image: url("/static/images/moneda.png");
-}
-
-.moneda .moneda-oro {
-  position: absolute;
-  bottom: 20%;
-  left: 80%;
-  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-  width: 10%;
-  height: 50%;
-  background-image: url("/static/images/moneda_dorada.png");
 }
 
 .roulette-wheel svg {
@@ -274,15 +295,7 @@ body {
   }
 }
 
-.result {
-  max-width: 500px;
-  margin: auto;
-  .flipper {
-    margin-right: 20px;
-    margin-bottom: 20px;
-  }
-}
-
+/* ------------------------------------ COSAS MARCO MONEDA------------------------------------ */
 
 #marcoMonedas {
     background-image: url("/static/images/marcoCasino.png");
@@ -333,4 +346,119 @@ body {
 #monedasUsuario {
     color: #fafaf7;
     font-size: 1.5rem;
+}
+
+
+
+
+/* ------------------------------------ Apuestas ------------------------------------ */
+
+.dinero{
+    font-size: inherit;
+}
+
+.tablero_apuestas {
+    position: absolute;
+    top: 20%;
+    left: 45%;
+    background-image: url("/static/images/ruleta/apuestas.png");
+    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+    width: 45%;
+    height: 45%;
+    z-index: 1;
+}
+
+.casilla {
+    position: absolute;
+    width: 20%; /* ajusta el tamaño de las casillas según tus necesidades */
+    height: 20%; /* ajusta el tamaño de las casillas según tus necesidades */
+    border: 1px solid #000; /* borde para visualizar las casillas */
+    cursor: pointer;
+    z-index: 1;
+}
+.moneda-cobre{
+    position: absolute;
+    bottom: 20%;
+    left: 40%;
+    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+    width: 10%;
+    height: 50%;
+    background-image: url("/static/images/monedaCobre.png");
+    cursor: pointer;
+}
+
+
+.moneda-plata {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+  width: 10%;
+  height: 50%;
+  background-image: url("/static/images/moneda.png");
+    cursor: pointer;
+}
+
+.moneda-rubi {
+  position: absolute;
+  bottom: 20%;
+  left: 60%;
+  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+  width: 10%;
+  height: 50%;
+  background-image: url("/static/images/monedaRubi.png");
+    cursor: pointer;
+}
+
+.moneda-oro {
+  position: absolute;
+  bottom: 20%;
+  left: 70%;
+  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+  width: 10%;
+  height: 50%;
+  background-image: url("/static/images/moneda_dorada.png");
+    cursor: pointer;
+}
+
+.moneda-diamante {
+  position: absolute;
+  bottom: 20%;
+  left: 80%;
+  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+  width: 10%;
+  height: 50%;
+  background-image: url("/static/images/monedaDiamante.png");
+    cursor: pointer;
+}
+
+.tablero_apuestas {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+    background-image: url("/static/images/ruleta/apuestas.png");
+    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
+    width: 50%;
+    height: 50%;
+    z-index: 1;
+}
+
+.numero_0 {
+    position: absolute;
+    width: 6%; /* ajusta el tamaño de las casillas según tus necesidades */
+    height: 30%; /* ajusta el tamaño de las casillas según tus necesidades */
+    z-index: 1;
+    top: 20%;
+    left: 2%;
+    cursor: pointer;
+}
+
+.numero_1_to_18 {
+    position: absolute;
+    width: 8%; /* ajusta el tamaño de las casillas según tus necesidades */
+    height: 15%; /* ajusta el tamaño de las casillas según tus necesidades */
+    z-index: 1;
+    top: 80%;
+    left: 12%;
+    cursor: pointer;
 }
