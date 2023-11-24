@@ -6,10 +6,11 @@ function reglas() {
             "<h3>REGLAS:</h3>" +
             "1. Tienes en tu mano un revolver con 6 recámaras (6 huecos para una bala)." +
             "<br>2. El juego aleatoriamente meterá una bala en una de las recámaras." +
-            "<br>3. Cuando este listo dale al boton Disparar." +
+            "<br>3. Cuando este listo dale a Inciar Juego (Recuerda que debes de ingresar 10KC para jugar." +
             "<br>4. Si no te ha tocado la bala puedes seguir jugando o si eres un cagón retirarte." +
-            "<br>5. Si te ha tocado la bala, pues te has muerto." +
+            "<br>5. Si te ha tocado la bala, pues te has muerto y no gnas nada." +
             "<br>6. Si te retiras, se reiniciará el juego y se te dará la recompensa." +
+            "<br>7. Si ha llegado a la recamara 5 sin retirarte ." +
             "<h5>Normas a tener en cuenta:</h5>" +
             "Si ganas, se te sumará el premio a tu balance." +
             "<br>Si pierdes, no se te sumara nada y habras perdido lo apostado." +
