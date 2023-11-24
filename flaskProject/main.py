@@ -20,13 +20,14 @@ def index():
 def inicio():
     form = inicioSesion()
     if form.validate_on_submit():
-        nombreUsuario = form.username.data
+        nombreUsuarioInicio = form.username.data
+        session['nombreUsuario'] = nombreUsuarioInicio
         contraseña = form.password.data
-        print("Nombre de usuario:", nombreUsuario)
+        print("Nombre de usuario:", nombreUsuarioInicio)
         print("Contraseña:", contraseña)
-        if adminLogIn(nombreUsuario, contraseña):
+        if adminLogIn(nombreUsuarioInicio, contraseña):
             return interfazAdmin()
-        elif iniciar_sesion(nombreUsuario, contraseña):
+        elif iniciar_sesion(nombreUsuarioInicio, contraseña):
             return juegos()
         else:
             print("Inicio de sesión fallido: usuario o contraseña incorrectos, o BBDD apagada")
@@ -193,10 +194,15 @@ def edicion():
 def juegos():
         return render_template('pantallaJuegos.html', NOMBRE = obtener_nombre())
 
-@app.route('/Perfil_de_usuario/<string:id>', methods=['GET', 'POST'])
-def perfil(id):
-    data = obtenerArrayDatosUsuario(id)
-    data2 = obtenerArrayDatosTarjeta(id)
+@app.route('/Perfil_de_usuario/', methods=['GET', 'POST'])
+def perfil():
+    print("ENTRA")
+    usuario = session.get('nombreUsuario')
+    usuario_id = obtenerId(usuario)
+    print("usuario: ", usuario)
+    print("usuario_id: ", usuario_id)
+    data = obtenerArrayDatosUsuario(usuario_id)
+    data2 = obtenerArrayDatosTarjeta(usuario_id)
     return render_template('perfil.html',data=data, data2=data2)
 @app.route('/soporte_cliente/')
 
