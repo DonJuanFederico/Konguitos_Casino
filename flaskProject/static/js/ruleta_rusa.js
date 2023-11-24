@@ -1,19 +1,22 @@
 let gameInterval = null;
 let bala = null;
+let apuesta = 0;
 let recamara = 0; // Declaración de la variable recamara
 const mensaje = document.querySelector('#mensajeDeInstrucciones');
-let apuesta = parseInt(document.querySelector('#bet').value);
 let dineroUsuario = parseFloat(document.querySelector('#monedasUsuario').textContent);
 let HaDisparado = 0;
+console.log("Apostado: " + apuesta)
 
 //Hazme una funcion que te de un tiempo y lo conviertas en un contador hasta 0
 
 async function iniciarJuego() {
     bala = Math.floor(Math.random() * 6) + 1;
+    // Obtiene el valor de apuesta justo antes de usarlo
+    apuesta = parseFloat(document.querySelector('#bet').value);
     document.querySelector('#recuadroApuesta').style.display = "none";
     document.getElementById('iniciarJuego').style.display = 'none';
+    console.log("apuesta: " + apuesta)
     actualizarDineroUsuario(-apuesta)
-    apuesta = apuesta
     retirarDinero()
     // Inicia la animación de encender recámaras
     await EncenderRecamaras();
@@ -163,7 +166,7 @@ function verficarResultado(recamara) {
         agregarDinero()
     } else if (recamara === 4) {
         console.log("retirado tras haber disparado: " + recamara)
-        multiplicador = 1.25;
+        multiplicador = 1.5;
         alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
