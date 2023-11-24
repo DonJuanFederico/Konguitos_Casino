@@ -21,8 +21,8 @@ function placePrimaryBet(betType) {
         if (tipoApuestaP === "Ninguna") {
             // Si no hay apuesta seleccionada, permite hacer una apuesta nueva
             primaryBets[betType] = prompt("Introduzca la cantidad a apostar:");
-            if (primaryBets[betType] > 0 || primaryBets[betType] < balance){
-                betAmount = primaryBets[betType]
+            if (primaryBets[betType] > 0 && primaryBets[betType] < balance){
+                betAmount = primaryBets[betType];
                 retirarDinero(betAmount);
                 tipoApuestaP = betType;
                 updatePrimaryBets();
@@ -43,8 +43,8 @@ function placeSecondaryBet(betType) {
                 (betType === "gabelaEnContra" && tipoApuestaP === "barraDeNoPase")) {
                 if (puntoActual !== 0){
                     secondaryBets[betType] = prompt("Introduzca la cantidad a apostar:");
-                    if (secondaryBets[betType] > 0 || secondaryBets[betType] < balance){
-                        betAmount = secondaryBets[betType]
+                    if (secondaryBets[betType] > 0 && secondaryBets[betType] < balance){
+                        betAmount = secondaryBets[betType];
                         retirarDinero(betAmount);
                         tipoApuestaS = betType;
                         updateSecondaryBets();
@@ -84,154 +84,163 @@ function updateSecondaryBets() {
 
 
 function rollDice() {
-    // Simulación del lanzamiento de los dados (genera un número entre 2 y 12)
-    const dado1 = Math.floor(Math.random() * 6) + 1;
-    const dado2 = Math.floor(Math.random() * 6) + 1;
-    const resultado = dado1 + dado2;
+    if (tipoApuestaP === "Ninguna"){
+        alert("Entiendo tu impaciencia por jugar, pero deberías apostar primero");
+    } else {
+        // Simulación del lanzamiento de los dados (genera un número entre 2 y 12)
+        const dado1 = Math.floor(Math.random() * 6) + 1;
+        const dado2 = Math.floor(Math.random() * 6) + 1;
+        const resultado = dado1 + dado2;
 
-    document.getElementById("dice1").textContent = dado1;
-    document.getElementById("dice2").textContent = dado2;
-    document.getElementById("result").textContent = `Resultado: ${resultado}`;
-    
-    //Apuesta gabela a favor
-    if (tipoApuestaS === "gabelaAFavor") {
-        if (puntoActual === 4 || puntoActual === 10) {
-            if (resultado === puntoActual) {
-                alert("Ganaste la apuesta de Gabela a Favor.");
-                balance += secondaryBets.gabelaAFavor * 3; // Se paga 2:1
-                sBetEnded();
-            }
-        } else if (puntoActual === 5 || puntoActual === 9) {
-            if (resultado === puntoActual) {
-                alert("Ganaste la apuesta de Gabela a Favor.");
-                balance += secondaryBets.gabelaAFavor * 2.5; // Se paga 3:2
-                sBetEnded();
-            }
-                
-        } else if (puntoActual === 6 || puntoActual === 8) {
-            if (resultado === puntoActual) {
-                alert("Ganaste la apuesta de Gabela a Favor.");
-                balance += secondaryBets.gabelaAFavor * 2.2; // Se paga 6:5
-                sBetEnded();
-            }     
-        }        
-    }
+        document.getElementById("dice1").textContent = dado1;
+        document.getElementById("dice2").textContent = dado2;
+        document.getElementById("result").textContent = `Resultado: ${resultado}`;
 
-    //Apuesta línea de pase
-    if (tipoApuestaP === "lineaDePase") {
-        if (puntoActual === 0) {
-            // Si no hay punto actual, comprueba si se gana o pierde directamente
-            if (resultado === 7 || resultado === 11) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Ganaste la apuesta de Línea de Pase.");
-                agregarDinero(betAmount * 2);; // Se paga 1:1
-                betEnded();
-            } else if (resultado === 2 || resultado === 3 || resultado === 12) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Perdiste la apuesta de Línea de Pase.");
-                betEnded();
-            } else {
-                // Se establece el punto
-                puntoActual = resultado;
-                document.getElementById("punto-actual").textContent = `Punto actual: ${puntoActual}`;
-                document.getElementById("punto-actual").style.color = "green"; // Cambia el color
-            }
-        } else {
-            // Si hay un punto actual, verifica si se gana o pierde
-            if (resultado === puntoActual) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Ganaste la apuesta de Línea de Pase.");
-                agregarDinero(betAmount * 2);; // Se paga 1:1
-                puntoActual = 0; // Se reinicia el punto
-                betEnded();
-            } else if (resultado === 7) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Perdiste la apuesta de Línea de Pase.");
-                alert("Perdiste la apuesta de Gabela a Favor.");
-                puntoActual = 0; // Se reinicia el punto
-                betEnded();
-                sBetEnded();
-            }
-        }  
-    }
-    
-    //Apuesta gabela en contra
-    if (tipoApuestaS === "gabelaEnContra") {
-        if (puntoActual === 4 || puntoActual === 10) {
-            if (resultado === 7) {
-                alert("Ganaste la apuesta de Gabela en Contra.");
-                agregarDinero(betAmount * 1.5);; // Se paga 0.5:1
-                sBetEnded();
-            }
-        } else if (puntoActual === 5 || puntoActual === 9) {
-            if (resultado === 7) {
-                alert("Ganaste la apuesta de Gabela en Contra.");
-                agregarDinero(betAmount * 1.66); // Se paga 0.66:1
-                sBetEnded();
-            }
-                
-        } else if (puntoActual === 6 || puntoActual === 8) {
-            if (resultado === 7) {
-                alert("Ganaste la apuesta de Gabela en Contra.");
-                agregarDinero(betAmount * 1:83); // Se paga 0.83:1
-                sBetEnded();
-            }     
-        }        
-    }
-    
-    //Apuesta barra no pase
-    if (tipoApuestaP === "barraDeNoPase") {
-        if (puntoActual === 0) {
-            // Si no hay punto actual, comprueba si se gana o pierde directamente
-            if (resultado === 7 || resultado === 11) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Perdiste la apuesta de Barra de no Pase.");
-                betEnded();
-            } else if (resultado === 2 || resultado === 3) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Ganaste la apuesta de Barra de no Pase.");
-                agregarDinero(betAmount * 2); // Se paga 1:1
-                betEnded();
-            } else if (resultado === 12){
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Empataste la apuesta de Barra de no Pase.");
-                agregarDinero(betAmount); // Se devuelve la cantidad apostada
-                betEnded();
-            } else {
-                // Se establece el punto
-                puntoActual = resultado;
-                document.getElementById("punto-actual").textContent = `Punto actual: ${puntoActual}`;
-                document.getElementById("punto-actual").style.color = "green"; // Cambia el color
-            }
-        } else {
-            // Si hay un punto actual, verifica si se gana o pierde
-            if (resultado === puntoActual) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Perdiste la apuesta de Barra de no Pase.");
-                alert("Perdiste la apuesta de Gabela en Contra.");
-                puntoActual = 0; // Se reinicia el punto
-                betEnded();
-                sBetEnded();
-            } else if (resultado === 7) {
-                document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                document.getElementById("punto-actual").style.color = "black"; // Restablece el color
-                alert("Ganaste la apuesta de Barra de no Pase.");
-                agregarDinero(betAmount * 2); // Se paga 1:1
-                puntoActual = 0; // Se reinicia el punto
-                betEnded();
+        //Apuesta gabela a favor
+        if (tipoApuestaS === "gabelaAFavor") {
+            if (puntoActual === 4 || puntoActual === 10) {
+                if (resultado === puntoActual) {
+                    alert("Ganaste la apuesta de Gabela a Favor.");
+                    agregarDinero(betAmount * 3); // Se paga 2:1
+                    sBetEnded();
+                }
+            } else if (puntoActual === 5 || puntoActual === 9) {
+                if (resultado === puntoActual) {
+                    alert("Ganaste la apuesta de Gabela a Favor.");
+                    agregarDinero(betAmount * 2.5); // Se paga 3:2
+                    sBetEnded();
+                }
+
+            } else if (puntoActual === 6 || puntoActual === 8) {
+                if (resultado === puntoActual) {
+                    alert("Ganaste la apuesta de Gabela a Favor.");
+                    agregarDinero(betAmount * 2.2); // Se paga 6:5
+                    sBetEnded();
+                }
             }
         }
-        
-    }
+
+        //Apuesta línea de pase
+        if (tipoApuestaP === "lineaDePase") {
+            if (puntoActual === 0) {
+                // Si no hay punto actual, comprueba si se gana o pierde directamente
+                if (resultado === 7 || resultado === 11) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Ganaste la apuesta de Línea de Pase.");
+                    agregarDinero(betAmount * 2); // Se paga 1:1
+                    betEnded();
+                } else if (resultado === 2 || resultado === 3 || resultado === 12) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Perdiste la apuesta de Línea de Pase.");
+                    betEnded();
+                } else {
+                    // Se establece el punto
+                    puntoActual = resultado;
+                    document.getElementById("punto-actual").textContent = `Punto actual: ${puntoActual}`;
+                    document.getElementById("punto-actual").style.color = "green"; // Cambia el color
+                }
+            } else {
+                // Si hay un punto actual, verifica si se gana o pierde
+                if (resultado === puntoActual) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Ganaste la apuesta de Línea de Pase.");
+                    agregarDinero(betAmount * 2); // Se paga 1:1
+                    puntoActual = 0; // Se reinicia el punto
+                    betEnded();
+                } else if (resultado === 7) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Perdiste la apuesta de Línea de Pase.");
+                    if(tipoApuestaS === "gabelaAFavor"){
+                        alert("Perdiste la apuesta de Gabela a Favor.");
+                    }
+                    puntoActual = 0; // Se reinicia el punto
+                    betEnded();
+                    sBetEnded();
+                }
+            }
+        }
+
+        //Apuesta gabela en contra
+        if (tipoApuestaS === "gabelaEnContra") {
+            if (puntoActual === 4 || puntoActual === 10) {
+                if (resultado === 7) {
+                    alert("Ganaste la apuesta de Gabela en Contra.");
+                    agregarDinero(betAmount * 1.5); // Se paga 0.5:1
+                    sBetEnded();
+                }
+            } else if (puntoActual === 5 || puntoActual === 9) {
+                if (resultado === 7) {
+                    alert("Ganaste la apuesta de Gabela en Contra.");
+                    agregarDinero(betAmount * 1.66); // Se paga 0.66:1
+                    sBetEnded();
+                }
+
+            } else if (puntoActual === 6 || puntoActual === 8) {
+                if (resultado === 7) {
+                    alert("Ganaste la apuesta de Gabela en Contra.");
+                    agregarDinero(betAmount * 1.83); // Se paga 0.83:1
+                    sBetEnded();
+                }
+            }
+        }
+
+        //Apuesta barra no pase
+        if (tipoApuestaP === "barraDeNoPase") {
+            if (puntoActual === 0) {
+                // Si no hay punto actual, comprueba si se gana o pierde directamente
+                if (resultado === 7 || resultado === 11) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Perdiste la apuesta de Barra de no Pase.");
+                    betEnded();
+                } else if (resultado === 2 || resultado === 3) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Ganaste la apuesta de Barra de no Pase.");
+                    agregarDinero(betAmount * 2); // Se paga 1:1
+                    betEnded();
+                } else if (resultado === 12){
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Empataste la apuesta de Barra de no Pase.");
+                    agregarDinero(betAmount); // Se devuelve la cantidad apostada
+                    betEnded();
+                } else {
+                    // Se establece el punto
+                    puntoActual = resultado;
+                    document.getElementById("punto-actual").textContent = `Punto actual: ${puntoActual}`;
+                    document.getElementById("punto-actual").style.color = "green"; // Cambia el color
+                }
+            } else {
+                // Si hay un punto actual, verifica si se gana o pierde
+                if (resultado === puntoActual) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Perdiste la apuesta de Barra de no Pase.");
+                    if (tipoApuestaS === "gabelaEnContra"){
+                        alert("Perdiste la apuesta de Gabela en Contra.");
+                    }
+
+                    puntoActual = 0; // Se reinicia el punto
+                    betEnded();
+                    sBetEnded();
+                } else if (resultado === 7) {
+                    document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
+                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    alert("Ganaste la apuesta de Barra de no Pase.");
+                    agregarDinero(betAmount * 2); // Se paga 1:1
+                    puntoActual = 0; // Se reinicia el punto
+                    betEnded();
+                }
+            }
+
+        }
     
+    }
 }
 
 function betEnded(){
