@@ -33,7 +33,7 @@ body {
     position: absolute;
     top: 4%;
     right: 3%;
-    width: 11.5%;
+    width: 12.5%;
     height: 36%;
     font-size: large;
     border: 3px solid darkgoldenrod;
@@ -66,7 +66,7 @@ body {
 
 /* atributos de todas las cartas */
 .slot {
-    width: 100px;
+    width: 110px;
     height: 150px;
     border: 2px dashed #ffffff;
     border-radius: 10px;
