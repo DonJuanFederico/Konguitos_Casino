@@ -100,3 +100,21 @@ def guardarPartida(nombre, id):
             nombreUsuario = nombre
             cursor.close()
             close_connection(conn)
+
+def obtenerNombre(id):
+    conn = connect()
+    valor = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            query = "SELECT nombreJugador FROM partidabingo WHERE id = (%s)"
+            cursor.execute(query, (id,))
+            result = cursor.fetchone()
+            if result:  # Comprobar si hay resultados
+                valor = result[0]  # Obtener el valor de la consulta
+        except mysql.connector.Error as err:
+            print(f"Error al obtener el número: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return valor
