@@ -1,35 +1,20 @@
 let gameInterval = null;
-let contadorInterval = null;
-const mensaje = document.querySelector('#mensajeDeInstrucciones');
-document.querySelector('#mensajeDeSeleccion').style.display = 'none';
-document.querySelector('#recuadros-container').style.display = 'none';
-let seleccionActual = null;
 let bala = null;
-apuesta = parseInt(document.querySelector('#bet').value);
-console.log(apuesta)
-dineroUsuario = parseFloat(document.querySelector('#monedasUsuario').textContent);
-console.log(dineroUsuario)
-
+let recamara = 0; // Declaración de la variable recamara
+const mensaje = document.querySelector('#mensajeDeInstrucciones');
+let apuesta = parseInt(document.querySelector('#bet').value);
+let dineroUsuario = parseFloat(document.querySelector('#monedasUsuario').textContent);
+let HaDisparado = 0;
 
 //Hazme una funcion que te de un tiempo y lo conviertas en un contador hasta 0
-function contador(tiempo) {
-    let contadorInterval = setInterval(() => {
-        document.getElementById('contador').innerHTML = tiempo;
-        if (tiempo > 0) {
-            tiempo--;
-        } else {
-            clearInterval(contadorInterval);
-        }
-    }, 1000);
-}
 
 async function iniciarJuego() {
-    document.querySelector('#recuadroApuesta').style.display = "none";
-    // Oculta el botón de inicio
-    document.getElementById('iniciarJuego').style.display = 'none';
     bala = Math.floor(Math.random() * 6) + 1;
-    console.log("Bala: " + bala);
-
+    document.querySelector('#recuadroApuesta').style.display = "none";
+    document.getElementById('iniciarJuego').style.display = 'none';
+    actualizarDineroUsuario(-apuesta)
+    apuesta = apuesta
+    retirarDinero()
     // Inicia la animación de encender recámaras
     await EncenderRecamaras();
 }
@@ -43,7 +28,6 @@ function bloquearSeleccion() {
 }
 
 async function EncenderRecamaras() {
-    contador(4)//Es 4 porque el contador tarda un segundo al parecer en inciar
     let recamaraIluminada = 1;
     gameInterval = setInterval(() => {
         // Apaga todas las recámaras
@@ -69,83 +53,136 @@ async function EncenderRecamaras() {
         document.getElementById(`recamara${i}`).style.backgroundColor = "#64676e";
     }
     clearInterval(gameInterval);
-    contador(10)
-    await seleccionarRecamara()
+    console.log("Recamara: " + recamara);
+    console.log("Bala: " + bala);
+    document.querySelector('#disparar').style.display = 'block';
+    document.querySelector('#retirarse').style.display = 'block';
 }
 
-async function seleccionarRecamara(recamaraSeleccionada) {
-    mensaje.textContent = "Selecciona una recámara...";
-    mensaje.style.color = "#f4a003";
-    mensaje.style.backgroundColor = "#000";
-    document.querySelector('#mensajeDeSeleccion').style.display = 'block';
-    document.querySelector('#recuadros-container').style.display = 'flex';
-    seleccionActual = recamaraSeleccionada;
-    console.log("Has seleccionado: " + recamaraSeleccionada);
-    for (let i = 1; i <= 6; i++) {
-        document.querySelector(`.seleccion-recamara:nth-child(${i})`).style.backgroundColor = "#c4bd1e";
-    }
-    // Poner en color la recámara seleccionada
-    document.querySelector(`.seleccion-recamara:nth-child(${recamaraSeleccionada})`).style.backgroundColor = "#1ec492";
-    // Esperar a que se seleccione una recámara
-    await new Promise(resolve => setTimeout(resolve, 10000));
-    // Bloquear la selección
-    bloquearSeleccion();
-    await Animaciondisparos(6, recamaraSeleccionada);
-}
-
-
-async function Animaciondisparos(numDisparos, recamaraSeleccionada) {
-    document.getElementById('contador').innerHTML = 0;
-    mensaje.textContent = "Realizando disparos...";
-    mensaje.style.color = "#000";
-    mensaje.style.backgroundColor = "#fff";
-
-    // Función para disparar una recámara y avanzar al siguiente después de un retraso
-    function dispararRecamara(recamara) {
-        console.log("disparar " + bala)
-        setTimeout(() => {
-            // Marcar la recámara actual
+async function disparar() {
+    HaDisparado = 1 + HaDisparado;
+    //Ha disparado y esta en la primera recamara disparada
+    if (HaDisparado === 1) {
+        recamara = 1;
+        console.log("Ha disparado: " + recamara)
+        const elementoRecamara = document.getElementById(`recamara${recamara}`);
+        if (elementoRecamara) {
             if (recamara === bala) {
-                document.getElementById(`recamara${recamara}`).style.backgroundColor = "#d70c0c"; // Marrón
+                elementoRecamara.style.backgroundColor = "#d70c0c";
+                mensaje.textContent = "Moriste puto pringado";
+                document.querySelector('#disparar').style.display = 'none';
+                document.querySelector('#retirarse').style.display = 'none';
+                //Espera 2 segundos y reinicia el juego
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                reiniciarJuego();
             } else {
-                document.getElementById(`recamara${recamara}`).style.backgroundColor = "#000"; // Negro
+                elementoRecamara.style.backgroundColor = "#47f403";
+                mensaje.textContent = "Has sobrevivido. Te has cagado eh.";
             }
-
-            // Mostrar el resultado después de los disparos
-            if (recamara === numDisparos) {
-                setTimeout(() => {
-                    verficarResultado(recamaraSeleccionada);
-                }, 1000);
-            }
-        }, (recamara - 1) * (10000 / 6)); // Cada recámara se dispara cada 10/6 segundos
-    }
-
-    // Iniciar el disparo para cada recámara
-    for (let recamara = 1; recamara <= numDisparos; recamara++) {
-        dispararRecamara(recamara);
-    }
-}
-
-function verficarResultado(recamaraSeleccionada) {
-    if (recamaraSeleccionada == null) {
-        console.log("no has seleccionado nada");
-        mensaje.textContent = "No has seleccionado nada";
-    } else if (bala === recamaraSeleccionada) {
-        console.log("Has ganado");
-        mensaje.textContent = "Has ganado";
-        console.log(dineroUsuario)
-        console.log(apuesta)
-        dineroUsuario += apuesta;
-        agregarDinero(); // Agrega el monto de la apuesta a la cuenta
+            recamara++;
+        } else {
+            console.error(`El elemento recamara${recamara} no existe.`);
+        }
     } else {
-        console.log("Has perdido");
-        mensaje.textContent = "Has perdido";
-        console.log(dineroUsuario)
-        console.log(apuesta)
-        dineroUsuario -= apuesta;
-        retirarDinero(); // Retira el monto de la apuesta de la cuenta
+        console.log("Ha disparado: " + recamara)
+        const elementoRecamara = document.getElementById(`recamara${recamara}`);
+        if (elementoRecamara) {
+            if (recamara === 5 && recamara !== bala) {
+                elementoRecamara.style.backgroundColor = "#47f403";
+                mensaje.textContent = "Has ganada suertudo.";
+                verficarResultado(recamara - 1);
+            } else if (recamara === bala) {
+                elementoRecamara.style.backgroundColor = "#d70c0c";
+                mensaje.textContent = "Moriste puto pringado";
+                document.querySelector('#disparar').style.display = 'none';
+                document.querySelector('#retirarse').style.display = 'none';
+                alert("Has perdido: " + apuesta + " KongoCoins");
+                //Espera 2 segundos y reinicia el juego
+                setTimeout(reiniciarJuego, 2000);
+            } else {
+                elementoRecamara.style.backgroundColor = "#47f403";
+                mensaje.textContent = "Has sobrevivido. Te has cagado eh.";
+            }
+            recamara++;
+        } else {
+            console.error(`El elemento recamara${recamara} no existe.`);
+        }
     }
 }
+
+function reiniciarJuego() {
+    mensaje.textContent = "Presiona: Inciar Juego";
+    for (let i = 1; i <= 6; i++) {
+        document.getElementById(`recamara${i}`).style.backgroundColor = "#64676e";
+    }
+    document.querySelector('#recuadroApuesta').style.display = "block";
+    document.getElementById('iniciarJuego').style.display = 'block';
+    clearInterval(gameInterval);
+    console.log(recamara);
+    recamara = 0;
+    console.log(recamara);
+    bala = null;
+    console.log(HaDisparado); // Verifica el valor de HaDisparado
+    HaDisparado = 0; // Asegúrate de restablecer HaDisparado
+}
+
+function retirarse() {
+    mensaje.textContent = "Te has retirado cagón";
+    document.querySelector('#disparar').style.display = 'none';
+    document.querySelector('#retirarse').style.display = 'none';
+    verficarResultado(recamara - 1)
+    //Espera 2 segundos y reinicia el juego
+    setTimeout(reiniciarJuego, 2000);
+}
+
+function verficarResultado(recamara) {
+    if (recamara === 0) {
+        console.log("retirado tras haber disparado: " + recamara)
+        alert("Te has retirado perdiendo todo.");
+        // No se realiza ninguna actualización aquí, ya que no hay ganancias
+    } else if (recamara === 1) {
+        console.log("retirado tras haber disparado: " + recamara)
+        multiplicador = 0.2;
+        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        actualizarDineroUsuario(apuesta * multiplicador);
+        premio = apuesta * multiplicador;
+        agregarDinero()
+    } else if (recamara === 2) {
+        console.log("retirado tras haber disparado: " + recamara)
+        multiplicador = 0.4;
+        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        actualizarDineroUsuario(apuesta * multiplicador);
+        premio = apuesta * multiplicador;
+        agregarDinero()
+    } else if (recamara === 3) {
+        console.log("retirado tras haber disparado: " + recamara)
+        multiplicador = 1;
+        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        actualizarDineroUsuario(apuesta * multiplicador);
+        premio = apuesta * multiplicador;
+        agregarDinero()
+    } else if (recamara === 4) {
+        console.log("retirado tras haber disparado: " + recamara)
+        multiplicador = 1.25;
+        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        actualizarDineroUsuario(apuesta * multiplicador);
+        premio = apuesta * multiplicador;
+        agregarDinero()
+    } else if (recamara === 5) {
+        console.log("retirado tras haber disparado: " + recamara)
+        multiplicador = 2;
+        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        actualizarDineroUsuario(apuesta * multiplicador);
+        premio = apuesta * multiplicador;
+        agregarDinero()
+    }
+}
+
+function actualizarDineroUsuario(cantidad) {
+    let dineroUsuarioElement = document.querySelector('#monedasUsuario');
+    dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) + cantidad;
+}
+
 
 //Funciones de Añadir y retirar dinero:
 //Te redirige a la pagina de comprar monedas
@@ -165,7 +202,7 @@ function retirarDinero() {
 
 function agregarDinero() {
     // MONTO EN ESTE CASO ES VALOR DE LO GANADO (MIRAR TRAGAPERRAS PARA VERLO BIEN)
-    var monto = apuesta;
+    var monto = premio;
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/agregar_dinero", true);

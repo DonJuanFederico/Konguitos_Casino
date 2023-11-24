@@ -33,7 +33,28 @@ buttonIniciar:hover {
     left: 45%;
 }
 
-buttonParar {
+buttonDisparar {
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    background: #494949;
+    color: #fff; /* Añadido color de texto para mejorar la legibilidad */
+}
+
+buttonDisparar:hover {
+    background: #000000; /* Puedes ajustar el color al hacer hover según tu preferencia */
+}
+
+#disparar {
+    position: absolute;
+    top: 70%;
+    left: 45%;
+    display: none;
+}
+
+buttonRetirarse {
     cursor: pointer;
     font-size: 1.2rem;
     border: none;
@@ -43,14 +64,15 @@ buttonParar {
     color: #fff; /* Añadido color de texto para mejorar la legibilidad */
 }
 
-buttonParar:hover {
+buttonRetirarse:hover {
     background: #562b0f; /* Puedes ajustar el color al hacer hover según tu preferencia */
 }
 
-#Parar {
+#retirarse {
     position: absolute;
-    top: 25%;
-    left: 100%;
+    top: 70%;
+    left: 55%;
+    display: none;
 }
 
 buttonRR {
@@ -169,43 +191,7 @@ buttonRR:hover {
 }
 
 
-/* Recuadros */
-#recuadros-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: row;
-}
-
-.seleccion-recamara {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 3px solid #050505;
-    background-color: #c4bd1e; /* Color de fondo del círculo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-
 /* Mensajes */
-#mensajeDeSeleccion {
-    position: absolute;
-    top: 47.5%;
-    left: 25%;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: rgba(98, 89, 89, 0.77);
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
 
 #mensajeDeInstrucciones {
     position: absolute;
@@ -215,23 +201,6 @@ buttonRR:hover {
     font-weight: bold;
     color: #ffffff;
     background-color: rgba(98, 89, 89, 0.48);
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-/* Contador */
-#contador-container {
-    position: absolute;
-    top: 3%;
-    left: 47%;
-}
-
-#contador {
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #333;
     padding: 10px;
     border-radius: 5px;
     display: inline-block;
