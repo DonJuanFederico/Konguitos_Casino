@@ -193,20 +193,41 @@ def edicion():
 def juegos():
         return render_template('pantallaJuegos.html', NOMBRE = obtener_nombre())
 
-@app.route('/Perfil_de_usuario/', methods=['GET'])
-def perfil():
-    return render_template('perfil.html')
+@app.route('/Perfil_de_usuario/<string:id>', methods=['GET', 'POST'])
+def perfil(id):
+    data = obtenerArrayDatosUsuario(id)
+
+    print(data)
+    user = data[0]
+
+    email = data[1]
+    street = data[6]
+    postal_code = data[7]
+    dni = data[2]
+
+    card_data = obtenerArrayDatosTarjeta(id)
+    card_number = card_data[0]
+    owner = card_data[1]
+    date = card_data[2]
+    cvv = card_data[3]
+
+    return render_template('perfil.html', user=user, email=email, street=street, postal_code=postal_code,
+                           dni=dni, card_number=card_number, owner=owner, date=date, cvv=cvv)
 
 @app.route('/soporte_cliente/')
+
 def ayuda():
     return render_template('soporte_cliente.html')
 
 # direcciones de las categorias de juegos
 #idice de juegos de cartas
 @app.route('/Juegos/Indice_cartas/', methods=['GET'])
+
 def cartas():
     return render_template('juegosCartas.html')
+
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
+
 def A_Jugar():
     DINERO = obtenerDinero()
     return render_template('cartas_antiguo.html', DINERO = DINERO)
