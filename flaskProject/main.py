@@ -236,9 +236,7 @@ def A_Jugar():
 @app.route('/Juegos/Indice_Dados/', methods=['GET'])
 def dados():
     return render_template('dice_index.html')
-@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
-def craps():
-    return render_template("craps.html")
+
 
 @app.route('/Juegos/Ruleta/')
 def ruleta():
@@ -294,6 +292,11 @@ def slots():
 def blackjack():
     DINERO = obtenerDinero()
     return render_template('blackjack.html', DINERO = DINERO)
+
+@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
+def craps():
+    DINERO = obtenerDinero()
+    return render_template("craps.html", DINERO = DINERO)
 
 @app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():
