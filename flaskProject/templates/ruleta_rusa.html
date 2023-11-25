@@ -20,15 +20,15 @@
 </div>
 <div id="mensajeDeInstrucciones">Presiona: Iniciar Juego</div>
 <div id="recamaras-container">
-    <div id="recamara1" class="recamara">1</div>
-    <div id="recamara2" class="recamara">2</div>
-    <div id="recamara3" class="recamara">3</div>
-    <div id="recamara4" class="recamara">4</div>
-    <div id="recamara5" class="recamara">5</div>
-    <div id="recamara6" class="recamara">6</div>
+    <div id="recamara1" class="recamara">x0.2</div>
+    <div id="recamara2" class="recamara">x0.4</div>
+    <div id="recamara3" class="recamara">x1</div>
+    <div id="recamara4" class="recamara">x1.5</div>
+    <div id="recamara5" class="recamara">x2</div>
+    <div id="recamara6" class="recamara"></div>
 </div>
 <div id="iniciarJuego">
-    <buttonIniciar onclick="iniciarJuego()">Iniciar Juego [Ingresa 10KC]</buttonIniciar>
+    <buttonIniciar onclick="iniciarJuego()">Iniciar Juego [Ingresa "APOSTADO"KC]</buttonIniciar>
 </div>
 <div id="disparar">
     <buttonDisparar onclick="disparar()">Disparar</buttonDisparar>
@@ -46,7 +46,7 @@
 <!--- Apuesta --->
 <div id="recuadroApuesta">
     <label id="apostado">Apuesta:</label>
-    <input type="number" id="bet" value="1" min="1">
+    <input type="number" id="bet" min="1">
 </div>
 {% endblock %}
 {% block javascript %}

@@ -431,3 +431,23 @@ def obtenerArrayDatosTarjeta(id_usuario):
         finally:
             cursor.close()
             close_connection(conn)
+
+def obtenerId(nombre_usuario):
+    try:
+        # Establish a connection
+        with connect() as conn:
+            # Create a cursor using a context manager
+            with conn.cursor(dictionary=True) as cursor:
+                # SQL query to obtain the user ID
+                query = "SELECT id FROM usuarios WHERE NombreUsuario = %s"
+                cursor.execute(query, (nombre_usuario,))
+                result = cursor.fetchone()
+
+                # Return the user ID or None if not found
+                return result['id'] if result else None
+
+    except Error as err:
+        # Log the error instead of printing
+        print(f"Error de MySQL: {err}")
+        # Return an appropriate value or raise an exception based on your requirements
+        return None
