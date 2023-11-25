@@ -9,7 +9,8 @@ app = Flask(__name__)
 
 #Inicializar flask socketio
 socketio = SocketIO(app)
-ROOMS = ["lounge", "news", "games", "coding"]
+ROOMS = ["lounge", "Sala 1", "Sala 2", "Sala 3"]
+numero_conexiones = 0
 
 #Setter
 def almacenar_nombre(nombre):
@@ -88,6 +89,12 @@ def join(data):
 def leave(data):
     leave_room(data["room"])
     send({"msg": data["username"] + " se ha salido de la sala " + data["room"]}, room = data["room"])
+
+@socketio.on("anadir")
+def anadir(data):
+    #Antes del send especificar la sala
+    join_room(data["room"])
+    emit("nuevo_valor_contador", {"valor": int(data["valor"])}, room=data["room"])  # Retransmitir a todos los clientes
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port = 8000)
