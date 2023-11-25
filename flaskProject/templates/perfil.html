@@ -21,30 +21,30 @@
 
                 <div class="atributos">
                     <div class="input_usuario">
-                        <input id="introducir" type="text" placeholder="{{ data[0] }}"  value="{{ data[0] }}">
+                        <input id="introducir" type="text" placeholder="{{ data[0] }}"  value="{{ data[0] }}" disabled>
                     </div>
                     <div class="input_email">
-                        <input id="introducir1" type="email" placeholder="{{ data[1]}}" value="{{ data[1] }}">
+                        <input id="introducir1" type="email" placeholder="{{ data[1]}}" value="{{ data[1] }}" disabled>
                     </div>
                     <div class="input_pass">
                         <button id="requestPass" onclick="requestContrasena()"> Cambiar contraseña </button>
                     </div>
                     <div class="input_dir">
-                        <input id="introducir3" type="text" placeholder="{{ data[6] }}" value = "{{ data[6] }}">
-                        <input id="introducir4" type="number" placeholder="{{ data[7] }}" value = "{{ data[7] }}">
+                        <input id="introducir3" type="text" placeholder="{{ data[6] }}" value = "{{ data[6] }}" disabled>
+                        <input id="introducir4" type="number" placeholder="{{ data[7] }}" value = "{{ data[7] }}" disabled>
                     </div>
                     <div class="input_card">
-                        <input id="introducir5" type="text" placeholder="{{ data2[0] }}" value="{{ data2[0] }}" minlength="13" maxlength="18">
-                        <input id="introducir6" type="text" placeholder="{{ data2[1] }}" value="{{ data2[1] }}">
-                        <input id="introducir7" type="date" placeholder="{{ data2[2] }}" value="{{ data2[2] }}">
-                        <input id="introducir8" type="number" placeholder="{{ data2[3] }}" value="{{ data2[3] }}" maxlength="3">
+                        <input id="introducir5" type="text" placeholder="{{ data2[0] }}" value="{{ data2[0] }}" minlength="13" maxlength="18" disabled>
+                        <input id="introducir6" type="text" placeholder="{{ data2[1] }}" value="{{ data2[1] }}" disabled>
+                        <input id="introducir7" type="date" placeholder="{{ data2[2] }}" value="{{ data2[2] }}" disabled>
+                        <input id="introducir8" type="number" placeholder="{{ data2[3] }}" value="{{ data2[3] }}" maxlength="3" disabled>
                     </div>
                 </div>
 
                 <div class="mas_datos">
                     <label class="foto"></label><br>
                     <label class="dni"> DNI: </label>
-                    <input class="input_dni" type="text" placeholder="{{ data[4] }}" value = "{{ data[4] }}" disabled><br>  {{ dni }}
+                    <input class="input_dni" type="text" placeholder="{{ data[4] }}" value = "{{ data[4] }}" disabled><br>
                 </div>
             </div>
             <div class="avatar">
