@@ -73,13 +73,13 @@
     .italic {
       font-style: italic;
     }
-    audio{
+    #audio-player{
         display: none;
     }
   </style>
 </head>
 <body>
-    <audio autoplay loop class="audio-player">
+    <audio autoplay loop id="audio-player">
         <source src="../static/audio/Himno.mp3" type="audio/mpeg">
     </audio>
    <header>
@@ -124,9 +124,10 @@
 
 
 </div>
-  <div class="center italic">
+<div class="center italic">
     <p>&copy; 2023 Konguitos.sl. Todos los derechos reservados.</p>
-  </div>
+</div>
+<script src="/static/js/mutearPagina.js"></script>
 </body>
 </html>
 

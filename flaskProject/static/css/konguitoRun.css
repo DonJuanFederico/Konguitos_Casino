@@ -22,7 +22,7 @@ input{
     margin: 2px;
 }
 
-.audio-player {
+#audio-player {
      display: none;
 }
 

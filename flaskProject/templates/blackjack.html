@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'plantilla.html' %}
+{% block title %} Blackjack {% endblock %}
+{% block stylesheets %}
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <title>Blackjack</title>
     <link rel="stylesheet" type="text/css" href="/static/css/blackjack.css">
-</head>
-<body>
+{% endblock %}
+{% block body %}
     <div id="container">
         <h1>Blackjack</h1>
         <h3>Tu mano: <span id="player-hand-value"></span></h3>
@@ -36,11 +35,12 @@
         <input type="number" id="apuesta" min="1">
     </div>
 
-    <audio controls autoplay loop class="audio-player">
+    <!--<audio controls autoplay loop id="audio-player">
         <source src="/static/audio/lancer.mp3" type="audio/mpeg">
-    </audio>
-
+    </audio>-->
+{% endblock %}
+{% block javascript %}
     <script src="/static/js/blackjack.js"></script>
-</body>
-</html>
+    <script src="/static/js/mutearPagina.js"></script>
+{% endblock %}
 

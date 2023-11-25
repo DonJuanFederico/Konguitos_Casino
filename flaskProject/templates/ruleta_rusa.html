@@ -8,7 +8,7 @@
 <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
 {% endblock %}
 {% block body %}
-<audio controls autoplay loop class="audio-player">
+<audio controls autoplay loop id="audio-player">
     <source src="/static/audio/Mafia.mp3" type="audio/mpeg">
 </audio>
 <div id="marcoMonedas">
@@ -52,5 +52,6 @@
 {% block javascript %}
 <script src="/static/js/ruleta_rusa.js"></script>
 <script src="/static/js/ruleta_rusa_alertas.js"></script>
+<script src="/static/js/mutearPagina.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

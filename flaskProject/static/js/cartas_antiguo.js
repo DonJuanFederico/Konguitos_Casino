@@ -233,7 +233,7 @@ botonReglas.addEventListener("click", function () {
 });
 
 // variables de sonido
-const audio = document.getElementById("audio-player");
+/*const audio = document.getElementById("audio-player");
 const volume_on = document.getElementById("vOn");
 const volume_off = document.getElementById("vOff");
 
@@ -248,7 +248,7 @@ function quitarVolumen(){
         volume_on.style.display = 'none';
         volume_off.style.display = 'block';
     }
-}
+}*/
 
 // boton de la toolbar de marcha atras
 var bontonAtras = document.querySelector('.back');

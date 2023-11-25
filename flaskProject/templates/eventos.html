@@ -5,7 +5,7 @@
     <title> Eventos </title>
 {% endblock %}
 {% block body %}
-    <audio controls autoplay>
+    <audio controls autoplay loop id="audio-player">
         <source src="/static/audio/Sonic.mp3" type="audio/mpeg">
     </audio>
     <div class = "contenedorTotal">
@@ -53,4 +53,5 @@
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/eventos.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
 {% endblock %}

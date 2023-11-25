@@ -12,7 +12,7 @@ body {
     height: 100vh; /* Establecer la altura al 100% de la ventana gráfica */
 }
 
-.audio-player {
+#audio-player {
      display: none;
 }
 

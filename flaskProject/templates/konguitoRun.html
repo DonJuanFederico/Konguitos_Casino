@@ -10,7 +10,7 @@
     <title>Juegos Extra</title>
 {% endblock %}
 {% block body %}
-    <audio controls autoplay loop class="audio-player">
+    <audio controls autoplay loop id="audio-player">
         <source src="/static/audio/VictorJoel.mp3" type="audio/mpeg">
     </audio>
      <div id = contenedorJuego>
@@ -68,4 +68,5 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/static/js/konguitoRun.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
 {% endblock %}

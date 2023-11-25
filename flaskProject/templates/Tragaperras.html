@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body %}
     <div>
-        <audio controls autoplay loop class="audio-player">
+        <audio controls autoplay loop id="audio-player">
             <source src="/static/audio/wii.mp3" type="audio/mpeg">
         </audio>
         <div id="marcoMonedas">
@@ -71,5 +71,6 @@
 {% block javascripts %}
     <script src="/static/js/Tragaperras.js"></script>
     <script src="/static/js/TragaperrasAlertas.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}

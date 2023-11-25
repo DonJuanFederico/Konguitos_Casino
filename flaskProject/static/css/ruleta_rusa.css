@@ -9,7 +9,7 @@ body {
     color: #f4f4f4;
 }
 
-.audio-player {
+#audio-player {
     display: none;
 }
 

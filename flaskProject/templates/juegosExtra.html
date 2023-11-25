@@ -4,7 +4,7 @@
     <title>Juegos Extra</title>
 {% endblock %}
 {% block body %}
-    <audio controls autoplay>
+    <audio controls autoplay loop id="audio-player">
         <source src="/static/audio/BadPiggies.mp3" type="audio/mpeg">
     </audio>
     <div class = "contenedorTotal">
@@ -33,4 +33,5 @@
 {% endblock %}
 {% block javascripts %}
     <script src="/static/js/juegosExtra.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
 {% endblock %}

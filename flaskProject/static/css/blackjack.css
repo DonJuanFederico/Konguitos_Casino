@@ -1,5 +1,9 @@
 #container {
     text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .card-image {
@@ -20,6 +24,8 @@
 
 #bet-container {
     margin: 20px;
+    position: absolute;
+    top: 50%;
 }
 
 .recuadroSaldo {
@@ -76,7 +82,7 @@
     cursor: pointer;
 }
 
-.audio-player {
+#audio-player {
      display: none;
 }
 
@@ -87,6 +93,5 @@
 body {
     background-image: url('https://image.freepik.com/free-vector/poker-table-background-green-color_47243-1068.jpg');
     background-size: cover;
-    background-position: center;
     color: white;
 }

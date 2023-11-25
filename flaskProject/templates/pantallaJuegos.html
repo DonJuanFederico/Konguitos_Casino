@@ -5,12 +5,11 @@
     <link type="text/css" rel="stylesheet" href="/static/css/pantallaJuegos.css">
 {% endblock %}
 {% block body %}
-    <audio autoplay loop class="audio-player">
+    <audio autoplay loop id="audio-player">
         <source src="../static/audio/Loonboon.mp3" type="audio/mpeg">
     </audio>
     <div id = "total">
-        <div id = "texto">
-        </div>
+        <div id = "texto"></div>
         <div id = "mostrar">
             <h1>
                 <span></span>
@@ -80,9 +79,10 @@
         <div class="slider-buttons">
             <button id = "botonIzquierda" class = "botonIzquierda"></button>
             <button id = "botonDerecha" class = "botonDerecha"></button>
-        <div>
+        </div>
     </div>
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/pantallaJuegos.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
 {% endblock %}

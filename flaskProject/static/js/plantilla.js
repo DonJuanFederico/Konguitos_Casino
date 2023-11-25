@@ -182,5 +182,4 @@ function teclaPresionada(){
         else if(miBusqueda === 'EVENTOS') eventos();
     }
 }
-
 window.onkeydown = teclaPresionada;
