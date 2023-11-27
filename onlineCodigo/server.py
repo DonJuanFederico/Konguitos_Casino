@@ -4,6 +4,7 @@ from waitress import serve
 from bbdd import *
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from Jugador import Jugador
+from CreadorCarton import CreadorCarton
 
 app = Flask(__name__)
 
@@ -94,7 +95,13 @@ def leave(data):
 def anadir(data):
     #Antes del send especificar la sala
     join_room(data["room"])
-    emit("nuevo_valor_contador", {"valor": int(data["valor"])}, room=data["room"])  # Retransmitir a todos los clientes
+    emit("nuevo_valor_contador", {"valor": int(data["valor"])}, room=data["room"])
+
+@socketio.on("pedirCarton")
+def pedirCarton():
+    creador = CreadorCarton()
+    carton = creador.generar_carton()
+    emit("cartonRecibido", {"carton_generado": carton})
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port = 8000)

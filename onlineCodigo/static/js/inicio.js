@@ -19,20 +19,31 @@ function guardarId() {
         xhr.send(datos);
     });
 }
+var socket = io();
 
-
-
-
-/*
-function unirse() {
-    var id = document.getElementById('numeroId').value;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/unirse", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(xhr.responseText);
+socket.on("cartonRecibido", data => {
+    const stringCarton = JSON.stringify(data.carton_generado);
+    const valores = stringCarton.split(',').map(valor => valor.replace(/\[|\]/g, '').trim());
+    const spans = document.querySelectorAll('div > span');
+    // Recorrer los spans y rellenarlos con los valores del array
+    spans.forEach((span, index) => {
+        if (valores[index] !== '\"\"'){
+            span.textContent = valores[index];
+        }else{
+            span.textContent = "";
         }
-    };
-    xhr.send("id=" + id);
-}*/
+    });
+});
+
+document.querySelector("#pedir").onclick = () => {
+    socket.emit("pedirCarton");
+}
+
+socket.on("nuevo_valor_contador", data => {
+    document.getElementById("contador").innerText = data.valor;
+});
+
+document.querySelector("#probando").onclick = () => {
+    sumar();
+    socket.emit("anadir", {"username" : username, "room": room, "valor": document.getElementById("contador").innerText});
+}
