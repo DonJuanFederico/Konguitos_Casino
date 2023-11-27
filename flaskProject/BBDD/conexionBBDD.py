@@ -88,7 +88,7 @@ def obtenerDinero():
             close_connection(conn)
     return dinero
 
-def agregarDinero(cantidad_a_agregar):
+def agregarDineroTarjeta(cantidad_a_agregar):           #Este metodo no afecta a los rankings ya que solo agrega dinero a dinero (se usa para meter dinero a traves de la tarjeta)
     conn = connect()
     if conn:
         cursor = conn.cursor()
@@ -103,6 +103,22 @@ def agregarDinero(cantidad_a_agregar):
         finally:
             cursor.close()
             close_connection(conn)
+
+def agregarDineroGanado(cantidad_a_agregar):     #Este metodo agrega el dinero que se ha ganado jugando a juegos (lo agrega a dinero ganado y a dinero)
+        conn = connect()
+        if conn:
+            cursor = conn.cursor()
+            try:
+                # Consulta para actualizar la cantidad de dinero y dinero ganado en la cuenta del usuario
+                query = "UPDATE usuarios SET Dinero = Dinero + %s, DineroGanado = DineroGanado + %s WHERE NombreUsuario = %s"
+                cursor.execute(query, (cantidad_a_agregar, cantidad_a_agregar, obtener_nombre()))
+                conn.commit()
+            except mysql.connector.Error as err:
+                conn.rollback()
+                print(f"Error de MySQL: {err}")
+            finally:
+                cursor.close()
+                close_connection(conn)
 
 def retirarDinero(cantidad_a_retirar):
     conn = connect()
@@ -446,8 +462,51 @@ def obtenerId(nombre_usuario):
                 # Return the user ID or None if not found
                 return result['id'] if result else None
 
-    except Error as err:
+    except mysql.connector.Error as err:
         # Log the error instead of printing
         print(f"Error de MySQL: {err}")
         # Return an appropriate value or raise an exception based on your requirements
         return None
+
+def obtenerDineroGanado(nombre_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta SQL para obtener DineroGanado por nombre de usuario
+            query = "SELECT DineroGanado FROM usuarios WHERE NombreUsuario = %s"
+            cursor.execute(query, (nombre_usuario,))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                dinero_ganado = resultado[0]
+                return dinero_ganado
+            else:
+                print("Usuario con nombre", nombre_usuario, "no encontrado.")
+                return None
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+    def obtenerRankingDineroGanado():
+        conn = connect()
+        if conn:
+            cursor = conn.cursor()
+            try:
+                # Consulta SQL para obtener usuarios con su correspondiente DineroGanado, ordenado por DineroGanado descendente
+                query = "SELECT NombreUsuario, DineroGanado FROM usuarios ORDER BY DineroGanado DESC"
+                cursor.execute(query)
+                resultados = cursor.fetchall()
+
+                # Devolver una lista de tuplas (nombre de usuario, dinero ganado)
+                usuarios_con_dinero = [(nombre_usuario, dinero_ganado) for nombre_usuario, dinero_ganado in resultados]
+
+                return usuarios_con_dinero
+            except mysql.connector.Error as err:
+                print(f"Error de MySQL: {err}")
+            finally:
+                cursor.close()
+                close_connection(conn)
+

@@ -263,7 +263,7 @@ def dinero():
 @app.route('/agregar_dinero', methods=['POST'])
 def agregar_dinero():
     cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
-    agregarDinero(cantidad_a_agregar)
+    agregarDineroTarjeta(cantidad_a_agregar)
     return "Dinero agregado correctamente"
 
 @app.route('/retirar_dinero', methods=['POST'])
