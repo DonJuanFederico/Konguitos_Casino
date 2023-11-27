@@ -3,6 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
+        <style>
+            #main-section{
+                position: absolute;
+                background-color: aquamarine;
+            }
+            #divprueba{
+                background-color: red;
+            }
+            #divContador{
+                background-color: bisque;
+            }
+        </style>
     </head>
     <body>
         <nav>
@@ -22,6 +34,12 @@
                     <input type = "text" id = "user-message" placeholder="Type here..." autocomplete="off">
                     <button type="button" id="send-message">SEND</button>
                 </div>
+                <div id = "divprueba">
+                    <button type="button" id="probando">Probando</button>
+                </div>
+            </div>
+            <div id = "divContador">
+                <span id = "contador" >0</span>
             </div>
         </div>
         <script type="text/javascript">

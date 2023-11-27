@@ -18,8 +18,16 @@ document.addEventListener("DOMContentLoaded", () =>{
         } else{
             printSysMsg(data.msg);
         }
-
     });
+
+    socket.on("nuevo_valor_contador", data => {
+        document.getElementById("contador").innerText = data.valor;
+    });
+
+    document.querySelector("#probando").onclick = () => {
+        sumar();
+        socket.emit("anadir", {"username" : username, "room": room, "valor": document.getElementById("contador").innerText});
+    }
 
     document.querySelector("#send-message").onclick = () => {
         socket.send({"msg" : document.querySelector("#user-message").value, "username": username, "room": room});
@@ -34,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 printSysMsg(msg);
             } else {
                 leaveRoom(room);
+                 document.getElementById("contador").innerText = 0;
                 joinRoom(newRoom);
                 room = newRoom;
             }
@@ -56,5 +65,9 @@ document.addEventListener("DOMContentLoaded", () =>{
         const p = document.createElement("p");
         p.innerHTML = msg;
         document.querySelector("#display-message-section").append(p);
+    }
+
+    function sumar() {
+        document.getElementById("contador").innerText = parseInt(document.getElementById("contador").innerText) + 1;
     }
 })
