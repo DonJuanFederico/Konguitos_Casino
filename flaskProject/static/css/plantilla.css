@@ -7,45 +7,44 @@ body{
     z-index: 8;
     color: white;
 }
+
+/* fija los elementos de la #lbar para q se desplace con el scroll */
+#fixator{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
 /* MENU HAMBURGUESA */
-.bars__menu{
+#bars__menu{
     top: 90%;
     cursor: pointer;
 }
-.bars__menu:hover, .home:hover, .ajustes:hover, .buscador:hover, .volume:hover, .out:hover, .headset:hover{
+#bars__menu:hover, #home:hover, #ajustes:hover, #buscador:hover, #volume:hover, #out:hover, #headset:hover, #rank:hover{
     color: darkgoldenrod;
     filter: drop-shadow(10px 10px 10px rgba(0,0,0,1));
 }
 
-.bars__menu, .home, .ajustes, .buscador, .volume, .out, .headset{
-    z-index: 8;
+#bars__menu, #home, #ajustes, #buscador, #volume, #out, #headset, #rank{
     width: 30px;
     height: 30px;
     position: absolute;
     left: 95%;
     transform: translate(-50%, -50%);
 }
-.home, .ajustes, .buscador, .volume, .out, .headset{
+#home, #ajustes, #buscador, #volume, #out, #headset, #rank{
     opacity: 0;
     transition: opacity 0.4s;
     margin-top: 2px;
 }
 
-/* BOTON HOME */
-.home{top: 80%;}
-
-/* BOTON AJUSTES */
-.ajustes{top: 75%;}
-
-/* PARA UN BUSCADOR */
-.buscador{top: 70%;}
-
-.out{top: 85%;}
-
-.volume{top: 65%;}
-
-.headset{top: 60%;}
-
+#home{top: 80%;}
+#ajustes{top: 75%;}
+#buscador{top: 70%;}
+#out{top: 85%;}
+#volume{top: 65%;}
+#headset{top: 60%;}
+#rank{top: 55%;}
 #vOn{
     opacity: 1;
     display: block;
@@ -119,7 +118,7 @@ body{
     z-index: 7;
 }
 
-.back{
+#back{
     width: 30px;
     height: 30px;
     position: absolute;
@@ -128,7 +127,7 @@ body{
     transform: translate(-50%, -50%);
     cursor: pointer;
 }
-.back:hover{
+#back:hover{
     color: darkgoldenrod;
     filter: drop-shadow(10px 10px 10px rgba(0,0,0,1));
 }

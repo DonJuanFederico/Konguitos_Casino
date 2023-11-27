@@ -1,5 +1,5 @@
 /* MENU HAMBURGUESA */
-var menu = document.querySelector('.bars__menu');
+var menu = document.getElementById('bars__menu');
 
 // SEMAFOROS DE CONTROL
 let submenus = true;
@@ -8,11 +8,11 @@ let submenus = true;
 menu.addEventListener('click', () => {
     // HOME
     if(submenus) {
-        submenus = false;
+        setTimeout(() => {submenus = false;}, 700);
         mostrar();
         block = true;
     } else {
-        submenus = true;
+        setTimeout(() => {submenus = true;}, 700)
         ocultar();
         block = false;
     }
@@ -21,28 +21,32 @@ menu.addEventListener('click', () => {
 // mostrar los submenus
 function mostrar(){
     setTimeout( () => {
-        document.querySelector('.out').style.cursor = 'pointer';
-        document.querySelector('.out').style.opacity = 1;
+        document.getElementById('out').style.cursor = 'pointer';
+        document.getElementById('out').style.opacity = 1;
+    }, 100);
+    setTimeout( () => {
+        document.getElementById('home').style.cursor = 'pointer';
+        document.getElementById('home').style.opacity = 1;
     }, 200);
     setTimeout( () => {
-        document.querySelector('.home').style.cursor = 'pointer';
-        document.querySelector('.home').style.opacity = 1;
+        document.getElementById('ajustes').style.cursor = 'pointer';
+        document.getElementById('ajustes').style.opacity = 1;
     }, 300);
     setTimeout( () => {
-        document.querySelector('.ajustes').style.cursor = 'pointer';
-        document.querySelector('.ajustes').style.opacity = 1;
+        document.getElementById('buscador').style.cursor = 'pointer';
+        document.getElementById('buscador').style.opacity = 1;
     }, 400);
     setTimeout( () => {
-        document.querySelector('.buscador').style.cursor = 'pointer';
-        document.querySelector('.buscador').style.opacity = 1;
+        document.getElementById('volume').style.cursor = 'pointer';
+        document.getElementById('volume').style.opacity = 1;
     }, 500);
     setTimeout( () => {
-        document.querySelector('.volume').style.cursor = 'pointer';
-        document.querySelector('.volume').style.opacity = 1;
+        document.getElementById('headset').style.cursor = 'pointer';
+        document.getElementById('headset').style.opacity = 1;
     }, 600);
     setTimeout( () => {
-        document.querySelector('.headset').style.cursor = 'pointer';
-        document.querySelector('.headset').style.opacity = 1;
+        document.getElementById('rank').style.cursor = 'pointer';
+        document.getElementById('rank').style.opacity = 1;
     }, 700);
 }
 
@@ -50,29 +54,33 @@ function mostrar(){
 // NO OCURRE HASTA Q TERMINA LA ANIMACION DEL MENU PRINCIPAL
 function ocultar(){
     setTimeout( () => {
-        document.querySelector('.headset').style.cursor = 'default';
-        document.querySelector('.headset').style.opacity = 0;
+        document.getElementById('rank').style.cursor = 'default';
+        document.getElementById('rank').style.opacity = 0;
     }, 100);
     setTimeout( () => {
-        document.querySelector('.volume').style.cursor = 'default';
-        document.querySelector('.volume').style.opacity = 0;
+        document.getElementById('headset').style.cursor = 'default';
+        document.getElementById('headset').style.opacity = 0;
     }, 200);
     setTimeout( () => {
-        document.querySelector('.buscador').style.cursor = 'default';
-        document.querySelector('.buscador').style.opacity = 0;
+        document.getElementById('volume').style.cursor = 'default';
+        document.getElementById('volume').style.opacity = 0;
     }, 300);
     setTimeout( () => {
-        document.querySelector('.ajustes').style.cursor = 'default';
-        document.querySelector('.ajustes').style.opacity = 0;
+        document.getElementById('buscador').style.cursor = 'default';
+        document.getElementById('buscador').style.opacity = 0;
     }, 400);
     setTimeout( () => {
-        document.querySelector('.home').style.cursor = 'default';
-        document.querySelector('.home').style.opacity = 0;
+        document.getElementById('ajustes').style.cursor = 'default';
+        document.getElementById('ajustes').style.opacity = 0;
     }, 500);
     setTimeout( () => {
-        document.querySelector('.out').style.cursor = 'default';
-        document.querySelector('.out').style.opacity = 0;
+        document.getElementById('home').style.cursor = 'default';
+        document.getElementById('home').style.opacity = 0;
     }, 600);
+    setTimeout( () => {
+        document.getElementById('out').style.cursor = 'default';
+        document.getElementById('out').style.opacity = 0;
+    }, 700);
 }
 
 let block = false;
@@ -151,6 +159,7 @@ function plinko(){ if(block) document.location.href = '/Juegos/Juegos_extra/Plin
 function kongoRun(){ if(block) document.location.href = '/Juegos/Juegos_extra/KonguitoRun/';}
 function bingo(){ if(block) document.location.href = '/Juegos/Juegos_extra/Bingo/';}
 function eventos(){ if(block) document.location.href = '/Juegos/Eventos/';}
+function rankings(){if(block) document.location.href = '/Rankings/';}
 
 // ir a ingresar dinero
 function ingresarDinero(){
@@ -180,6 +189,7 @@ function teclaPresionada(){
         else if(miBusqueda === 'PLINKO') plinko();
         else if(miBusqueda === 'BINGO') bingo();
         else if(miBusqueda === 'EVENTOS') eventos();
+        else if(miBusqueda === 'RANKINGS') rankings();
     }
 }
 window.onkeydown = teclaPresionada;

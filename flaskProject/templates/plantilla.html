@@ -9,57 +9,61 @@
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- CONTROLA LO QUE SE REPITE EN TODAS LOS HIJOS -->
-    <div id="ctn-bars-search">
-        <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off" onclick="resultadosBusqueda()">
-    </div>
+    <div id="fixator">
+        <!-- CONTROLA LO QUE SE REPITE EN TODAS LOS HIJOS -->
+        <div id="ctn-bars-search">
+            <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off" onclick="resultadosBusqueda()">
+        </div>
 
-    <ul id="box-search">
-        <li> <a onclick="paginaHome()"><i class="fa-solid fa-house-chimney"></i> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
-        <li> <a onclick="paginaAjustes()"><i class="fa-regular fa-circle-user"></i> Perfil </a></li>
-        <li> <a onclick="cartas()"><i class="fa-solid fa-ranking-star"></i> Carta más alta </a></li>
-        <li> <a onclick="blackJack()"><i class="fa-solid fa-coins"></i> BlackJack </a></li>
-        <li> <a onclick="poker()"><i class="fa-solid fa-money-bill-transfer"></i> Poker </a></li>
-        <li> <a onclick="craps()"><i class="fa-solid fa-dice"></i> Dados craps </a></li>
-        <li> <a onclick="ruleta()"><i class="fa-solid fa-skull"></i> Ruleta </a></li>
-        <li> <a onclick="kongoRun()"><i class="fa-solid fa-person-running"></i> Kongo Run </a></li>
-        <li> <a onclick="tragaperras()"><i class="fa-solid fa-circle-dollar-to-slot"></i> Tragaperras </a></li>
-        <li> <a onclick="plinko()"><i class="fa-solid fa-money-bill-trend-up"></i> Plinko </a></li>
-        <li> <a onclick="bingo()"><i class="fa-regular fa-circle-xmark"></i> Bingo </a></li>
-        <li> <a onclick="eventos()"><i class="fa-regular fa-calendar-xmark"></i> Eventos </a></li>
-    </ul>
+        <ul id="box-search">
+            <li> <a onclick="paginaHome()"><i class="fa-solid fa-house-chimney"></i> Home </a></li>   <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
+            <li> <a onclick="paginaAjustes()"><i class="fa-regular fa-circle-user"></i> Perfil </a></li>
+            <li> <a onclick="cartas()"><i class="fa-solid fa-ranking-star"></i> Carta más alta </a></li>
+            <li> <a onclick="blackJack()"><i class="fa-solid fa-coins"></i> BlackJack </a></li>
+            <li> <a onclick="poker()"><i class="fa-solid fa-money-bill-transfer"></i> Poker </a></li>
+            <li> <a onclick="craps()"><i class="fa-solid fa-dice"></i> Dados craps </a></li>
+            <li> <a onclick="ruleta()"><i class="fa-solid fa-skull"></i> Ruleta </a></li>
+            <li> <a onclick="kongoRun()"><i class="fa-solid fa-person-running"></i> Kongo Run </a></li>
+            <li> <a onclick="tragaperras()"><i class="fa-solid fa-circle-dollar-to-slot"></i> Tragaperras </a></li>
+            <li> <a onclick="plinko()"><i class="fa-solid fa-money-bill-trend-up"></i> Plinko </a></li>
+            <li> <a onclick="bingo()"><i class="fa-regular fa-circle-xmark"></i> Bingo </a></li>
+            <li> <a onclick="eventos()"><i class="fa-regular fa-calendar-xmark"></i> Eventos </a></li>
+            <li> <a onclick="rankings()"><i class="fa-solid fa-ranking-star"></i> Rankings </a></li>
+        </ul>
 
-    <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
+        <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
 
-    <div class="toolbar">
-        <div title="Menú" class="bars__menu">
+        <!-- se puede manegar como un bloque y me ahorro codigo -->
+        <div title="Menú" id="bars__menu">
             <i class="fa-solid fa-bars fa-2xl" id="menu_animado"></i>  <!-- fa-bounce -->
         </div>
-        <div title="Home" class="home" onclick="paginaHome()">
+        <div title="Home" id="home" onclick="paginaHome()">
             <i class="fa-solid fa-house-chimney fa-2xl"></i>  <!-- fa-beat-fade -->
         </div>
-        <div title="Perfil" class="ajustes" onclick="paginaAjustes()">
+        <div title="Perfil" id="ajustes" onclick="paginaAjustes()">
             <i class="fa-solid fa-gear fa-2xl"></i>  <!-- fa-spin -->
         </div>
-        <div title="Buscador" class="buscador" onclick="ponerBuscador()">
+        <div title="Buscador" id="buscador" onclick="ponerBuscador()">
             <i class="fa-solid fa-magnifying-glass fa-2xl"></i> <!-- fa-beat-fade -->
         </div>
-        <div title="Cerrar sesión" class="out" onclick="cerrarSesion()">
+        <div title="Cerrar sesión" id="out" onclick="cerrarSesion()">
             <i class="fa-solid fa-arrow-right-from-bracket fa-2xl"></i>
         </div>
-        <div title="volumen" class="volume" onclick="quitarVolumen()">
+        <div title="volumen" id="volume" onclick="quitarVolumen()">
             <i id="vOn" class="fa-solid fa-volume-high fa-xl"></i>
             <i id="vOff" class="fa-solid fa-volume-xmark fa-xl"></i>
         </div>
-        <div title="Soporte Cliente" class="headset" onclick="ayuda()">
+        <div title="Soporte Cliente" id="headset" onclick="ayuda()">
             <i class="fa-solid fa-headset fa-2xl"></i>
         </div>
-    </div>
+        <div title="Rankings" id="rank" onclick="rankings()">
+            <i class="fa-solid fa-ranking-star fa-2xl"></i>
+        </div>
 
-    <div title="Atrás" class="back" onclick="volverAtras()">
-        <i class="fa-solid fa-circle-left fa-2xl"></i>
+        <div title="Atrás" id="back" onclick="volverAtras()">
+            <i class="fa-solid fa-circle-left fa-2xl"></i>
+        </div>
     </div>
-
     <script src="/static/js/plantilla.js"></script>
 
     {% block body %} {% endblock %}  <!-- CAMBIAR EL ORDEN CAMBIA LA DISPOSICION VISUAL -->

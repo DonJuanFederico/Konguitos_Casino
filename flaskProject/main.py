@@ -194,6 +194,10 @@ def edicion():
 def juegos():
         return render_template('pantallaJuegos.html', NOMBRE = obtener_nombre())
 
+@app.route('/Rankings/')
+def rankings():
+        return render_template('rankings.html')
+
 @app.route('/Perfil_de_usuario/', methods=['GET', 'POST'])
 def perfil():
     print("ENTRA")
