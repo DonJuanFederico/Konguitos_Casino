@@ -1,5 +1,8 @@
 body{
-    background-image: url("https://static.vecteezy.com/system/resources/previews/019/864/512/non_2x/abstract-dark-red-elegant-painting-texture-background-vintage-grunge-dark-backdrop-for-aesthetic-creative-design-free-photo.jpg");
+    /*background-image: url("https://static.vecteezy.com/system/resources/previews/019/864/512/non_2x/abstract-dark-red-elegant-painting-texture-background-vintage-grunge-dark-backdrop-for-aesthetic-creative-design-free-photo.jpg");*/
+    background-image: url("https://images.squarespace-cdn.com/content/v1/5e26cc63fb3e614a4430178e/3cb25290-30dc-4cfd-b091-c62a0c444f1a/Portada_Web6.png");
+    background-size: cover;
+    /*background-position: center;*/
     color: white;
     display: flex;
 }
@@ -38,7 +41,7 @@ audio{
     border: 2px solid black;
     top: 50%;
     left: 50%;transform: translate(-50%, -50%);
-    background-color: rgba(108, 85, 57, 0.65);
+    background-color: rgba(255, 255, 255, 0.2);
     width: 80%;
     height: 70%;
 }
@@ -93,6 +96,7 @@ audio{
     position: absolute;
     border: 2px solid black;
     background-image: url("https://cdn.icon-icons.com/icons2/2030/PNG/512/user_icon_124042.png");
+    background-color: rgba(255, 255, 255, 0.2);
     background-size: cover;
 }
 
