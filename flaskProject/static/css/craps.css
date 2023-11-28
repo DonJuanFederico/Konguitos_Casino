@@ -119,20 +119,19 @@ body {
     flex-direction: row;
     align-items: center;
     margin-top: 20px;
+    justify-content: center; /* Para centrar los dados horizontalmente */
 }
 
 /* Estilo de los dados */
 .dice {
-    font-size: 24px;
     width: 50px;
     height: 50px;
     border: 2px solid #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
+    margin: 50px; /* Reducido el margen para disminuir la separación */
     background-color: #fff;
+    display: inline-block;
 }
+
 
 /*Saldo y monedas */
 .recuadroSaldo {
