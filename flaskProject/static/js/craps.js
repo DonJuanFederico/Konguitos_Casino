@@ -92,8 +92,10 @@ function rollDice() {
         const dado2 = Math.floor(Math.random() * 6) + 1;
         const resultado = dado1 + dado2;
 
-        document.getElementById("dice1").textContent = dado1;
-        document.getElementById("dice2").textContent = dado2;
+
+
+        document.getElementById("dice1").src = `/static/images/dados/${dado1}.png`;
+        document.getElementById("dice2").src = `/static/images/dados/${dado2}.png`;
         document.getElementById("result").textContent = `Resultado: ${resultado}`;
 
         //Apuesta gabela a favor
