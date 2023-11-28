@@ -196,7 +196,9 @@ def juegos():
 
 @app.route('/Rankings/')
 def rankings():
-        return render_template('rankings.html')
+    datos_ranking = obtenerRankingDineroGanado()
+    print(datos_ranking)
+    return render_template('rankings.html', datos_ranking=datos_ranking)
 
 @app.route('/Perfil_de_usuario/', methods=['GET', 'POST'])
 def perfil():

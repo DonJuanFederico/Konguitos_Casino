@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="/static/css/rankings.css">
 {% endblock %}
 {% block body %}
+    <audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/wii.mp3" type="audio/mpeg">
+    </audio>
     <div class="container">
         <table id="mi-tabla">
             <thead>
@@ -14,41 +17,24 @@
                     <th> Posicion </th>
                     <th> Nombre </th>
                     <th> País </th>
-                    <th> Dinero acumulado </th>
+                    <th> Ganancias </th>
                 </tr>
             </thead>
             <tbody>
+                {% for rank in datos_ranking %}
+                <tr>
+                    <td>  </td>
+                    <td>{{ rank.NombreUsuario }}</td>
+                    <td> {{ rank.Pais }}</td>
+                    <td> + 0 {{ rank.Dinero }}</td>
+                </tr>
+                {% endfor %}
                 <!-- Filas de datos se agregarán aquí dinámicamente con JavaScript -->
             </tbody>
         </table>
     </div>
 {% endblock %}
 {% block javascript %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Referencia a la tabla
-            var tabla = document.getElementById('mi-tabla');
-
-            // Datos simulados
-            var datosSimulados = [];
-            for (var i = 1; i <= 50; i++) {
-                var fila = {
-                    'posicion': i,
-                    'nombre': 'Persona ' + i,
-                    'pais': 'País ' + String.fromCharCode(65 + Math.floor(Math.random() * 5)),
-                    'dinero': Math.floor(Math.random() * 1000) + 100
-                };
-                datosSimulados.push(fila);
-            }
-
-            // Generar filas de datos dinámicamente
-            var tbody = tabla.querySelector('tbody');
-            datosSimulados.forEach(function (fila) {
-                var tr = document.createElement('tr');
-                tr.innerHTML = `<td>${fila.posicion}</td><td>${fila.nombre}</td><td>${fila.pais}</td><td>${fila.dinero}</td>`;
-                tbody.appendChild(tr);
-            });
-        });
-    </script>
+    <script src="/static/js/mutearPAgina.js"></script>
 {% endblock %}
 

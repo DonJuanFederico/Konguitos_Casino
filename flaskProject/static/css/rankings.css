@@ -6,6 +6,10 @@ body {
     background-attachment: fixed;
 }
 
+audio{
+    display: none;
+}
+
 .container{
     display: flex;
     justify-content: center;
