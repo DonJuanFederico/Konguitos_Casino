@@ -19,6 +19,8 @@ def index():
 @app.route('/Inicio/', methods=['GET', 'POST'])
 def inicio():
     form = inicioSesion()
+    tpm = obtenerRankingDineroGanado()
+    print(tpm)
     if form.validate_on_submit():
         nombreUsuarioInicio = form.username.data
         session['nombreUsuario'] = nombreUsuarioInicio

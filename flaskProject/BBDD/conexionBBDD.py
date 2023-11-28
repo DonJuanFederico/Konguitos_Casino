@@ -3,12 +3,12 @@
 # User: KingKonguito
 # Contraseña: Konguito9
 # Puerto: 3306 (el predeterminado)
-# Ejecutar: "pip install Flask mysql-connector-python" en consola
+# Ejecutar: "pip install Flask mysql-connector-python" + "pip install requests" en consola
 import hashlib
 import io , os, cv2, mysql.connector
 import requests
 from PIL import Image
-from django.contrib.sites import requests
+import requests
 
 db_config = {
     "host": "konguitoscasino.mysql.database.azure.com",
@@ -515,7 +515,7 @@ def obtenerDineroGanado(nombre_usuario):
             cursor.close()
             close_connection(conn)
 
-    def obtenerRankingDineroGanado():
+def obtenerRankingDineroGanado():
         conn = connect()
         if conn:
             cursor = conn.cursor(dictionary=True)  # Establecer el cursor para devolver resultados como diccionarios
