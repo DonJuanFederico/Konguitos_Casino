@@ -6,7 +6,9 @@
 # Ejecutar: "pip install Flask mysql-connector-python" en consola
 import hashlib
 import io , os, cv2, mysql.connector
+import requests
 from PIL import Image
+from django.contrib.sites import requests
 
 db_config = {
     "host": "konguitoscasino.mysql.database.azure.com",
@@ -16,6 +18,29 @@ db_config = {
     "port": 3306,
 }
 
+
+def obtener_pais_desde_direccion(direccion):
+    # Reemplaza 'TU_CLAVE_DE_API' con tu clave de API de Google Maps
+    api_key = 'TU_CLAVE_DE_API'
+    url = f'https://maps.googleapis.com/maps/api/geocode/json?address={direccion}&key={api_key}'
+
+    try:
+        response = requests.get(url)
+        data = response.json()
+
+        if data['status'] == 'OK':
+            pais = None
+
+            for component in data['results'][0]['address_components']:
+                if 'country' in component['types']:
+                    pais = component['long_name']
+
+            return pais
+        else:
+            return None
+    except Exception as e:
+        print(f'Error en la solicitud de geocodificación: {str(e)}')
+        return None
 
 def encriptarClave(clave):
     hasher = hashlib.sha256()
@@ -493,15 +518,27 @@ def obtenerDineroGanado(nombre_usuario):
     def obtenerRankingDineroGanado():
         conn = connect()
         if conn:
-            cursor = conn.cursor()
+            cursor = conn.cursor(dictionary=True)  # Establecer el cursor para devolver resultados como diccionarios
             try:
-                # Consulta SQL para obtener usuarios con su correspondiente DineroGanado, ordenado por DineroGanado descendente
-                query = "SELECT NombreUsuario, DineroGanado FROM usuarios ORDER BY DineroGanado DESC"
+                # Consulta SQL para obtener usuarios con su correspondiente DineroGanado y Calle, ordenado por DineroGanado descendente
+                query = "SELECT NombreUsuario, DineroGanado, Calle FROM usuarios ORDER BY DineroGanado DESC"
                 cursor.execute(query)
                 resultados = cursor.fetchall()
 
-                # Devolver una lista de tuplas (nombre de usuario, dinero ganado)
-                usuarios_con_dinero = [(nombre_usuario, dinero_ganado) for nombre_usuario, dinero_ganado in resultados]
+                # Modificar la información del usuario para incluir el país en lugar de la calle
+                usuarios_con_dinero = []
+
+                for row in resultados:
+                    nombre_usuario = row["NombreUsuario"]
+                    dinero_ganado = row["DineroGanado"]
+                    calle = row["Calle"]
+
+                    # Obtener el país desde la dirección
+                    pais = obtener_pais_desde_direccion(calle)
+
+                    # Agregar la información del usuario a la lista
+                    usuarios_con_dinero.append(
+                        {"NombreUsuario": nombre_usuario, "DineroGanado": dinero_ganado, "Pais": pais})
 
                 return usuarios_con_dinero
             except mysql.connector.Error as err:
