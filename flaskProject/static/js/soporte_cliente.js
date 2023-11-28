@@ -1,17 +1,28 @@
+
 function submitForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var message = document.getElementById("message").value;
+
+    // Check if all required fields are filled
+    if (name.trim() === "" || email.trim() === "" || message.trim() === "") {
+        alert("Por favor, complete todos los campos.");
+        return;
+    }
+
     Email.send({
         Host: "smtp.elasticemail.com",
         Username: "konguitoscasino@gmail.com",
-        Password: "2DB4453A401536B9130EE762B2227BA52353",
+        Password: "2DB4453A401536B9130EE762B2227BA52353", // Add your password here
         To: 'konguitoscasino@gmail.com',
         From: "konguitoscasino@gmail.com",
-        Subject: "Nueva incidencia de: " + document.getElementById("name").value,
-        Body: "Name: " + document.getElementById("name").value +
-            "<br/> Email: " + document.getElementById("email").value +
-            "<br/> Message: " + document.getElementById("message").value + "<br/>"
+        Subject: "Nueva incidencia de: " + name,
+        Body: "Nombre de usuario: " + name +
+            "<br/> Email: " + email +
+            "<br/> Mensaje: " + message + "<br/>"
     }).then(
-        message => alert(message)
+        function (message) {
+            alert("Incidencia enviada");
+        }
     );
-
-    return alert("Mensaje enviado");
 }
