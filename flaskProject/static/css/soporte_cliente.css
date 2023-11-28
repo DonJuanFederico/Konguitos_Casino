@@ -1,9 +1,23 @@
 body {
     font-family: Arial, sans-serif;
     color: black;
+    background-color: #bebebe;
+}
+
+.container {
+    text-align: center;
+    height: 100px;
+    background-color: #050505;
+    color: #f4f4f4;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .support-form {
+    position: relative;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -11,6 +25,7 @@ body {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+    margin-top: 100px;
     padding: 20px;
 
 }
@@ -30,4 +45,23 @@ body {
 
 .support-form .success {
     color: green;
+}
+
+/* logo */
+#logo {
+    position: absolute;
+    width: 300px;
+    height: 60%;
+    right: 2%;
+    margin-top: 2px;
+    scale: 0.20;
+    background-color: #262626;
+}
+
+/* telefono */
+.telefono {
+    position: absolute;
+    color: #27325b;
+    margin-left: 2px;
+    top: 15%;
 }

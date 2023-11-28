@@ -1,21 +1,17 @@
- function submitForm() {
-        var name = document.getElementById('name').value;
-        var email = document.getElementById('email').value;
-        var message = document.getElementById('message').value;
+function submitForm() {
+    Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "konguitoscasino@gmail.com",
+        Password: "2DB4453A401536B9130EE762B2227BA52353",
+        To: 'konguitoscasino@gmail.com',
+        From: "konguitoscasino@gmail.com",
+        Subject: "Nueva incidencia de: " + document.getElementById("name").value,
+        Body: "Name: " + document.getElementById("name").value +
+            "<br/> Email: " + document.getElementById("email").value +
+            "<br/> Message: " + document.getElementById("message").value + "<br/>"
+    }).then(
+        message => alert(message)
+    );
 
-        if(name && email && message) {
-            alert('Gracias, ' + name + '. Hemos recibido tu mensaje y nos pondremos en contacto contigo a la brevedad.');
-            document.getElementById('contact-form').submit();
-        } else {
-            alert('Por favor, completa todos los campos.');
-        }
-    }
-
-// funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
-let prevUrl = document.referrer;
-function volverAtras(){
-    if(prevUrl.indexOf(window.location.host) !== -1) {
-    // Ir a la página anterior
-    window.history.back();
-    }
+    return alert("Mensaje enviado");
 }
