@@ -442,23 +442,157 @@ body {
     height: 50%;
     z-index: 1;
 }
-
-.numero_0 {
+/* ------------------------------------ Apuestas fila 5 ------------------------------------ */
+/* Estilo común para todas las apuestas */
+.tablero_apuestas .apuesta {
     position: absolute;
-    width: 6%; /* ajusta el tamaño de las casillas según tus necesidades */
-    height: 30%; /* ajusta el tamaño de las casillas según tus necesidades */
     z-index: 1;
-    top: 20%;
-    left: 2%;
     cursor: pointer;
+    background-color: red;
 }
 
-.numero_1_to_18 {
-    position: absolute;
-    width: 8%; /* ajusta el tamaño de las casillas según tus necesidades */
-    height: 15%; /* ajusta el tamaño de las casillas según tus necesidades */
-    z-index: 1;
-    top: 80%;
-    left: 12%;
-    cursor: pointer;
+/* Estilos específicos para cada tipo de apuesta */
+.tablero_apuestas .apuesta[data-numero="1_to_18"] { left: 9%; top: 80%; width: 12.5%; height: 18% }
+.tablero_apuestas .apuesta[data-numero="par"] { left: 24%; top: 80%; width: 12.5%; height: 18% }
+.tablero_apuestas .apuesta[data-numero="rojo"] { left: 38%; top: 80%; width: 12.5%; height: 18% }
+.tablero_apuestas .apuesta[data-numero="negro"] { left: 52%; top: 80%; width: 12.5%; height: 18% }
+.tablero_apuestas .apuesta[data-numero="impar"] { left: 66%; top: 80%; width: 12.5%; height: 18% }
+.tablero_apuestas .apuesta[data-numero="19_to_36"] { left: 80%; top: 80%; width: 12.5%; height: 18% }
+
+.tablero_apuestas .apuesta[data-numero="1_to_12"] { left: 9%; top: 64%; width: 27.5%; height: 15% }
+.tablero_apuestas .apuesta[data-numero="12_to_24"] { left: 38%; top: 64%; width: 27.5%; height: 15% }
+.tablero_apuestas .apuesta[data-numero="24_to_36"] { left: 66%; top: 64%; width: 27.5%; height: 15% }
+
+.tablero_apuestas .apuesta[data-numero="fila_1"] {left:93%; top: 3%; width: 6%; height: 18%}
+.tablero_apuestas .apuesta[data-numero="fila_2"] {left:93%; top: 23%; width: 6%; height: 18%}
+.tablero_apuestas .apuesta[data-numero="fila_3"] {left:93%; top: 43%; width: 6%; height: 18%}
+/* Apuestas para 2 números */
+.tablero_apuestas .apuesta[data-numero="1_2"],
+.tablero_apuestas .apuesta[data-numero="2_3"] {left:9.5%}
+.tablero_apuestas .apuesta[data-numero="4_5"],
+.tablero_apuestas .apuesta[data-numero="5_6"] {left:17%}
+.tablero_apuestas .apuesta[data-numero="7_8"],
+.tablero_apuestas .apuesta[data-numero="8_9"] {left:24%}
+.tablero_apuestas .apuesta[data-numero="10_11"],
+.tablero_apuestas .apuesta[data-numero="11_12"] {left:31%}
+.tablero_apuestas .apuesta[data-numero="13_14"],
+.tablero_apuestas .apuesta[data-numero="14_15"] {left:38%}
+.tablero_apuestas .apuesta[data-numero="16_17"],
+.tablero_apuestas .apuesta[data-numero="17_18"] {left:45%}
+.tablero_apuestas .apuesta[data-numero="19_20"],
+.tablero_apuestas .apuesta[data-numero="20_21"] {left:52%}
+.tablero_apuestas .apuesta[data-numero="22_23"],
+.tablero_apuestas .apuesta[data-numero="23_24"] {left:59%}
+.tablero_apuestas .apuesta[data-numero="25_26"],
+.tablero_apuestas .apuesta[data-numero="26_27"] {left:66%}
+.tablero_apuestas .apuesta[data-numero="28_29"],
+.tablero_apuestas .apuesta[data-numero="29_30"] {left:73%}
+.tablero_apuestas .apuesta[data-numero="31_32"],
+.tablero_apuestas .apuesta[data-numero="32_33"] {left:80%}
+.tablero_apuestas .apuesta[data-numero="34_35"],
+.tablero_apuestas .apuesta[data-numero="35_36"] {left:87%}
+
+
+.tablero_apuestas .apuesta[data-numero="1_4"],
+.tablero_apuestas .apuesta[data-numero="2_5"],
+.tablero_apuestas .apuesta[data-numero="3_6"] {left: 15%}
+.tablero_apuestas .apuesta[data-numero="4_7"],
+.tablero_apuestas .apuesta[data-numero="5_8"],
+.tablero_apuestas .apuesta[data-numero="6_9"] {left: 22%}
+.tablero_apuestas .apuesta[data-numero="7_10"],
+.tablero_apuestas .apuesta[data-numero="8_11"],
+.tablero_apuestas .apuesta[data-numero="9_12"] {left: 29%}
+.tablero_apuestas .apuesta[data-numero="10_13"],
+.tablero_apuestas .apuesta[data-numero="11_14"],
+.tablero_apuestas .apuesta[data-numero="12_15"] {left: 36%}
+.tablero_apuestas .apuesta[data-numero="13_16"],
+.tablero_apuestas .apuesta[data-numero="14_17"],
+.tablero_apuestas .apuesta[data-numero="15_18"] {left: 43%}
+.tablero_apuestas .apuesta[data-numero="16_19"],
+.tablero_apuestas .apuesta[data-numero="17_20"],
+.tablero_apuestas .apuesta[data-numero="18_21"] {left: 50%}
+.tablero_apuestas .apuesta[data-numero="19_22"],
+.tablero_apuestas .apuesta[data-numero="20_23"],
+.tablero_apuestas .apuesta[data-numero="21_24"] {left: 57%}
+.tablero_apuestas .apuesta[data-numero="22_25"],
+.tablero_apuestas .apuesta[data-numero="23_26"],
+.tablero_apuestas .apuesta[data-numero="24_27"] {left: 64%}
+.tablero_apuestas .apuesta[data-numero="25_28"],
+.tablero_apuestas .apuesta[data-numero="26_29"],
+.tablero_apuestas .apuesta[data-numero="27_30"] {left: 71%}
+.tablero_apuestas .apuesta[data-numero="28_31"],
+.tablero_apuestas .apuesta[data-numero="29_32"],
+.tablero_apuestas .apuesta[data-numero="30_33"] {left: 78%}
+.tablero_apuestas .apuesta[data-numero="31_34"],
+.tablero_apuestas .apuesta[data-numero="32_35"],
+.tablero_apuestas .apuesta[data-numero="33_36"] {left: 85%}
+
+.tablero_apuestas .apuesta[data-numero="1_2_4_5"],
+.tablero_apuestas .apuesta[data-numero="2_3_5_6"] {left: 15%}
+.tablero_apuestas .apuesta[data-numero="4_5_7_8"],
+.tablero_apuestas .apuesta[data-numero="5_6_8_9"] {left: 22%}
+.tablero_apuestas .apuesta[data-numero="7_8_10_11"],
+.tablero_apuestas .apuesta[data-numero="8_9_11_12"] {left: 29%}
+.tablero_apuestas .apuesta[data-numero="10_11_13_14"],
+.tablero_apuestas .apuesta[data-numero="11_12_14_15"] {left: 36%}
+.tablero_apuestas .apuesta[data-numero="13_14_16_17"],
+.tablero_apuestas .apuesta[data-numero="14_15_17_18"] {left: 43%}
+.tablero_apuestas .apuesta[data-numero="16_17_19_20"],
+.tablero_apuestas .apuesta[data-numero="17_18_20_21"] {left: 50%}
+.tablero_apuestas .apuesta[data-numero="19_20_22_23"],
+.tablero_apuestas .apuesta[data-numero="20_21_23_24"] {left: 57%}
+.tablero_apuestas .apuesta[data-numero="22_23_25_26"],
+.tablero_apuestas .apuesta[data-numero="23_24_26_27"] {left: 64%}
+.tablero_apuestas .apuesta[data-numero="25_26_28_29"],
+.tablero_apuestas .apuesta[data-numero="26_27_29_30"] {left: 71%}
+.tablero_apuestas .apuesta[data-numero="28_29_31_32"],
+.tablero_apuestas .apuesta[data-numero="29_30_32_33"] {left: 78%}
+.tablero_apuestas .apuesta[data-numero="31_32_34_35"],
+.tablero_apuestas .apuesta[data-numero="32_33_35_36"] {left: 85%}
+
+.tablero_apuestas .apuesta[data-numero="1"],
+.tablero_apuestas .apuesta[data-numero="2"],
+.tablero_apuestas .apuesta[data-numero="3"] {left: 9%}
+.tablero_apuestas .apuesta[data-numero="4"],
+.tablero_apuestas .apuesta[data-numero="5"],
+.tablero_apuestas .apuesta[data-numero="6"]{left: 16%}
+.tablero_apuestas .apuesta[data-numero="7"],
+.tablero_apuestas .apuesta[data-numero="8"],
+.tablero_apuestas .apuesta[data-numero="9"] {left: 23%}
+.tablero_apuestas .apuesta[data-numero="10"],
+.tablero_apuestas .apuesta[data-numero="11"],
+.tablero_apuestas .apuesta[data-numero="12"] {left: 30%}
+.tablero_apuestas .apuesta[data-numero="13"],
+.tablero_apuestas .apuesta[data-numero="14"],
+.tablero_apuestas .apuesta[data-numero="15"] {left: 37%}
+.tablero_apuestas .apuesta[data-numero="16"],
+.tablero_apuestas .apuesta[data-numero="17"],
+.tablero_apuestas .apuesta[data-numero="18"] {left: 44%}
+.tablero_apuestas .apuesta[data-numero="19"],
+.tablero_apuestas .apuesta[data-numero="20"],
+.tablero_apuestas .apuesta[data-numero="21"] {left: 51%}
+.tablero_apuestas .apuesta[data-numero="22"],
+.tablero_apuestas .apuesta[data-numero="23"],
+.tablero_apuestas .apuesta[data-numero="24"] {left: 58%}
+.tablero_apuestas .apuesta[data-numero="25"],
+.tablero_apuestas .apuesta[data-numero="26"],
+.tablero_apuestas .apuesta[data-numero="27"] {left: 65%}
+.tablero_apuestas .apuesta[data-numero="28"],
+.tablero_apuestas .apuesta[data-numero="29"],
+.tablero_apuestas .apuesta[data-numero="30"] {left: 72%}
+.tablero_apuestas .apuesta[data-numero="31"],
+.tablero_apuestas .apuesta[data-numero="32"],
+.tablero_apuestas .apuesta[data-numero="33"] {left: 79%}
+.tablero_apuestas .apuesta[data-numero="34"],
+.tablero_apuestas .apuesta[data-numero="35"],
+.tablero_apuestas .apuesta[data-numero="36"] {left: 86%}
+
+/* Si los elementos están en una fila, puedes usar flexbox para alinearlos */
+.contenedor {
+    display: flex;
+    justify-content: space-between; /* o cualquier otra propiedad de justificación que prefieras */
 }
+
+
+
+

@@ -64,9 +64,30 @@
     </div>
 
     <div class="tablero_apuestas" id="tablero_apuestas">
-        <div class="numero_0" onclick="colocarFicha(this, 25,-20, 120, 50)"></div>
-        <div class="numero_1_to_18" onclick="colocarFicha(this,20,0, 100,100 )"></div>
+    <!-- APUESTAS FILA 5-->
+    <div class="apuesta" data-numero="1_to_18" onclick="apuesta_18_numeros(this)"></div>
+    <div class="apuesta" data-numero="par" onclick="apuesta_18_numeros(this)"></div>
+    <div class="apuesta" data-numero="rojo" onclick="apuesta_18_numeros(this)"></div>
+    <div class="apuesta" data-numero="negro" onclick="apuesta_18_numeros(this)"></div>
+    <div class="apuesta" data-numero="impar" onclick="apuesta_18_numeros(this)"></div>
+    <div class="apuesta" data-numero="19_to_36" onclick="apuesta_18_numeros(this)"></div>
+    <!-- APUESTAS FILA 4-->
+    <div class="apuesta" data-numero="1_to_12" onclick="apuesta_12_numeros(this)" ></div>
+    <div class="apuesta" data-numero="12_to_24" onclick="apuesta_12_numeros(this)"></div>
+    <div class="apuesta" data-numero="24_to_36" onclick="apuesta_12_numeros(this)"></div>
+
+    <!-- Apuesta 2 Números -->
+    <div id="1_numero"></div>
+   <div id="2_numeros"></div>
+   <div id="4_numeros"></div>
+
+    <!--Apuesta 2 a 1 -->
+    <div class="apuesta" data-numero="fila_1" onclick="apuesta_12_numeros_2_1(this)"></div>
+    <div class="apuesta" data-numero="fila_2" onclick="apuesta_12_numeros_2_1(this)"></div>
+    <div class="apuesta" data-numero="fila_3" onclick="apuesta_12_numeros_2_1(this)"></div>
+
     </div>
+
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/ruleta_alertas.js"></script>
