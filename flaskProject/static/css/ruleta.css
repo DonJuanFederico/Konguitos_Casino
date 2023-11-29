@@ -434,8 +434,8 @@ body {
 
 .tablero_apuestas {
     position: absolute;
-    top: 25%;
-    left: 45%;
+    top: 20%;
+    left: 40%;
     background-image: url("/static/images/ruleta/apuestas.png");
     background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
     width: 50%;
@@ -448,7 +448,6 @@ body {
     position: absolute;
     z-index: 1;
     cursor: pointer;
-    background-color: red;
 }
 
 /* Estilos específicos para cada tipo de apuesta */

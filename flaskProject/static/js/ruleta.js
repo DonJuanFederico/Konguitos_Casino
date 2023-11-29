@@ -127,20 +127,19 @@ function apuesta_18_numeros(casilla) {
 /* ------ Apuesta 12 numeros ------ */
 function apuesta_12_numeros(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
-    console.log(numeroApuesta);
-    // colocarFicha(casilla, 50, 50, 10, 10);
+    colocarFicha(casilla, 5, 30, 35, 90);
 }
 
 /* ------ Apuesta 12 números por fila ------ */
 function apuesta_12_numeros_2_1(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
-    console.log(numeroApuesta);
+    colocarFicha(casilla, 20, 20, 70, 70);
 }
 
 /* ------ Apuesta 4 números------ */
 function apuesta_4_numeros(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
-    console.log(numeroApuesta);
+    colocarFicha(casilla, -75, -75, 250, 250);
 }
 
 
@@ -163,8 +162,8 @@ for (var i = 1; i <= 34; i += 3) {
     nuevoDiv1.setAttribute('onclick', 'apuesta_4_numeros(this)');
     nuevoDiv2.setAttribute('onclick', 'apuesta_4_numeros(this)');
 
-    nuevoDiv1.setAttribute('style', 'width: 2%; height: 3%; top:41%; background-color: white;');
-    nuevoDiv2.setAttribute('style', 'width: 2%; height: 3%; top:21%; background-color: white;');
+    nuevoDiv1.setAttribute('style', 'width: 2%; height: 3%; top:41%;'); //  background-color: white;
+    nuevoDiv2.setAttribute('style', 'width: 2%; height: 3%; top:21%;');
       // Agrega el nuevo div al contenedor
     if(i < 34){
         resultadoContainer.appendChild(nuevoDiv1);
@@ -175,7 +174,7 @@ for (var i = 1; i <= 34; i += 3) {
 /* ------ Apuesta 2 números ------ */
 function apuesta_2_numeros(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
-    console.log(numeroApuesta);
+    colocarFicha(casilla, -20,0,75,150)
 }
 
 
@@ -233,7 +232,7 @@ for (var i = 1; i <= 34; i += 3) {
 /* ------ Apuesta 1 número ------ */
 function apuesta_1_numeros(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
-    console.log(numeroApuesta);
+    colocarFicha(casilla, 15,20,70,70)
 }
 
 
@@ -259,9 +258,9 @@ for (var i = 1; i <= 36; i+=3) {
     nuevoDiv2.setAttribute('onclick', 'apuesta_1_numeros(this)');
     nuevoDiv3.setAttribute('onclick', 'apuesta_1_numeros(this)');
 
-    nuevoDiv1.setAttribute('style', 'width: 6%; height:19%; top:44%; background-color: white;');
-    nuevoDiv2.setAttribute('style', 'width: 6%; height:19%; top:24%; background-color: white;');
-    nuevoDiv3.setAttribute('style', 'width: 6%; height:19%; top:2%; background-color: white;');
+    nuevoDiv1.setAttribute('style', 'width: 6%; height:19%; top:44%;');
+    nuevoDiv2.setAttribute('style', 'width: 6%; height:19%; top:24%;');
+    nuevoDiv3.setAttribute('style', 'width: 6%; height:19%; top:2%;'); //background-color: white;
 
     resultadoContainer.appendChild(nuevoDiv1);
     resultadoContainer.appendChild(nuevoDiv2);
@@ -283,6 +282,16 @@ function colocarFicha(casilla, top, left, width, height) {
     // Verificar el rango del contador y actualizar la clase moneda
     const className = casilla.className;
     const tipo_apuesta = casilla.getAttribute("data-numero");
+    console.log("hhhhh", tipo_apuesta);
+    array = ['1_4','4_7','7_10','10_13','13_16','16_19','19_22','22_25','25_28','28_31','31_34',
+    '2_5','5_8','8_11','11_14','14_17','17_20','20_23','23_26','26_29','29_32','32_35',
+    '3_6','6_9','9_12','12_15','15_18','18_21','21_24','24_27','27_30','30_33','33_36']
+    if (array.includes(tipo_apuesta)) {
+        top = 40;
+        left = -60;
+        width = 250;
+        height = 25;
+    }
 
     // Crear un div para la ficha
     const ficha = document.createElement('div');
