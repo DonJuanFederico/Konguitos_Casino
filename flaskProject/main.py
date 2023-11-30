@@ -233,11 +233,10 @@ def A_Jugar():
 def dados():
     return render_template('dice_index.html')
 
-
 @app.route('/Juegos/Ruleta/')
 def ruleta():
-    DINERO = obtenerDinero()
-    return render_template('ruleta.html', DINERO = DINERO)
+    dinero = obtenerDinero()
+    return render_template('ruleta.html', dinero=dinero)
 
 @app.route('/Juegos/DinoKongo/', methods=['GET'])
 def dino():
