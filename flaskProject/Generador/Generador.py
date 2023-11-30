@@ -1,5 +1,23 @@
 # pip install faker
 
+
+#    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
+#    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
+#    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
+#    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
+#    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
+#    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
+#    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+# Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
+# Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
+# Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
+# Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
+# Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
+# Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
+# Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
+
 import mysql.connector
 from faker import Faker
 from datetime import datetime
@@ -7,7 +25,6 @@ import hashlib
 
 
 def main():
-    # Configuración de la base de datos
     db_config = {
         "host": "konguitoscasino.mysql.database.azure.com",
         "user": "KingKonguito",
@@ -17,18 +34,12 @@ def main():
     }
 
     try:
-        # Conexión a la base de datos
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
-
-        # Instancia de Faker para generar datos ficticios
         faker = Faker()
-
-        # Función para cifrar contraseñas
         def cifrar_contraseña(contraseña):
             return hashlib.sha256(contraseña.encode()).hexdigest()
 
-        # Generar e insertar 10 usuarios ficticios con contraseñas cifradas
         for _ in range(1000):
             nombre_usuario = faker.user_name()
             contraseña = cifrar_contraseña(faker.password())
@@ -42,7 +53,6 @@ def main():
 
             dinero_ganado = faker.random_int(0, 10000)
 
-            # Consulta SQL para insertar un usuario ficticio con contraseña cifrada
             query = """
                 INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FechaDeCreacion, Calle, CodigoPostal, DineroGanado)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
@@ -51,15 +61,12 @@ def main():
             nombre_usuario, contraseña, correo, dni, dinero, telefono, fecha_creacion, calle, codigo_postal, dinero_ganado)
 
             cursor.execute(query, values)
-
-        # Confirmar la transacción
         conn.commit()
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
 
     finally:
-        # Cerrar la conexión
         if 'conn' in locals() and conn.is_connected():
             cursor.close()
             conn.close()
