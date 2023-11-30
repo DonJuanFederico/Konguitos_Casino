@@ -516,34 +516,32 @@ def obtenerDineroGanado(nombre_usuario):
             close_connection(conn)
 
 def obtenerRankingDineroGanado():
-        conn = connect()
-        if conn:
-            cursor = conn.cursor(dictionary=True)  # Establecer el cursor para devolver resultados como diccionarios
-            try:
-                # Consulta SQL para obtener usuarios con su correspondiente DineroGanado y Calle, ordenado por DineroGanado descendente
-                query = "SELECT NombreUsuario, DineroGanado, Calle FROM usuarios ORDER BY DineroGanado DESC"
-                cursor.execute(query)
-                resultados = cursor.fetchall()
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)  # Establecer el cursor para devolver resultados como diccionarios
+        try:
+            # Consulta SQL para obtener los 50 mejores usuarios con su correspondiente DineroGanado y Calle,
+            # ordenado de mas a menos dinero ganado
+            query = "SELECT NombreUsuario, DineroGanado, Calle FROM usuarios ORDER BY DineroGanado DESC LIMIT 50"
+            cursor.execute(query)
+            resultados = cursor.fetchall()
 
-                # Modificar la información del usuario para incluir el país en lugar de la calle
-                usuarios_con_dinero = []
+            # Modificar la información del usuario para incluir el país en lugar de la calle y el número en el ranking
+            usuarios_con_dinero = []
 
-                for row in resultados:
-                    nombre_usuario = row["NombreUsuario"]
-                    dinero_ganado = row["DineroGanado"]
-                    calle = row["Calle"]
+            for i, row in enumerate(resultados, start=1):
+                nombre_usuario = row["NombreUsuario"]
+                dinero_ganado = row["DineroGanado"]
+                calle = row["Calle"]
 
-                    # Obtener el país desde la dirección
-                    pais = obtener_pais_desde_direccion(calle)
+                # Agregar la información del usuario a la lista con el número en el ranking
+                usuarios_con_dinero.append(
+                    { "NombreUsuario": nombre_usuario, "DineroGanado": dinero_ganado, "Calle": calle,"Ranking": i})
 
-                    # Agregar la información del usuario a la lista
-                    usuarios_con_dinero.append(
-                        {"NombreUsuario": nombre_usuario, "DineroGanado": dinero_ganado, "Pais": pais})
-
-                return usuarios_con_dinero
-            except mysql.connector.Error as err:
-                print(f"Error de MySQL: {err}")
-            finally:
-                cursor.close()
-                close_connection(conn)
+            return usuarios_con_dinero
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
 
