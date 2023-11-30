@@ -1,119 +1,3 @@
-window.anime = anime;
-
-var currentBallRotation = 0;
-var currentWheelRotation = 0;
-var currentWheelIndex = 0;
-var isRotating = false;
-const rouletteWheelNumbers = [
-  0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13,
-  36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14,
-  31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
-];
-
-const getRouletteWheelNumber = index =>
-  rouletteWheelNumbers[index >= 0 ? index % 37 : (37 - Math.abs(index % 37)) % 37];
-
-
-const getRouletteWheelColor = index => {
-  const i = index >= 0 ? index % 37 : 37 - Math.abs(index % 37);
-  return i == 37 ? "green" : i % 2 == 0 ? "black" : "red";
-};
-
-window.rouletteWheelNumbers = rouletteWheelNumbers;
-
-function addFlipper() {
-  const mkDiv = className => {
-    const d = document.createElement("div");
-    d.classList.add(...className.split(" "));
-    return d;
-  };
-  const flipper = mkDiv("flipper");
-  const front = mkDiv("front-face");
-  const back = mkDiv("back-face");
-  flipper.appendChild(front);
-  flipper.appendChild(back);
-  return (number, color) => {
-    flipper.classList.add("flip", color);
-    back.innerText = number;
-  };
-}
-
-function startRotation(speed) {
-  if (isRotating) {
-    return;
-  }
-
-  isRotating = true;
-
- const nuevoDiv = document.createElement("div");
-  nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
-
-  const cuerpoDocumento = document.body;
-  cuerpoDocumento.appendChild(nuevoDiv);
-  setTimeout(() => {
-    const writeResult = addFlipper();
-
-    const bezier = [0.165, 0.84, 0.44, 1.005];
-    const newWheelIndex = currentWheelIndex - speed;
-    const result = getRouletteWheelNumber(newWheelIndex);
-    const resultColor = getRouletteWheelColor(newWheelIndex);
-    (() => {
-      const newRotaion = currentWheelRotation + (360 / 37) * speed;
-      console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
-      var myAnimation = anime({
-        targets: [".layer-2", ".layer-4"],
-        rotate: function() {
-          return newRotaion;
-        },
-        duration: function() {
-          return 10000;
-        },
-        loop: 1,
-        // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
-        easing: `cubicBezier(${bezier.join(",")})`,
-        // easing: "cubicBezier(0.000, 1.175, 0.980, 0.990)",
-        complete: (...args) => {
-          currentWheelRotation = newRotaion;
-          currentWheelIndex = newWheelIndex;
-        }
-      });
-    })();
-
-    (() => {
-      const newRotaion = -4 * 360 + currentBallRotation;
-      var myAnimation1 = anime({
-        targets: ".ball-container",
-        translateY: [
-          { value: 0, duration: 2000 },
-          { value: 20, duration: 1000 },
-          { value: 25, duration: 900 },
-          { value: 50, duration: 1000 }
-        ],
-        rotate: [{ value: newRotaion, duration: 9000 }],
-        duration: function() {
-          return 7000; // anime.random(800, 1400);
-        },
-        loop: 1,
-        easing: `cubicBezier(${bezier.join(",")})`,
-        complete: () => {
-          currentBallRotation = newRotaion;
-          writeResult(result, resultColor);
-          isRotating = false;
-        }
-      });
-    })();}, 500);
-}
-
-document.querySelector(".roulette-wheel").addEventListener(
-  "touchmove",
-  e => {
-    e.preventDefault();
-  },
-  { passive: false }
-);
-
-
-
 /* ------------------------------------ APUESTAS ------------------------------------*/
 
 
@@ -250,9 +134,9 @@ for (var i = 1; i <= 36; i+=3) {
     nuevoDiv3.className = 'apuesta';
 
       // Agrega los números al atributo data-numero
-    nuevoDiv1.setAttribute('data-numero', i); //1
-    nuevoDiv2.setAttribute('data-numero', i+1); //2
-    nuevoDiv3.setAttribute('data-numero', i+2); //3
+    nuevoDiv1.setAttribute('data-numero',i); //1
+    nuevoDiv2.setAttribute('data-numero',i+1); //2
+    nuevoDiv3.setAttribute('data-numero',i+2); //3
 
     nuevoDiv1.setAttribute('onclick', 'apuesta_1_numeros(this)');
     nuevoDiv2.setAttribute('onclick', 'apuesta_1_numeros(this)');
@@ -282,7 +166,6 @@ function colocarFicha(casilla, top, left, width, height) {
     // Verificar el rango del contador y actualizar la clase moneda
     const className = casilla.className;
     const tipo_apuesta = casilla.getAttribute("data-numero");
-    console.log("hhhhh", tipo_apuesta);
     array = ['1_4','4_7','7_10','10_13','13_16','16_19','19_22','22_25','25_28','28_31','31_34',
     '2_5','5_8','8_11','11_14','14_17','17_20','20_23','23_26','26_29','29_32','32_35',
     '3_6','6_9','9_12','12_15','15_18','18_21','21_24','24_27','27_30','30_33','33_36']
@@ -320,25 +203,177 @@ function colocarFicha(casilla, top, left, width, height) {
     } else {
         valorMoneda = 0;
     }
-    console.log(tipo_moneda, valorMoneda, tipo_apuesta);
-    console.log("arrayApuestas", arrayApuestas);
 
     var apuestaEncontrada = arrayApuestas.find(apuesta => apuesta.nombre === tipo_apuesta);
     if (apuestaEncontrada) {
-        console.log("Existe");
-        console.log("apuestaEncontrada", apuestaEncontrada.valor);
         apuestaEncontrada.valor += valorMoneda;
-        console.log("apuestaEncontrada", apuestaEncontrada.valor);
     } else {
-        console.log("No existe");
         arrayApuestas.push({nombre: tipo_apuesta, valor: valorMoneda});
     }
+    console.log("arrayApuestas", arrayApuestas);
 }
 
 /* ------ Seleccionar moneda, Cambia de valor la variable moneda para colocar  ------ */
 function seleccionarMoneda(elemento) {
     // Obtener la clase de la moneda desde el elemento clicado
     moneda = elemento.className;
+}
+
+/* -------- Ruleta -------- */
+
+window.anime = anime;
+
+var currentBallRotation = 0;
+var currentWheelRotation = 0;
+var currentWheelIndex = 0;
+var isRotating = false;
+const rouletteWheelNumbers = [
+  0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13,
+  36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14,
+  31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+];
+
+const getRouletteWheelNumber = index =>
+  rouletteWheelNumbers[index >= 0 ? index % 37 : (37 - Math.abs(index % 37)) % 37];
+
+
+const getRouletteWheelColor = index => {
+  const i = index >= 0 ? index % 37 : 37 - Math.abs(index % 37);
+  return i == 37 ? "green" : i % 2 == 0 ? "black" : "red";
+};
+
+window.rouletteWheelNumbers = rouletteWheelNumbers;
+
+function addFlipper() {
+  const mkDiv = className => {
+    const d = document.createElement("div");
+    d.classList.add(...className.split(" "));
+    return d;
+  };
+  const flipper = mkDiv("flipper");
+  const front = mkDiv("front-face");
+  const back = mkDiv("back-face");
+  flipper.appendChild(front);
+  flipper.appendChild(back);
+  return (number, color) => {
+    flipper.classList.add("flip", color);
+    back.innerText = number;
+  };
+}
+
+function startRotation(speed) {
+    speed = 50;
+  if (isRotating) {
+    return;
+  }
+
+  isRotating = true;
+
+ const nuevoDiv = document.createElement("div");
+  nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
+
+  const cuerpoDocumento = document.body;
+  cuerpoDocumento.appendChild(nuevoDiv);
+   let writeResult = addFlipper();
+    let bezier = [0.165, 0.84, 0.44, 1.005];
+    let newWheelIndex = currentWheelIndex - speed;
+    let result = getRouletteWheelNumber(newWheelIndex);
+    let resultColor = getRouletteWheelColor(newWheelIndex);
+  setTimeout(() => {
+    (() => {
+      const newRotaion = currentWheelRotation + (360 / 37) * speed;
+      console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
+      var myAnimation = anime({
+        targets: [".layer-2", ".layer-4"],
+        rotate: function() {
+          return newRotaion;
+        },
+        duration: function() {
+          return 10000;
+        },
+        loop: 1,
+        // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
+        easing: `cubicBezier(${bezier.join(",")})`,
+        // easing: "cubicBezier(0.000, 1.175, 0.980, 0.990)",
+        complete: (...args) => {
+          currentWheelRotation = newRotaion;
+          currentWheelIndex = newWheelIndex;
+        }
+      });
+    })();
+
+    (() => {
+      const newRotaion = -4 * 360 + currentBallRotation;
+      var myAnimation1 = anime({
+        targets: ".ball-container",
+        translateY: [
+          { value: 0, duration: 2000 },
+          { value: 20, duration: 1000 },
+          { value: 25, duration: 900 },
+          { value: 50, duration: 1000 }
+        ],
+        rotate: [{ value: newRotaion, duration: 9000 }],
+        duration: function() {
+          return 7000; // anime.random(800, 1400);
+        },
+        loop: 1,
+        easing: `cubicBezier(${bezier.join(",")})`,
+        complete: () => {
+          currentBallRotation = newRotaion;
+          writeResult(result, resultColor);
+          isRotating = false;
+        }
+      });
+    })();
+    }, 500);
+  setTimeout(() => {
+        calcularApuesta(result);
+    },500);
+}
+
+function calcularApuesta(resultado) {
+    var apuestasEncontradas = arrayApuestas.filter(apuesta => apuesta.nombre.includes(resultado));
+    var apuestasNoEncontradas = arrayApuestas.filter(apuesta => !apuestasEncontradas.includes(apuesta));
+    console.log("apuestasEncontradas", apuestasEncontradas);
+    console.log("apuestasNoEncontradas", apuestasNoEncontradas);
+    let ganado = 0;
+    let perdido = 0;
+    if(apuestasNoEncontradas.length > 0){
+        for(var apuestaPerdida of apuestasNoEncontradas){
+            perdido += apuestaPerdida.valor;
+        }
+    }
+    if (apuestasEncontradas.length > 0) {
+        for (var apuestaGanada of apuestasEncontradas) {
+            if (apuestaGanada.nombre == resultado) { // Apuesta a un número
+                ganado = apuestaGanada.valor * 35;
+            }
+        }
+    } else {
+        console.log("No hay apuestas");
+    }
+    console.log("ganado", ganado);
+    console.log("perdido", perdido);
+    agregarDinero(ganado)
+    retirarDinero(perdido)
+}
+
+function agregarDinero(ganado) {
+    let dineroUsuarioElement = document.querySelector('#monedasUsuario');
+    dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) + ganado;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + ganado);
+}
+
+function retirarDinero(perdido) {
+    let dineroUsuarioElement = document.querySelector('#monedasUsuario');
+    dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) - perdido;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + perdido);
 }
 
 function volverAtras(){document.location.href = '/Juegos/';}
