@@ -48,39 +48,47 @@ function mostrar(){
         document.getElementById('rank').style.cursor = 'pointer';
         document.getElementById('rank').style.opacity = 1;
     }, 700);
+    setTimeout( () => {
+        document.getElementById('trophy').style.cursor = 'pointer';
+        document.getElementById('trophy').style.opacity = 1;
+    }, 800);
 }
 
 // ocultar los submenus
 // NO OCURRE HASTA Q TERMINA LA ANIMACION DEL MENU PRINCIPAL
 function ocultar(){
     setTimeout( () => {
+        document.getElementById('trophy').style.cursor = 'default';
+        document.getElementById('trophy').style.opacity = 0;
+    }, 100);
+    setTimeout( () => {
         document.getElementById('rank').style.cursor = 'default';
         document.getElementById('rank').style.opacity = 0;
-    }, 100);
+    }, 200);
     setTimeout( () => {
         document.getElementById('headset').style.cursor = 'default';
         document.getElementById('headset').style.opacity = 0;
-    }, 200);
+    }, 300);
     setTimeout( () => {
         document.getElementById('volume').style.cursor = 'default';
         document.getElementById('volume').style.opacity = 0;
-    }, 300);
+    }, 400);
     setTimeout( () => {
         document.getElementById('buscador').style.cursor = 'default';
         document.getElementById('buscador').style.opacity = 0;
-    }, 400);
+    }, 500);
     setTimeout( () => {
         document.getElementById('ajustes').style.cursor = 'default';
         document.getElementById('ajustes').style.opacity = 0;
-    }, 500);
+    }, 600);
     setTimeout( () => {
         document.getElementById('home').style.cursor = 'default';
         document.getElementById('home').style.opacity = 0;
-    }, 600);
+    }, 700);
     setTimeout( () => {
         document.getElementById('out').style.cursor = 'default';
         document.getElementById('out').style.opacity = 0;
-    }, 700);
+    }, 800);
 }
 
 let block = false;
@@ -149,6 +157,7 @@ inputSearch.addEventListener("keyup", () => {
 function paginaHome(){ if(block) document.location.href = '/Juegos/';}
 function paginaAjustes() { if (block) document.location.href = '/Perfil_de_usuario/';}
 function ayuda() { if (block) document.location.href = '/soporte_cliente/';}
+function desafios() { if (block) document.location.href = '/desafios_recompensas/';}
 function cartas(){ if(block) document.location.href = '/Juegos/Indice_cartas/Carta_mas_alta/';}
 function blackJack(){ if(block) document.location.href = '/Juegos/Indice_cartas/Blackjack/';}
 function poker(){ if(block) document.location.href = '/Juegos/Indice_cartas/Poker/';}
@@ -189,6 +198,8 @@ function teclaPresionada(){
         else if(miBusqueda === 'PLINKO') plinko();
         else if(miBusqueda === 'BINGO') bingo();
         else if(miBusqueda === 'EVENTOS') eventos();
+        else if(miBusqueda === 'AYUDA') ayuda();
+        else if(miBusqueda === 'DESAFIOS') desafios();
         else if(miBusqueda === 'RANKINGS') rankings();
     }
 }

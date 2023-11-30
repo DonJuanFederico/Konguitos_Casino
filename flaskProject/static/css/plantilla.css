@@ -20,19 +20,19 @@ body{
     top: 90%;
     cursor: pointer;
 }
-#bars__menu:hover, #home:hover, #ajustes:hover, #buscador:hover, #volume:hover, #out:hover, #headset:hover, #rank:hover{
+#bars__menu:hover, #home:hover, #ajustes:hover, #buscador:hover, #volume:hover, #out:hover, #headset:hover, #rank:hover, #trophy:hover{
     color: darkgoldenrod;
     filter: drop-shadow(10px 10px 10px rgba(0,0,0,1));
 }
 
-#bars__menu, #home, #ajustes, #buscador, #volume, #out, #headset, #rank{
+#bars__menu, #home, #ajustes, #buscador, #volume, #out, #headset, #rank, #trophy{
     width: 30px;
     height: 30px;
     position: absolute;
     left: 95%;
     transform: translate(-50%, -50%);
 }
-#home, #ajustes, #buscador, #volume, #out, #headset, #rank{
+#home, #ajustes, #buscador, #volume, #out, #headset, #rank, #trophy{
     opacity: 0;
     transition: opacity 0.4s;
     margin-top: 2px;
@@ -45,6 +45,7 @@ body{
 #volume{top: 65%;}
 #headset{top: 60%;}
 #rank{top: 55%;}
+#trophy{top: 50%;}
 #vOn{
     opacity: 1;
     display: block;
