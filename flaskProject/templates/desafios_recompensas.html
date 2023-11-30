@@ -1,0 +1,27 @@
+{% block title %} Desafios y Recompensas {% endblock %}
+{% block stylesheets %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/css/desafios_recompensas.css">
+{% endblock %}
+{% block body %}
+<header>
+    <h1>Desafíos y Recompensas</h1>
+</header>
+
+<section id="challenges">
+    <h2>Desafíos</h2>
+    <ul id="challenge-list"></ul>
+    <button onclick="addChallenge()">Agregar Desafío</button>
+</section>
+
+<section id="rewards">
+    <h2>Recompensas</h2>
+    <ul id="reward-list"></ul>
+    <button onclick="addReward()">Agregar Recompensa</button>
+</section>
+{% endblock %}
+{% block javascript %}
+<script src="/static/js/desafios_recompensas.js"></script>
+{% endblock %}
+```

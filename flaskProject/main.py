@@ -215,6 +215,9 @@ def perfil():
 def ayuda():
     return render_template('soporte_cliente.html')
 
+def desafios():
+    return render_template('desafios_recompensas.html')
+
 # direcciones de las categorias de juegos
 #idice de juegos de cartas
 @app.route('/Juegos/Indice_cartas/', methods=['GET'])
