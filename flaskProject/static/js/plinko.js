@@ -60,14 +60,13 @@ function resultado(){
 */
 
 
-
 document.addEventListener("DOMContentLoaded", function() {
     var ball = document.getElementById("ball");
     var pegs = document.querySelectorAll(".peg"); // Obtiene todos los elementos de la clase "peg"
 
     var acceleration = 0.1;
     var velocity = 0;
-
+    var audio = new Audio('/static/audio/uff.mp3');
     // Ajusta la posición inicial de la bola entre un 2% y un 0.1% respecto al centro de la esfera "peg" más cercana al borde superior
     var initialPositionFactor = Math.random() * (0.02 - 0.001) + 0.001;
     var firstPeg = pegs[0]; // Obtiene el primer elemento del array de esferas "peg"
@@ -95,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (
           newY + ball.clientHeight >= peg.offsetTop &&
           newY <= peg.offsetTop + peg.clientHeight &&
-          Math.abs(relativePosition) <= (peg.clientWidth / 2) &&
+          Math.abs(relativePosition) <= (peg.clientWidth / 2 + ball.clientWidth / 2) && // Añade el radio de la bola al radio de la esfera "peg" al comprobar la distancia entre sus centros
           ball.offsetLeft + ball.clientWidth >= peg.offsetLeft &&
           ball.offsetLeft <= peg.offsetLeft + peg.clientWidth
         ) {
@@ -103,10 +102,11 @@ document.addEventListener("DOMContentLoaded", function() {
           velocity = -velocity * bounceFactor;
 
           // Ajusta la posición de la bola para evitar la superposición
-          ball.style.top = (peg.offsetTop - ball.clientHeight) + "px";
-
-          // Ajusta la dirección lateral de la bola en función de la posición relativa
-          ball.style.left = (ball.offsetLeft - relativePosition) + "px";
+          var distance = Math.sqrt(Math.pow(relativePosition, 2) + Math.pow(velocity, 2)); // Calcula la distancia entre el centro de la bola y el centro de la esfera "peg"
+          var angle = Math.abs(Math.atan2(velocity, relativePosition)); // Usa la función Math.abs para obtener el valor absoluto del ángulo
+          var offset = (peg.clientWidth / 2 + ball.clientWidth / 2) - distance; // Calcula el desplazamiento necesario para evitar la superposición
+          ball.style.top = (ball.offsetTop - Math.sign(velocity) * offset * Math.sin(angle)) + "px"; // Ajusta la posición vertical de la bola según el signo de la velocidad, el desplazamiento y el ángulo
+          ball.style.left = (ball.offsetLeft - Math.sign(relativePosition) * offset * Math.cos(angle)) + "px"; // Ajusta la posición horizontal de la bola según el signo de la posición relativa, el desplazamiento y el ángulo
 
           // Reproduce un sonido de rebote
           audio.play();
@@ -134,5 +134,6 @@ document.addEventListener("DOMContentLoaded", function() {
       requestAnimationFrame(updateBallPosition);
     });
   });
+
 
 
