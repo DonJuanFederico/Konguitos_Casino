@@ -1,9 +1,6 @@
 body {
     font-family: Arial, sans-serif;
     color: #050505;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
 }
 
 #Titulo {
@@ -13,7 +10,10 @@ body {
     flex-direction: column;
     padding: 20px;
     height: 150px;
-    top: 0; /* Posiciona el elemento en la parte superior */
+    top: 0;
+    position: absolute;
+    width: 100%;
+    z-index: -2;
 }
 
 #Titulo h1 {
@@ -26,6 +26,7 @@ body {
     background: white;
     border-radius: 10px;
     box-shadow: 0 10px 10px rgb(7, 7, 7);
+    position: relative;
     width: 200px;
     height: 150px;
     margin: 20px;
@@ -50,15 +51,17 @@ body {
     position: absolute;
     top: 15%;
     left: 35%;
+    z-index: -1;
 }
 
 .progreso {
     display: flex;
     flex-direction: column;
     position: absolute;
-    width: 90%;
-    left: 5%;
+    width: 80%;
+    left: 10%;
     top: 40%;
+    z-index: -1; /* Esto enviará el elemento .progreso hacia atrás */
 }
 
 table {
