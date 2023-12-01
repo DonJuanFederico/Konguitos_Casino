@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       // Solicita una nueva actualización en el próximo cuadro de animación
-      requestAnimationFrame(updateBallPosition);
+      requestAnimationFrame(updateBallPosition); // Añade esta línea para crear un bucle de animación
     }
 
     document.addEventListener("click", function() {
@@ -127,7 +127,12 @@ document.addEventListener("DOMContentLoaded", function() {
       var newPositionFactor = Math.random() * (0.02 - 0.001) + 0.001;
       ball.style.left = (firstPeg.offsetLeft + firstPeg.clientWidth / 2 - ball.clientWidth / 2) * (1 + newPositionFactor) + "px";
 
+      // Resetea la velocidad y la posición de la bola al hacer clic
+      velocity = 0; // Añade esta línea para resetear la velocidad
+      ball.style.top = 0; // Añade esta línea para resetear la posición
+
       requestAnimationFrame(updateBallPosition);
     });
   });
+
 
