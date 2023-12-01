@@ -329,8 +329,9 @@ async function startRotation(speed) {
                 isRotating = false;
             }
         });
-
-        calcularApuesta(result);
+        setTimeout(() => {
+            calcularApuesta(result);
+        },8500);
     }, 800);
     while (i <= 18) {
         imagen.src = `/static/images/ruleta/framesRuleta/${i}.png`;
@@ -343,7 +344,7 @@ async function startRotation(speed) {
 
 
 function calcularApuesta(resultado) {
-    const apuesta1numero = arrayApuestas.filter(apuesta => apuesta.nombre.includes(resultado));
+    const apuesta1numero = arrayApuestas.filter(apuesta => apuesta.nombre === resultado);
     const apuesta1a18 = arrayApuestas.find(apuesta => apuesta.nombre === "1_to_18");
     const apuesta19a36 = arrayApuestas.find(apuesta => apuesta.nombre === "19_to_36");
     const apuestaPar = arrayApuestas.find(apuesta => apuesta.nombre === "par");
@@ -359,6 +360,7 @@ function calcularApuesta(resultado) {
 
     let ganado = 0;
     let perdido = 0;
+    const numero = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
     const primeros_18_numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ];
     const segundos_18_numeros = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28 ,29 ,30 ,31 ,32 ,33 ,34 ,35 ,36];
     const par = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36];
@@ -371,7 +373,6 @@ function calcularApuesta(resultado) {
     const primeraFila =[3, 6, 9, 12, 15, 18, 21, 24, 27 ,30 ,33 ,36];
     const segundaFila = [2, 5, 8, 11, 14, 17, 20, 23, 26 ,29 ,32 ,35];
     const terceraFila = [1, 4, 7, 10, 13, 16, 19, 22, 25 ,28 ,31 ,34];
-
     let apuestas_perdidas = arrayApuestas
     console.log("h:", primeros_18_numeros.includes(resultado))
     console.log("a:", segundos_18_numeros.includes(resultado))
@@ -504,7 +505,7 @@ function calcularApuesta(resultado) {
     console.log("1numero", apuesta1numero)
     console.log(apuesta1numero.valor)
     console.log("apuestas", arrayApuestas)
-    if(apuesta1numero.length > 0) {
+    if(apuesta1numero.includes(resultado)) {
         ganado += (apuesta1numero[0].valor * 36)
         apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== resultado);
         console.log(`${resultado} está en la categoría: ${resultado}`);
