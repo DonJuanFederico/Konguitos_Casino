@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 #Inicializar flask socketio
 socketio = SocketIO(app)
-ROOMS = ["lounge", "Sala 1", "Sala 2", "Sala 3"]
+ROOMS = []
 
 #python
 #import os
@@ -324,18 +324,18 @@ def page_not_found(error):
 
 @app.route('/crear_partida', methods=['POST'])
 def crear_partida():
+    ROOMS.append(request.form.get('nombre_partida'))
     registrarPartida(obtener_nombre(), request.form.get('nombre_partida'))
     return "Partida creada correctamente"
 
 
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
-    print(obtener_nombre())
     return render_template('partidaBingo.html', username = obtener_nombre(), rooms = ROOMS)
 
 @socketio.on("message")
 def message(data):
-    send({"msg": data["msg"], "username": obtener_nombre(), "time_stamp": strftime("%b-%d %I:%M%p", localtime())}, room = data["room"])
+    send({"msg": data["msg"], "username": data["username"], "time_stamp": strftime("%b-%d %I:%M%p", localtime())}, room=data["room"])
     print(f"{data}")
     #Evento personalizado:
     #emit("some-event", "this is a custom event message")
@@ -344,12 +344,7 @@ def message(data):
 def join(data):
     #Antes del send especificar la sala
     join_room(data["room"])
-    send({"msg": obtener_nombre() + " se ha unido a la sala " + data["room"]}, room = data["room"])
-
-@socketio.on("leave")
-def leave(data):
-    leave_room(data["room"])
-    send({"msg": obtener_nombre()+ " se ha salido de la sala " + data["room"]}, room = data["room"])
+    send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room = data["room"])
 
 @socketio.on("anadir")
 def anadir(data):
@@ -364,6 +359,11 @@ def pedirCarton():
     global carton_generado
     carton_generado = creador.generar_carton()
     emit("cartonRecibido", {"carton_generado": carton_generado})
+
+@socketio.on("valorNumero")
+def valorNumero():
+    emit("numeroRecibido", {"resultado": int(data["resultado"])}, room=data["room"])
+
 
 @app.route('/guardar_carton', methods=['POST'])
 def guardar_carton():
@@ -382,6 +382,12 @@ def guardar_carton():
 def obtener_carton():
     carton = mostrarCarton(obtener_nombre())
     return jsonify({"carton": carton})
+
+@app.route('/buscar_anfitrion', methods=['POST'])
+def buscar_anfitrion():
+    nombre_usuario = request.form.get('nombre_usuario')
+    resultado = buscarAnfitrion(nombre_usuario)
+    return jsonify({'resultado': resultado})
 
 if __name__ == "__main__":
     import os
