@@ -2,17 +2,18 @@ function reglas() {
     Swal.fire({
         title: 'Reglas',
         html: "<div style='text-align: center;'>" +
-            " En cada partida el Konguito lanza una bola sobre la ruleta en movimiento," +
-            " después de que la bola gire varias vueltas caerá sobre una de las casillas de la ruleta." +
-            " El objetivo del juego es predecir en que casilla caerá la bola." +
-            "<br> <br> El Konguito anuncia el inicio de una nueva partida," +
-            " en ese momento las apuestas para la siguiente partida quedan abiertas," +
-            " los jugadores podrán realizar sus apuestas sobre el tapete hasta que el Konguito " +
-            " cierre las apuestas. Después de cerrar las apuestas," +
-            " el Konguito lanzará la bola, cuando la bola se detenga en alguna de las casillas, " +
-            "el crupier anunciará el numero ganador y las apuestas ganadoras, " +
-            "seguidamente procederá a retirar las apuestas perdedoras y a pagar las apuestas ganadoras." +
-            "</div>",
+            "1. Se escoje la ficha que se quiere apostar" +
+            "<br>2. Se escoje la casilla a la que se quiere apostar" +
+            "<br>1to18: 1 a 18" +
+            "<br>19to36: 19 a 36" +
+            "<br>even: pares" +
+            "<br>odd: impares" +
+            "<br>red: rojos" +
+            "<br>black: negro" +
+            "<br> 1st 12: 1 a 12" +
+            "<br> 2nd 12: 13 a 24" +
+            "<br> 3rd 12: 25 a 36" +
+            "<br> 3. Pulsa el botón girar",
         confirmButtonText: '¡Dejame Jugar!',
         confirmButtonColor: '#3085d6',
         backdrop: true,
@@ -26,8 +27,12 @@ function reglas() {
 function recompensas() {
     Swal.fire({
         title: 'Recompensas',
-        html: "<div style='text-align: center;'>" +
-            "</div>",
+        html: "<div style='text-align: center;'></div>" +
+            "<br> 36 números: 1 a 1" +
+            "<br> 24 números: 1 a 1" +
+            "<br> 18 números: 1 a 1" +
+            "<br> 12 números: 2 a 1" +
+            "<br> 1 número: 35 a 1",
         confirmButtonText: '¡Dejame Jugar!',
         confirmButtonColor: '#3085d6',
         backdrop: true,

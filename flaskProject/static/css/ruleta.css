@@ -15,6 +15,18 @@ html, body {
     width: 10%;
 }
 
+.botonDeApuestas{
+    position: absolute;
+    left: 71%;
+    top: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 10%;
+}
+
 .botonDeRecompensas {
     position: absolute;
     left: 50%;
