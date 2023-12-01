@@ -2,8 +2,18 @@ from flask import Flask, render_template, request, jsonify, Response, redirect, 
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
+from waitress import serve
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
+import re
+from CartonBingo.CreadorCarton import CreadorCarton
+from time import strftime, localtime
 
 app = Flask(__name__)
+
+#Inicializar flask socketio
+socketio = SocketIO(app)
+ROOMS = ["lounge", "Sala 1", "Sala 2", "Sala 3"]
+
 #python
 #import os
 #random_bytes = os.urandom(12)
@@ -280,7 +290,7 @@ def retirar_dinero():
 @app.route('/Juegos/Juegos_extra/Bingo')
 def bingo():
     DINERO = obtenerDinero()
-    return render_template('bingo.html', DINERO = DINERO)
+    return render_template('bingo.html', DINERO = DINERO, rooms = ROOMS)
 
 @app.route('/Juegos/Juegos_extra/Slots')
 def slots():
@@ -312,5 +322,69 @@ def plinko():
 def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=3000)
+@app.route('/crear_partida', methods=['POST'])
+def crear_partida():
+    registrarPartida(obtener_nombre(), request.form.get('nombre_partida'))
+    return "Partida creada correctamente"
+
+
+@app.route('/partidaBingo', methods=['GET', 'POST'])
+def partidaBingo():
+    print(obtener_nombre())
+    return render_template('partidaBingo.html', username = obtener_nombre(), rooms = ROOMS)
+
+@socketio.on("message")
+def message(data):
+    send({"msg": data["msg"], "username": obtener_nombre(), "time_stamp": strftime("%b-%d %I:%M%p", localtime())}, room = data["room"])
+    print(f"{data}")
+    #Evento personalizado:
+    #emit("some-event", "this is a custom event message")
+
+@socketio.on("join")
+def join(data):
+    #Antes del send especificar la sala
+    join_room(data["room"])
+    send({"msg": obtener_nombre() + " se ha unido a la sala " + data["room"]}, room = data["room"])
+
+@socketio.on("leave")
+def leave(data):
+    leave_room(data["room"])
+    send({"msg": obtener_nombre()+ " se ha salido de la sala " + data["room"]}, room = data["room"])
+
+@socketio.on("anadir")
+def anadir(data):
+    #Antes del send especificar la sala
+    join_room(data["room"])
+    emit("nuevo_valor_contador", {"valor": int(data["valor"])}, room=data["room"])
+
+carton_generado = None
+@socketio.on("pedirCarton")
+def pedirCarton():
+    creador = CreadorCarton()
+    global carton_generado
+    carton_generado = creador.generar_carton()
+    emit("cartonRecibido", {"carton_generado": carton_generado})
+
+@app.route('/guardar_carton', methods=['POST'])
+def guardar_carton():
+    global carton_generado
+    if carton_generado:
+        carton_string = str(carton_generado)
+        print(carton_string)
+        carton_limpio = re.sub(r'(\'\',\s*)+|(\'\'\])|(\[\'\')', '', carton_string)
+        print(carton_limpio)
+        guardarCarton(obtener_nombre(), carton_string)
+        return "Partida creada correctamente"
+    else:
+        return "No se ha generado ningún cartón aún"
+
+@app.route('/obtener_carton', methods=['GET'])
+def obtener_carton():
+    carton = mostrarCarton(obtener_nombre())
+    return jsonify({"carton": carton})
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))  # Obtener el puerto del entorno o usar el 5000 por defecto
+    socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
+
