@@ -20,7 +20,8 @@ function apuesta_12_numeros_2_1(casilla) {
     colocarFicha(casilla, 20, 20, 70, 70);
 }
 
-/* ------ Apuesta 4 números------ */
+/*
+------ Apuesta 4 números------
 function apuesta_4_numeros(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
     colocarFicha(casilla, -75, -75, 250, 250);
@@ -55,7 +56,7 @@ for (var i = 1; i <= 34; i += 3) {
     }
 }
 
-/* ------ Apuesta 2 números ------ */
+ ------ Apuesta 2 números ------
 function apuesta_2_numeros(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
     colocarFicha(casilla, -20,0,75,150)
@@ -112,7 +113,7 @@ for (var i = 1; i <= 34; i += 3) {
         resultadoContainer.appendChild(nuevoDiv6);
     }
 }
-
+*/
 /* ------ Apuesta 1 número ------ */
 function apuesta_1_numeros(casilla) {
     const numeroApuesta = casilla.getAttribute("data-numero");
@@ -187,6 +188,7 @@ function colocarFicha(casilla, top, left, width, height) {
     ficha.style.display = 'flex';
     ficha.style.flexDirection = 'column';
     ficha.style.alignItems = 'center';
+    ficha.style.zIndex = 0;
 
     casilla.appendChild(ficha);
     tipo_moneda = ficha.className
@@ -204,13 +206,25 @@ function colocarFicha(casilla, top, left, width, height) {
         valorMoneda = 0;
     }
 
-    var apuestaEncontrada = arrayApuestas.find(apuesta => apuesta.nombre === tipo_apuesta);
+    const apuestaEncontrada = arrayApuestas.find(apuesta => apuesta.nombre === tipo_apuesta);
     if (apuestaEncontrada) {
         apuestaEncontrada.valor += valorMoneda;
     } else {
         arrayApuestas.push({nombre: tipo_apuesta, valor: valorMoneda});
     }
-    console.log("arrayApuestas", arrayApuestas);
+
+    const valorFicha = document.createElement('div');
+    valorFicha.textContent = valorMoneda; // Clear the existing content
+    valorFicha.style.display = 'flex';
+    valorFicha.style.position = 'fixed';
+    valorFicha.style.flexDirection = 'column';
+    valorFicha.style.alignItems = 'center';
+    valorFicha.style.fontSize = '1em';
+    valorFicha.style.zIndex = 10;
+    valorFicha.style.color = 'black';
+
+    casilla.appendChild(valorFicha);
+    console.log("ha: ", apuestaEncontrada)
 }
 
 /* ------ Seleccionar moneda, Cambia de valor la variable moneda para colocar  ------ */
@@ -261,97 +275,246 @@ function addFlipper() {
   };
 }
 
-function startRotation(speed) {
-    speed = 50;
-  if (isRotating) {
-    return;
-  }
+async function startRotation(speed) {
+    let i = 1;
+    let imagen = document.getElementById('KonguitoRuleta');
 
-  isRotating = true;
-
- const nuevoDiv = document.createElement("div");
-  nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
-
-  const cuerpoDocumento = document.body;
-  cuerpoDocumento.appendChild(nuevoDiv);
-   let writeResult = addFlipper();
-    let bezier = [0.165, 0.84, 0.44, 1.005];
-    let newWheelIndex = currentWheelIndex - speed;
-    let result = getRouletteWheelNumber(newWheelIndex);
-    let resultColor = getRouletteWheelColor(newWheelIndex);
-  setTimeout(() => {
-    (() => {
-      const newRotaion = currentWheelRotation + (360 / 37) * speed;
-      console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
-      var myAnimation = anime({
-        targets: [".layer-2", ".layer-4"],
-        rotate: function() {
-          return newRotaion;
-        },
-        duration: function() {
-          return 10000;
-        },
-        loop: 1,
-        // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
-        easing: `cubicBezier(${bezier.join(",")})`,
-        // easing: "cubicBezier(0.000, 1.175, 0.980, 0.990)",
-        complete: (...args) => {
-          currentWheelRotation = newRotaion;
-          currentWheelIndex = newWheelIndex;
+    setTimeout(() => {
+        if (isRotating) {
+            return;
         }
-      });
-    })();
 
-    (() => {
-      const newRotaion = -4 * 360 + currentBallRotation;
-      var myAnimation1 = anime({
-        targets: ".ball-container",
-        translateY: [
-          { value: 0, duration: 2000 },
-          { value: 20, duration: 1000 },
-          { value: 25, duration: 900 },
-          { value: 50, duration: 1000 }
-        ],
-        rotate: [{ value: newRotaion, duration: 9000 }],
-        duration: function() {
-          return 7000; // anime.random(800, 1400);
-        },
-        loop: 1,
-        easing: `cubicBezier(${bezier.join(",")})`,
-        complete: () => {
-          currentBallRotation = newRotaion;
-          writeResult(result, resultColor);
-          isRotating = false;
-        }
-      });
-    })();
-    }, 500);
-  setTimeout(() => {
-        calcularApuesta(result);
-    },500);
+        isRotating = true;
+        let writeResult = addFlipper();
+        let bezier = [0.165, 0.84, 0.44, 1.005];
+        let newWheelIndex = currentWheelIndex - speed;
+        let result = getRouletteWheelNumber(newWheelIndex);
+        let resultColor = getRouletteWheelColor(newWheelIndex);
+
+        const newRotaion = currentWheelRotation + (360 / 37) * speed;
+        var myAnimation = anime({
+            targets: [".layer-2", ".layer-4"],
+            rotate: function () {
+                return newRotaion;
+            },
+            duration: function () {
+                return 10000;
+            },
+            loop: 1,
+            easing: `cubicBezier(${bezier.join(",")})`,
+            complete: (...args) => {
+                currentWheelRotation = newRotaion;
+                currentWheelIndex = newWheelIndex;
+            }
+        });
+
+        const newBallRotation = -4 * 360 + currentBallRotation;
+        var myAnimation1 = anime({
+            targets: ".ball-container",
+            translateY: [
+                {value: 0, duration: 2000},
+                {value: 20, duration: 1000},
+                {value: 25, duration: 900},
+                {value: 50, duration: 1000}
+            ],
+            rotate: [{value: newBallRotation, duration: 9000}],
+            duration: function () {
+                return 7000;
+            },
+            loop: 1,
+            easing: `cubicBezier(${bezier.join(",")})`,
+            complete: () => {
+                currentBallRotation = newBallRotation;
+                writeResult(result, resultColor);
+                isRotating = false;
+            }
+        });
+        setTimeout(() => {
+            calcularApuesta(result);
+        },8500);
+    }, 800);
+    while (i <= 18) {
+        imagen.src = `/static/images/ruleta/framesRuleta/${i}.png`;
+        i++;
+        await new Promise((resolve) => setTimeout(resolve, 75)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 }
 
+
 function calcularApuesta(resultado) {
-    var apuestasEncontradas = arrayApuestas.filter(apuesta => apuesta.nombre.includes(resultado));
-    var apuestasNoEncontradas = arrayApuestas.filter(apuesta => !apuestasEncontradas.includes(apuesta));
-    console.log("apuestasEncontradas", apuestasEncontradas);
-    console.log("apuestasNoEncontradas", apuestasNoEncontradas);
+    const apuesta1numero = arrayApuestas.filter(apuesta => apuesta.nombre === resultado);
+    const apuesta1a18 = arrayApuestas.find(apuesta => apuesta.nombre === "1_to_18");
+    const apuesta19a36 = arrayApuestas.find(apuesta => apuesta.nombre === "19_to_36");
+    const apuestaPar = arrayApuestas.find(apuesta => apuesta.nombre === "par");
+    const apuestaImpar = arrayApuestas.find(apuesta => apuesta.nombre === "impar");
+    const apuestaRojo = arrayApuestas.find(apuesta => apuesta.nombre === "rojo");
+    const apuestaNegro = arrayApuestas.find(apuesta => apuesta.nombre === "negro");
+    const apuestaPrimeraDocena = arrayApuestas.find(apuesta => apuesta.nombre === "1_to_12");
+    const apuestaSegundaDocena = arrayApuestas.find(apuesta => apuesta.nombre === "12_to_24");
+    const apuestaTerceraDocena = arrayApuestas.find(apuesta => apuesta.nombre === "24_to_36");
+    const apuestaPrimeraFila = arrayApuestas.find(apuesta => apuesta.nombre === "fila_1");
+    const apuestaSegundaFila = arrayApuestas.find(apuesta => apuesta.nombre === "fila_2");
+    const apuestaTerceraFila = arrayApuestas.find(apuesta => apuesta.nombre === "fila_3");
+
     let ganado = 0;
     let perdido = 0;
-    if(apuestasNoEncontradas.length > 0){
-        for(var apuestaPerdida of apuestasNoEncontradas){
-            perdido += apuestaPerdida.valor;
+    const numero = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
+    const primeros_18_numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ];
+    const segundos_18_numeros = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28 ,29 ,30 ,31 ,32 ,33 ,34 ,35 ,36];
+    const par = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36];
+    const impar = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19 ,21 ,23 ,25 ,27 ,29 ,31 ,33 ,35];
+    const rojo = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19 ,21 ,23 ,25 ,27 ,30 ,32 ,34 ,36];
+    const negro = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20 ,22 ,24 ,26 ,28 ,29 ,31 ,33 ,35];
+    const primeraDocena = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11 ,12];
+    const segundaDocena = [13, 14, 15, 16, 17, 18, 19, 20, 21 ,22 ,23 ,24];
+    const terceraDocena = [25, 26, 27, 28, 29, 30, 31, 32, 33 ,34 ,35 ,36];
+    const primeraFila =[3, 6, 9, 12, 15, 18, 21, 24, 27 ,30 ,33 ,36];
+    const segundaFila = [2, 5, 8, 11, 14, 17, 20, 23, 26 ,29 ,32 ,35];
+    const terceraFila = [1, 4, 7, 10, 13, 16, 19, 22, 25 ,28 ,31 ,34];
+    let apuestas_perdidas = arrayApuestas
+    console.log("h:", primeros_18_numeros.includes(resultado))
+    console.log("a:", segundos_18_numeros.includes(resultado))
+    if(primeros_18_numeros.includes(resultado)) {
+        if (apuesta1a18) {
+            ganado += (apuesta1a18.valor)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "1_to_18");
+            console.log(`${resultado} está en la categoría: primeros_18 numeros`);
         }
     }
-    if (apuestasEncontradas.length > 0) {
-        for (var apuestaGanada of apuestasEncontradas) {
-            if (apuestaGanada.nombre == resultado) { // Apuesta a un número
-                ganado = apuestaGanada.valor * 35;
+    if(segundos_18_numeros.includes(resultado)) {
+        if (apuesta19a36) {
+            ganado += (apuesta19a36.valor)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "19_to_36");
+            console.log(`${resultado} está en la categoría: segundos_18 numeros`);
+        }
+    }
+    if(par.includes(resultado)) {
+        if (apuestaPar) {
+            if (apuestaPar) {
+                ganado += (apuestaPar.valor)
+                apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "par");
+                console.log(`${resultado} está en la categoría: Par`);
             }
         }
-    } else {
-        console.log("No hay apuestas");
     }
+    if(impar.includes(resultado)) {
+        if (apuestaImpar) {
+            ganado += (apuestaImpar.valor)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "impar");
+            console.log(`${resultado} está en la categoría: Impar`);
+        }
+    }
+    if (rojo.includes(resultado)) {
+        if (apuestaRojo) {
+            ganado += (apuestaRojo.valor)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "rojo");
+            console.log(`${resultado} está en la categoría: rojo`);
+        }
+    }
+
+    if (negro.includes(resultado)){
+        if (apuestaNegro) {
+            ganado += (apuestaNegro.valor)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "negro");
+            console.log(`${resultado} está en la categoría: negro`);
+        }
+    }
+
+    /* APUESTA A 12 NÚMEROS */
+    if(primeraDocena.includes(resultado)){
+        if(apuestaPrimeraDocena && apuestaSegundaDocena && apuestaTerceraDocena){
+             ganado += apuestaPrimeraDocena.valor + apuestaSegundaDocena.valor + apuestaSegundaDocena.valor;
+        } else if(apuestaPrimeraDocena && apuestaSegundaDocena){
+            ganado += apuestaPrimeraDocena.valor + apuestaSegundaDocena.valor;
+        } else if(apuestaPrimeraDocena && apuestaTerceraDocena) {
+            ganado += apuestaPrimeraDocena.valor + apuestaTerceraDocena.valor;
+        } else if(apuestaPrimeraDocena){
+            ganado += (apuestaPrimeraDocena.valor * 2)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "1_to_12");
+            console.log(`${resultado} está en la categoría: primera docena`);
+        }
+    }
+    if(segundaDocena.includes(resultado)) {
+        if(apuestaPrimeraDocena && apuestaSegundaDocena && apuestaTerceraDocena){
+             ganado += apuestaPrimeraDocena.valor + apuestaSegundaDocena.valor + apuestaSegundaDocena.valor;
+        } else if(apuestaPrimeraDocena && apuestaSegundaDocena){
+            ganado += apuestaPrimeraDocena.valor + apuestaSegundaDocena.valor;
+        } else if(apuestaSegundaDocena && apuestaTerceraDocena) {
+            ganado += apuestaPrimeraDocena.valor + apuestaTerceraDocena.valor;
+        } else if(apuestaSegundaDocena){
+            ganado += (apuestaSegundaDocena.valor * 2)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "12_to_24");
+            console.log(`${resultado} está en la categoría: segunda docena`);
+        }
+    }
+
+    if(terceraDocena.includes(resultado)) {
+        if(apuestaPrimeraDocena && apuestaSegundaDocena && apuestaTerceraDocena){
+             ganado += apuestaPrimeraDocena.valor + apuestaSegundaDocena.valor + apuestaSegundaDocena.valor;
+        } else if(apuestaPrimeraDocena && apuestaTerceraDocena){
+            ganado += apuestaPrimeraDocena.valor + apuestaSegundaDocena.valor;
+        } else if(apuestaSegundaDocena && apuestaTerceraDocena) {
+            ganado += apuestaPrimeraDocena.valor + apuestaTerceraDocena.valor;
+        } else if(apuestaTerceraDocena){
+        ganado += (apuestaTerceraDocena.valor * 2)
+        apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "24_to_36");
+        console.log(`${resultado} está en la categoría: tercera docena`);
+        }
+    }
+    if (primeraFila.includes(resultado)) {
+        if(apuestaPrimeraFila && apuestaSegundaFila && apuestaTerceraFila){
+                ganado += apuestaPrimeraFila.valor + apuestaSegundaFila.valor + apuestaSegundaFila.valor;
+        } else if(apuestaPrimeraFila && apuestaSegundaFila){
+            ganado += apuestaPrimeraFila.valor + apuestaSegundaFila.valor;
+        } else if(apuestaPrimeraFila && apuestaTerceraFila) {
+            ganado += apuestaPrimeraFila.valor + apuestaTerceraFila.valor;
+        } else if (apuestaPrimeraFila) {
+            ganado += (apuestaPrimeraFila.valor * 2)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "fila_1");
+            console.log(`${resultado} está en la categoría: tercera docena`);
+        }
+    }
+    if(segundaFila.includes(resultado)) {
+        if(apuestaPrimeraFila && apuestaSegundaFila && apuestaTerceraFila){
+                ganado += apuestaPrimeraFila.valor + apuestaSegundaFila.valor + apuestaSegundaFila.valor;
+        } else if(apuestaPrimeraFila && apuestaSegundaFila){
+            ganado += apuestaPrimeraFila.valor + apuestaSegundaFila.valor;
+        } else if(apuestaSegundaFila && apuestaTerceraFila) {
+            ganado += apuestaSegundaFila.valor + apuestaTerceraFila.valor;
+        } else if (apuestaSegundaFila) {
+            ganado += (apuestaSegundaFila.valor * 2)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "fila_2");
+            console.log(`${resultado} está en la categoría: tercera docena`);
+        }
+    }
+    if(terceraFila.includes(resultado)) {
+        if(apuestaPrimeraFila && apuestaSegundaFila && apuestaTerceraFila){
+            ganado += apuestaPrimeraFila.valor + apuestaSegundaFila.valor + apuestaSegundaFila.valor;
+        } else if(apuestaPrimeraFila && apuestaTerceraFila){
+            ganado += apuestaPrimeraFila.valor + apuestaSegundaFila.valor;
+        } else if(apuestaSegundaFila && apuestaTerceraFila) {
+            ganado += apuestaPrimeraFila.valor + apuestaTerceraFila.valor;
+        } else if (apuestaTerceraFila) {
+            ganado += (apuestaTerceraFila.valor * 2)
+            apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== "fila_3");
+            console.log(`${resultado} está en la categoría: tercera docena`);
+        }
+    }
+    console.log("1numero", apuesta1numero)
+    console.log(apuesta1numero.valor)
+    console.log("apuestas", arrayApuestas)
+    if(apuesta1numero.includes(resultado)) {
+        ganado += (apuesta1numero[0].valor * 36)
+        apuestas_perdidas = apuestas_perdidas.filter(apuesta => apuesta.nombre !== resultado);
+        console.log(`${resultado} está en la categoría: ${resultado}`);
+    }
+    console.log(apuestas_perdidas)
+
+
+    perdido = apuestas_perdidas.reduce((acumulador, apuesta) => acumulador + apuesta.valor, 0);
+
     console.log("ganado", ganado);
     console.log("perdido", perdido);
     agregarDinero(ganado)

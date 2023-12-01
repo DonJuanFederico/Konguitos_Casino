@@ -545,3 +545,34 @@ def obtenerRankingDineroGanado():
             cursor.close()
             close_connection(conn)
 
+def guardarCarton(nombre, carton):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            query = "INSERT INTO carton (nombreJugador, numerosCarton) VALUES (%s, %s)"
+            cursor.execute(query, (nombre, carton))
+            conn.commit()
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+def mostrarCarton(nombre):
+    conn = connect()
+    carton = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            query = "SELECT numerosCarton FROM carton WHERE nombreJugador = (%s)"
+            cursor.execute(query, (nombre,))
+            result = cursor.fetchone()
+            if result:  # Comprobar si hay resultados
+                carton = result[0]  # Obtener el valor de la consulta
+        except mysql.connector.Error as err:
+            print(f"Error al obtener el número: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return carton
