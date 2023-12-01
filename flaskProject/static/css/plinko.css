@@ -25,6 +25,7 @@ body {
       background-color: #8B4513;
       border-radius: 50%;
       transform: translate(-50%, -50%);
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Añade una sombra de 2px de desplazamiento horizontal y vertical, 5px de difuminado y color negro con 50% de opacidad */
     }
 
     #ball {
@@ -37,4 +38,14 @@ body {
       left: 50%;
       transform: translateX(-50%);
       transition: bottom 0.5s ease-out;
+      animation: spin 1s linear infinite; /* Añade una animación llamada "spin" de 1 segundo de duración, con una velocidad lineal y que se repite indefinidamente */
     }
+
+    @keyframes spin {
+      from {
+        transform: translateX(-50%) rotate(0deg); /* Define el estado inicial de la animación, con la bola centrada y sin rotar */
+      }
+
+      to {
+          transform: translateX(-50%) rotate(360deg);
+      }}/* Define el estado final de la animación, con la bola centrada y rotada 360 grados
