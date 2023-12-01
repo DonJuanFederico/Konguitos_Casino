@@ -105,11 +105,22 @@ document.addEventListener("DOMContentLoaded", function() {
     var pegs = document.querySelectorAll(".peg");
     var audio = new Audio('/static/audio/uff.mp3');
 
-    var acceleration = 0.1;
+    var initialAcceleration = 0.1;
+    var acceleration = initialAcceleration;
     var velocityX = 0;
     var velocityY = 0;
-    var bounceFactor = 0.6; // Ajusta este valor para cambiar la fuerza del rebote
+    var bounceFactor = 0.6;
     var ignoreCollisions = false;
+
+    function resetBall() {
+        var newPositionFactor = Math.random() * (0.02) - 0.01;
+        ball.style.left = (board.clientWidth / 2 - ball.clientWidth / 2) + (newPositionFactor * board.clientWidth / 2) + "px";
+        velocityX = 0;
+        velocityY = 0;
+        acceleration = initialAcceleration;
+        ball.style.top = 0;
+        requestAnimationFrame(updateBallPosition);
+    }
 
     function updateBallPosition() {
         velocityY += acceleration;
@@ -141,16 +152,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 var normalX = dx / distance;
                 var normalY = dy / distance;
 
-                // Descompone la velocidad en componentes tangenciales y normales
                 var dotProduct = velocityX * normalX + velocityY * normalY;
                 var tangentX = velocityX - dotProduct * normalX;
                 var tangentY = velocityY - dotProduct * normalY;
 
-                // Calcula la velocidad después del rebote con el nuevo bounceFactor
                 velocityX = tangentX - bounceFactor * normalX * dotProduct;
                 velocityY = tangentY - bounceFactor * normalY * dotProduct;
 
-                // Ajusta la posición para evitar superposiciones
                 var overlap = (peg.clientWidth / 2 + ball.clientWidth / 2) - distance;
                 ball.style.top = (ball.offsetTop + overlap * normalY) + "px";
                 ball.style.left = (ball.offsetLeft + overlap * normalX) + "px";
@@ -172,15 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
         requestAnimationFrame(updateBallPosition);
     }
 
-    document.addEventListener("click", function() {
-        var newPositionFactor = Math.random() * (0.02) - 0.01;
-        ball.style.left = (board.clientWidth / 2 - ball.clientWidth / 2) + (newPositionFactor * board.clientWidth / 2) + "px";
-        velocityX = 0;
-        velocityY = 0;
-        ball.style.top = 0;
-        requestAnimationFrame(updateBallPosition);
-    });
+    document.addEventListener("click", resetBall);
 
-    updateBallPosition();
+    resetBall();
 });
-
