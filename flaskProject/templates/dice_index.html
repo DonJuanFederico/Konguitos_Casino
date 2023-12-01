@@ -1,113 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+{% block stylesheets %}
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            color: #910000;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000000;
-            background-image: url("https://static.vecteezy.com/system/resources/previews/017/484/979/non_2x/card-suits-pattern-casino-seamless-dark-background-vector.jpg");
-            /*MAS OPCIONES:
-
-             */
-            /*background-repeat: no-repeat;
-            background-size: cover;*/
-        }
-
-        .container {
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            border-radius: 5px;
-        }
-
-        .scroll-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .button {
-            width: 300px;
-            height: 600px;
-            background-color: black;
-            color: white;
-            /*-webkit-text-stroke-width: 0.2px;
-            -webkit-text-stroke-color: white;*/
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 5px;
-            border: 1px solid white;
-            cursor: pointer;
-        }
-        h1{
-            font-size: xxx-large;
-            position: absolute;
-            top: 0px;
-            text-align: center;
-            text-decoration: underline;
-            color: #910000;
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: white;
-        }
-
-        .craps{
-            background-image: url("https://i.pinimg.com/236x/53/1d/83/531d8350b388fb75405843b5b1fa2021.jpg");
-            /*
-            MAS OPCIONES
-            https://i.pinimg.com/236x/b3/8f/88/b38f8881d6b5e48d4c62173c7530e6a4.jpg
-             */
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        .black{
-            background-image: url("https://i.pinimg.com/236x/96/02/09/9602098b9f53596386b56cddd67bb9e7.jpg");
-            /*
-            MAS OPCIONES
-
-             */
-            background-size: cover;
-        }
-        .poker{
-            background-image: url("https://i.pinimg.com/236x/96/02/09/9602098b9f53596386b56cddd67bb9e7.jpg");
-            /*
-            MAS OPCIONES
-
-             */
-            background-size: cover;
-        }
-
-    </style>
-</head>
-<body>
-    <h1> JUEGOS DE DADOS: </h1>
-    <div class="container">
-        <div class="scroll-container" id="scroll-container">
-            <form method="GET" action="/Juegos/Indice_Dados/Craps/">
-                <button class="button craps" type="submit"> CRAPS </button>
-            </form>
-            <form method="GET" action="/Juegos/Indice_Dados/">
-                <button class="button black" type="submit">  </button>
-            </form>
-            <form method="GET" action="/Juegos/Indice_Dados/">
-                <button class="button poker" type="submit">  </button>
-            </form>
+    <link rel="stylesheet" href="/static/css/juegosDados.css">
+    <title>Juegos Extra</title>
+{% endblock %}
+{% block body %}
+    <audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/BadPiggies.mp3" type="audio/mpeg">
+    </audio>
+    <div class = "contenedorTotal">
+        <div class="content">
+            <h1>Juegos de dados</h1>
+        </div>
+        <div class = "contenedorJuegos">
+            <article id="cargarSlots">
+                <img id="cartelJuego" src="/static/images/juegos_extra/TragaperrasCartel.png">
+                <img src="/static/images/juegos_extra/TragaperrasFrontal.png">
+            </article>
+            <article id="cargarDino">
+                <img id="cartelJuego" src="/static/images/juegos_extra/KonguitoRunCartel.png">
+                <img src="/static/images/juegos_extra/KonguitoRunFrontal.png">
+            </article>
         </div>
     </div>
-
-</body>
-</html>
+{% endblock %}
+{% block javascripts %}
+    <script src="/static/js/juegosDados.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
+{% endblock %}
