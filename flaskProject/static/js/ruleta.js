@@ -188,6 +188,7 @@ function colocarFicha(casilla, top, left, width, height) {
     ficha.style.display = 'flex';
     ficha.style.flexDirection = 'column';
     ficha.style.alignItems = 'center';
+    ficha.style.zIndex = 0;
 
     casilla.appendChild(ficha);
     tipo_moneda = ficha.className
@@ -205,13 +206,25 @@ function colocarFicha(casilla, top, left, width, height) {
         valorMoneda = 0;
     }
 
-    var apuestaEncontrada = arrayApuestas.find(apuesta => apuesta.nombre === tipo_apuesta);
+    const apuestaEncontrada = arrayApuestas.find(apuesta => apuesta.nombre === tipo_apuesta);
     if (apuestaEncontrada) {
         apuestaEncontrada.valor += valorMoneda;
     } else {
         arrayApuestas.push({nombre: tipo_apuesta, valor: valorMoneda});
     }
-    console.log("arrayApuestas", arrayApuestas);
+
+    const valorFicha = document.createElement('div');
+    valorFicha.textContent = valorMoneda; // Clear the existing content
+    valorFicha.style.display = 'flex';
+    valorFicha.style.position = 'fixed';
+    valorFicha.style.flexDirection = 'column';
+    valorFicha.style.alignItems = 'center';
+    valorFicha.style.fontSize = '1em';
+    valorFicha.style.zIndex = 10;
+    valorFicha.style.color = 'black';
+
+    casilla.appendChild(valorFicha);
+    console.log("ha: ", apuestaEncontrada)
 }
 
 /* ------ Seleccionar moneda, Cambia de valor la variable moneda para colocar  ------ */
@@ -262,75 +275,72 @@ function addFlipper() {
   };
 }
 
-function startRotation(speed) {
-    speed = 50;
-  if (isRotating) {
-    return;
-  }
+async function startRotation(speed) {
+    let i = 1;
+    let imagen = document.getElementById('KonguitoRuleta');
 
-  isRotating = true;
-
- const nuevoDiv = document.createElement("div");
-  nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
-
-  const cuerpoDocumento = document.body;
-  cuerpoDocumento.appendChild(nuevoDiv);
-   let writeResult = addFlipper();
-    let bezier = [0.165, 0.84, 0.44, 1.005];
-    let newWheelIndex = currentWheelIndex - speed;
-    let result = getRouletteWheelNumber(newWheelIndex);
-    let resultColor = getRouletteWheelColor(newWheelIndex);
-  setTimeout(() => {
-    (() => {
-      const newRotaion = currentWheelRotation + (360 / 37) * speed;
-      console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
-      var myAnimation = anime({
-        targets: [".layer-2", ".layer-4"],
-        rotate: function() {
-          return newRotaion;
-        },
-        duration: function() {
-          return 10000;
-        },
-        loop: 1,
-        // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
-        easing: `cubicBezier(${bezier.join(",")})`,
-        // easing: "cubicBezier(0.000, 1.175, 0.980, 0.990)",
-        complete: (...args) => {
-          currentWheelRotation = newRotaion;
-          currentWheelIndex = newWheelIndex;
+    setTimeout(() => {
+        if (isRotating) {
+            return;
         }
-      });
-    })();
 
-    (() => {
-      const newRotaion = -4 * 360 + currentBallRotation;
-      var myAnimation1 = anime({
-        targets: ".ball-container",
-        translateY: [
-          { value: 0, duration: 2000 },
-          { value: 20, duration: 1000 },
-          { value: 25, duration: 900 },
-          { value: 50, duration: 1000 }
-        ],
-        rotate: [{ value: newRotaion, duration: 9000 }],
-        duration: function() {
-          return 7000; // anime.random(800, 1400);
-        },
-        loop: 1,
-        easing: `cubicBezier(${bezier.join(",")})`,
-        complete: () => {
-          currentBallRotation = newRotaion;
-          writeResult(result, resultColor);
-          isRotating = false;
-        }
-      });
-    })();
-    }, 500);
-  setTimeout(() => {
+        isRotating = true;
+        let writeResult = addFlipper();
+        let bezier = [0.165, 0.84, 0.44, 1.005];
+        let newWheelIndex = currentWheelIndex - speed;
+        let result = getRouletteWheelNumber(newWheelIndex);
+        let resultColor = getRouletteWheelColor(newWheelIndex);
+
+        const newRotaion = currentWheelRotation + (360 / 37) * speed;
+        var myAnimation = anime({
+            targets: [".layer-2", ".layer-4"],
+            rotate: function () {
+                return newRotaion;
+            },
+            duration: function () {
+                return 10000;
+            },
+            loop: 1,
+            easing: `cubicBezier(${bezier.join(",")})`,
+            complete: (...args) => {
+                currentWheelRotation = newRotaion;
+                currentWheelIndex = newWheelIndex;
+            }
+        });
+
+        const newBallRotation = -4 * 360 + currentBallRotation;
+        var myAnimation1 = anime({
+            targets: ".ball-container",
+            translateY: [
+                {value: 0, duration: 2000},
+                {value: 20, duration: 1000},
+                {value: 25, duration: 900},
+                {value: 50, duration: 1000}
+            ],
+            rotate: [{value: newBallRotation, duration: 9000}],
+            duration: function () {
+                return 7000;
+            },
+            loop: 1,
+            easing: `cubicBezier(${bezier.join(",")})`,
+            complete: () => {
+                currentBallRotation = newBallRotation;
+                writeResult(result, resultColor);
+                isRotating = false;
+            }
+        });
+
         calcularApuesta(result);
-    },500);
+    }, 800);
+    while (i <= 18) {
+        imagen.src = `/static/images/ruleta/framesRuleta/${i}.png`;
+        i++;
+        await new Promise((resolve) => setTimeout(resolve, 75)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 }
+
 
 function calcularApuesta(resultado) {
     const apuesta1numero = arrayApuestas.filter(apuesta => apuesta.nombre.includes(resultado));
@@ -527,26 +537,5 @@ function retirarDinero(perdido) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("&cantidad_a_retirar=" + perdido);
 }
-
-function apuestasRealizadas() {
-    // Extract and format the relevant information for display
-    var formattedApuestas = [];
-    for (var apuestaRealizada of arrayApuestas) {
-        var formattedApuesta =apuestaRealizada.nombre + " ---> " + apuestaRealizada.valor + " KC";
-        formattedApuestas.push(formattedApuesta);
-    }
-    Swal.fire({
-        title: 'Apuestas Realizadas',
-
-        html: formattedApuestas.join("<br>"),
-        confirmButtonText: '¡Déjame Jugar!',
-        confirmButtonColor: '#3085d6',
-        backdrop: true,
-        allowOutsideClick: true,
-        allowEscapeKey: true,
-        width: '50%',
-    });
-}
-
 
 function volverAtras(){document.location.href = '/Juegos/';}

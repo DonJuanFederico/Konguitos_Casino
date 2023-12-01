@@ -102,7 +102,7 @@ body {
     z-index: 1;
 }
 
-
+/*
 .animacionKoniguito{
     width: 360px;
     height: 360px;
@@ -110,8 +110,7 @@ body {
     top: 10%;
     animation: animacion 2s;
     z-index: -1;
-}
-
+}*/
 
 
 .girar{
@@ -125,7 +124,7 @@ body {
   font-size: 20px;
 }
 
-
+/*
 @keyframes animacion {
     0% { background-image: url('/static/images/ruleta/framesRuleta/1.png'); }
     5.56% { background-image: url('/static/images/ruleta/framesRuleta/2.png'); }
@@ -145,8 +144,9 @@ body {
     83.33% { background-image: url('/static/images/ruleta/framesRuleta/16.png'); }
     88.89% { background-image: url('/static/images/ruleta/framesRuleta/17.png'); }
     94.44% { background-image: url('/static/images/ruleta/framesRuleta/18.png'); }
-    100% { background-image: url('/static/images/ruleta/framesRuleta/18.png'); } /* Última imagen al final de la animación */
+    100% { background-image: url('/static/images/ruleta/framesRuleta/18.png'); }  Última imagen al final de la animación
 }
+*/
 
 .moneda {
   position: absolute;
