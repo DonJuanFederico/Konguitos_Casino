@@ -576,3 +576,34 @@ def mostrarCarton(nombre):
             cursor.close()
             close_connection(conn)
     return carton
+
+def registrarPartida(nombreUsuario, nombrePartida):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            query = "INSERT INTO partidaBingo (nombreJugador, id) VALUES (%s, %s)"
+            cursor.execute(query, (nombreUsuario, nombrePartida))
+            conn.commit()
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+def buscarAnfitrion(nombre):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            query = "SELECT nombreJugador FROM partidabingo WHERE nombreJugador = (%s)"
+            cursor.execute(query, (nombre,))
+            result = cursor.fetchone()
+            if result:
+                return True  # Devuelve True si se encuentra el nombre
+        except mysql.connector.Error as err:
+            print(f"Error al obtener el número: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se encuentra el nombre

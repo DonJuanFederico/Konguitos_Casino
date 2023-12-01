@@ -1,5 +1,25 @@
 //Esto es como la vista del cliente
 
+var anfitrion = false;
+var socket = io();
+
+document.addEventListener("DOMContentLoaded", () => {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/buscar_anfitrion", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&nombre_usuario=" + username);
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            if (data.resultado === true) {
+                anfitrion = true; // Establecer la variable anfitrion como true si la respuesta es true
+            }
+        }
+    };
+});
+
+
 document.addEventListener("DOMContentLoaded", () =>{
 
     fetch('/obtener_carton')
@@ -22,8 +42,6 @@ document.addEventListener("DOMContentLoaded", () =>{
             console.error('Error al obtener el cartón:', error);
         });
 
-
-    var socket = io();
     let room = "Lounge";
     joinRoom("Lounge");
     socket.on("message", data => {
@@ -71,28 +89,38 @@ fila3=0;
 let numeros = Array.from({ length: 90 }, (_, index) => index + 1);
 
 /*Esta funcion solo el anfitrion*/
+let numeroSeleccionado;
+
+socket.on("numeroRecibido", data => {
+    numeroSeleccionado = data.resultado;
+});
+
 function mostrarNumerosRapidos() {
+    if (anfitrion) {
+        numeroSeleccionado = obtenerNumeroAleatorio();
+        socket.emit("valorNumero", {"username" : username, "room": room, "resultado": numeroSeleccionado});
+    }
+
     const spanNumero = document.getElementById("numeroSeleccionado");
     const tiempoVisualizacion = 4; // Tiempo de visualización de números en segundos
     const tiempoEspera = 3; // Tiempo de espera entre visualizaciones en segundos
 
     const intervalo = setInterval(() => {
-        const numeroAleatorio = Math.floor(Math.random() * 90) + 1; // Genera un número aleatorio entre 1 y 90
-        spanNumero.textContent = numeroAleatorio; // Actualiza el número en el span
+        const numeroAleatorio = Math.floor(Math.random() * 90) + 1;
+        spanNumero.textContent = numeroAleatorio;
     }, 100); // Intervalo de actualización rápida
 
     setTimeout(() => {
-        clearInterval(intervalo); // Detiene la actualización después de 5 segundos
+        clearInterval(intervalo);
         spanNumero.textContent = Math.floor(Math.random() * 90) + 1;
 
         const spans = document.querySelectorAll('#carton > div > span');
+        let iteracion = 0;
 
-        let iteracion=0;
-
-        const numeroSeleccionado = obtenerNumeroAleatorio();
         spanNumero.textContent = numeroSeleccionado;
+        console.log(numeroSeleccionado)
         spans.forEach((span) => {
-            const valor = parseInt(span.textContent.trim(), 10); // Obtener el valor del span y convertirlo a entero
+            const valor = parseInt(span.textContent.trim(), 10);
             if (valor === numeroSeleccionado) {
                 span.parentElement.style.backgroundColor = "red"; // Cambiar el fondo del span a rojo si coincide con el número generado
                 if(iteracion<9){
@@ -118,11 +146,11 @@ function mostrarNumerosRapidos() {
             iteracion++;
         });
 
-        setTimeout(mostrarNumerosRapidos, tiempoEspera * 1000); // Llama a la función nuevamente después de 3 segundos de espera
-    }, (tiempoVisualizacion + tiempoEspera) * 1000); // Espera el tiempo total antes de reiniciar (tiempo de visualización + tiempo de espera)
+        setTimeout(mostrarNumerosRapidos, tiempoEspera * 1000);
+    }, (tiempoVisualizacion + tiempoEspera) * 1000);
 }
 
-mostrarNumerosRapidos(); // Iniciar la función al principio
+mostrarNumerosRapidos();
 
 document.addEventListener("DOMContentLoaded", () => {
     let msg = document.querySelector("#user-message");
@@ -134,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
- function obtenerNumeroAleatorio() {
+function obtenerNumeroAleatorio() {
     if (numeros.length === 0) {
         console.log("Todos los números ya han sido seleccionados.");
         return null; // O manejar de otra forma que no hay más números disponibles
