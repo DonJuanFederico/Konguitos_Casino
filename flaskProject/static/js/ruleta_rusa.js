@@ -7,19 +7,25 @@ let dineroUsuario = parseFloat(document.querySelector('#monedasUsuario').textCon
 let HaDisparado = 0;
 console.log("Apostado: " + apuesta)
 
-//Hazme una funcion que te de un tiempo y lo conviertas en un contador hasta 0
+
 
 async function iniciarJuego() {
-    bala = Math.floor(Math.random() * 6) + 1;
     // Obtiene el valor de apuesta justo antes de usarlo
     apuesta = parseFloat(document.querySelector('#bet').value);
-    document.querySelector('#recuadroApuesta').style.display = "none";
-    document.getElementById('iniciarJuego').style.display = 'none';
-    console.log("apuesta: " + apuesta)
-    actualizarDineroUsuario(-apuesta)
-    retirarDinero()
-    // Inicia la animación de encender recámaras
-    await EncenderRecamaras();
+    // Comprueba que la apuesta es válida
+    if (apuesta > 1 && apuesta <= saldo) {
+        bala = Math.floor(Math.random() * 6) + 1;
+        document.querySelector('#recuadroApuesta').style.display = "none";
+        document.getElementById('iniciarJuego').style.display = 'none';
+        console.log("apuesta: " + apuesta)
+        actualizarDineroUsuario(-apuesta)
+        retirarDinero()
+        // Inicia la animación de encender recámaras
+        await EncenderRecamaras();
+    } else {
+        // Muestra un mensaje de error al usuario
+        alert("La apuesta no es válida. Debe ser un NUMERO mayor que 1 y menor o igual que el saldo. ");
+    }
 }
 
 
