@@ -1,0 +1,25 @@
+{% extends 'plantilla.html' %}
+{% block title %} Cartas de elección {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/css/eleccion.css">
+{% endblock %}
+{% block body %}
+    <div id="contenedorTotal">
+        <div id = prueba3 title="moneda">
+            <img id ="fotoMoneda" src="/static/images/moneda.png">
+            <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
+            <span id= "monedas"> {{ DINERO }} </span>
+        </div>
+        <h1 id="titulo"> Cartas de elección </h1>
+
+        <div id="marcoJuego">
+            <!--<div id="elecciones"> Eleccion X </div>-->
+        </div>
+        <div id="counter">  </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/eleccion.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

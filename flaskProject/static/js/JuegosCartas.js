@@ -7,5 +7,5 @@ document.getElementById("cargarBlackJack").addEventListener("click", function(){
 });
 
 document.getElementById("cargarDino").addEventListener("click", function(){
-    window.location.href = "/Juegos/Indice_cartas/Carta_mas_alta/";
+    window.location.href = "/Juegos/Indice_cartas/Cartas_de_eleccion/";
 });

@@ -1,0 +1,100 @@
+body{
+    background-image: url("https://static.vecteezy.com/system/resources/previews/015/571/942/original/blue-neon-glowing-portable-game-console-for-video-games-with-buttons-and-screen-old-retro-hipster-vintage-from-70s-80s-90s-on-black-background-illustration-vector.jpg");
+    /*background-position: center;*/
+    background-size: cover;
+    color: white;
+}
+
+/* marco del dinero del usuario */
+#prueba3{
+    /*color: white;*/
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
+    background-size: cover;
+    position: absolute;
+    display: flex;
+    width: 16%;
+    height: 26%;
+    top: -7%;
+    left: 80%;
+    overflow: hidden;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.9));
+}
+
+#prueba3 span {
+    top: 40%;
+    left: 35%;
+    position: absolute;
+    font-size: 200%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+#fotoMoneda {
+    margin-left: -7%;
+    margin-top: 2%;
+    transform: scale(0.23);
+    filter: drop-shadow(5px 10px 8px rgba(0,0,0,1));
+}
+
+#masMonedas{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 15%;
+    left: 7%;
+    animation: masMonedasAnimation 2s infinite alternate;
+    cursor: pointer;
+}
+
+/* animacion del boton '+' */
+@keyframes masMonedasAnimation{
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+    50% {
+        transform: scale(1.2);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+}
+
+#contenedorTotal{
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    height: 70%;
+    width: 90%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    border: 2px solid #7d0bff;
+}
+
+#titulo{
+    text-align: center;
+    margin: 1% 0 5% 0;
+    font-size: 48px;
+}
+
+#marcoJuego{
+    border: 2px solid lightskyblue;
+}
+
+/* de CHAT GPT */
+.option-button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    border: 2px solid red;
+}
+.option-button:hover{
+    background-color: rgba(255,255,255,.3);
+}

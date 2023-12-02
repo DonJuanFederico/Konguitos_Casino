@@ -3,11 +3,19 @@ body{
 }
 
 #contenedorTotal{
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: 2px solid black;
 }
 
 #titulo{
     text-align: center;
+    margin: 5%;
+    font-size: 48px;
 }
 
 #marcoJuego{

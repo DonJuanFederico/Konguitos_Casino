@@ -237,10 +237,14 @@ def cartas():
     return render_template('juegosCartas.html')
 
 @app.route('/Juegos/Indice_cartas/Carta_mas_alta/', methods=['GET'])
-
 def A_Jugar():
     DINERO = obtenerDinero()
     return render_template('cartas_antiguo.html', DINERO = DINERO)
+
+@app.route('/Juegos/Indice_cartas/Cartas_de_eleccion/', methods=['GET'])
+def A_Elegir():
+    DINERO = obtenerDinero()
+    return render_template('eleccion.html', DINERO = DINERO)
 
 #indice de juegos de dados
 @app.route('/Juegos/Indice_Dados/', methods=['GET'])
