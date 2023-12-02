@@ -1,0 +1,28 @@
+body{
+
+}
+
+#contenedorTotal{
+    border: 2px solid black;
+}
+
+#titulo{
+    text-align: center;
+}
+
+#marcoJuego{
+    border: 2px solid lightskyblue;
+}
+
+/* de CHAT GPT */
+.option-button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    border: 2px solid red;
+}
+.option-button:hover{
+    background-color: lightgrey;
+}
