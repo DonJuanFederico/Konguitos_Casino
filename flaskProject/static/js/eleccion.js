@@ -3,54 +3,61 @@ let number = 4;
 let extra = 2;
 let winings = 0;
 
-let opciones = ['+ 0.3 KG','+ 0.3 KG', '+ 0.3 KG', 'x 0 KG'];
+let opciones = ['x 0.3 KG','x 0.3 KG', 'x 0.3 KG', 'x 0 KG'];
 
+let cierre = false;
 let bloqueo = true;
 let retirarse = document.getElementById('withdraw');
 let KGs = document.getElementById('KGs');
+let betAmount = parseFloat(document.getElementById('amount').value);
 //document.getElementById('counter').textContent = opciones;
 function startGame(){
-    firstOptions();
+    if(isNaN(parseFloat(document.getElementById('amount').value)) === false) {
+        firstOptions();
 
-    document.getElementById('marcoJuego').addEventListener('click', function (event) {
-        // coger lo elementos con la clase seleccionada
-        var elementosConClase = document.getElementsByClassName("option-button");
-        var arrayElementos = Array.from(elementosConClase);
-        if (event.target.classList.contains('option-button')) {
-            roundCounter++;
-            checkOption();
-            // Check if 5 rounds have passed
-            if (roundCounter % 5 === 1) {
-                if (roundCounter < 17) {
-                    //document.getElementById('counter').textContent = 'Ronda: ' + (roundCounter - 1)  + ', opciones:' + (number + extra) + ', prob. acierto: ' + prob + ', rondas ganadas y perdidas: ' + rWin + ' - ' + rLost + '. Ahora tienes mas opciones';
-                    // remove previous options
-                    removeOptions(arrayElementos);
-                    moreOptions();
-                    // Add two more options
-                    addOptions(number, extra);
-                    extra = extra + 2;
+        document.getElementById('marcoJuego').addEventListener('click', function (event) {
+            if(!cierre) {
+                // coger lo elementos con la clase seleccionada
+                var elementosConClase = document.getElementsByClassName("option-button");
+                var arrayElementos = Array.from(elementosConClase);
+                if (event.target.classList.contains('option-button')) {
+                    roundCounter++;
+                    checkOption();
+                    // Check if 5 rounds have passed
+                    if (roundCounter % 5 === 1) {
+                        if (roundCounter < 17) {
+                            //document.getElementById('counter').textContent = 'Ronda: ' + (roundCounter - 1)  + ', opciones:' + (number + extra) + ', prob. acierto: ' + prob + ', rondas ganadas y perdidas: ' + rWin + ' - ' + rLost + '. Ahora tienes mas opciones';
+                            // remove previous options
+                            removeOptions(arrayElementos);
+                            moreOptions();
+                            // Add two more options
+                            addOptions(number, extra);
+                            extra = extra + 2;
+                        }
+                        retirarse.style.opacity = '1';
+                        bloqueo = false;
+                        retirarse.style.cursor = 'pointer';
+                    }
+                    if (roundCounter % 5 !== 1 || roundCounter > 16) {
+                        if (roundCounter % 5 !== 1) {
+                            retirarse.style.opacity = '0';
+                            bloqueo = true;
+                            retirarse.style.cursor = 'default';
+                        }
+                        removeOptions(arrayElementos);
+                        opciones.sort(() => Math.random() - 0.5);
+                        addOptions(number, (extra - 2));
+                    }
+                    prob = 1 - prob_acierto(opciones, 'x 0 KG');
+                    document.getElementById('counter').textContent = 'Ronda: ' + (roundCounter - 1) + ', opciones:' + (number + extra - 2) + ', prob. acierto: ' + prob + '.';
                 }
-                retirarse.style.opacity = '1';
-                bloqueo = false;
-                retirarse.style.cursor = 'pointer';
             }
-            if(roundCounter % 5 !== 1 || roundCounter > 16){
-                if (roundCounter % 5 !== 1) {
-                    retirarse.style.opacity = '0';
-                    bloqueo = true;
-                    retirarse.style.cursor = 'default';
-                }
-                removeOptions(arrayElementos);
-                opciones.sort(() => Math.random() - 0.5);
-                addOptions(number, (extra - 2));
-            }
-            prob = 1 - prob_acierto(opciones, 'x 0 KG');
-            document.getElementById('counter').textContent = 'Ronda: ' + (roundCounter - 1)  + ', opciones:' + (number + extra - 2) + ', prob. acierto: ' + prob + '.';
-        }
-    });
+        });
+    } else alert('Tienes que apostar un mínimo de 1 KG. Gracias.')
 }
 
 function firstOptions() {
+    retirarDinero();
     opciones.sort(() => Math.random() - 0.5);  // desordena las opciones
     document.getElementById('marcoJuego').innerHTML = '';
     // Generate 4 random options
@@ -75,23 +82,25 @@ function removeOptions(arrayElementos) {
 
 function moreOptions(){
     // opciones.push('WIN', 'WIN', 'WIN', 'DEFEAT');
-    if(roundCounter === 6) opciones = ['+ 0.3 KG','+ 0.3 KG', '+ 0.4 KG', '+ 0.4 KG', 'x 0 KG', 'x 0 KG'];
-    else if(roundCounter === 11) opciones = ['+ 0.3 KG','+ 0.4 KG', '+ 0.4 KG', '+ 0.6 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG'];
-    else if(roundCounter === 16) opciones = ['+ 0.4 KG','+ 0.4 KG', '+ 0.6 KG', '+ 0.7 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG'];
+    if(roundCounter === 6) opciones = ['x 0.3 KG','x 0.3 KG', 'x 0.4 KG', 'x 0.4 KG', 'x 0 KG', 'x 0 KG'];
+    else if(roundCounter === 11) opciones = ['x 0.3 KG','x 0.4 KG', 'x 0.4 KG', 'x 0.6 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG'];
+    else if(roundCounter === 16) opciones = ['x 0.4 KG','x 0.4 KG', 'x 0.6 KG', 'x 0.7 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG'];
     opciones.sort(() => Math.random() - 0.5);
 }
 
 function checkOption(){
-    if(event.target.textContent === '+ 0.3 KG'){
-        winings = winings + 0.3;
-    } else if(event.target.textContent === '+ 0.4 KG'){
-        winings = winings + 0.4;
-    } else if(event.target.textContent === '+ 0.6 KG'){
-        winings = winings + 0.6;
-    } else if(event.target.textContent === '+ 0.7 KG'){
-        winings = winings + 0.7;
+    if(event.target.textContent === 'x 0.3 KG'){
+        winings = (winings + document.getElementById('amount').value * 0.3);
+    } else if(event.target.textContent === 'x 0.4 KG'){
+        winings = (winings + document.getElementById('amount').value * 0.4);
+    } else if(event.target.textContent === 'x 0.6 KG'){
+        winings = (winings + document.getElementById('amount').value * 0.6);
+    } else if(event.target.textContent === 'x 0.7 KG'){
+        winings = (winings + document.getElementById('amount').value * 0.7);
     } else {
         winings = 0;
+        cierre = true;
+        setTimeout(() => {location.reload();}, 2000);
     }
     KGs.textContent = ': ' + winings.toFixed(1);
 }
@@ -138,7 +147,7 @@ function showPercent(){
             "<br><br><strong>3.</strong> De las rondas 10 - 15: <strong>50%</strong>." +
             "<br><br><strong>4.</strong> De las rondas 15 - ∞: <strong>40%</strong>." +
             "</div>",
-        confirmButtonText: '¡QUIERO APOSTAAAAARRR!',
+        confirmButtonText: '¡VER ESTO ES DE CAGAOS!',
         confirmButtonColor: 'darkgoldenrod',
         backdrop: `rgba(0,0,0,0.5)`,
         allowOutsideClick: true,
@@ -152,11 +161,12 @@ function showPercent(){
 
 function withdraw(){
     if(!bloqueo) {
+        agregarDinero();
         Swal.fire({
             title: 'Saliste gay',
             width: 600,
             height: 700,
-            confirmButtonText: '¡SIP!',
+            confirmButtonText: '¡SIP, Y QUIERO MÁS!',
             confirmButtonColor: 'darkgoldenrod',
             backdrop: `rgba(0, 0, 0, 0.5)`,
             allowOutsideClick: true,
@@ -165,12 +175,31 @@ function withdraw(){
                 confirmButton: 'custom-button',
                 htmlContainer: 'custom-container'
             },
-        });
+        }).then(() => {location.reload();});
     }
 }
 
+function retirarDinero() {
+    var monto = betAmount;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + monto);
+}
+
+// funcion para agregar el dinero ganado de la partida
+function agregarDinero() {
+    var monto = winings;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + monto);
+}
+
 // Start the game
-startGame();
+//startGame();
 
 // boton de la toolbar de marcha atras
 var bontonAtras = document.querySelector('.back');

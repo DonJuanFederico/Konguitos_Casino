@@ -128,7 +128,7 @@ audio{
     width: 6%;
     font-size: 24px;
 }
-#ruleButton, #percent{
+#ruleButton, #percent, #playButton{
     width: 100%;
     height: 100%;
     margin: 7.5% 0 7.5% 0;
@@ -138,7 +138,7 @@ audio{
     background: darkgoldenrod;
     cursor: pointer;
 }
-#ruleButton:hover, #percent:hover{
+#ruleButton:hover, #percent:hover, #playButton:hover{
     background-color: goldenrod;
     box-shadow: 5px 5px 5px rgba(0, 246, 238, 0.56);
 }
@@ -165,4 +165,16 @@ audio{
 
 #wins{
     margin: 0 0 0 18%;
+}
+
+#jugar{
+    position: absolute;
+    display: flex;
+    top: 28%;
+    left: 76.7%;
+    height: 9%;
+    width: 5.8%;
+}
+#playButton{
+    margin: 0;
 }
