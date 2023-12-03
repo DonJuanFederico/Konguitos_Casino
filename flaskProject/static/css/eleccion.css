@@ -5,6 +5,10 @@ body{
     color: white;
 }
 
+audio{
+    display: none;
+}
+
 /* marco del dinero del usuario */
 #prueba3{
     /*color: white;*/
@@ -12,19 +16,19 @@ body{
     background-size: cover;
     position: absolute;
     display: flex;
-    width: 16%;
-    height: 26%;
-    top: -7%;
+    width: 14%;
+    height: 20%;
+    top: 1%;
     left: 80%;
     overflow: hidden;
     filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.9));
 }
 
 #prueba3 span {
-    top: 40%;
-    left: 35%;
+    top: 34%;
+    left: 40%;
     position: absolute;
-    font-size: 200%;
+    font-size: 180%;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -33,8 +37,8 @@ body{
 }
 
 #fotoMoneda {
-    margin-left: -7%;
-    margin-top: 2%;
+    margin-left: -10%;
+    margin-top: -4%;
     transform: scale(0.23);
     filter: drop-shadow(5px 10px 8px rgba(0,0,0,1));
 }
@@ -137,4 +141,28 @@ body{
 #ruleButton:hover, #percent:hover{
     background-color: goldenrod;
     box-shadow: 5px 5px 5px rgba(0, 246, 238, 0.56);
+}
+
+#apuesta{
+    position: absolute;
+    top: 45%;
+    left: 10%;
+}
+#amount{
+    width: 30%;
+}
+
+#KGNumber{
+    position: absolute;
+    display: flex;
+    top: 20%;
+    left: 76.5%;
+    height: 5%;
+    width: 7%;
+    align-items: center;
+    border: 2px solid greenyellow;
+}
+
+#wins{
+    margin: 0 0 0 18%;
 }

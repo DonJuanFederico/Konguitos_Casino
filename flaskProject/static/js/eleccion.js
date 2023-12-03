@@ -1,17 +1,15 @@
-// variables
 let roundCounter = 1;
 let number = 4;
 let extra = 2;
+let winings = 0;
 
-let rWin = 0;
-let rLost = 0;
-
-const opciones = ['WIN','WIN', 'WIN', 'DEFEAT'];
+let opciones = ['+ 0.3 KG','+ 0.3 KG', '+ 0.3 KG', 'x 0 KG'];
 
 let bloqueo = true;
 let retirarse = document.getElementById('withdraw');
+let KGs = document.getElementById('KGs');
 //document.getElementById('counter').textContent = opciones;
-function startGame() {
+function startGame(){
     firstOptions();
 
     document.getElementById('marcoJuego').addEventListener('click', function (event) {
@@ -20,7 +18,6 @@ function startGame() {
         var arrayElementos = Array.from(elementosConClase);
         if (event.target.classList.contains('option-button')) {
             roundCounter++;
-            prob = prob_acierto(opciones, 'WIN');
             checkOption();
             // Check if 5 rounds have passed
             if (roundCounter % 5 === 1) {
@@ -46,15 +43,15 @@ function startGame() {
                 removeOptions(arrayElementos);
                 opciones.sort(() => Math.random() - 0.5);
                 addOptions(number, (extra - 2));
-                document.getElementById('counter').textContent = 'Ronda: ' + (roundCounter - 1)  + ', opciones:' + (number + extra - 2) + ', prob. acierto: ' + prob + ', rondas ganadas y perdidas: ' + rWin + ' - ' + rLost;
             }
+            prob = 1 - prob_acierto(opciones, 'x 0 KG');
+            document.getElementById('counter').textContent = 'Ronda: ' + (roundCounter - 1)  + ', opciones:' + (number + extra - 2) + ', prob. acierto: ' + prob + '.';
         }
     });
 }
 
 function firstOptions() {
     opciones.sort(() => Math.random() - 0.5);  // desordena las opciones
-    // Clear existing options
     document.getElementById('marcoJuego').innerHTML = '';
     // Generate 4 random options
     if(roundCounter === 1) addOptions(0, 4);
@@ -78,34 +75,25 @@ function removeOptions(arrayElementos) {
 
 function moreOptions(){
     // opciones.push('WIN', 'WIN', 'WIN', 'DEFEAT');
-    if(roundCounter === 6){
-        opciones.push('WIN', 'DEFEAT');
-    }
-    else if(roundCounter === 11 || 16) opciones.push('DEFEAT', 'DEFEAT');
+    if(roundCounter === 6) opciones = ['+ 0.3 KG','+ 0.3 KG', '+ 0.4 KG', '+ 0.4 KG', 'x 0 KG', 'x 0 KG'];
+    else if(roundCounter === 11) opciones = ['+ 0.3 KG','+ 0.4 KG', '+ 0.4 KG', '+ 0.6 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG'];
+    else if(roundCounter === 16) opciones = ['+ 0.4 KG','+ 0.4 KG', '+ 0.6 KG', '+ 0.7 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG', 'x 0 KG'];
     opciones.sort(() => Math.random() - 0.5);
 }
 
 function checkOption(){
-    if(event.target.textContent === 'DEFEAT'){
-        /*Swal.fire({
-            imageUrl: `/static/images/carta_mas_alta/loser.png`,
-            showCancelButton: false,
-            showConfirmButton: false,
-            backdrop: `rgba(0,0,0,0.6)`,
-            background: `none`,
-        });
-        roundCounter = 1;*/
-        rLost = rLost + 1;
-    } else{
-        /*Swal.fire({
-            imageUrl: `/static/images/carta_mas_alta/mensaje_win.png`,
-            showCancelButton: false,
-            showConfirmButton: false,
-            backdrop: `rgba(0,0,0,0.6)`,
-            background: `none`,
-        });*/
-        rWin = rWin + 1;
+    if(event.target.textContent === '+ 0.3 KG'){
+        winings = winings + 0.3;
+    } else if(event.target.textContent === '+ 0.4 KG'){
+        winings = winings + 0.4;
+    } else if(event.target.textContent === '+ 0.6 KG'){
+        winings = winings + 0.6;
+    } else if(event.target.textContent === '+ 0.7 KG'){
+        winings = winings + 0.7;
+    } else {
+        winings = 0;
     }
+    KGs.textContent = ': ' + winings.toFixed(1);
 }
 
 function prob_acierto(opciones, eventoDeseado){
@@ -163,7 +151,7 @@ function showPercent(){
 }
 
 function withdraw(){
-    if(!block) {
+    if(!bloqueo) {
         Swal.fire({
             title: 'Saliste gay',
             width: 600,
