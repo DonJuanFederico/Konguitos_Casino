@@ -206,7 +206,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
 // variable de las reglas del juego
 var botonReglas = document.getElementById("botonReglas");
 // funcion para mostrar las reglas
-botonReglas.addEventListener("click", function () {
+function showRules(){
     Swal.fire({
         title: '¡BIENVENIDO!',
         width: 600,
@@ -230,7 +230,7 @@ botonReglas.addEventListener("click", function () {
             htmlContainer: 'custom-container'
           },
     });
-});
+}
 
 // boton de la toolbar de marcha atras
 var bontonAtras = document.querySelector('.back');

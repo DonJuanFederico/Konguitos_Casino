@@ -1,5 +1,5 @@
 body{
-    background-image: url("https://static.vecteezy.com/system/resources/previews/015/571/942/original/blue-neon-glowing-portable-game-console-for-video-games-with-buttons-and-screen-old-retro-hipster-vintage-from-70s-80s-90s-on-black-background-illustration-vector.jpg");
+    background-image: url("https://openseauserdata.com/files/5f085809f2b711643e4eb4974cc03c0e.gif");
     /*background-position: center;*/
     background-size: cover;
     color: white;
@@ -64,16 +64,16 @@ body{
         filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
     }
 }
-
 #contenedorTotal{
     background-color: rgba(0,0,0,0.5);
     position: absolute;
     height: 70%;
-    width: 90%;
+    width: 50%;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -40%);
     border: 2px solid #7d0bff;
+    text-align: center;
 }
 
 #titulo{
@@ -97,4 +97,44 @@ body{
 }
 .option-button:hover{
     background-color: rgba(255,255,255,.3);
+}
+
+#withdraw{
+    height: 5%;
+    width: 10%;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: darkgoldenrod;
+    margin-top: 1%;
+    opacity: 0;
+}
+
+#counter{
+    text-align: center;
+    border: 2px solid #2cff0b;
+    margin-top: 1%;
+}
+
+#rules{
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    height: 5%;
+    width: 6%;
+    font-size: 24px;
+}
+#ruleButton, #percent{
+    width: 100%;
+    height: 100%;
+    margin: 7.5% 0 7.5% 0;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: darkgoldenrod;
+    cursor: pointer;
+}
+#ruleButton:hover, #percent:hover{
+    background-color: goldenrod;
+    box-shadow: 5px 5px 5px rgba(0, 246, 238, 0.56);
 }

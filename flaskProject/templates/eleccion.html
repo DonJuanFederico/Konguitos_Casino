@@ -4,18 +4,24 @@
     <link rel="stylesheet" href="/static/css/eleccion.css">
 {% endblock %}
 {% block body %}
+    <div id = prueba3 title="moneda">
+        <img id ="fotoMoneda" src="/static/images/moneda.png">
+        <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
+        <span id= "monedas"> {{ DINERO }} </span>
+    </div>
     <div id="contenedorTotal">
-        <div id = prueba3 title="moneda">
-            <img id ="fotoMoneda" src="/static/images/moneda.png">
-            <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
-            <span id= "monedas"> {{ DINERO }} </span>
-        </div>
         <h1 id="titulo"> Cartas de elección </h1>
 
         <div id="marcoJuego">
             <!--<div id="elecciones"> Eleccion X </div>-->
         </div>
+        <button id="withdraw" onclick="withdraw()"> Retirarse </button>
         <div id="counter">  </div>
+    </div>
+
+    <div id="rules">
+        <button id="ruleButton" onclick="showRules()"> Reglas </button>
+        <button id="percent" onclick="showPercent()"> Porcentajes </button>
     </div>
 {% endblock %}
 {% block javascript %}
