@@ -1,318 +1,139 @@
-html, body {
-  margin: 0; padding: 0;
+/* 5 Capas de la ruleta y pelota: 14 */
+
+body {
+    font-family: sans-serif;
+    background-image: url(/static/images/ruleta/felt.png), -webkit-radial-gradient(50% 40%,#527c14,#243a0a);
+    background-attachment: fixed;
 }
 
-
-.botonDeReglas {
+/* ---------- Alertas ---------- */
+.reglas {
     position: absolute;
-    left: 40%;
-    top:0%;
+    left: 7%;
+    top:3%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    width: 10%;
+    width: 2%;
+    height: 5%;
 }
 
-.botonDeApuestas{
+.recompensas {
     position: absolute;
-    left: 71%;
-    top: 0%;
+    left: 17%;
+    top:3%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    width: 10%;
+    width: 3%;
+    height: 5%;
 }
 
-.botonDeRecompensas {
+.valorMonedas{
     position: absolute;
-    left: 50%;
-    top:0%;
+    left: 30.2%;
+    top: 3%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    width: 10%;
+    width: 3.5%;
+    height: 5%;
 }
 
-.botonDeLeyenda{
-    position: absolute;
-    left: 61%;
-    top: 0%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    width: 10%;
-}
 buttonRR {
     cursor: pointer;
     font-size: 1.2rem;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
-    background: #ff0202;
-    color: #fff; /* Añadido color de texto para mejorar la legibilidad */
+    width: 400%;
+    height: 150%;
+    background: #f53535;
 }
 
-/* Estilo adicional para dar feedback visual al hacer hover sobre el botón */
-buttonRR:hover {
-    background: #e60000; /* Puedes ajustar el color al hacer hover según tu preferencia */
-}
-
-body {
-  font-family: sans-serif;
-  background-image: url(/static/images/ruleta/felt.png), -webkit-radial-gradient(50% 40%,#527c14,#243a0a);
-  background-size: 180px 180px,auto;
-  background-attachment: fixed;
-  user-select: none;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-  margin: 0; padding: 0;
-}
-
-#app {
-  // overflow: hidden;
-  contain: layout style;
-  overflow: visible;
-}
-
-/* ---- Ruleta --- */
-
-.roulette-wheel {
-  float: right;
-  width: 380px;
-  height: 380px;
-  border-radius: 100%;
-  background: url(/static/images/ruleta/roulette_1.jpg);
-  background-size: 380px 380px;
-  shape-outside: circle(190px);
-  margin: 0 0 1em 1em;
-  box-shadow: 2px 10px 30px rgba(0,0,0,.4);
-  position: absolute;
-  top: 60px;
-  left: 10%;
-  touch-action: none;
-  overflow: visible;
-    z-index: 1;
-}
-
-/*
-.animacionKoniguito{
-    width: 360px;
-    height: 360px;
+/* ---------- Tiempo de apuesta ---------- */
+#tiempoApostar{
     position: absolute;
-    top: 10%;
-    animation: animacion 2s;
-    z-index: -1;
-}*/
-
-
-.girar{
-  position: absolute;
-  top: 85%;
-  left: 17%;
-  z-index: 1;
-  width: 10%;
-  height: 5%;
-  text-align: center;
-  font-size: 20px;
-}
-
-/*
-@keyframes animacion {
-    0% { background-image: url('/static/images/ruleta/framesRuleta/1.png'); }
-    5.56% { background-image: url('/static/images/ruleta/framesRuleta/2.png'); }
-    11.11% { background-image: url('/static/images/ruleta/framesRuleta/3.png'); }
-    16.67% { background-image: url('/static/images/ruleta/framesRuleta/4.png'); }
-    22.22% { background-image: url('/static/images/ruleta/framesRuleta/5.png'); }
-    27.78% { background-image: url('/static/images/ruleta/framesRuleta/6.png'); }
-    33.33% { background-image: url('/static/images/ruleta/framesRuleta/7.png'); }
-    38.89% { background-image: url('/static/images/ruleta/framesRuleta/8.png'); }
-    44.44% { background-image: url('/static/images/ruleta/framesRuleta/9.png'); }
-    50% { background-image: url('/static/images/ruleta/framesRuleta/10.png'); }
-    55.56% { background-image: url('/static/images/ruleta/framesRuleta/11.png'); }
-    61.11% { background-image: url('/static/images/ruleta/framesRuleta/12.png'); }
-    66.67% { background-image: url('/static/images/ruleta/framesRuleta/13.png'); }
-    72.22% { background-image: url('/static/images/ruleta/framesRuleta/14.png'); }
-    77.78% { background-image: url('/static/images/ruleta/framesRuleta/15.png'); }
-    83.33% { background-image: url('/static/images/ruleta/framesRuleta/16.png'); }
-    88.89% { background-image: url('/static/images/ruleta/framesRuleta/17.png'); }
-    94.44% { background-image: url('/static/images/ruleta/framesRuleta/18.png'); }
-    100% { background-image: url('/static/images/ruleta/framesRuleta/18.png'); }  Última imagen al final de la animación
-}
-*/
-
-.moneda {
-  position: absolute;
-  top: 80%;
-  left: 10%;
-  width: 80%;
-  height: 20%;
-  border-color: rgba(0, 0, 0, 0.33);
-  border-width: 5px;
-  border-top-style: solid;
-  background: rgba(0, 0, 0, 0.33);
-}
-
-@media screen and (max-width: 2640px) {
-  .roulette-wheel {
-    float:none;
-    margin: 1em auto
-  }
-}
-
-@media screen and (max-width: 375px) {
-  body {
-    padding: 0 20px;
-  }
-  .roulette-wheel {
-    float:none;
-    left: 30px;
-    // margin: 1em 0 0 2em;
-  }
-}
-
-
-.roulette-wheel .layer-2,.roulette-wheel .layer-3,.roulette-wheel .layer-4,.roulette-wheel .layer-5, .ball-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 380px 380px;
+    top: 13%;
+    left: 40%;
+    height: 5%;
+    width: 20%;
+    background-color: #484848;
     z-index: 1;
 }
 
-.roulette-wheel .layer-2, .roulette-wheel .layer-4, .ball-container {
-  will-change: transform;
+#quiz-time-left {
+    position: absolute;
+    width: 0;
+    height: 5%;
+    top: 13%;
+    left: 40%;
+    -webkit-animation: progreso 5s linear;
+            animation: progreso 5s linear;
+    background: #26c94a;
+    z-index: 1;
+ }
+#countdown {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: #fff;
+    z-index: 2;
+}
+
+#page-mod-quiz-summary #quiz-timer {
+    text-align: center;
+    display: none;
+    position: absolute;
+    left: -50px;
+    top: -50px;
     z-index: 1;
 }
 
-.roulette-wheel .layer-2 {
-  background-image: url(/static/images/ruleta/roulette_2.png);
+#quiz-timer {
+    border: 2px solid #000000;
+    text-indent: -9999px;
+    display:block;
+    font-size: 0px;
+    height: 35px;
     z-index: 1;
 }
-
-.roulette-wheel .layer-3 {
-  background-image: url(/static/images/ruleta/roulette_3.png);
-    z-index: 1;
+#noQuieroQueSalga {
+    color: #26c94a;
+    background: #26c94a;
 }
 
-.roulette-wheel .layer-4 {
-  background-image: url(/static/images/ruleta/roulette_4.png);
-    z-index: 1;
+@-webkit-keyframes progreso {
+    0% {
+        width: 20%;
+    }
+    100% {
+        width: 0;
+    }
 }
 
-.roulette-wheel .layer-5 {
-  background-image: url(/static/images/ruleta/roulette_5.png);
-    z-index: 1;
+@keyframes progreso {
+    0% {
+        width: 20%;
+    }
+    100% {
+        width: 0;
+    }
 }
 
-.roulette-wheel svg {
-  position: absolute;
-  top: 0;
-  left: 0
-}
-
-.roulette-wheel circle {
-  cursor: pointer;
-  fill: transparent;
-}
-
-.roulette-wheel .ball {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-radius: 7px;
-  background: #fff radial-gradient(circle at 5px 5px, #fff, #444);
-  box-shadow: 1px 1px 4px #000;
-  transform: translateY(-116px);
-  top: 50%;
-  left: 50%;
-  margin: -7px;
-  will-change: transform
-}
-
-.flipper-container {
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
-}
-
-.flipper {
-  display: inline-block;
-  position: relative;
-  width: 96px;
-  height: 128px;
-  transition: all 2s cubic-bezier(0.240, 1.650, 0.915, 0.835);
-  transform-style: preserve-3d;
-  font-family: monospace;
-  user-select: none;
-}
-.flipper.flip {
-  transform: rotateX(90deg);
-}
-
-.front-face, .back-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 2px;
-  backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  text-align: center;
-  font-size: 76px;
-}
-
-.front-face {
-  background-color: #fc216100;
-  color: #fff;
-  text-shadow: 0 1px 1px #b50236;
-  transform: rotateX(0deg) translateZ(64px);
-}
-
-.back-face {
-  color: #dca041;
-  transform: rotateX(-90deg) translateZ(64px);
-  outline: solid 2px;
-}
-
-.flip.red {
-  .back-face {
-    background-color: #c52703;
-  }
-}
-
-.flip.black {
-  .back-face {
-    background-color: #242324;
-  }
-}
-
-.flip.green {
-  .back-face {
-    background-color: #436410;
-  }
-}
-
-/* ------------------------------------ COSAS MARCO MONEDA------------------------------------ */
-
+/* ---------- Marco Monedas ---------- */
 #marcoMonedas {
     background-image: url("/static/images/marcoCasino.png");
     position: absolute;
-    top: 0%;
+    top: 2%;
     right: 4%;
     width: 20%;
     height: 20%;
@@ -331,7 +152,6 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 
 #divMonedasUsuario span {
     position: absolute;
@@ -353,257 +173,91 @@ body {
     margin-top: -30%;
     transform: scale(0.07);
     animation: animacionBotonComprarMonedas 2s infinite alternate;
+    cursor: pointer;
 }
 
 #monedasUsuario {
     color: #fafaf7;
     font-size: 1.5rem;
 }
-
-
-
-
-/* ------------------------------------ Apuestas ------------------------------------ */
-
-.dinero{
-    font-size: inherit;
+/* ---------- Capas de la Ruleta ---------- */
+.ruleta {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    left: 10%;
+    top: 100px;
 }
 
-.tablero_apuestas {
+.capa-1, .capa-2, .capa-3, .capa-4, .capa-5, .ball-container {
     position: absolute;
-    top: 20%;
+    width: 100%;
+    height: 400px;
+}
+
+.capa-2 {
+    z-index: 2;
+}
+
+.capa-3 {
+    z-index: 3;
+}
+
+.capa-4 {
+    z-index: 4;
+}
+
+.capa-5 {
+    z-index: 5;
+}
+
+.ball {
+    position: absolute;
+    width: 3.5%;
+    height: 3.5%;
+    border-radius: 7px;
+    background: #fff radial-gradient(circle at 5px 5px, #fff, #444);
+    box-shadow: 1px 1px 4px #000;
+    transform: translateY(-116px);
+    top: 50%;
+    left: 50%;
+    margin: -7px;
+    z-index: 6;
+}
+
+/* ---------- Apuetas ---------- */
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    top: 30%;
     left: 45%;
-    background-image: url("/static/images/ruleta/apuestas.png");
-    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-    width: 45%;
-    height: 45%;
-    z-index: 1;
-}
-
-.casilla {
     position: absolute;
-    width: 20%; /* ajusta el tamaño de las casillas según tus necesidades */
-    height: 20%; /* ajusta el tamaño de las casillas según tus necesidades */
-    border: 1px solid #000; /* borde para visualizar las casillas */
-    cursor: pointer;
-    z-index: 1;
 }
-.moneda-cobre{
+
+.numero {
     position: absolute;
-    bottom: 20%;
-    left: 40%;
-    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-    width: 10%;
-    height: 50%;
-    background-image: url("/static/images/monedaCobre.png");
+    border: 0.5px groove #FFFFFF;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-size: 150%;
     cursor: pointer;
+    color: white;
+    width: 50px;
+    height: 50px;
 }
 
-
-.moneda-plata {
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-  width: 10%;
-  height: 50%;
-  background-image: url("/static/images/moneda.png");
-    cursor: pointer;
+.rojo{
+    background-color: #c52525;
 }
 
-.moneda-rubi {
-  position: absolute;
-  bottom: 20%;
-  left: 60%;
-  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-  width: 10%;
-  height: 50%;
-  background-image: url("/static/images/monedaRubi.png");
-    cursor: pointer;
+.negro{
+    background-color: black;
 }
 
-.moneda-oro {
-  position: absolute;
-  bottom: 20%;
-  left: 70%;
-  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-  width: 10%;
-  height: 50%;
-  background-image: url("/static/images/moneda_dorada.png");
-    cursor: pointer;
+.verde{
+    background-color: #40a21e;
 }
 
-.moneda-diamante {
-  position: absolute;
-  bottom: 20%;
-  left: 80%;
-  background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-  width: 10%;
-  height: 50%;
-  background-image: url("/static/images/monedaDiamante.png");
-    cursor: pointer;
+.externo{
+    background-color: transparent;
 }
-
-.tablero_apuestas {
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    background-image: url("/static/images/ruleta/apuestas.png");
-    background-size: 100% 100%; /* Ajusta el tamaño de la imagen para cubrir completamente el elemento */
-    width: 50%;
-    height: 50%;
-    z-index: 1;
-}
-/* ------------------------------------ Apuestas fila 5 ------------------------------------ */
-/* Estilo común para todas las apuestas */
-.tablero_apuestas .apuesta {
-    position: absolute;
-    z-index: 1;
-    cursor: pointer;
-}
-
-/* Estilos específicos para cada tipo de apuesta */
-.tablero_apuestas .apuesta[data-numero="1_to_18"] { left: 9%; top: 80%; width: 12.5%; height: 18% }
-.tablero_apuestas .apuesta[data-numero="par"] { left: 24%; top: 80%; width: 12.5%; height: 18% }
-.tablero_apuestas .apuesta[data-numero="rojo"] { left: 38%; top: 80%; width: 12.5%; height: 18% }
-.tablero_apuestas .apuesta[data-numero="negro"] { left: 52%; top: 80%; width: 12.5%; height: 18% }
-.tablero_apuestas .apuesta[data-numero="impar"] { left: 66%; top: 80%; width: 12.5%; height: 18% }
-.tablero_apuestas .apuesta[data-numero="19_to_36"] { left: 80%; top: 80%; width: 12.5%; height: 18% }
-
-.tablero_apuestas .apuesta[data-numero="1_to_12"] { left: 9%; top: 64%; width: 27.5%; height: 15% }
-.tablero_apuestas .apuesta[data-numero="12_to_24"] { left: 38%; top: 64%; width: 27.5%; height: 15% }
-.tablero_apuestas .apuesta[data-numero="24_to_36"] { left: 66%; top: 64%; width: 27.5%; height: 15% }
-
-.tablero_apuestas .apuesta[data-numero="fila_1"] {left:93%; top: 3%; width: 6%; height: 18%}
-.tablero_apuestas .apuesta[data-numero="fila_2"] {left:93%; top: 23%; width: 6%; height: 18%}
-.tablero_apuestas .apuesta[data-numero="fila_3"] {left:93%; top: 43%; width: 6%; height: 18%}
-/* Apuestas para 2 números */
-.tablero_apuestas .apuesta[data-numero="1_2"],
-.tablero_apuestas .apuesta[data-numero="2_3"] {left:9.5%}
-.tablero_apuestas .apuesta[data-numero="4_5"],
-.tablero_apuestas .apuesta[data-numero="5_6"] {left:17%}
-.tablero_apuestas .apuesta[data-numero="7_8"],
-.tablero_apuestas .apuesta[data-numero="8_9"] {left:24%}
-.tablero_apuestas .apuesta[data-numero="10_11"],
-.tablero_apuestas .apuesta[data-numero="11_12"] {left:31%}
-.tablero_apuestas .apuesta[data-numero="13_14"],
-.tablero_apuestas .apuesta[data-numero="14_15"] {left:38%}
-.tablero_apuestas .apuesta[data-numero="16_17"],
-.tablero_apuestas .apuesta[data-numero="17_18"] {left:45%}
-.tablero_apuestas .apuesta[data-numero="19_20"],
-.tablero_apuestas .apuesta[data-numero="20_21"] {left:52%}
-.tablero_apuestas .apuesta[data-numero="22_23"],
-.tablero_apuestas .apuesta[data-numero="23_24"] {left:59%}
-.tablero_apuestas .apuesta[data-numero="25_26"],
-.tablero_apuestas .apuesta[data-numero="26_27"] {left:66%}
-.tablero_apuestas .apuesta[data-numero="28_29"],
-.tablero_apuestas .apuesta[data-numero="29_30"] {left:73%}
-.tablero_apuestas .apuesta[data-numero="31_32"],
-.tablero_apuestas .apuesta[data-numero="32_33"] {left:80%}
-.tablero_apuestas .apuesta[data-numero="34_35"],
-.tablero_apuestas .apuesta[data-numero="35_36"] {left:87%}
-
-
-.tablero_apuestas .apuesta[data-numero="1_4"],
-.tablero_apuestas .apuesta[data-numero="2_5"],
-.tablero_apuestas .apuesta[data-numero="3_6"] {left: 15%}
-.tablero_apuestas .apuesta[data-numero="4_7"],
-.tablero_apuestas .apuesta[data-numero="5_8"],
-.tablero_apuestas .apuesta[data-numero="6_9"] {left: 22%}
-.tablero_apuestas .apuesta[data-numero="7_10"],
-.tablero_apuestas .apuesta[data-numero="8_11"],
-.tablero_apuestas .apuesta[data-numero="9_12"] {left: 29%}
-.tablero_apuestas .apuesta[data-numero="10_13"],
-.tablero_apuestas .apuesta[data-numero="11_14"],
-.tablero_apuestas .apuesta[data-numero="12_15"] {left: 36%}
-.tablero_apuestas .apuesta[data-numero="13_16"],
-.tablero_apuestas .apuesta[data-numero="14_17"],
-.tablero_apuestas .apuesta[data-numero="15_18"] {left: 43%}
-.tablero_apuestas .apuesta[data-numero="16_19"],
-.tablero_apuestas .apuesta[data-numero="17_20"],
-.tablero_apuestas .apuesta[data-numero="18_21"] {left: 50%}
-.tablero_apuestas .apuesta[data-numero="19_22"],
-.tablero_apuestas .apuesta[data-numero="20_23"],
-.tablero_apuestas .apuesta[data-numero="21_24"] {left: 57%}
-.tablero_apuestas .apuesta[data-numero="22_25"],
-.tablero_apuestas .apuesta[data-numero="23_26"],
-.tablero_apuestas .apuesta[data-numero="24_27"] {left: 64%}
-.tablero_apuestas .apuesta[data-numero="25_28"],
-.tablero_apuestas .apuesta[data-numero="26_29"],
-.tablero_apuestas .apuesta[data-numero="27_30"] {left: 71%}
-.tablero_apuestas .apuesta[data-numero="28_31"],
-.tablero_apuestas .apuesta[data-numero="29_32"],
-.tablero_apuestas .apuesta[data-numero="30_33"] {left: 78%}
-.tablero_apuestas .apuesta[data-numero="31_34"],
-.tablero_apuestas .apuesta[data-numero="32_35"],
-.tablero_apuestas .apuesta[data-numero="33_36"] {left: 85%}
-
-.tablero_apuestas .apuesta[data-numero="1_2_4_5"],
-.tablero_apuestas .apuesta[data-numero="2_3_5_6"] {left: 15%}
-.tablero_apuestas .apuesta[data-numero="4_5_7_8"],
-.tablero_apuestas .apuesta[data-numero="5_6_8_9"] {left: 22%}
-.tablero_apuestas .apuesta[data-numero="7_8_10_11"],
-.tablero_apuestas .apuesta[data-numero="8_9_11_12"] {left: 29%}
-.tablero_apuestas .apuesta[data-numero="10_11_13_14"],
-.tablero_apuestas .apuesta[data-numero="11_12_14_15"] {left: 36%}
-.tablero_apuestas .apuesta[data-numero="13_14_16_17"],
-.tablero_apuestas .apuesta[data-numero="14_15_17_18"] {left: 43%}
-.tablero_apuestas .apuesta[data-numero="16_17_19_20"],
-.tablero_apuestas .apuesta[data-numero="17_18_20_21"] {left: 50%}
-.tablero_apuestas .apuesta[data-numero="19_20_22_23"],
-.tablero_apuestas .apuesta[data-numero="20_21_23_24"] {left: 57%}
-.tablero_apuestas .apuesta[data-numero="22_23_25_26"],
-.tablero_apuestas .apuesta[data-numero="23_24_26_27"] {left: 64%}
-.tablero_apuestas .apuesta[data-numero="25_26_28_29"],
-.tablero_apuestas .apuesta[data-numero="26_27_29_30"] {left: 71%}
-.tablero_apuestas .apuesta[data-numero="28_29_31_32"],
-.tablero_apuestas .apuesta[data-numero="29_30_32_33"] {left: 78%}
-.tablero_apuestas .apuesta[data-numero="31_32_34_35"],
-.tablero_apuestas .apuesta[data-numero="32_33_35_36"] {left: 85%}
-
-.tablero_apuestas .apuesta[data-numero="1"],
-.tablero_apuestas .apuesta[data-numero="2"],
-.tablero_apuestas .apuesta[data-numero="3"] {left: 9%}
-.tablero_apuestas .apuesta[data-numero="4"],
-.tablero_apuestas .apuesta[data-numero="5"],
-.tablero_apuestas .apuesta[data-numero="6"]{left: 16%}
-.tablero_apuestas .apuesta[data-numero="7"],
-.tablero_apuestas .apuesta[data-numero="8"],
-.tablero_apuestas .apuesta[data-numero="9"] {left: 23%}
-.tablero_apuestas .apuesta[data-numero="10"],
-.tablero_apuestas .apuesta[data-numero="11"],
-.tablero_apuestas .apuesta[data-numero="12"] {left: 30%}
-.tablero_apuestas .apuesta[data-numero="13"],
-.tablero_apuestas .apuesta[data-numero="14"],
-.tablero_apuestas .apuesta[data-numero="15"] {left: 37%}
-.tablero_apuestas .apuesta[data-numero="16"],
-.tablero_apuestas .apuesta[data-numero="17"],
-.tablero_apuestas .apuesta[data-numero="18"] {left: 44%}
-.tablero_apuestas .apuesta[data-numero="19"],
-.tablero_apuestas .apuesta[data-numero="20"],
-.tablero_apuestas .apuesta[data-numero="21"] {left: 51%}
-.tablero_apuestas .apuesta[data-numero="22"],
-.tablero_apuestas .apuesta[data-numero="23"],
-.tablero_apuestas .apuesta[data-numero="24"] {left: 58%}
-.tablero_apuestas .apuesta[data-numero="25"],
-.tablero_apuestas .apuesta[data-numero="26"],
-.tablero_apuestas .apuesta[data-numero="27"] {left: 65%}
-.tablero_apuestas .apuesta[data-numero="28"],
-.tablero_apuestas .apuesta[data-numero="29"],
-.tablero_apuestas .apuesta[data-numero="30"] {left: 72%}
-.tablero_apuestas .apuesta[data-numero="31"],
-.tablero_apuestas .apuesta[data-numero="32"],
-.tablero_apuestas .apuesta[data-numero="33"] {left: 79%}
-.tablero_apuestas .apuesta[data-numero="34"],
-.tablero_apuestas .apuesta[data-numero="35"],
-.tablero_apuestas .apuesta[data-numero="36"] {left: 86%}
-
-/* Si los elementos están en una fila, puedes usar flexbox para alinearlos */
-.contenedor {
-    display: flex;
-    justify-content: space-between; /* o cualquier otra propiedad de justificación que prefieras */
-}
-
-
-
-

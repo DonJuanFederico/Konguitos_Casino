@@ -28,14 +28,6 @@ async function iniciarJuego() {
     }
 }
 
-
-function bloquearSeleccion() {
-    console.log("Bloqueando selección")
-    mensaje.textContent = "Selección bloqueada.";
-    mensaje.style.color = "#f00"; // Color rojo para indicar bloqueo
-    document.querySelector('#recuadros-container').style.pointerEvents = 'none';
-}
-
 async function EncenderRecamaras() {
     let recamaraIluminada = 1;
     gameInterval = setInterval(() => {
@@ -62,8 +54,6 @@ async function EncenderRecamaras() {
         document.getElementById(`recamara${i}`).style.backgroundColor = "#64676e";
     }
     clearInterval(gameInterval);
-    console.log("Recamara: " + recamara);
-    console.log("Bala: " + bala);
     document.querySelector('#disparar').style.display = 'block';
     document.querySelector('#retirarse').style.display = 'block';
 }
@@ -73,7 +63,6 @@ async function disparar() {
     //Ha disparado y esta en la primera recamara disparada
     if (HaDisparado === 1) {
         recamara = 1;
-        console.log("Ha disparado: " + recamara)
         const elementoRecamara = document.getElementById(`recamara${recamara}`);
         if (elementoRecamara) {
             if (recamara === bala) {
@@ -93,7 +82,6 @@ async function disparar() {
             console.error(`El elemento recamara${recamara} no existe.`);
         }
     } else {
-        console.log("Ha disparado: " + recamara)
         const elementoRecamara = document.getElementById(`recamara${recamara}`);
         if (elementoRecamara) {
             if (recamara === 5 && recamara !== bala) {
@@ -127,11 +115,8 @@ function reiniciarJuego() {
     document.querySelector('#recuadroApuesta').style.display = "block";
     document.getElementById('iniciarJuego').style.display = 'block';
     clearInterval(gameInterval);
-    console.log(recamara);
     recamara = 0;
-    console.log(recamara);
     bala = null;
-    console.log(HaDisparado); // Verifica el valor de HaDisparado
     HaDisparado = 0; // Asegúrate de restablecer HaDisparado
 }
 
@@ -146,39 +131,33 @@ function retirarse() {
 
 function verficarResultado(recamara) {
     if (recamara === 0) {
-        console.log("retirado tras haber disparado: " + recamara)
         alert("Te has retirado perdiendo todo.");
         // No se realiza ninguna actualización aquí, ya que no hay ganancias
     } else if (recamara === 1) {
-        console.log("retirado tras haber disparado: " + recamara)
         multiplicador = 0.2;
         alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
     } else if (recamara === 2) {
-        console.log("retirado tras haber disparado: " + recamara)
         multiplicador = 0.4;
         alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
     } else if (recamara === 3) {
-        console.log("retirado tras haber disparado: " + recamara)
         multiplicador = 1;
         alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
     } else if (recamara === 4) {
-        console.log("retirado tras haber disparado: " + recamara)
         multiplicador = 1.5;
         alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
     } else if (recamara === 5) {
-        console.log("retirado tras haber disparado: " + recamara)
         multiplicador = 2;
         alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         actualizarDineroUsuario(apuesta * multiplicador);
