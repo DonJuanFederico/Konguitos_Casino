@@ -1,9 +1,16 @@
 #container {
     text-align: center;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#container h1 {
+    font-size: 48px;
+    font-family: Arial, sans-serif;
+    margin-top: 0; /* Ajusta este valor para el espacio encima del título */
+    margin-bottom: 50px; /* Ajusta este valor para el espacio debajo del título */
 }
 
 .card-image {
