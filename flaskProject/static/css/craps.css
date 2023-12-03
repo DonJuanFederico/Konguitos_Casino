@@ -4,6 +4,9 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+    background-image: url('https://image.freepik.com/free-vector/poker-table-background-green-color_47243-1068.jpg');
+    background-size: 100%;
+    color: white;
 }
 
 /* Estilo de la barra lateral */
@@ -29,19 +32,6 @@ body {
     overflow: auto;
     top: 0;
     right: 0;
-}
-
-/* Estilo de la barra lateral izquierda */
-.sidebar-left {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    width: 200px;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-    top: 0;
-    left: 0;
 }
 
 /* Contenedor principal */
@@ -87,10 +77,28 @@ body {
     margin-top: 0;
 }
 
-/* Estilo de los botones de apuestas */
-.sidebar button {
-    display: block;
-    margin: 10px 0;
+/* Estilo para el título de "Posibles Apuestas" */
+.apuestas-title {
+    margin-right: 50px; /* Separación del texto con los botones */
+    line-height: 300px; /* Ajusta el espacio vertical para alinear con los botones */
+}
+
+/* Estilos para los botones de apuestas en una fila horizontal */
+.bottom-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
+    box-sizing: border-box;
+    background-color: transparent; /* Fondo transparente */
+}
+
+/* Estilo de los botones de apuestas en la parte inferior */
+.bottom-buttons button {
+    margin: 0 10px; /* Espacio entre los botones */
     padding: 10px 20px;
     font-size: 18px;
     background-color: #555;
@@ -100,9 +108,10 @@ body {
 }
 
 /* Estilo de los botones de apuestas al pasar el ratón por encima */
-.sidebar button:hover {
+.bottom-buttons button:hover {
     background-color: #777;
 }
+
 
 /* Estilo del contenido principal */
 .content {
@@ -132,6 +141,10 @@ body {
     display: inline-block;
 }
 
+.dice-img {
+    width: 100px;
+    height: auto;
+}
 
 /*Saldo y monedas */
 .recuadroSaldo {
@@ -212,6 +225,18 @@ body {
     width: 3%;
 }
 
+.botonDeTiro {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 3%;
+}
+
 buttonRR {
     cursor: pointer;
     font-size: 1.2rem;
@@ -220,8 +245,25 @@ buttonRR {
     padding: 10px 15px;
     width: 400%;
     height: 150%;
-    background: #dbe138;
+    background: #CC0066;
 }
+
+buttonThrow {
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 400%;
+    height: 150%;
+    background: #555;
+}
+
+#audio-player {
+     display: none;
+}
+
+
 
 
 
