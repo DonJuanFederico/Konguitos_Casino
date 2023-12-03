@@ -14,6 +14,13 @@ body{
     width: 100%;
     position: fixed;
 }
+#fixator:hover {
+    z-index: 100;
+}
+
+#fixator:not(:hover) #lbar{
+    z-index: 0;
+}
 
 /* MENU HAMBURGUESA */
 #bars__menu{
@@ -106,6 +113,7 @@ body{
 
 #box-search li a:hover{
     background: #f3f3f3;
+    z-index: 100;
 }
 
 /* COVER PARA BLOQUEAR EL FONDO (SE SUPERPONE) */

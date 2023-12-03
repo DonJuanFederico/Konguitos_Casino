@@ -111,7 +111,7 @@ function apostar(tipo) {
     alert('Has apostado a ' + tipo);
 }
 
-/* ---------- MarcoMonedas ---------- */
+/* ---------- MarcoSaldo ---------- */
 document.getElementById("botonComprarMonedas").addEventListener("click", function () {
     window.location.href = "/dinero/";
 });
@@ -119,3 +119,24 @@ document.getElementById("botonComprarMonedas").addEventListener("click", functio
 function volverAtras(){
     document.location.href = '/Juegos/';
 }
+
+/* ---------- MarcoMonedas ---------- */
+
+function colocarMoneda(moneda){
+    /* ---- COLOCAR BORDE ---- */
+    const clasesMonedas = ['cobre', 'plata', 'rubi', 'oro', 'diamante'];
+
+    // Eliminar el borde de todas las monedas
+    document.querySelectorAll('.moneda').forEach(otraMoneda => {
+        console.log("Otra moneda: " + otraMoneda.classList);
+        otraMoneda.style.border = "none";
+    });
+
+    //Colocar el borde a la moneda seleccionada
+    if (clasesMonedas.some(clase => moneda.classList.contains(clase))) {
+        console.log("Moneda: " + moneda.classList);
+        moneda.style.border = "3px solid black";
+    }
+}
+
+

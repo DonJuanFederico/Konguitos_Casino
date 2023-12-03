@@ -266,4 +266,13 @@ function retirarDinero(monto) {
 // boton de la toolbar de marcha atras
 var bontonAtras = document.querySelector('.back');
 // funcion para ir a la ventana de atras
+<<<<<<< HEAD
 function volverAtras(){document.location.href = '/Juegos/Indice_cartas';}
+=======
+function volverAtras(){document.location.href = '/Juegos/Indice_cartas';}
+
+
+
+
+
+>>>>>>> 73efbdfe2f293ae29071d8fe711ff56a5bd3b01b
