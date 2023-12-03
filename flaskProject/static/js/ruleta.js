@@ -105,10 +105,217 @@ function iniciarTemporizador(tiempoInicial) {
     }, 0);
 }
 /* ---------- Apuestas ----------*/
+var apuesta_2_1_primera = document.getElementById('apuesta_2_1_primera');
+var apuesta_2_1_segunda = document.getElementById('apuesta_2_1_segunda');
+var apuesta_2_1_tercera = document.getElementById('apuesta_2_1_tercera');
+var apuesta_1_12 = document.getElementById('apuesta_1_12');
+var apuesta_13_24 = document.getElementById('apuesta_13_24');
+var apuesta_25_36 = document.getElementById('apuesta_25_36');
+var apuesta_1_18 = document.getElementById('apuesta_1_18');
+var apuesta_par = document.getElementById('apuesta_par');
+var apuesta_negro = document.getElementById('apuesta_negro');
+var apuesta_rojo = document.getElementById('apuesta_rojo');
+var apuesta_impar = document.getElementById('apuesta_impar');
+var apuesta_19_36 = document.getElementById('apuesta_19_36');
 
+var negro  = document.getElementsByClassName('negro');
+var rojo = document.getElementsByClassName('rojo');
+const arrayNumeros = [];
+
+for (const elementoRojo of rojo) {
+    const clase = elementoRojo.getAttribute("class");
+    const matchRojo = clase.match(/numero rojo (\d+) (\w+)/);
+    if (matchRojo) {
+        const numero = matchRojo[1];
+        const textoExtra = matchRojo[2];
+        const color = "rojo"; // Additional text, like "dos"
+        arrayNumeros.push([numero, color, textoExtra]);
+    }
+}
+// Agregar elementos de 'negro' al nuevo array
+for (const elementoNegro of negro) {
+    const clase = elementoNegro.getAttribute("class");
+    const matchNegro = clase.match(/numero negro (\d+) (\w+)/);
+    if (matchNegro) {
+        const numero = matchNegro[1];
+        const textoExtra = matchNegro[2];
+        const color ="negro"; // Additional text, like "dos"
+        arrayNumeros.push([numero, color, textoExtra]);
+    }
+}
+// [ "8", "negro", "ocho"]
+
+
+/* ---------- Metodos a Iluminar ---------- */
+function cambiarColorRojo(casilla){
+    var elemento = document.getElementsByClassName(casilla)
+    elemento.item(0).style.backgroundColor = "#f53535";
+}
+function cambiarColorNegro(casilla){
+    var elemento = document.getElementsByClassName(casilla)
+    elemento.item(0).style.backgroundColor = "black";
+}
+
+function volverAlOriginal(){
+    for (const casilla of arrayNumeros) {
+        var elemento = document.getElementsByClassName(casilla[2])
+        elemento.item(0).style.backgroundColor = "";
+    }
+}
+
+function iluminarCasillas(casilla){
+    if (casilla[1] === "negro") {
+        cambiarColorNegro(casilla[2])
+    } else if (casilla[1] === "rojo") {
+        cambiarColorRojo(casilla[2])
+    }
+}
+
+/*---------- primera fila ---------*/
+apuesta_2_1_primera.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0]%3 === 0) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_2_1_primera.addEventListener("mouseout", function () {
+    volverAlOriginal();
+});
+/*---------- segunda fila ---------*/
+apuesta_2_1_segunda.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0]%3 === 2) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_2_1_segunda.addEventListener("mouseout", function () {
+    volverAlOriginal();
+});
+/*---------- tercera fila ---------*/
+apuesta_2_1_tercera.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0]%3 === 1) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_2_1_tercera.addEventListener("mouseout", function () {
+    volverAlOriginal();
+});
+/*---------- 1_12----------*/
+apuesta_1_12.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0] <= 12) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_1_12.addEventListener("mouseout", function () {
+    volverAlOriginal();
+});
+/*---------- 13_24----------*/
+apuesta_13_24.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if((13 <= casilla[0]) && ( casilla[0] <= 24)){
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_13_24.addEventListener("mouseout", function () {
+    volverAlOriginal();
+});
+/*---------- 25_36----------*/
+apuesta_25_36.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0] >= 25) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_25_36.addEventListener("mouseout", function () {
+    volverAlOriginal();
+});
+/*---------- 1_18 ----------*/
+apuesta_1_18.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0] <= 18) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_1_18.addEventListener("mouseout", function () {
+    volverAlOriginal();
+});
+
+/*---------- Par ----------*/
+apuesta_par.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0]%2 === 0) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+
+apuesta_par.addEventListener("mouseout", function (){
+    volverAlOriginal();
+})
+/*---------- Negro ----------*/
+apuesta_negro.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[1] === "negro") {
+            iluminarCasillas(casilla);
+        }
+    }
+});
+
+apuesta_negro.addEventListener("mouseout", function (){
+    volverAlOriginal();
+})
+/*---------- Rojo --------*/
+apuesta_rojo.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[1] === "rojo") {
+            iluminarCasillas(casilla);
+        }
+    }
+});
+
+apuesta_rojo.addEventListener("mouseout", function (){
+    volverAlOriginal();
+})
+
+/*---------- Impar ---------*/
+apuesta_impar.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0]%2 === 1) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+
+apuesta_impar.addEventListener("mouseout", function (){
+    volverAlOriginal();
+})
+
+/*---------- 19_36 ----------*/
+apuesta_19_36.addEventListener("mouseover", function () {
+    for (const casilla of arrayNumeros) {
+        if(casilla[0] >= 19) {
+            iluminarCasillas(casilla)
+        }
+    }
+});
+apuesta_19_36.addEventListener("mouseout", function (){
+    volverAlOriginal();
+})
+
+/*---------- SALDO ----------*/
 function apostar(tipo) {
-            // Implementa la lógica de la apuesta aquí
-    alert('Has apostado a ' + tipo);
+    console.log('Has apostado a ' + tipo);
+    if(tipo === 'rojo'){
+    }
 }
 
 /* ---------- MarcoSaldo ---------- */
@@ -122,9 +329,11 @@ function volverAtras(){
 
 /* ---------- MarcoMonedas ---------- */
 
-function colocarMoneda(moneda){
+function elegirOpcion(moneda){
     /* ---- COLOCAR BORDE ---- */
-    const clasesMonedas = ['cobre', 'plata', 'rubi', 'oro', 'diamante'];
+    const clasesMonedas = [
+        'cobre', 'plata', 'rubi', 'oro', 'diamante',
+        'quitarTodasApuestas','eliminarFicha', 'duplicarApuesta', 'repetirApuesta'];
 
     // Eliminar el borde de todas las monedas
     document.querySelectorAll('.moneda').forEach(otraMoneda => {
@@ -135,7 +344,7 @@ function colocarMoneda(moneda){
     //Colocar el borde a la moneda seleccionada
     if (clasesMonedas.some(clase => moneda.classList.contains(clase))) {
         console.log("Moneda: " + moneda.classList);
-        moneda.style.border = "3px solid black";
+        moneda.style.border = "3px solid white";
     }
 }
 
