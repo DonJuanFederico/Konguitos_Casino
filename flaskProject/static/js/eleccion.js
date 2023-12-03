@@ -118,7 +118,7 @@ function showRules(){
         html: "<div>" +
             " <strong><h3 style='text-decoration: underline; text-align: center' >Reglas del juego:</h3></strong>" +
             "<strong>1.</strong> Se ha de elegir una de las cartas mostradas." +
-            "<br><strong>2.</strong> Hay 2 tipos decartas: Derrota y + ??? KC." +
+            "<br><strong>2.</strong> Hay 2 tipos decartas: Derrota y Multiplicador de apuesta (x ??? KC)." +
             "<br><strong>3.</strong> Tendrá la opción de retirar las ganancias cada 5 rondas." +
             "<br><strong>4.</strong> Además, cada 5 rondas disminuirá la probabilidad de acierto." +
             "<br><strong>5.</strong> A partir de la ronda 15 la probabilidad de acierto se mantendrá." +
