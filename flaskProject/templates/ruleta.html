@@ -3,119 +3,135 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/static/css/ruleta.css" />
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 {% endblock %}
 {% block title %}Ruleta{% endblock %}
 {% block body %}
+    <div class="juegoRuleta">
     <!-- Alertas -->
-     <div class="reglas">
-        <buttonRR onclick="reglas()">Reglas</buttonRR>
-    </div>
-    <div class="recompensas">
-        <buttonRR onclick="recompensas()">Recompensas</buttonRR>
-    </div>
-    <div class="valorMonedas">
-        <buttonRR onclick="leyenda()">Valor Monedas</buttonRR>
-    </div>
-    <!-- Tiempo necesario para apostar -->
-
-
-    <!-- Marco  monedas, muestra el dinero del usuario en la BBDD -->
-    <div id="marcoMonedas">
-        <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
-        <div id="divMonedasUsuario">
-            <span style="color: white" id="monedasUsuario">{{ dinero }}</span><br><br>
-            <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
+         <div class="reglas">
+            <buttonRR onclick="reglas()">Reglas</buttonRR>
         </div>
-    </div>
-
-    <!-- 5 Capas de la Ruleta-->
-    <div class="ruleta">
-        <img class ="capa-1" src="/static/images/ruleta/capa-1.png">
-        <div class="layer-2 wheel" style="transform: rotate(0deg);">
-            <img class ="capa-2" src="/static/images/ruleta/capa-2.png">
+        <div class="recompensas">
+            <buttonRR onclick="recompensas()">Recompensas</buttonRR>
         </div>
-        <div class="layer-3">
-            <img class ="capa-3" src="/static/images/ruleta/capa-3.png">
+        <div class="valorMonedas">
+            <buttonRR onclick="leyenda()">Valor Monedas</buttonRR>
         </div>
-        <div class="layer-4 wheel" style="transform: rotate(0deg);">
-            <img class ="capa-4" src="/static/images/ruleta/capa-4.png">
+        <!-- Tiempo necesario para apostar -->
+
+
+        <!-- Marco  monedas, muestra el dinero del usuario en la BBDD -->
+        <div id="marcoMonedas">
+            <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
+            <div id="divMonedasUsuario">
+                <span style="color: white" id="monedasUsuario">{{ dinero }}</span><br><br>
+                <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
+            </div>
         </div>
-        <div class="layer-5">
-            <img class ="capa-5" src="/static/images/ruleta/capa-5.png">
+
+        <!-- 5 Capas de la Ruleta-->
+        <div class="ruleta">
+            <img class ="capa-1" src="/static/images/ruleta/capa-1.png">
+            <div class="layer-2 wheel" style="transform: rotate(0deg);">
+                <img class ="capa-2" src="/static/images/ruleta/capa-2.png">
+            </div>
+            <div class="layer-3">
+                <img class ="capa-3" src="/static/images/ruleta/capa-3.png">
+            </div>
+            <div class="layer-4 wheel" style="transform: rotate(0deg);">
+                <img class ="capa-4" src="/static/images/ruleta/capa-4.png">
+            </div>
+            <div class="layer-5">
+                <img class ="capa-5" src="/static/images/ruleta/capa-5.png">
+            </div>
+            <div class="ball-container" style="transform: rotate(0deg);">
+                <div class="ball" style="transform: translate(0, -163.221px);"></div>
+            </div>
         </div>
-        <div class="ball-container" style="transform: rotate(0deg);">
-            <div class="ball" style="transform: translate(0, -163.221px);"></div>
+        <br><br><br><br><br><br><br>
+        <button onclick="iniciarTemporizador(5)">Iniciar Temporizador</button>
+
+        <div id="tablero">
+            <button class="numero verde" onclick="apostar('0')" style="left: -50px; height: 150px">0</button>
+
+            <button class="numero rojo" onclick="apostar('1')" style="top:100px">1  </button>
+            <button class="numero negro" onclick="apostar('2')" style="top:50px">2</button>
+            <button class="numero rojo" onclick="apostar('3')">3</button>
+
+            <button class="numero negro" onclick="apostar('4')" style="top: 100px; left: 50px">4</button>
+            <button class="numero rojo" onclick="apostar('5')" style="top: 50px; left: 50px">5</button>
+            <button class="numero negro" onclick="apostar('6')" style="left: 50px">6</button>
+
+
+            <button class="numero rojo" onclick="apostar('7')" style="top: 100px; left: 100px">7</button>
+            <button class="numero negro" onclick="apostar('8')" style="top: 50px; left: 100px">8</button>
+            <button class="numero rojo" onclick="apostar('9')" style="left: 100px">9</button>
+
+            <button class="numero negro" onclick="apostar('10')" style="top: 100px; left: 150px">10</button>
+            <button class="numero negro" onclick="apostar('5')" style="top: 50px; left: 150px">11</button>
+            <button class="numero rojo" onclick="apostar('6')" style="left: 150px">12</button>
+
+            <button class="numero negro" onclick="apostar('13')" style="top: 100px; left: 200px">13</button>
+            <button class="numero rojo" onclick="apostar('14')" style="top: 50px; left: 200px">14</button>
+            <button class="numero negro" onclick="apostar('15')" style="left: 200px">15</button>
+
+            <button class="numero rojo" onclick="apostar('16')" style="top: 100px; left: 250px">16</button>
+            <button class="numero negro" onclick="apostar('17')" style="top: 50px; left: 250px">17</button>
+            <button class="numero rojo" onclick="apostar('18')" style="left: 250px">18</button>
+
+            <button class="numero rojo" onclick="apostar('19')" style="top: 100px; left: 300px">19</button>
+            <button class="numero negro" onclick="apostar('20')" style="top: 50px; left: 300px">20</button>
+            <button class="numero rojo" onclick="apostar('21')" style="left: 300px">21</button>
+
+            <button class="numero negro" onclick="apostar('22')" style="top: 100px; left: 350px">22</button>
+            <button class="numero rojo" onclick="apostar('23')" style="top: 50px; left: 350px">23</button>
+            <button class="numero negro" onclick="apostar('24')" style="left: 350px">24</button>
+
+            <button class="numero rojo" onclick="apostar('25')" style="top: 100px; left: 400px">25</button>
+            <button class="numero negro" onclick="apostar('26')" style="top: 50px; left: 400px">26</button>
+            <button class="numero rojo" onclick="apostar('27')" style="left: 400px">27</button>
+
+            <button class="numero negro" onclick="apostar('28')" style="top: 100px; left: 450px">28</button>
+            <button class="numero negro" onclick="apostar('29')" style="top: 50px; left: 450px">29</button>
+            <button class="numero rojo" onclick="apostar('30')" style="left: 450px">30</button>
+
+            <button class="numero negro" onclick="apostar('31')" style="top: 100px; left: 500px">31</button>
+            <button class="numero rojo" onclick="apostar('32')" style="top: 50px; left: 500px">32</button>
+            <button class="numero negro" onclick="apostar('33')" style="left: 500px">33</button>
+
+            <button class="numero rojo" onclick="apostar('34')" style="top: 100px; left: 550px">34</button>
+            <button class="numero negro" onclick="apostar('35')" style="top: 50px; left: 550px">35</button>
+            <button class="numero rojo" onclick="apostar('36')" style="left: 550px">36</button>
+
+            <button class="numero externo" onclick="apostar('2_1_primera')" style="left: 600px">2:1</button>
+            <button class="numero externo" onclick="apostar('2_1_segunda')" style="top: 50px; left: 600px">2:1</button>
+            <button class="numero externo" onclick="apostar('2_1_tercera')" style="top: 100px; left: 600px">2:1</button>
+
+            <button class="numero externo" onclick="apostar('1_12')" style="top: 150px; width: 200px"> 1era 12</button>
+            <button class="numero externo" onclick="apostar('13_24')" style="top: 150px; left:200px; width: 200px"> 2era 12</button>
+            <button class="numero externo" onclick="apostar('25_36')" style="top: 150px; left: 400px; width: 200px"> 3era 12</button>
+
+            <button class="numero externo" onclick="apostar('1_18')" style="top:200px; width: 100px">1-18</button>
+            <button class="numero externo" onclick="apostar('Par')" style="top:200px; left: 100px; width: 100px">Par</button>
+            <button class="numero externo" onclick="apostar('Negro')" style="top:200px; left: 200px; width: 100px">Negro</button>
+            <button class="numero externo" onclick="apostar('Rojo')" style="top:200px; left: 300px; width: 100px">Rojo</button>
+            <button class="numero externo" onclick="apostar('Impar')" style="top:200px; left: 400px; width: 100px">Impar</button>
+            <button class="numero externo" onclick="apostar('18_36')" style="top:200px; left: 500px; width: 100px">18-36</button>
         </div>
-    </div>
-    <br><br><br><br><br><br><br>
-    <button onclick="iniciarTemporizador(5)">Iniciar Temporizador</button>
 
-    <div id="tablero">
-        <button class="numero verde" onclick="apostar('0')" style="left: -50px; height: 150px">0</button>
-
-        <button class="numero rojo" onclick="apostar('1')" style="top:100px">1  </button>
-        <button class="numero negro" onclick="apostar('2')" style="top:50px">2</button>
-        <button class="numero rojo" onclick="apostar('3')">3</button>
-
-        <button class="numero negro" onclick="apostar('4')" style="top: 100px; left: 50px">4</button>
-        <button class="numero rojo" onclick="apostar('5')" style="top: 50px; left: 50px">5</button>
-        <button class="numero negro" onclick="apostar('6')" style="left: 50px">6</button>
-
-
-        <button class="numero rojo" onclick="apostar('7')" style="top: 100px; left: 100px">7</button>
-        <button class="numero negro" onclick="apostar('8')" style="top: 50px; left: 100px">8</button>
-        <button class="numero rojo" onclick="apostar('9')" style="left: 100px">9</button>
-
-        <button class="numero negro" onclick="apostar('10')" style="top: 100px; left: 150px">10</button>
-        <button class="numero negro" onclick="apostar('5')" style="top: 50px; left: 150px">11</button>
-        <button class="numero rojo" onclick="apostar('6')" style="left: 150px">12</button>
-
-        <button class="numero negro" onclick="apostar('13')" style="top: 100px; left: 200px">13</button>
-        <button class="numero rojo" onclick="apostar('14')" style="top: 50px; left: 200px">14</button>
-        <button class="numero negro" onclick="apostar('15')" style="left: 200px">15</button>
-
-        <button class="numero rojo" onclick="apostar('16')" style="top: 100px; left: 250px">16</button>
-        <button class="numero negro" onclick="apostar('17')" style="top: 50px; left: 250px">17</button>
-        <button class="numero rojo" onclick="apostar('18')" style="left: 250px">18</button>
-
-        <button class="numero rojo" onclick="apostar('19')" style="top: 100px; left: 300px">19</button>
-        <button class="numero negro" onclick="apostar('20')" style="top: 50px; left: 300px">20</button>
-        <button class="numero rojo" onclick="apostar('21')" style="left: 300px">21</button>
-
-        <button class="numero negro" onclick="apostar('22')" style="top: 100px; left: 350px">22</button>
-        <button class="numero rojo" onclick="apostar('23')" style="top: 50px; left: 350px">23</button>
-        <button class="numero negro" onclick="apostar('24')" style="left: 350px">24</button>
-
-        <button class="numero rojo" onclick="apostar('25')" style="top: 100px; left: 400px">25</button>
-        <button class="numero negro" onclick="apostar('26')" style="top: 50px; left: 400px">26</button>
-        <button class="numero rojo" onclick="apostar('27')" style="left: 400px">27</button>
-
-        <button class="numero negro" onclick="apostar('28')" style="top: 100px; left: 450px">28</button>
-        <button class="numero negro" onclick="apostar('29')" style="top: 50px; left: 450px">29</button>
-        <button class="numero rojo" onclick="apostar('30')" style="left: 450px">30</button>
-
-        <button class="numero negro" onclick="apostar('31')" style="top: 100px; left: 500px">31</button>
-        <button class="numero rojo" onclick="apostar('32')" style="top: 50px; left: 500px">32</button>
-        <button class="numero negro" onclick="apostar('33')" style="left: 500px">33</button>
-
-        <button class="numero rojo" onclick="apostar('34')" style="top: 100px; left: 550px">34</button>
-        <button class="numero negro" onclick="apostar('35')" style="top: 50px; left: 550px">35</button>
-        <button class="numero rojo" onclick="apostar('36')" style="left: 550px">36</button>
-
-        <button class="numero externo" onclick="apostar('2_1_primera')" style="left: 600px">2:1</button>
-        <button class="numero externo" onclick="apostar('2_1_segunda')" style="top: 50px; left: 600px">2:1</button>
-        <button class="numero externo" onclick="apostar('2_1_tercera')" style="top: 100px; left: 600px">2:1</button>
-
-        <button class="numero externo" onclick="apostar('1_12')" style="top: 150px; width: 200px"> 1era 12</button>
-        <button class="numero externo" onclick="apostar('2_24')" style="top: 150px; left:200px; width: 200px"> 2era 12</button>
-        <button class="numero externo" onclick="apostar('24_36')" style="top: 150px; left: 400px; width: 200px"> 3era 12</button>
-
-        <button class="numero externo" onclick="apostar('1_18')" style="top:200px; width: 100px">1-18</button>
-        <button class="numero externo" onclick="apostar('Par')" style="top:200px; left: 100px; width: 100px">Par</button>
-        <button class="numero externo" onclick="apostar('Negro')" style="top:200px; left: 200px; width: 100px">Negro</button>
-        <button class="numero externo" onclick="apostar('Rojo')" style="top:200px; left: 300px; width: 100px">Rojo</button>
-        <button class="numero externo" onclick="apostar('Impar')" style="top:200px; left: 400px; width: 100px">Impar</button>
-        <button class="numero externo" onclick="apostar('18_36')" style="top:200px; left: 500px; width: 100px">18-36</button>
+        <div class="caja-gris">
+            <div class="opciones">
+                <!--button class="moneda quitarApuesta" onclick="colocarMoneda(this)"></button-->
+                <button class="moneda cobre" onclick="colocarMoneda(this)"></button>
+                <button class="moneda plata" onclick="colocarMoneda(this)"></button>
+                <button class="moneda rubi" onclick="colocarMoneda(this)"></button>
+                <button class="moneda oro" onclick="colocarMoneda(this)"></button>
+                <button class="moneda diamante" onclick="colocarMoneda(this)"></button>
+                <!--button class="moneda conservarApuesta" onclick="colocarMoneda(this)"> <i class="fa-solid fa-repeat"></i></button>
+                <button class="moneda duplicarApuesta" onclick="colocarMoneda(this)"> x2</button-->
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block javascript %}

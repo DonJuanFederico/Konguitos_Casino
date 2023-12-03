@@ -6,6 +6,11 @@ body {
     background-attachment: fixed;
 }
 
+.juegoRuleta{
+    z-index: 1;
+    position: inherit;
+}
+
 /* ---------- Alertas ---------- */
 .reglas {
     position: absolute;
@@ -229,8 +234,8 @@ buttonRR {
 #tablero {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    top: 30%;
-    left: 45%;
+    top: 22%;
+    left: 47%;
     position: absolute;
 }
 
@@ -260,4 +265,98 @@ buttonRR {
 
 .externo{
     background-color: transparent;
+}
+
+/* -------- Caja Monedas  ---------*/
+.caja-gris {
+    background-color: transparent; /* Gris claro */
+    padding: 20px; /* Ajusta el relleno según sea necesario */
+    position: absolute;
+    top: 65%;
+    left: 47%;
+    width: 45%;
+    height: 30%;
+}
+
+/* Estilo para la clase de opciones */
+.opciones {
+    position: absolute;
+    display: flex;
+    justify-content: space-around; /* Distribuir elementos horizontalmente con espacio entre ellos */
+    height: 100%;
+    width: 100%;
+}
+
+.moneda{
+    position: absolute;
+    display: flex;
+    height: 50%;
+    width: 16%;
+    overflow: hidden;
+    border-radius: 50%/10%;
+    cursor: pointer;
+    border: none;
+}
+
+.moneda:hover,
+.moneda:active {
+    border: 3px solid black; /* Añade un borde de 2px de color azul en hover o clic */
+}
+
+
+.quitarApuesta{
+    background-image: url("/static/images/ruleta/quitarApuesta.png");
+    background-size: 100%;
+    background-position: center;
+    border-radius: 50%;
+    border:none ;
+    height: 30%;
+    width: 10%;
+    left: 30%;
+    top:50%
+}
+.cobre{
+    background-image: url("/static/images/monedaCobre.png");
+    background-size: 113%;
+    background-position: center;
+    border-radius: 50%;
+    border:none ;
+    left: 0%;
+}
+
+
+.plata{
+    background-image: url("/static/images/moneda.png");
+    background-size: 113%;
+    background-position: center;
+    border-radius: 50%;
+    border:none ;
+    left: 20%;
+}
+
+.rubi{
+    background-image: url("/static/images/monedaRubi.png");
+    background-size: 113%;
+    background-position: center;
+    border-radius: 50%;
+    border:none ;
+    left: 40%;
+}
+
+.oro{
+    background-image: url("/static/images/moneda_dorada.png");
+    background-size: 113%;
+    background-position: center;
+    border-radius: 50%;
+    border:none ;
+    left: 60%;
+}
+
+.diamante{
+    background-image: url("/static/images/monedaDiamante.png");
+    background-size: 113%;
+    background-position: center;
+    border-radius: 50%;
+    border: none;
+    left: 80%;
 }
