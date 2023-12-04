@@ -319,7 +319,7 @@ def konguito():
 @app.route('/Juegos/Juegos_extra/Plinko')
 def plinko():
     DINERO = obtenerDinero()
-    return render_template('plinko_robado.html', DINERO = DINERO) # ESTA EL ROBAOD NO EL NUESTRO
+    return render_template('plinko.html', DINERO = DINERO) # ESTA EL ROBAOD NO EL NUESTRO
 
 
 @app.errorhandler(404)
