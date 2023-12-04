@@ -2,36 +2,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 0;
+    margin: 100;
     padding: 0;
     background-image: url('https://image.freepik.com/free-vector/poker-table-background-green-color_47243-1068.jpg');
     background-size: 100%;
     color: white;
-}
-
-/* Estilo de la barra lateral */
-.sidebar {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    width: 200px;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-    top: 0;
-}
-
-/* Estilo para la barra derecha */
-.sidebar-right {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    width: 200px;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-    top: 0;
-    right: 0;
 }
 
 /* Contenedor principal */
@@ -40,7 +15,21 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     min-height: 100vh;
-    margin: 0 220px;
+    margin: 20 220px;
+}
+
+/* Arreglos espacio entre contenedores (se rompió con la toolbar) */
+#bet-container {
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+#bet-container2 {
+    margin-bottom: 20px;
+}
+
+#dice-container {
+    margin-bottom: 20px;
 }
 
 /* Estilo para la sección de reglas del juego */
@@ -69,12 +58,6 @@ body {
     font-size: 14px;
     color: #666;
     line-height: 1.4;
-}
-
-/* Estilo del título de la barra lateral */
-.sidebar h2 {
-    font-size: 20px;
-    margin-top: 0;
 }
 
 /* Estilo para el título de "Posibles Apuestas" */
@@ -115,7 +98,7 @@ body {
 
 /* Estilo del contenido principal */
 .content {
-    padding: 20px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,7 +110,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 40px;
     justify-content: center; /* Para centrar los dados horizontalmente */
 }
 

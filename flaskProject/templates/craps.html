@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'plantilla.html' %}
+{% block title %} Juego de Craps {% endblock %}
+{% block stylesheets %}
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <title>Juego de Craps</title>
     <link rel="stylesheet" type="text/css" href="/static/css/craps.css">
-
-</head>
-<body>
+{% endblock %}
+{% block body %}
     <div class="container">
         <div class="botonDeReglas">
             <buttonRR onclick="reglas()">Reglas</buttonRR>
@@ -66,13 +64,14 @@
         <source src="/static/audio/papyrus.mp3" type="audio/mpeg">
     </audio>
 
-</body>
-
+{% endblock %}
+{% block javascript %}
     <script src="/static/js/craps.js"></script>
     <script src="/static/js/crapsAlertas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/mutearPagina.js"></script>
 
-</html>
+{% endblock %}
 
 
 

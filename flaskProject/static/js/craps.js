@@ -303,4 +303,9 @@ function retirarDinero(monto) {
     };
 }
 
+// boton de la toolbar de marcha atras
+var bontonAtras = document.querySelector('.back');
+// funcion para ir a la ventana de atras
+function volverAtras(){document.location.href = '/Juegos/Indice_Dados';}
+
 
