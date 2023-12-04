@@ -16,7 +16,7 @@ audio{
     background-size: cover;
     position: absolute;
     display: flex;
-    width: 14%;
+    width: 15%;
     height: 20%;
     top: 1%;
     left: 80%;
@@ -28,7 +28,7 @@ audio{
     top: 34%;
     left: 40%;
     position: absolute;
-    font-size: 180%;
+    font-size: 160%;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -39,14 +39,14 @@ audio{
 #fotoMoneda {
     margin-left: -10%;
     margin-top: -4%;
-    transform: scale(0.23);
+    transform: scale(0.2);
     filter: drop-shadow(5px 10px 8px rgba(0,0,0,1));
 }
 
 #masMonedas{
     position: absolute;
-    height: 40px;
-    width: 40px;
+    height: 23%;
+    width: 17%;
     top: 15%;
     left: 7%;
     animation: masMonedasAnimation 2s infinite alternate;
@@ -87,51 +87,69 @@ audio{
 }
 
 #marcoJuego{
+    color: transparent;
     border: 2px solid lightskyblue;
 }
 
 /* de CHAT GPT */
-.option-button {
+.option-button{
     padding: 10px;
     margin: 5px;
     font-size: 16px;
-    cursor: pointer;
     display: block;
+    cursor: pointer;
     border: 2px solid red;
 }
 .option-button:hover{
+    border: 2px solid aquamarine;
     background-color: rgba(255,255,255,.3);
 }
 
-#withdraw{
-    height: 5%;
-    width: 10%;
+#inGame{
+    position: absolute;
+    top: 25%;
+    left: 80%;
+    height: 25%;
+    width: 8%;
+}
+#withdraw, #nextRound, #KGNumber{
+    height: 25%;
+    width: 100%;
     border: 2px solid black;
     border-radius: 5px;
     font-size: 1rem;
     background: darkgoldenrod;
-    margin-top: 1%;
+    margin-top: 10%;
     opacity: 0;
+}
+#KGNumber{
+    opacity: 1;
+    text-align: center;
+    align-items: center;
+    background-color: #0a0f2d;
+    border: 2px solid white;
+}
+#withdraw:hover, #nextRound:hover, #playButton:hover{
+    background-color: goldenrod;
+    box-shadow: 5px 5px 5px rgba(0, 246, 238, 0.56);
 }
 
 #counter{
-    text-align: center;
     border: 2px solid #2cff0b;
     margin-top: 1%;
 }
 
 #rules{
     position: absolute;
-    top: 30%;
+    top: 25%;
     left: 10%;
-    height: 5%;
-    width: 6%;
-    font-size: 24px;
+    height: 25%;
+    width: 8%;
 }
 #ruleButton, #percent, #playButton{
     width: 100%;
-    height: 100%;
-    margin: 7.5% 0 7.5% 0;
+    height: 25%;
+    margin-top: 10%;
     border: 2px solid black;
     border-radius: 5px;
     font-size: 1rem;
@@ -145,36 +163,9 @@ audio{
 
 #apuesta{
     position: absolute;
-    top: 45%;
+    top: 55%;
     left: 10%;
 }
 #amount{
     width: 30%;
-}
-
-#KGNumber{
-    position: absolute;
-    display: flex;
-    top: 20%;
-    left: 76.5%;
-    height: 5%;
-    width: 7%;
-    align-items: center;
-    border: 2px solid greenyellow;
-}
-
-#wins{
-    margin: 0 0 0 18%;
-}
-
-#jugar{
-    position: absolute;
-    display: flex;
-    top: 28%;
-    left: 76.7%;
-    height: 9%;
-    width: 5.8%;
-}
-#playButton{
-    margin: 0;
 }
