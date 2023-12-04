@@ -260,11 +260,11 @@ buttonRR {
 }
 
 .negro{
-    background-color: #2f2d2d;
+    background-color: black;
 }
 
 .negro:hover{
-    background-color: black;
+    background-color: #2f2d2d;
 }
 
 .verde{

@@ -63,10 +63,8 @@ function leyenda() {
         width: '50%',
     });
 }
-console.log("Ruleta");
 /* ---------- Tiempo para apostar ---------- */
 function iniciarTemporizador(tiempoInicial) {
-    console.log("Tiempo inicial: " + tiempoInicial);
 
     var tiempoApostar = document.createElement('div');
     tiempoApostar.id = 'tiempoApostar';
@@ -153,7 +151,7 @@ function cambiarColorRojo(casilla){
 }
 function cambiarColorNegro(casilla){
     var elemento = document.getElementsByClassName(casilla)
-    elemento.item(0).style.backgroundColor = "black";
+    elemento.item(0).style.backgroundColor = "#2f2d2d";
 }
 
 function volverAlOriginal(){
@@ -318,7 +316,7 @@ function apostar(tipo) {
     }else{
         asignar_valor_moneda(monedaElejida); //Obtengo valorMoneda en f() de la moneda seleccionada
         obtener_array_apuestas(tipo, valorMoneda); //Obtengo a que casilla se ha apostado y cuánta cantidad en una array bidimensional
-        colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida); //Coloco la moneda en la casilla
+        colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida, tipo); //Coloco la moneda en la casilla
 
     }
 }
@@ -380,28 +378,59 @@ function obtener_array_apuestas(tipo, cantidadApostada) {
     }
     console.log(arrayApuestas);
 }
-
-function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda) {
+let valorAcumulado = 0
+function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda, tipo) {
+    console.log("-------------------------------------------")
     for (const apuesta of arrayApuestas) {
-        const tipo_apuesta = apuesta[0]; // "1_12"
-        const valor_apuesta = apuesta[1]; // 100
-        const tipoMoneda = tipo_moneda[1]; // tipo_moneda is an array, so use [1] to get the second element
-        console.log(tipo_apuesta, valor_apuesta, tipoMoneda);
-
-        const elements = document.getElementsByClassName(tipo_apuesta);
-
-        for (const element of elements) {
-            const div = document.createElement('div');
-            div.className = tipoMoneda;
-            div.style.position = 'absolute';
+        if (apuesta[0] === tipo) {
+            valorAcumulado = apuesta[1];
+        }
+    }
+    if (valorAcumulado === 0) {
+    } else {
+        const tipoMoneda = tipo_moneda[1];
+        const div = document.createElement('div');
+        divTexto = div;
+        div.className = tipoMoneda;
+        div.style.position = 'absolute';
+        div.style.display = 'flex';
+        div.style.flexDirection = 'column';
+        div.style.alignItems = 'center';
+        div.style.zIndex = '0';
+        div.innerHTML = valorAcumulado;
+        div.style.color = '#ffffff';
+        div.style.fontWeight = 'bold';
+        div.style.position = 'absolute';
+        div.style.zIndex = '1';
+        div.style.fontSize = '70%';
+        div.style.top = '100%';
+        elementosss = tipo;
+        if (elementosss === 'apuesta_1_18' || elementosss === 'apuesta_19_36'
+            || elementosss === "apuesta_par" || elementosss === "apuesta_impar"
+            || elementosss === "apuesta_rojo" || elementosss === "apuesta_negro") {
+            div.style.top = '5%';
+            div.style.left = '25%';
+            div.style.width = '50%';
+            div.style.height = '90%';
+        } else if (elementosss === "apuesta_1_12" || elementosss === "apuesta_13_24" || elementosss === "apuesta_25_36") {
+            div.style.top = '10%';
+            div.style.left = '35%';
+            div.style.width = '20%';
+            div.style.height = '80%';
+        } else {
             div.style.top = '10%';
             div.style.left = '10%';
             div.style.width = '80%';
             div.style.height = '80%';
-            div.style.display = 'flex';
-            div.style.flexDirection = 'column';
-            div.style.alignItems = 'center';
-            element.appendChild(div);
+        }
+        const tipoElement = document.getElementById(tipo);
+
+        // Check if the element exists before appending children
+        if (tipoElement) {
+            tipoElement.appendChild(divTexto);
+            tipoElement.appendChild(div);
+        } else {
+            console.error('Element with ID ' + tipo + ' not found.');
         }
     }
 }
