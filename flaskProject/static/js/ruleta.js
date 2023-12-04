@@ -313,10 +313,99 @@ apuesta_19_36.addEventListener("mouseout", function (){
 
 /*---------- SALDO ----------*/
 function apostar(tipo) {
-    console.log('Has apostado a ' + tipo);
-    if(tipo === 'rojo'){
+    if(tipo === "0"){
+        alert("No se puede apostar a 0");
+    }else{
+        asignar_valor_moneda(monedaElejida); //Obtengo valorMoneda en f() de la moneda seleccionada
+        obtener_array_apuestas(tipo, valorMoneda); //Obtengo a que casilla se ha apostado y cuánta cantidad en una array bidimensional
+        colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida); //Coloco la moneda en la casilla
+
     }
 }
+
+/* ---------- colocarBrodeMoneda, asignarValorMoneda, ---------- */
+let monedaElejida;
+let valorMoneda;
+
+function colocarBordeMoneda(moneda){
+    /* ---- COLOCAR BORDE ---- */
+    const clasesMonedas = [
+        'cobre', 'plata', 'rubi', 'oro', 'diamante',
+        'quitarTodasApuestas','eliminarFicha', 'duplicarApuesta', 'repetirApuesta'];
+
+    // Eliminar el borde de todas las monedas
+    document.querySelectorAll('.moneda').forEach(otraMoneda => {
+        otraMoneda.style.border = "none";
+    });
+    monedaElejida = moneda.classList;
+
+    //Colocar el borde a la moneda seleccionada
+    if (clasesMonedas.some(clase => monedaElejida)) {
+        moneda.style.border = "3px solid white";
+    }
+}
+
+function asignar_valor_moneda(monedaElejida){
+    if(monedaElejida === undefined){
+        valorMoneda = 0;
+    }else{
+        if (monedaElejida.contains('cobre')) {
+            valorMoneda = 1;
+        } else if (monedaElejida.contains('plata')) {
+            valorMoneda = 10;
+        } else if (monedaElejida.contains('rubi')) {
+            valorMoneda = 50;
+        } else if (monedaElejida.contains('diamante')) {
+            valorMoneda = 100;
+        } else if (monedaElejida.contains('oro')) {
+            valorMoneda = 250;
+        } else {
+            valorMoneda = 0;
+        }
+    }
+}
+
+let arrayApuestas = [];
+
+function obtener_array_apuestas(tipo, cantidadApostada) {
+    const index = arrayApuestas.findIndex(apuesta => apuesta[0] === tipo);
+    if(valorMoneda === 0){
+        alert("No has seleccionado ninguna moneda");
+    } else {
+        if (index !== -1) {
+            arrayApuestas[index][1] += cantidadApostada;
+        } else {
+            arrayApuestas.push([tipo, cantidadApostada]);
+        }
+    }
+    console.log(arrayApuestas);
+}
+
+function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda) {
+    for (const apuesta of arrayApuestas) {
+        const tipo_apuesta = apuesta[0]; // "1_12"
+        const valor_apuesta = apuesta[1]; // 100
+        const tipoMoneda = tipo_moneda[1]; // tipo_moneda is an array, so use [1] to get the second element
+        console.log(tipo_apuesta, valor_apuesta, tipoMoneda);
+
+        const elements = document.getElementsByClassName(tipo_apuesta);
+
+        for (const element of elements) {
+            const div = document.createElement('div');
+            div.className = tipoMoneda;
+            div.style.position = 'absolute';
+            div.style.top = '10%';
+            div.style.left = '10%';
+            div.style.width = '80%';
+            div.style.height = '80%';
+            div.style.display = 'flex';
+            div.style.flexDirection = 'column';
+            div.style.alignItems = 'center';
+            element.appendChild(div);
+        }
+    }
+}
+
 
 /* ---------- MarcoSaldo ---------- */
 document.getElementById("botonComprarMonedas").addEventListener("click", function () {
@@ -326,26 +415,3 @@ document.getElementById("botonComprarMonedas").addEventListener("click", functio
 function volverAtras(){
     document.location.href = '/Juegos/';
 }
-
-/* ---------- MarcoMonedas ---------- */
-
-function elegirOpcion(moneda){
-    /* ---- COLOCAR BORDE ---- */
-    const clasesMonedas = [
-        'cobre', 'plata', 'rubi', 'oro', 'diamante',
-        'quitarTodasApuestas','eliminarFicha', 'duplicarApuesta', 'repetirApuesta'];
-
-    // Eliminar el borde de todas las monedas
-    document.querySelectorAll('.moneda').forEach(otraMoneda => {
-        console.log("Otra moneda: " + otraMoneda.classList);
-        otraMoneda.style.border = "none";
-    });
-
-    //Colocar el borde a la moneda seleccionada
-    if (clasesMonedas.some(clase => moneda.classList.contains(clase))) {
-        console.log("Moneda: " + moneda.classList);
-        moneda.style.border = "3px solid white";
-    }
-}
-
-
