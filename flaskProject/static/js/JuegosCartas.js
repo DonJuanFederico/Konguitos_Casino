@@ -6,6 +6,6 @@ document.getElementById("cargarBlackJack").addEventListener("click", function(){
     window.location.href = "/Juegos/Indice_cartas/Blackjack/";
 });
 
-document.getElementById("cargarDino").addEventListener("click", function(){
+document.getElementById("cargarCartaEleccion").addEventListener("click", function(){
     window.location.href = "/Juegos/Indice_cartas/Cartas_de_eleccion/";
 });
