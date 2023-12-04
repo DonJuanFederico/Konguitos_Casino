@@ -128,33 +128,33 @@ function rollDice() {
                 // Si no hay punto actual, comprueba si se gana o pierde directamente
                 if (resultado === 7 || resultado === 11) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Ganaste la apuesta de Línea de Pase.");
                     agregarDinero(betAmount * 2); // Se paga 1:1
                     betEnded();
                 } else if (resultado === 2 || resultado === 3 || resultado === 12) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Perdiste la apuesta de Línea de Pase.");
                     betEnded();
                 } else {
                     // Se establece el punto
                     puntoActual = resultado;
                     document.getElementById("punto-actual").textContent = `Punto actual: ${puntoActual}`;
-                    document.getElementById("punto-actual").style.color = "green"; // Cambia el color
+                    document.getElementById("punto-actual").style.color = "pink"; // Cambia el color
                 }
             } else {
                 // Si hay un punto actual, verifica si se gana o pierde
                 if (resultado === puntoActual) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Ganaste la apuesta de Línea de Pase.");
                     agregarDinero(betAmount * 2); // Se paga 1:1
                     puntoActual = 0; // Se reinicia el punto
                     betEnded();
                 } else if (resultado === 7) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Perdiste la apuesta de Línea de Pase.");
                     if(tipoApuestaS === "gabelaAFavor"){
                         alert("Perdiste la apuesta de Gabela a Favor.");
@@ -196,18 +196,18 @@ function rollDice() {
                 // Si no hay punto actual, comprueba si se gana o pierde directamente
                 if (resultado === 7 || resultado === 11) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Perdiste la apuesta de Barra de no Pase.");
                     betEnded();
                 } else if (resultado === 2 || resultado === 3) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Ganaste la apuesta de Barra de no Pase.");
                     agregarDinero(betAmount * 2); // Se paga 1:1
                     betEnded();
                 } else if (resultado === 12){
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Empataste la apuesta de Barra de no Pase.");
                     agregarDinero(betAmount); // Se devuelve la cantidad apostada
                     betEnded();
@@ -215,13 +215,13 @@ function rollDice() {
                     // Se establece el punto
                     puntoActual = resultado;
                     document.getElementById("punto-actual").textContent = `Punto actual: ${puntoActual}`;
-                    document.getElementById("punto-actual").style.color = "green"; // Cambia el color
+                    document.getElementById("punto-actual").style.color = "pink"; // Cambia el color
                 }
             } else {
                 // Si hay un punto actual, verifica si se gana o pierde
                 if (resultado === puntoActual) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Perdiste la apuesta de Barra de no Pase.");
                     if (tipoApuestaS === "gabelaEnContra"){
                         alert("Perdiste la apuesta de Gabela en Contra.");
@@ -232,7 +232,7 @@ function rollDice() {
                     sBetEnded();
                 } else if (resultado === 7) {
                     document.getElementById("punto-actual").textContent = "Punto actual: Ninguno";
-                    document.getElementById("punto-actual").style.color = "black"; // Restablece el color
+                    document.getElementById("punto-actual").style.color = "white"; // Restablece el color
                     alert("Ganaste la apuesta de Barra de no Pase.");
                     agregarDinero(betAmount * 2); // Se paga 1:1
                     puntoActual = 0; // Se reinicia el punto
@@ -302,5 +302,10 @@ function retirarDinero(monto) {
         }
     };
 }
+
+// boton de la toolbar de marcha atras
+var bontonAtras = document.querySelector('.back');
+// funcion para ir a la ventana de atras
+function volverAtras(){document.location.href = '/Juegos/Indice_Dados';}
 
 

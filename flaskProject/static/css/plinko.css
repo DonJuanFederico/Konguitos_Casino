@@ -1,40 +1,69 @@
 body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
-    }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
 
-    #board {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: #87CEEB;
-      border-radius: 10px;
-      overflow: hidden;
-    }
+#board {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #87CEEB;
+    border-radius: 1.5vw;
+    overflow: hidden;
+}
 
-    #score {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  border: 2px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2em;
-        display: none;
+#rectangulo {
+    position: absolute;
+    top: 1vh;
+    left: 1vw;
+    width: 5%;
+    height: 5%;
+    background-color: #808080;
+    border: 0.2vw solid black;
+    padding: 1vw;
+}
+
+#numero {
+    width: 100%;
+    margin-bottom: 1vh;
+    border-radius: 0.5vw;
+}
+
+#guardar {
+    width: 100%;
+    color: white;
+    background-color: #00FF00;
+    border-radius: 0.5vw;
+    box-shadow: inset 0 0 0.5vw rgba(0, 0, 0, 0.2);
+}
+
+#guardar:hover {
+    box-shadow: inset 0 0 1vw rgba(0, 0, 0, 0.4);
+}
+
+#score {
+    position: absolute;
+    top: 2vh;
+    right: 1vw;
+    width: 5%;
+    height: 5%;
+    background-color: white;
+    border: 0.2vw solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    display: none;
 }
 
 
-    .peg {
+.peg {
     position: absolute;
     width: 1.5vw; /* Ancho en relación al ancho del viewport */
     height: 1.5vw; /* Altura en relación al ancho del viewport */
@@ -45,97 +74,102 @@ body {
 }
 
 
-
-
-    .barra-roja {
-            position: absolute;
-            width: 5%;
-            height: 5vh; /* El 5% del tamaño vertical de la pantalla */
-            background-color: #e74c3c; /* Un tono más oscuro de rojo */
-            border-radius: 10px; /* Bordes redondeados */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra ligera */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white; /* Texto en color blanco */
-            font-size: 1.5em; /* Tamaño del texto */
-        }
-
-
-    .zona {
-  position: absolute;
-  height: 2vh; /* El 2% del tamaño vertical de la pantalla */
-  background-color: yellow; /* Color amarillo */
-  top: 58.5%; /* Centradas verticalmente */
-  transform: translateY(-50%); /* Ajuste para centrar */
-        border: 2px solid #000;
+.zona {
+    position: absolute;
+    height: 2vh; /* El 2% del tamaño vertical de la pantalla */
+    background-color: yellow; /* Color amarillo */
+    top: 58.5%; /* Centradas verticalmente */
+    transform: translateY(-50%); /* Ajuste para centrar */
+    border: 2px solid #000;
 }
 
-    .zona-1 {
-  left: 0%;
-  width: 32.5%;
+.zona-1 {
+    left: 0%;
+    width: 32.5%;
 }
 
 .zona-2 {
-  left: 32.5%;
-  width: 5%;
+    left: 32.5%;
+    width: 5%;
 }
 
 .zona-3 {
-  left: 37.5%;
-  width: 5%;
+    left: 37.5%;
+    width: 5%;
 }
 
 .zona-4 {
-  left: 42.5%;
-  width: 5%;
+    left: 42.5%;
+    width: 5%;
 }
 
 .zona-5 {
-  left: 47.5%;
-  width: 5%;
+    left: 47.5%;
+    width: 5%;
 }
 
 .zona-6 {
-  left: 52.5%;
-  width: 5%;
+    left: 52.5%;
+    width: 5%;
 }
 
 .zona-7 {
-  left: 57.5%;
-  width: 5%;
+    left: 57.5%;
+    width: 5%;
 }
 
 .zona-8 {
-  left: 62.5%;
-  width: 5%;
+    left: 62.5%;
+    width: 5%;
 }
 
 .zona-9 {
-  left: 67.5%;
-  width: 32.5%;
+    left: 67.5%;
+    width: 32.5%;
 }
 
-    #ball {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #FFD700;
-      border-radius: 50%;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: bottom 0.5s ease-out;
-      animation: spin 1s linear infinite; /* Añade una animación llamada "spin" de 1 segundo de duración, con una velocidad lineal y que se repite indefinidamente */
-    }
-    @keyframes spin {
-      from {
-        transform: translateX(-50%) rotate(0deg); /* Define el estado inicial de la animación, con la bola centrada y sin rotar */
-      }
+#ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom 0.5s ease-out;
+    animation: spin 1s linear infinite; /* Añade una animación llamada "spin" de 1 segundo de duración, con una velocidad lineal y que se repite indefinidamente */
+}
 
-      to {
-          transform: translateX(-50%) rotate(360deg);
-      }}/* Define el estado final de la animación, con la bola centrada y rotada 360 grados
+#multiplicadores {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#multi-1, #multi-2, #multi-3, #multi-4, #multi-5, #multi-6, #multi-7, #multi-8, #multi-9 {
+  color: black;
+  font-size: 1em; /* Cambia el valor de 2em a 1em */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+@keyframes spin {
+    from {
+        transform: translateX(-50%) rotate(0deg); /* Define el estado inicial de la animación, con la bola centrada y sin rotar */
+    }
+
+    to {
+        transform: translateX(-50%) rotate(360deg);
+    }
+}
+
+/* Define el estado final de la animación, con la bola centrada y rotada 360 grados
 
 
 

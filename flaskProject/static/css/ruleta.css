@@ -251,11 +251,19 @@ buttonRR {
     height: 50px;
 }
 
-.rojo{
-    background-color: #c52525;
+.rojo {
+    background-color: rgba(213, 37, 37, 0.8);
+}
+
+.rojo:hover{
+    background-color: #f53535;
 }
 
 .negro{
+    background-color: #2f2d2d;
+}
+
+.negro:hover{
     background-color: black;
 }
 
@@ -263,8 +271,16 @@ buttonRR {
     background-color: #40a21e;
 }
 
+.verde:hover{
+    background-color: #28d711;
+}
+
 .externo{
     background-color: transparent;
+}
+
+.externo:hover{
+    background-color: rgba(72, 72, 72, 0.53);
 }
 
 /* -------- Caja Monedas  ---------*/
@@ -300,21 +316,62 @@ buttonRR {
 
 .moneda:hover,
 .moneda:active {
-    border: 3px solid black; /* Añade un borde de 2px de color azul en hover o clic */
+    border: 3px solid white; /* Añade un borde de 2px de color azul en hover o clic */
 }
 
 
-.quitarApuesta{
-    background-image: url("/static/images/ruleta/quitarApuesta.png");
+.quitarTodasApuestas{
+    background-image: url("/static/images/ruleta/eliminarTodasApuestas.png");
     background-size: 100%;
-    background-position: center;
+    background-position-y: 12%;
+    background-position-x: -10% ;
     border-radius: 50%;
-    border:none ;
+    border:none;
     height: 30%;
     width: 10%;
-    left: 30%;
+    left: 12%;
     top:50%
 }
+
+.eliminarFicha{
+    background-image: url("/static/images/ruleta/eliminarFicha.png");
+    background-size: 110%;
+    background-position-y: 12%;
+    background-position-x: 20% ;
+    border-radius: 50%;
+    border:none;
+    height: 30%;
+    width: 10%;
+    left: 32%;
+    top:50%
+}
+
+.duplicarApuesta{
+    background-image: url("/static/images/ruleta/duplicarApuesta.png");
+    background-size: 140%;
+    background-position-y: 50%;
+    background-position-x: 40% ;
+    border-radius: 50%;
+    border:none;
+    height: 30%;
+    width: 10%;
+    left: 52%;
+    top:50%
+}
+
+.repetirApuesta{
+    background-image: url("/static/images/ruleta/repetirApuesta.png");
+    background-size: 110%;
+    background-position-y: 20%;
+    background-position-x: 40% ;
+    border-radius: 50%;
+    border:none;
+    height: 30%;
+    width: 10%;
+    left: 72%;
+    top:50%
+}
+
 .cobre{
     background-image: url("/static/images/monedaCobre.png");
     background-size: 113%;

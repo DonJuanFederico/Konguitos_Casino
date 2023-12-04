@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'plantilla.html' %}
+{% block title %} Juego de Craps {% endblock %}
+{% block stylesheets %}
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <title>Juego de Craps</title>
     <link rel="stylesheet" type="text/css" href="/static/css/craps.css">
-
-</head>
-<body>
+{% endblock %}
+{% block body %}
     <div class="container">
         <div class="botonDeReglas">
             <buttonRR onclick="reglas()">Reglas</buttonRR>
@@ -26,29 +24,34 @@
                 <p>Cantidad apostada: <span id="bet2">0 monedas</span></p>
             </div>
             <div id="dice-container">
-                <img id="dice1" src="/static/images/dados/1.png" alt="Dado 1">
-                <img id="dice2" src="/static/images/dados/1.png" alt="Dado 2">
+                <img class="dice-img" id="dice1" src="/static/images/dados/1.png" alt="Dado 1">
+                <img class="dice-img" id="dice2" src="/static/images/dados/1.png" alt="Dado 2">
 
 
             </div>
-            <button onclick="rollDice()">Lanzar Dados</button>
+            <div class="botonDeTiro">
+                <buttonThrow onclick="rollDice()">Lanzar Dados</buttonThrow>
+            </div>
+
             <p id="result"></p>
             <p id="punto-actual">Punto actual: Ninguno</p>
+
+            <div class="bottom-buttons">
+                <h2 class="apuestas-title">Posibles Apuestas</h2>
+                <div class="apuesta-principal">
+                    <h3>Apuestas Principales</h3>
+                    <button onclick="placePrimaryBet('lineaDePase')">Línea de Pase</button>
+                    <button onclick="placePrimaryBet('barraDeNoPase')">Barra de No Pase</button>
+                </div>
+                <div class="apuesta-secundaria">
+                    <h3>Apuestas Secundarias</h3>
+                    <button onclick="placeSecondaryBet('gabelaAFavor')">Gabela a Favor</button>
+                    <button onclick="placeSecondaryBet('gabelaEnContra')">Gabela en Contra</button>
+                </div>
+            </div>
         </div>
 
-        <div class="sidebar sidebar-right">
-            <h2>Posibles Apuestas</h2>
-            <div class="apuesta-principal">
-                <h3>Apuestas Principales</h3>
-                <button onclick="placePrimaryBet('lineaDePase')">Línea de Pase</button>
-                <button onclick="placePrimaryBet('barraDeNoPase')">Barra de No Pase</button>
-            </div>
-            <div class="apuesta-secundaria">
-                <h3>Apuestas Secundarias</h3>
-                <button onclick="placeSecondaryBet('gabelaAFavor')">Gabela a Favor</button>
-                <button onclick="placeSecondaryBet('gabelaEnContra')">Gabela en Contra</button>
-            </div>
-        </div>
+
 
         <div id = cajaApuesta>
         <img id ="fotoMoneda" src="/static/images/moneda.png">
@@ -57,13 +60,18 @@
         </div>
     </div>
 
-</body>
+    <audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/papyrus.mp3" type="audio/mpeg">
+    </audio>
 
+{% endblock %}
+{% block javascript %}
     <script src="/static/js/craps.js"></script>
     <script src="/static/js/crapsAlertas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/mutearPagina.js"></script>
 
-</html>
+{% endblock %}
 
 
 
