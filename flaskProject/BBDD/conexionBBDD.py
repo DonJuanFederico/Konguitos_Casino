@@ -607,3 +607,47 @@ def buscarAnfitrion(nombre):
             cursor.close()
             close_connection(conn)
     return False  # Devuelve False si no se encuentra el nombre
+
+
+
+def comprobar_gashapon(id_usuario, contenido_usuario):
+    # Conectar a la base de datos
+    conn = connect()
+    if not conn:
+        return False
+
+    try:
+        cursor = conn.cursor()
+
+        # Comprobar si el usuario está en la tabla gashapon
+        query_usuario_existente = "SELECT id_usuario FROM gashapon WHERE id_usuario = %s"
+        cursor.execute(query_usuario_existente, (id_usuario,))
+        usuario_existente = cursor.fetchone()
+
+        if not usuario_existente:
+            # Si el usuario no está en gashapon, añadirlo
+            query_insertar_usuario = "INSERT INTO gashapon (id_usuario) VALUES (%s)"
+            cursor.execute(query_insertar_usuario, (id_usuario,))
+            conn.commit()
+
+        # Actualizar las columnas del usuario en gashapon
+        query_actualizar_gashapon = """
+            UPDATE gashapon
+            SET astronauta = %s, basico = %s, rey = %s, capitan = %s, tigre = %s, vikingo = %s
+            WHERE id_usuario = %s
+        """
+        cursor.execute(query_actualizar_gashapon, tuple(contenido_usuario) + (id_usuario,))
+        conn.commit()
+
+        print("Operación completada con éxito")
+        return True
+
+    except mysql.connector.Error as err:
+        print(f"Error de MySQL: {err}")
+        return False
+
+    finally:
+        cursor.close()
+        close_connection(conn)
+
+
