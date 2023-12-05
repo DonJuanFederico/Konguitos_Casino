@@ -650,4 +650,36 @@ def comprobar_gashapon(id_usuario, contenido_usuario):
         cursor.close()
         close_connection(conn)
 
+def obtener_correo_por_usuario(nombre_usuario):
+    # Configuración de la base de datos
+    db_config = {
+        "host": "konguitoscasino.mysql.database.azure.com",
+        "user": "KingKonguito",
+        "password": "Konguito9",
+        "database": "casino",
+        "port": 3306,
+    }
 
+    try:
+        # Conectar a la base de datos
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+
+        # Consultar el correo electrónico del usuario
+        query = "SELECT Correo FROM usuarios WHERE NombreUsuario = %s"
+        cursor.execute(query, (nombre_usuario,))
+        correo_usuario = cursor.fetchone()
+
+        if correo_usuario:
+            return correo_usuario[0]  # Devolver el primer elemento de la tupla (correo electrónico)
+        else:
+            return None  # Usuario no encontrado
+
+    except mysql.connector.Error as err:
+        print(f"Error de MySQL: {err}")
+        return None
+
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
