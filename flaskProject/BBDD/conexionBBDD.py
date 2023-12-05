@@ -135,7 +135,7 @@ def agregarDineroGanado(cantidad_a_agregar):     #Este metodo agrega el dinero q
             cursor = conn.cursor()
             try:
                 # Consulta para actualizar la cantidad de dinero y dinero ganado en la cuenta del usuario
-                query = "UPDATE usuarios SET Dinero = Dinero + %s, DineroGanado = DineroGanado + %s WHERE NombreUsuario = %s"
+                query = "UPDATE usuarios SET DineroGanado = DineroGanado + %s WHERE NombreUsuario = %s"
                 cursor.execute(query, (cantidad_a_agregar, cantidad_a_agregar, obtener_nombre()))
                 conn.commit()
             except mysql.connector.Error as err:

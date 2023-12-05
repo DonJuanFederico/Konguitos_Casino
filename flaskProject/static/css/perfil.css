@@ -78,8 +78,9 @@ audio{
 }
 #requestPass, #introducir, #introducir1, #introducir3, #introducir4, #introducir5, #introducir6, #introducir7, #introducir8{
     width: 100%;
+    padding: 2%;
 }
-
+#requestPass{cursor: pointer;}
 /* contenedor de otros datos del usuario */
 .mas_datos{
     position: absolute;

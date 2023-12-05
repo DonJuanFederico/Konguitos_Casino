@@ -19,6 +19,7 @@ function startGame(){
 
         document.getElementById('marcoJuego').addEventListener('click', function (event) {
             if(!cierre) {
+                cierre = true;
                 if (event.target.classList.contains('option-button')) {
                     roundCounter++;
                     checkOption();
@@ -118,6 +119,7 @@ function nextRound(){
         }
         marco.style.color = 'transparent';
         ronda = true;
+        cierre = false;
         hideGameButtons();
     }
 }
@@ -129,7 +131,7 @@ function withdraw(){
             title: 'Saliste gay',
             width: 600,
             height: 700,
-            confirmButtonText: '¡SIP, Y QUIERO MÁS!',
+            confirmButtonText: '¡SUUUUUUUU!',
             confirmButtonColor: 'darkgoldenrod',
             backdrop: `rgba(0, 0, 0, 0.5)`,
             allowOutsideClick: true,

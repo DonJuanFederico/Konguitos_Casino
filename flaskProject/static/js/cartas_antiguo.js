@@ -141,6 +141,16 @@ function agregarDinero() {
     xhr.send("&cantidad_a_agregar=" + monto);
 }
 
+// funcion para agregar las ganancias de la partida
+function agregarGanancias() {
+    var monto = apuesta;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_ganancias", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + monto);
+}
+
 // funcion para comparar las cartas y repartir el dinero apostado
 function compareCards(selectedCardValue, dealerCardValue) {
     let message = '';
@@ -189,6 +199,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
         if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
             saldo += 2 * apuesta;
             agregarDinero();
+            agregarGanancias();
         } else if (messageDiv.textContent === 'Empate') {
             gananciaPerdida = -apuesta / 2;
             saldo -= apuesta / 2;

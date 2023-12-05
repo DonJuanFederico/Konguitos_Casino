@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, Response, redirect, 
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
+from correo.correo import *
 from waitress import serve
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 import re
@@ -207,8 +208,10 @@ def juegos():
 @app.route('/Rankings/')
 def rankings():
     datos_ranking = obtenerRankingDineroGanado()
+    usuario = session.get('nombreUsuario')
+    ganancias = obtenerDineroGanado(usuario)
     print(datos_ranking)
-    return render_template('rankings.html', datos_ranking=datos_ranking)
+    return render_template('rankings.html', datos_ranking=datos_ranking, ganancias=ganancias)
 
 @app.route('/Perfil_de_usuario/', methods=['GET', 'POST'])
 def perfil():
@@ -221,9 +224,15 @@ def perfil():
     data2 = obtenerArrayDatosTarjeta(usuario_id)
     return render_template('perfil.html',data=data, data2=data2)
 @app.route('/soporte_cliente/')
-
 def ayuda():
     return render_template('soporte_cliente.html')
+
+@app.route('/Perfil_de_usuario/nueva_pw/')
+def enviarCorreoContrasena():
+    usuario = session.get('nombreUsuario')
+    codigo_verificacion = request.form.get('codigo_verificacion')
+    enviar_correo(usuario, codigo_verificacion)
+    return render_template('nueva_psswrd.html')
 
 @app.route('/desafios_recompensas/')
 def desafios():
@@ -283,6 +292,12 @@ def dinero():
 def agregar_dinero():
     cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
     agregarDineroTarjeta(cantidad_a_agregar)
+    return "Dinero agregado correctamente"
+
+@app.route('/agregar_ganancias', methods=['POST'])
+def agregar_ganancias():
+    cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
+    agregarDineroGanado(cantidad_a_agregar)
     return "Dinero agregado correctamente"
 
 @app.route('/retirar_dinero', methods=['POST'])

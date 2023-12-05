@@ -41,6 +41,7 @@ function volverAtras(){
 
 function requestContrasena(){
     // hacer q envie email automatico
+    document.location.href = '/Perfil_de_usuario/nueva_pw/';
 }
 
 /*
