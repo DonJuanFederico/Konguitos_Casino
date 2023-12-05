@@ -30,11 +30,23 @@ function verificarContrasena(){
     contenedorPw.style.display = 'flex';
 }
 
-function comprobarContrasena(){
-    if(primeraPw.value === segundaPw.value && primeraPw.value !== ''){
-        contenedorVer.style.display = 'flex';
-        contenedorPw.style.display = 'none';
-    } else{
-        alert('Las contraseñas no coiciden');
+function comprobarContrasena() {
+    if(primeraPw.value === segundaPw.value && primeraPw.value !== '') {
+        var nuevaContrasena = $('#segunda').val();
+        $.ajax({
+            type: 'POST',
+            url: '/Perfil_de_usuario/nueva_pw/',
+            data: {
+                nuevaContrasena: nuevaContrasena
+            },
+            success: function (response) {
+                console.log(response.message);
+                // Puedes realizar acciones adicionales después de cambiar la contraseña
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
     }
+    window.location.href = '/Perfil_de_usuario/';
 }

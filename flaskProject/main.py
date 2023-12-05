@@ -227,11 +227,13 @@ def perfil():
 def ayuda():
     return render_template('soporte_cliente.html')
 
-@app.route('/Perfil_de_usuario/nueva_pw/')
+@app.route('/Perfil_de_usuario/nueva_pw/', methods=['GET', 'POST'])
 def enviarCorreoContrasena():
-    usuario = session.get('nombreUsuario')
-    codigo_verificacion = request.form.get('codigo_verificacion')
-    enviar_correo(usuario, codigo_verificacion)
+    if request.method == 'POST':
+        usuario = session.get('nombreUsuario')
+        contrasena = request.form.get('nuevaContrasena')
+        cambiarContraseña(usuario, contrasena)
+        return jsonify({'message': 'Contraseña cambiada exitosamente'})  # Puedes devolver cualquier mensaje que desees
     return render_template('nueva_psswrd.html')
 
 @app.route('/desafios_recompensas/')
