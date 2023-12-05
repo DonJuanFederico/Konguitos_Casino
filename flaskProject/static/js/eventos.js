@@ -6,7 +6,7 @@ var blackout = document.querySelector('.blackout');
 var blackout_2 = document.querySelector('.blackout_2');
 
 // obtenemos los diferentes eventos
-var eventoGashapon = document.getElementById('cargarCartaMasAlta');
+var eventoGashapon = document.getElementById('cargarGashapon');
 var eventoRuleta = document.getElementById('cargarRuletaRusa');
 
 // obtenemos todos los valores de todos los temporizadores
@@ -29,18 +29,13 @@ function unclockEventoRuleta(){
 
 function gashapon(){
     if(!bloqueoEvento){
-        window.location.href = '';  // GASHAPON
+        window.location.href = '/Juegos/Eventos/Gashapon';  // GASHAPON
     }
 }
 function ruletaRusa(){
     //if(!bloqueoEvento){
         window.location.href = "/Juegos/Eventos/RuletaRusa";  // RULETA RUSA
     //}
-}
-function evento_3(){
-    if(!bloqueoEvento){
-        window.location.href = '';  // EVENTO 3
-    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {

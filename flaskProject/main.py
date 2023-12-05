@@ -269,6 +269,11 @@ def ruletaRusa():
     DINERO = obtenerDinero()
     return render_template('ruleta_rusa.html', DINERO = DINERO)
 
+@app.route('/Juegos/Eventos/Gashapon', methods=['GET'])
+def gashapon():
+    DINERO = obtenerDinero()
+    return render_template('gashapon.html', DINERO = DINERO)
+
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():
     return render_template('juegosExtra.html')
