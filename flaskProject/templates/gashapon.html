@@ -1,0 +1,24 @@
+{% extends 'plantilla.html' %}
+{% block title %} Gashapon {% endblock %}
+{% block stylesheets %}
+<meta charset="UTF-8" xmlns="http://www.w3.org/1999/html">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/css/ruleta_rusa.css">
+<link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+{% endblock %}
+{% block body %}
+<div id="marcoMonedas">
+    <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
+    <div id="divMonedasUsuario">
+        <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
+        <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="/static/js/gashapon.js"></script>
+<script src="/static/js/gashapon_alerta.js"></script>
+<script src="/static/js/mutearPagina.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

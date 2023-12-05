@@ -63,47 +63,9 @@ function leyenda() {
         width: '50%',
     });
 }
-console.log("Ruleta");
 /* ---------- Tiempo para apostar ---------- */
-function iniciarTemporizador(tiempoInicial) {
-    console.log("Tiempo inicial: " + tiempoInicial);
 
-    var tiempoApostar = document.createElement('div');
-    tiempoApostar.id = 'tiempoApostar';
-    document.body.appendChild(tiempoApostar);
 
-    var quizTimerElement = document.createElement('div');
-    quizTimerElement.id = 'quiz-time-left';
-    document.body.appendChild(quizTimerElement);
-
-    var countdownElement = document.createElement('div');
-    countdownElement.id = 'countdown';
-    document.body.appendChild(countdownElement);
-
-    var fechaFinalizacion = new Date().getTime() + tiempoInicial * 1000;
-
-    var temporizador = setInterval(function() {
-        var tiempoRestante = Math.floor((fechaFinalizacion - new Date().getTime()) / 1000);
-        if (tiempoRestante <= 0) {
-            clearInterval(temporizador);
-            countdownElement.innerHTML = "¡Apuestas cerradas!";
-            setTimeout(function() {
-                countdownElement.innerHTML = '¡Apuestas aceptadas!';
-            }, 2000);
-            setTimeout(function() {
-                countdownElement.innerHTML = 'Girando';
-            }, 4000);
-            setTimeout(function() {
-                countdownElement.innerHTML= 'Ha salido: 2 negro.';
-            }, 6000);
-        } else {
-            var minutos = Math.floor(tiempoRestante / 60);
-            var segundos = tiempoRestante % 60;
-            var cantidad = segundos < 10 ?  + segundos : segundos;
-            countdownElement.textContent = "Quedan " + cantidad + "para apostar";
-        }
-    }, 0);
-}
 /* ---------- Apuestas ----------*/
 var apuesta_2_1_primera = document.getElementById('apuesta_2_1_primera');
 var apuesta_2_1_segunda = document.getElementById('apuesta_2_1_segunda');
@@ -153,7 +115,7 @@ function cambiarColorRojo(casilla){
 }
 function cambiarColorNegro(casilla){
     var elemento = document.getElementsByClassName(casilla)
-    elemento.item(0).style.backgroundColor = "black";
+    elemento.item(0).style.backgroundColor = "#2f2d2d";
 }
 
 function volverAlOriginal(){
@@ -318,7 +280,7 @@ function apostar(tipo) {
     }else{
         asignar_valor_moneda(monedaElejida); //Obtengo valorMoneda en f() de la moneda seleccionada
         obtener_array_apuestas(tipo, valorMoneda); //Obtengo a que casilla se ha apostado y cuánta cantidad en una array bidimensional
-        colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida); //Coloco la moneda en la casilla
+        colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida, tipo); //Coloco la moneda en la casilla
 
     }
 }
@@ -380,33 +342,239 @@ function obtener_array_apuestas(tipo, cantidadApostada) {
     }
     console.log(arrayApuestas);
 }
-
-function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda) {
+let valorAcumulado = 0
+function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda, tipo) {
+    console.log("-------------------------------------------")
     for (const apuesta of arrayApuestas) {
-        const tipo_apuesta = apuesta[0]; // "1_12"
-        const valor_apuesta = apuesta[1]; // 100
-        const tipoMoneda = tipo_moneda[1]; // tipo_moneda is an array, so use [1] to get the second element
-        console.log(tipo_apuesta, valor_apuesta, tipoMoneda);
-
-        const elements = document.getElementsByClassName(tipo_apuesta);
-
-        for (const element of elements) {
-            const div = document.createElement('div');
-            div.className = tipoMoneda;
-            div.style.position = 'absolute';
+        if (apuesta[0] === tipo) {
+            valorAcumulado = apuesta[1];
+        }
+    }
+    if (valorAcumulado === 0) {
+    } else {
+        const tipoMoneda = tipo_moneda[1];
+        const div = document.createElement('div');
+        divTexto = div;
+        div.className = tipoMoneda;
+        div.style.position = 'absolute';
+        div.style.display = 'flex';
+        div.style.flexDirection = 'column';
+        div.style.alignItems = 'center';
+        div.style.zIndex = '0';
+        div.innerHTML = valorAcumulado;
+        div.style.color = '#ffffff';
+        div.style.fontWeight = 'bold';
+        div.style.position = 'absolute';
+        div.style.zIndex = '1';
+        div.style.fontSize = '70%';
+        div.style.top = '100%';
+        elementosss = tipo;
+        if (elementosss === 'apuesta_1_18' || elementosss === 'apuesta_19_36'
+            || elementosss === "apuesta_par" || elementosss === "apuesta_impar"
+            || elementosss === "apuesta_rojo" || elementosss === "apuesta_negro") {
+            div.style.top = '5%';
+            div.style.left = '25%';
+            div.style.width = '50%';
+            div.style.height = '90%';
+        } else if (elementosss === "apuesta_1_12" || elementosss === "apuesta_13_24" || elementosss === "apuesta_25_36") {
+            div.style.top = '10%';
+            div.style.left = '35%';
+            div.style.width = '20%';
+            div.style.height = '80%';
+        } else {
             div.style.top = '10%';
             div.style.left = '10%';
             div.style.width = '80%';
             div.style.height = '80%';
-            div.style.display = 'flex';
-            div.style.flexDirection = 'column';
-            div.style.alignItems = 'center';
-            element.appendChild(div);
+        }
+        const tipoElement = document.getElementById(tipo);
+
+        // Check if the element exists before appending children
+        if (tipoElement) {
+            tipoElement.appendChild(divTexto);
+            tipoElement.appendChild(div);
+        } else {
+            console.error('Element with ID ' + tipo + ' not found.');
         }
     }
 }
 
 
+let result = 0;
+function iniciarTemporizador(tiempoInicial) {
+    console.log(tiempoInicial);
+    var elementosNumero = document.getElementsByClassName('numero');
+    let onclickAnterior = [];
+    console.log('ElementosNumero:', elementosNumero);
+        for (let i = 0; i < elementosNumero.length; i++) {
+            elementosNumero[i].addEventListener('click', function() {
+                if(elementosNumero === null) {
+                    alert("Apuesta cerrada");
+                } else{
+                    const nuevoClick = elementosNumero[i].getAttribute('class');
+                    const click = nuevoClick.split(" ")
+                    apostar(click[2]);
+                }
+            });
+        }
+
+
+    var tiempoApostar = document.createElement('div');
+
+    document.body.appendChild(tiempoApostar);
+
+    var quizTimerElement = document.createElement('div');
+    quizTimerElement.id = 'quiz-time-left';
+    document.body.appendChild(quizTimerElement);
+
+    var countdownElement = document.createElement('div');
+    countdownElement.id = 'countdown';
+    document.body.appendChild(countdownElement);
+
+    var fechaFinalizacion = new Date().getTime() + tiempoInicial * 1000;
+
+    var temporizador = setInterval(async function () {
+        var tiempoRestante = Math.floor((fechaFinalizacion - new Date().getTime()) / 1000);
+        if (tiempoRestante <= 0) {
+            clearInterval(temporizador);
+            elementosNumero = null;
+            countdownElement.innerHTML = "¡Apuestas cerradas!";
+            setTimeout(function () {
+                countdownElement.innerHTML = '¡Apuestas aceptadas!';
+            }, 2000);
+            setTimeout(function () {
+                countdownElement.innerHTML = 'Girando';
+                startRotation(Math.floor(Math.random() * (110 - 77 + 1)) + 77);
+            }, 2000);
+            setTimeout(function () {
+                countdownElement.innerHTML = "Ha salido:" + result;
+            }, 11000);
+        } else {
+            var minutos = Math.floor(tiempoRestante / 60);
+            var segundos = tiempoRestante % 60;
+            var cantidad = segundos < 10 ? +segundos : segundos;
+            countdownElement.textContent = "Quedan " + cantidad + " para apostar";
+        }
+    });
+}
+
+
+/* ---------- Girar ---------- */
+window.anime = anime;
+
+var currentBallRotation = 0;
+var currentWheelRotation = 0;
+var currentWheelIndex = 0;
+var isRotating = false;
+const rouletteWheelNumbers = [
+  0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13,
+  36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14,
+  31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+];
+
+const getRouletteWheelNumber = index =>
+  rouletteWheelNumbers[index >= 0 ? index % 37 : (37 - Math.abs(index % 37)) % 37];
+
+
+const getRouletteWheelColor = index => {
+  const i = index >= 0 ? index % 37 : 37 - Math.abs(index % 37);
+  return i == 37 ? "green" : i % 2 == 0 ? "black" : "red";
+};
+
+window.rouletteWheelNumbers = rouletteWheelNumbers;
+
+function addFlipper() {
+  const mkDiv = className => {
+    const d = document.createElement("div");
+    d.classList.add(...className.split(" "));
+    return d;
+  };
+  const flipper = mkDiv("flipper");
+  const front = mkDiv("front-face");
+  const back = mkDiv("back-face");
+  flipper.appendChild(front);
+  flipper.appendChild(back);
+  return (number, color) => {
+    flipper.classList.add("flip", color);
+    back.innerText = number;
+  };
+}
+
+async function startRotation(speed) {
+    let imagen = document.getElementById('KonguitoRuleta');
+    const nuevoDiv = document.createElement("div");
+    nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
+
+    const cuerpoDocumento = document.body;
+    cuerpoDocumento.appendChild(nuevoDiv);
+    setTimeout(() => {
+        const writeResult = addFlipper();
+
+        const bezier = [0.165, 0.84, 0.44, 1.005];
+        const newWheelIndex = currentWheelIndex - speed;
+        result = getRouletteWheelNumber(newWheelIndex);
+        const resultColor = getRouletteWheelColor(newWheelIndex);
+        (() => {
+            const newRotaion = currentWheelRotation + (360 / 37) * speed;
+            console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
+            var myAnimation = anime({
+                targets: [".capa-2", ".capa-4"],
+                rotate: function () {
+                    return newRotaion;
+                },
+                duration: function () {
+                    return 10000;
+                },
+                loop: 1,
+                // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
+                easing: `cubicBezier(${bezier.join(",")})`,
+                // easing: "cubicBezier(0.000, 1.175, 0.980, 0.990)",
+                complete: (...args) => {
+                    currentWheelRotation = newRotaion;
+                    currentWheelIndex = newWheelIndex;
+                }
+            });
+        })();
+
+        (() => {
+            const newRotaion = -2 * 360 + currentBallRotation;
+            var myAnimation1 = anime({
+                targets: ".ball-container",
+                translateY: [
+                    {value: 0, duration: 3000},
+                    {value: 70, duration: 4000},
+                ],
+                rotate: [{value: newRotaion, duration: 10000}],
+                duration: function () {
+                    return 10000; // anime.random(800, 1400);
+                },
+                loop: 1,
+                easing: `cubicBezier(${bezier.join(",")})`,
+                complete: () => {
+                    currentBallRotation = newRotaion;
+                    writeResult(result, resultColor);
+                    isRotating = false;
+                }
+            });
+        })();
+    }, 500);
+    let p = 0;
+    while (p <= 18) {
+        imagen.src = `/static/images/ruleta/framesRuleta/${i}.png`;
+        p++;
+        await new Promise((resolve) => setTimeout(resolve, 75)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+}
+
+document.querySelector(".roulette-wheel").addEventListener(
+  "touchmove",
+  e => {
+    e.preventDefault();
+  },
+  { passive: false }
+);
 /* ---------- MarcoSaldo ---------- */
 document.getElementById("botonComprarMonedas").addEventListener("click", function () {
     window.location.href = "/dinero/";

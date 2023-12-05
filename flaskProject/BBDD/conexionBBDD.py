@@ -607,3 +607,106 @@ def buscarAnfitrion(nombre):
             cursor.close()
             close_connection(conn)
     return False  # Devuelve False si no se encuentra el nombre
+
+
+
+def comprobar_gashapon(id_usuario, contenido_usuario):
+    # Conectar a la base de datos
+    conn = connect()
+    if not conn:
+        return False
+
+    try:
+        cursor = conn.cursor()
+
+        # Comprobar si el usuario está en la tabla gashapon
+        query_usuario_existente = "SELECT id_usuario FROM gashapon WHERE id_usuario = %s"
+        cursor.execute(query_usuario_existente, (id_usuario,))
+        usuario_existente = cursor.fetchone()
+
+        if not usuario_existente:
+            # Si el usuario no está en gashapon, añadirlo
+            query_insertar_usuario = "INSERT INTO gashapon (id_usuario) VALUES (%s)"
+            cursor.execute(query_insertar_usuario, (id_usuario,))
+            conn.commit()
+
+        # Actualizar las columnas del usuario en gashapon
+        query_actualizar_gashapon = """
+            UPDATE gashapon
+            SET astronauta = %s, basico = %s, rey = %s, capitan = %s, tigre = %s, vikingo = %s
+            WHERE id_usuario = %s
+        """
+        cursor.execute(query_actualizar_gashapon, tuple(contenido_usuario) + (id_usuario,))
+        conn.commit()
+
+        print("Operación completada con éxito")
+        return True
+
+    except mysql.connector.Error as err:
+        print(f"Error de MySQL: {err}")
+        return False
+
+    finally:
+        cursor.close()
+        close_connection(conn)
+
+def obtener_correo_por_usuario(nombre_usuario):
+    # Configuración de la base de datos
+    db_config = {
+        "host": "konguitoscasino.mysql.database.azure.com",
+        "user": "KingKonguito",
+        "password": "Konguito9",
+        "database": "casino",
+        "port": 3306,
+    }
+
+    try:
+        # Conectar a la base de datos
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+
+        # Consultar el correo electrónico del usuario
+        query = "SELECT Correo FROM usuarios WHERE NombreUsuario = %s"
+        cursor.execute(query, (nombre_usuario,))
+        correo_usuario = cursor.fetchone()
+
+        if correo_usuario:
+            return correo_usuario[0]  # Devolver el primer elemento de la tupla (correo electrónico)
+        else:
+            return None  # Usuario no encontrado
+
+    except mysql.connector.Error as err:
+        print(f"Error de MySQL: {err}")
+        return None
+
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+def cambiarContraseña(nombre_usuario, nueva_contraseña):
+    conn = connect()
+    if not conn:
+        return False
+
+    try:
+        cursor = conn.cursor()
+
+        # Cifrar la nueva contraseña
+        nueva_contraseña_cifrada = encriptarClave(nueva_contraseña)
+
+        # Actualizar la contraseña en la base de datos
+        query_actualizar_contraseña = "UPDATE usuarios SET Contraseña = %s WHERE NombreUsuario = %s"
+        cursor.execute(query_actualizar_contraseña, (nueva_contraseña_cifrada, nombre_usuario))
+        conn.commit()
+
+        print("Contraseña cambiada con éxito")
+        return True
+
+    except mysql.connector.Error as err:
+        conn.rollback()
+        print(f"Error de MySQL: {err}")
+        return False
+
+    finally:
+        cursor.close()
+        close_connection(conn)

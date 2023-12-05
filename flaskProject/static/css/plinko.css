@@ -130,8 +130,8 @@ body {
 
 #ball {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 1.2vw;
+    height: 1.2vw;
     background-color: #FFD700;
     border-radius: 50%;
     bottom: 0;

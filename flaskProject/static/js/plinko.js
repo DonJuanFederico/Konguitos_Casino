@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var ignorarColisiones = false;
     var idAnimacion;
 
-    var multiplicadores = [0, 3, 1, 0.5, 0, 0.5, 1, 3, 0];
+    var multiplicadores = [0, 12, 1, 0.5, 0, 0.5, 1, 12, 0];
 
     function mostrarMultiplicadores() {
         for (var i = 0; i < multiplicadores.length; i++) {

@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/static/css/ruleta.css" />
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 {% endblock %}
 {% block title %}Ruleta{% endblock %}
 {% block body %}
@@ -31,6 +32,16 @@
         </div>
 
         <!-- 5 Capas de la Ruleta-->
+
+    <div id="app">
+      <div>
+        <div class="roulette-wheel">
+          <div class="layer-2 wheel" style="transform: rotate(0deg);"></div>
+          <div class="layer-3"></div>
+          <div class="layer-4 wheel" style="transform: rotate(0deg);"></div>
+          <div class="layer-5"></div>
+
+
         <div class="ruleta">
             <img class ="capa-1" src="/static/images/ruleta/capa-1.png">
             <div class="layer-2 wheel" style="transform: rotate(0deg);">
@@ -48,75 +59,82 @@
             <div class="ball-container" style="transform: rotate(0deg);">
                 <div class="ball" style="transform: translate(0, -163.221px);"></div>
             </div>
+              <svg width="380" height="380">
+                <circle cx="190" cy="190" r="190" style="touch-action: none;"></circle>
+              </svg>
         </div>
-        <br><br><br><br><br><br><br>
-        <button onclick="iniciarTemporizador(5)">Iniciar Temporizador</button>
+        <div id="giraRuleta">
+            <button  class="girar" onclick="iniciarTemporizador(20)"> JUGAR </button>
+        </div>
+        <div id="player">
+            <img src="/static/images/ruleta/framesRuleta/1.png" alt="ImagenRuleta" id="KonguitoRuleta">
+        </div>
 
         <div id="tablero">
-            <button class="numero verde 0" onclick="apostar('0')" style="left: -50px; height: 150px">0</button>
+            <button class="numero verde 0" id="0" style="left: -50px; height: 150px">0</button>
 
-            <button class="numero rojo 1 uno" onclick="apostar('1')" style="top:100px">1  </button>
-            <button class="numero negro 2 dos" onclick="apostar('2')" style="top:50px">2</button>
-            <button class="numero rojo 3 tres" onclick="apostar('3')">3</button>
+            <button class="numero rojo 1 uno" id="1"  style="top:100px">1  </button>
+            <button class="numero negro 2 dos" id="2"  style="top:50px">2</button>
+            <button class="numero rojo 3 tres" id="3" >3</button>
 
-            <button class="numero negro 4 cuatro" onclick="apostar('4')" style="top: 100px; left: 50px">4</button>
-            <button class="numero rojo 5 cinco" onclick="apostar('5')" style="top: 50px; left: 50px">5</button>
-            <button class="numero negro 6 seis" onclick="apostar('6')" style="left: 50px">6</button>
+            <button class="numero negro 4 cuatro" id="4" style="top: 100px; left: 50px">4</button>
+            <button class="numero rojo 5 cinco" id="5" style="top: 50px; left: 50px">5</button>
+            <button class="numero negro 6 seis" id="6" style="left: 50px">6</button>
 
-            <button class="numero rojo 7 siete" onclick="apostar('7')" style="top: 100px; left: 100px">7</button>
-            <button class="numero negro 8 ocho" onclick="apostar('8')" style="top: 50px; left: 100px">8</button>
-            <button class="numero rojo 9 nueve" onclick="apostar('9')" style="left: 100px">9</button>
+            <button class="numero rojo 7 siete" id="7" style="top: 100px; left: 100px">7</button>
+            <button class="numero negro 8 ocho" id="8" style="top: 50px; left: 100px">8</button>
+            <button class="numero rojo 9 nueve" id="9" style="left: 100px">9</button>
 
-            <button class="numero negro 10 diez" onclick="apostar('10')" style="top: 100px; left: 150px">10</button>
-            <button class="numero negro 11 once" onclick="apostar('5')" style="top: 50px; left: 150px">11</button>
-            <button class="numero rojo 12 doce" onclick="apostar('6')" style="left: 150px">12</button>
+            <button class="numero negro 10 diez" id="10" style="top: 100px; left: 150px">10</button>
+            <button class="numero negro 11 once" id="11" style="top: 50px; left: 150px">11</button>
+            <button class="numero rojo 12 doce" id="12" style="left: 150px">12</button>
 
-            <button class="numero negro 13 trece" onclick="apostar('13')" style="top: 100px; left: 200px">13</button>
-            <button class="numero rojo 14 catorce" onclick="apostar('14')" style="top: 50px; left: 200px">14</button>
-            <button class="numero negro 15 quince" onclick="apostar('15')" style="left: 200px">15</button>
+            <button class="numero negro 13 trece" id="13" style="top: 100px; left: 200px">13</button>
+            <button class="numero rojo 14 catorce" id="14" style="top: 50px; left: 200px">14</button>
+            <button class="numero negro 15 quince" id="15" style="left: 200px">15</button>
 
-            <button class="numero rojo 16 dieciseis" onclick="apostar('16')" style="top: 100px; left: 250px">16</button>
-            <button class="numero negro 17 dicisiete" onclick="apostar('17')" style="top: 50px; left: 250px">17</button>
-            <button class="numero rojo 18 dieciocho" onclick="apostar('18')" style="left: 250px">18</button>
+            <button class="numero rojo 16 dieciseis" id="16" style="top: 100px; left: 250px">16</button>
+            <button class="numero negro 17 dicisiete" id="17" style="top: 50px; left: 250px">17</button>
+            <button class="numero rojo 18 dieciocho" id="18" style="left: 250px">18</button>
 
-            <button class="numero rojo 19 dicinueve" onclick="apostar('19')" style="top: 100px; left: 300px">19</button>
-            <button class="numero negro 20 veinte" onclick="apostar('20')" style="top: 50px; left: 300px">20</button>
-            <button class="numero rojo 21 veintiuno" onclick="apostar('21')" style="left: 300px">21</button>
+            <button class="numero rojo 19 dicinueve" id="19" style="top: 100px; left: 300px">19</button>
+            <button class="numero negro 20 veinte" id="20" style="top: 50px; left: 300px">20</button>
+            <button class="numero rojo 21 veintiuno" id="21" style="left: 300px">21</button>
 
-            <button class="numero negro 22 veintidos" onclick="apostar('22')" style="top: 100px; left: 350px">22</button>
-            <button class="numero rojo 23 veintitres" onclick="apostar('23')" style="top: 50px; left: 350px">23</button>
-            <button class="numero negro 24 veinticuatro" onclick="apostar('24')" style="left: 350px">24</button>
+            <button class="numero negro 22 veintidos" id="22" style="top: 100px; left: 350px">22</button>
+            <button class="numero rojo 23 veintitres" id="23" style="top: 50px; left: 350px">23</button>
+            <button class="numero negro 24 veinticuatro" id="24" style="left: 350px">24</button>
 
-            <button class="numero rojo 25 veinticinco" onclick="apostar('25')" style="top: 100px; left: 400px">25</button>
-            <button class="numero negro 26 veintiseis" onclick="apostar('26')" style="top: 50px; left: 400px">26</button>
-            <button class="numero rojo 27 veintisiete" onclick="apostar('27')" style="left: 400px">27</button>
+            <button class="numero rojo 25 veinticinco" id="25" style="top: 100px; left: 400px">25</button>
+            <button class="numero negro 26 veintiseis" id="26" style="top: 50px; left: 400px">26</button>
+            <button class="numero rojo 27 veintisiete" id="27" style="left: 400px">27</button>
 
-            <button class="numero negro 28 veintiocho" onclick="apostar('28')" style="top: 100px; left: 450px">28</button>
-            <button class="numero negro 29 veintinueve" onclick="apostar('29')" style="top: 50px; left: 450px">29</button>
-            <button class="numero rojo 30 treinta"  onclick="apostar('30')" style="left: 450px">30</button>
+            <button class="numero negro 28 veintiocho" id="28" style="top: 100px; left: 450px">28</button>
+            <button class="numero negro 29 veintinueve" id="29" style="top: 50px; left: 450px">29</button>
+            <button class="numero rojo 30 treinta" id="30" style="left: 450px">30</button>
 
-            <button class="numero negro 31 treinta_uno" onclick="apostar('31')" style="top: 100px; left: 500px">31</button>
-            <button class="numero rojo 32 treinta_dos" onclick="apostar('32')" style="top: 50px; left: 500px">32</button>
-            <button class="numero negro 33 treinta_tres" onclick="apostar('33')" style="left: 500px">33</button>
+            <button class="numero negro 31 treinta_uno" id="31" style="top: 100px; left: 500px">31</button>
+            <button class="numero rojo 32 treinta_dos" id="32" style="top: 50px; left: 500px">32</button>
+            <button class="numero negro 33 treinta_tres" id="33" style="left: 500px">33</button>
 
-            <button class="numero rojo 34 treinta_cuatro" onclick="apostar('34')" style="top: 100px; left: 550px">34</button>
-            <button class="numero negro 35 treinta_cinco" onclick="apostar('35')" style="top: 50px; left: 550px">35</button>
-            <button class="numero rojo 36 treinta_seis"  onclick="apostar('36')" style="left: 550px">36</button>
+            <button class="numero rojo 34 treinta_cuatro" id="34" style="top: 100px; left: 550px">34</button>
+            <button class="numero negro 35 treinta_cinco" id="35" style="top: 50px; left: 550px">35</button>
+            <button class="numero rojo 36 treinta_seis" id="36"  style="left: 550px">36</button>
 
-            <button class="numero externo" id="apuesta_2_1_primera" onclick="apostar('2_1_primera')" style="left: 600px">2:1</button>
-            <button class="numero externo" id="apuesta_2_1_segunda" onclick="apostar('2_1_segunda')" style="top: 50px; left: 600px">2:1</button>
-            <button class="numero externo" id="apuesta_2_1_tercera" onclick="apostar('2_1_tercera')" style="top: 100px; left: 600px">2:1</button>
+            <button class="numero externo apuesta_2_1_primera" id="apuesta_2_1_primera" style="left: 600px">2:1</button>
+            <button class="numero externo apuesta_2_1_segunda" id="apuesta_2_1_segunda"  style="top: 50px; left: 600px">2:1</button>
+            <button class="numero externo apuesta_2_1_tercera" id="apuesta_2_1_tercera" style="top: 100px; left: 600px">2:1</button>
 
-            <button class="numero externo" id="apuesta_1_12" onclick="apostar('1_12')" style="top: 150px; width: 200px"> 1era 12</button>
-            <button class="numero externo" id="apuesta_13_24" onclick="apostar('13_24')" style="top: 150px; left:200px; width: 200px"> 2era 12</button>
-            <button class="numero externo" id="apuesta_25_36" onclick="apostar('25_36')" style="top: 150px; left: 400px; width: 200px"> 3era 12</button>
+            <button class="numero externo apuesta_1_12" id="apuesta_1_12"  style="top: 150px; width: 200px"> 1era 12</button>
+            <button class="numero externo apuesta_13_24" id="apuesta_13_24"  style="top: 150px; left:200px; width: 200px"> 2era 12</button>
+            <button class="numero externo apuesta_25_36" id="apuesta_25_36"  style="top: 150px; left: 400px; width: 200px"> 3era 12</button>
 
-            <button class="numero externo" id="apuesta_1_18" onclick="apostar('1_18')" style="top:200px; width: 100px">1-18</button>
-            <button class="numero externo" id="apuesta_par" onclick="apostar('Par')" style="top:200px; left: 100px; width: 100px">Par</button>
-            <button class="numero externo" id="apuesta_negro" onclick="apostar('Negro')" style="top:200px; left: 200px; width: 100px">Negro</button>
-            <button class="numero externo" id="apuesta_rojo" onclick="apostar('rojo')" style="top:200px; left: 300px; width: 100px">Rojo</button>
-            <button class="numero externo" id="apuesta_impar" onclick="apostar('Impar')" style="top:200px; left: 400px; width: 100px">Impar</button>
-            <button class="numero externo" id="apuesta_19_36" onclick="apostar('18_36')" style="top:200px; left: 500px; width: 100px">18-36</button>
+            <button class="numero externo apuesta_1_18" id="apuesta_1_18" style="top:200px; width: 100px">1-18</button>
+            <button class="numero externo apuesta_par" id="apuesta_par" style="top:200px; left: 100px; width: 100px">Par</button>
+            <button class="numero externo apuesta_negro" id="apuesta_negro" style="top:200px; left: 200px; width: 100px">Negro</button>
+            <button class="numero externo apuesta_rojo" id="apuesta_rojo" style="top:200px; left: 300px; width: 100px">Rojo</button>
+            <button class="numero externo apuesta_impar" id="apuesta_impar"  style="top:200px; left: 400px; width: 100px">Impar</button>
+            <button class="numero externo apuesta_19_36" id="apuesta_19_36"  style="top:200px; left: 500px; width: 100px">18-36</button>
         </div>
 
         <div class="caja-gris">
@@ -126,10 +144,10 @@
                 <button class="moneda rubi" onclick="colocarBordeMoneda(this)"></button>
                 <button class="moneda oro" onclick="colocarBordeMoneda(this)"></button>
                 <button class="moneda diamante" onclick="colocarBordeMoneda(this)"></button>
-                <button class="moneda quitarTodasApuestas" onclick="colocarBordeMoneda(this)"></button>
-                <button class="moneda eliminarFicha" onclick="colocarBordeMoneda(this)"></button>
-                <button class="moneda duplicarApuesta" onclick="colocarBordeMoneda(this)"></button>
-                <button class="moneda repetirApuesta" onclick="colocarBordeMoneda(this)"></button>
+                <button class=" quitarTodasApuestas" onclick="colocarBordeMoneda(this)"></button>
+                <button class=" eliminarFicha" onclick="colocarBordeMoneda(this)"></button>
+                <button class=" duplicarApuesta" onclick="colocarBordeMoneda(this)"></button>
+                <button class=" repetirApuesta" onclick="colocarBordeMoneda(this)"></button>
             </div>
         </div>
     </div>
