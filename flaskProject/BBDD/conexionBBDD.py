@@ -683,3 +683,30 @@ def obtener_correo_por_usuario(nombre_usuario):
         if conn.is_connected():
             cursor.close()
             conn.close()
+def cambiarContraseña(nombre_usuario, nueva_contraseña):
+    conn = connect()
+    if not conn:
+        return False
+
+    try:
+        cursor = conn.cursor()
+
+        # Cifrar la nueva contraseña
+        nueva_contraseña_cifrada = encriptarClave(nueva_contraseña)
+
+        # Actualizar la contraseña en la base de datos
+        query_actualizar_contraseña = "UPDATE usuarios SET Contraseña = %s WHERE NombreUsuario = %s"
+        cursor.execute(query_actualizar_contraseña, (nueva_contraseña_cifrada, nombre_usuario))
+        conn.commit()
+
+        print("Contraseña cambiada con éxito")
+        return True
+
+    except mysql.connector.Error as err:
+        conn.rollback()
+        print(f"Error de MySQL: {err}")
+        return False
+
+    finally:
+        cursor.close()
+        close_connection(conn)
