@@ -64,44 +64,8 @@ function leyenda() {
     });
 }
 /* ---------- Tiempo para apostar ---------- */
-function iniciarTemporizador(tiempoInicial) {
 
-    var tiempoApostar = document.createElement('div');
-    tiempoApostar.id = 'tiempoApostar';
-    document.body.appendChild(tiempoApostar);
 
-    var quizTimerElement = document.createElement('div');
-    quizTimerElement.id = 'quiz-time-left';
-    document.body.appendChild(quizTimerElement);
-
-    var countdownElement = document.createElement('div');
-    countdownElement.id = 'countdown';
-    document.body.appendChild(countdownElement);
-
-    var fechaFinalizacion = new Date().getTime() + tiempoInicial * 1000;
-
-    var temporizador = setInterval(function() {
-        var tiempoRestante = Math.floor((fechaFinalizacion - new Date().getTime()) / 1000);
-        if (tiempoRestante <= 0) {
-            clearInterval(temporizador);
-            countdownElement.innerHTML = "¡Apuestas cerradas!";
-            setTimeout(function() {
-                countdownElement.innerHTML = '¡Apuestas aceptadas!';
-            }, 2000);
-            setTimeout(function() {
-                countdownElement.innerHTML = 'Girando';
-            }, 4000);
-            setTimeout(function() {
-                countdownElement.innerHTML= 'Ha salido: 2 negro.';
-            }, 6000);
-        } else {
-            var minutos = Math.floor(tiempoRestante / 60);
-            var segundos = tiempoRestante % 60;
-            var cantidad = segundos < 10 ?  + segundos : segundos;
-            countdownElement.textContent = "Quedan " + cantidad + "para apostar";
-        }
-    }, 0);
-}
 /* ---------- Apuestas ----------*/
 var apuesta_2_1_primera = document.getElementById('apuesta_2_1_primera');
 var apuesta_2_1_segunda = document.getElementById('apuesta_2_1_segunda');
@@ -314,6 +278,8 @@ function apostar(tipo) {
     if(tipo === "0"){
         alert("No se puede apostar a 0");
     }else{
+        console.log(tipo);
+        console.log("aaaa");
         asignar_valor_moneda(monedaElejida); //Obtengo valorMoneda en f() de la moneda seleccionada
         obtener_array_apuestas(tipo, valorMoneda); //Obtengo a que casilla se ha apostado y cuánta cantidad en una array bidimensional
         colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida, tipo); //Coloco la moneda en la casilla
@@ -435,6 +401,69 @@ function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda
     }
 }
 
+
+
+function iniciarTemporizador(tiempoInicial) {
+    console.log(tiempoInicial);
+    var elementosNumero = document.getElementsByClassName('numero');
+    let onclickAnterior = [];
+    console.log('ElementosNumero:', elementosNumero);
+    // Loop through each element with the class 'numero'
+
+        for (let i = 0; i < elementosNumero.length; i++) {
+            elementosNumero[i].addEventListener('click', function() {
+                if(elementosNumero === null) {
+                    alert("Apuesta cerrada");
+                } else{
+                    console.log('Se ha pulsado un número');
+                    const nuevoClick = elementosNumero[i].getAttribute('class');
+                    const click = nuevoClick.split(" ")
+                    console.log('Nuevo click:', click[2]);
+                    apostar(click[2]);
+                }
+            });
+        }
+        console.log('Manejador de eventos anterior:', onclickAnterior);
+
+
+    var tiempoApostar = document.createElement('div');
+
+    document.body.appendChild(tiempoApostar);
+
+    var quizTimerElement = document.createElement('div');
+    quizTimerElement.id = 'quiz-time-left';
+    document.body.appendChild(quizTimerElement);
+
+    var countdownElement = document.createElement('div');
+    countdownElement.id = 'countdown';
+    document.body.appendChild(countdownElement);
+
+    var fechaFinalizacion = new Date().getTime() + tiempoInicial * 1000;
+    console.log(fechaFinalizacion);
+
+    var temporizador = setInterval(function() {
+        var tiempoRestante = Math.floor((fechaFinalizacion - new Date().getTime()) / 1000);
+        if (tiempoRestante <= 0) {
+            clearInterval(temporizador);
+            elementosNumero = null;
+            countdownElement.innerHTML = "¡Apuestas cerradas!";
+            setTimeout(function() {
+                countdownElement.innerHTML = '¡Apuestas aceptadas!';
+            }, 2000);
+            setTimeout(function() {
+                countdownElement.innerHTML = 'Girando';
+            }, 4000);
+            setTimeout(function() {
+                countdownElement.innerHTML= 'Ha salido: x.';
+            }, 6000);
+        } else {
+            var minutos = Math.floor(tiempoRestante / 60);
+            var segundos = tiempoRestante % 60;
+            var cantidad = segundos < 10 ?  + segundos : segundos;
+            countdownElement.textContent = "Quedan " + cantidad + " para apostar";
+        }
+    }, 0);
+}
 
 /* ---------- MarcoSaldo ---------- */
 document.getElementById("botonComprarMonedas").addEventListener("click", function () {

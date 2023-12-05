@@ -6,9 +6,18 @@ body {
     background-attachment: fixed;
 }
 
+/* ---------- Botones ---------- */
 .juegoRuleta{
     z-index: 1;
     position: inherit;
+}
+
+.girar {
+    position: absolute;
+    top: 80%;
+    left: 30%;
+    height: 10%;
+    width: 10%;
 }
 
 /* ---------- Alertas ---------- */
@@ -79,8 +88,8 @@ buttonRR {
     height: 5%;
     top: 13%;
     left: 40%;
-    -webkit-animation: progreso 5s linear;
-            animation: progreso 5s linear;
+    -webkit-animation: progreso 20s linear;
+            animation: progreso 20s linear;
     background: #26c94a;
     z-index: 1;
  }
