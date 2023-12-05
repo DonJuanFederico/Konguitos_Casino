@@ -429,3 +429,11 @@ buttonRR {
     border: none;
     left: 80%;
 }
+
+#KonguitoRuleta {
+    position: absolute;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    animation: animacionKonguitoRuleta 10s infinite alternate;
+    cursor: pointer;
+}
