@@ -224,6 +224,9 @@ buttonRR {
 .capa-5 {
     z-index: 5;
 }
+.ball-container{
+    z-index: 6;
+}
 
 .ball {
     position: absolute;

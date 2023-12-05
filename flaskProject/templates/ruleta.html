@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/static/css/ruleta.css" />
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 {% endblock %}
 {% block title %}Ruleta{% endblock %}
 {% block body %}
@@ -31,6 +32,16 @@
         </div>
 
         <!-- 5 Capas de la Ruleta-->
+
+    <div id="app">
+      <div>
+        <div class="roulette-wheel">
+          <div class="layer-2 wheel" style="transform: rotate(0deg);"></div>
+          <div class="layer-3"></div>
+          <div class="layer-4 wheel" style="transform: rotate(0deg);"></div>
+          <div class="layer-5"></div>
+
+
         <div class="ruleta">
             <img class ="capa-1" src="/static/images/ruleta/capa-1.png">
             <div class="layer-2 wheel" style="transform: rotate(0deg);">
@@ -48,9 +59,15 @@
             <div class="ball-container" style="transform: rotate(0deg);">
                 <div class="ball" style="transform: translate(0, -163.221px);"></div>
             </div>
+              <svg width="380" height="380">
+                <circle cx="190" cy="190" r="190" style="touch-action: none;"></circle>
+              </svg>
         </div>
         <div id="giraRuleta">
             <button  class="girar" onclick="iniciarTemporizador(20)"> JUGAR </button>
+        </div>
+        <div id="player">
+            <img src="/static/images/ruleta/framesRuleta/1.png" alt="ImagenRuleta" id="KonguitoRuleta">
         </div>
 
         <div id="tablero">

@@ -278,8 +278,6 @@ function apostar(tipo) {
     if(tipo === "0"){
         alert("No se puede apostar a 0");
     }else{
-        console.log(tipo);
-        console.log("aaaa");
         asignar_valor_moneda(monedaElejida); //Obtengo valorMoneda en f() de la moneda seleccionada
         obtener_array_apuestas(tipo, valorMoneda); //Obtengo a que casilla se ha apostado y cuánta cantidad en una array bidimensional
         colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida, tipo); //Coloco la moneda en la casilla
@@ -402,28 +400,23 @@ function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda
 }
 
 
-
+let result = 0;
 function iniciarTemporizador(tiempoInicial) {
     console.log(tiempoInicial);
     var elementosNumero = document.getElementsByClassName('numero');
     let onclickAnterior = [];
     console.log('ElementosNumero:', elementosNumero);
-    // Loop through each element with the class 'numero'
-
         for (let i = 0; i < elementosNumero.length; i++) {
             elementosNumero[i].addEventListener('click', function() {
                 if(elementosNumero === null) {
                     alert("Apuesta cerrada");
                 } else{
-                    console.log('Se ha pulsado un número');
                     const nuevoClick = elementosNumero[i].getAttribute('class');
                     const click = nuevoClick.split(" ")
-                    console.log('Nuevo click:', click[2]);
                     apostar(click[2]);
                 }
             });
         }
-        console.log('Manejador de eventos anterior:', onclickAnterior);
 
 
     var tiempoApostar = document.createElement('div');
@@ -439,32 +432,149 @@ function iniciarTemporizador(tiempoInicial) {
     document.body.appendChild(countdownElement);
 
     var fechaFinalizacion = new Date().getTime() + tiempoInicial * 1000;
-    console.log(fechaFinalizacion);
 
-    var temporizador = setInterval(function() {
+    var temporizador = setInterval(async function () {
         var tiempoRestante = Math.floor((fechaFinalizacion - new Date().getTime()) / 1000);
         if (tiempoRestante <= 0) {
             clearInterval(temporizador);
             elementosNumero = null;
             countdownElement.innerHTML = "¡Apuestas cerradas!";
-            setTimeout(function() {
+            setTimeout(function () {
                 countdownElement.innerHTML = '¡Apuestas aceptadas!';
             }, 2000);
-            setTimeout(function() {
+            setTimeout(function () {
                 countdownElement.innerHTML = 'Girando';
-            }, 4000);
-            setTimeout(function() {
-                countdownElement.innerHTML= 'Ha salido: x.';
-            }, 6000);
+                startRotation(Math.floor(Math.random() * (110 - 77 + 1)) + 77);
+            }, 2000);
+            setTimeout(function () {
+                countdownElement.innerHTML = "Ha salido:" + result;
+            }, 11000);
         } else {
             var minutos = Math.floor(tiempoRestante / 60);
             var segundos = tiempoRestante % 60;
-            var cantidad = segundos < 10 ?  + segundos : segundos;
+            var cantidad = segundos < 10 ? +segundos : segundos;
             countdownElement.textContent = "Quedan " + cantidad + " para apostar";
         }
-    }, 0);
+    });
 }
 
+
+/* ---------- Girar ---------- */
+window.anime = anime;
+
+var currentBallRotation = 0;
+var currentWheelRotation = 0;
+var currentWheelIndex = 0;
+var isRotating = false;
+const rouletteWheelNumbers = [
+  0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13,
+  36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14,
+  31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+];
+
+const getRouletteWheelNumber = index =>
+  rouletteWheelNumbers[index >= 0 ? index % 37 : (37 - Math.abs(index % 37)) % 37];
+
+
+const getRouletteWheelColor = index => {
+  const i = index >= 0 ? index % 37 : 37 - Math.abs(index % 37);
+  return i == 37 ? "green" : i % 2 == 0 ? "black" : "red";
+};
+
+window.rouletteWheelNumbers = rouletteWheelNumbers;
+
+function addFlipper() {
+  const mkDiv = className => {
+    const d = document.createElement("div");
+    d.classList.add(...className.split(" "));
+    return d;
+  };
+  const flipper = mkDiv("flipper");
+  const front = mkDiv("front-face");
+  const back = mkDiv("back-face");
+  flipper.appendChild(front);
+  flipper.appendChild(back);
+  return (number, color) => {
+    flipper.classList.add("flip", color);
+    back.innerText = number;
+  };
+}
+
+async function startRotation(speed) {
+    let imagen = document.getElementById('KonguitoRuleta');
+    const nuevoDiv = document.createElement("div");
+    nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
+
+    const cuerpoDocumento = document.body;
+    cuerpoDocumento.appendChild(nuevoDiv);
+    setTimeout(() => {
+        const writeResult = addFlipper();
+
+        const bezier = [0.165, 0.84, 0.44, 1.005];
+        const newWheelIndex = currentWheelIndex - speed;
+        result = getRouletteWheelNumber(newWheelIndex);
+        const resultColor = getRouletteWheelColor(newWheelIndex);
+        (() => {
+            const newRotaion = currentWheelRotation + (360 / 37) * speed;
+            console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
+            var myAnimation = anime({
+                targets: [".capa-2", ".capa-4"],
+                rotate: function () {
+                    return newRotaion;
+                },
+                duration: function () {
+                    return 10000;
+                },
+                loop: 1,
+                // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
+                easing: `cubicBezier(${bezier.join(",")})`,
+                // easing: "cubicBezier(0.000, 1.175, 0.980, 0.990)",
+                complete: (...args) => {
+                    currentWheelRotation = newRotaion;
+                    currentWheelIndex = newWheelIndex;
+                }
+            });
+        })();
+
+        (() => {
+            const newRotaion = -2 * 360 + currentBallRotation;
+            var myAnimation1 = anime({
+                targets: ".ball-container",
+                translateY: [
+                    {value: 0, duration: 3000},
+                    {value: 70, duration: 4000},
+                ],
+                rotate: [{value: newRotaion, duration: 10000}],
+                duration: function () {
+                    return 10000; // anime.random(800, 1400);
+                },
+                loop: 1,
+                easing: `cubicBezier(${bezier.join(",")})`,
+                complete: () => {
+                    currentBallRotation = newRotaion;
+                    writeResult(result, resultColor);
+                    isRotating = false;
+                }
+            });
+        })();
+    }, 500);
+    let p = 0;
+    while (p <= 18) {
+        imagen.src = `/static/images/ruleta/framesRuleta/${i}.png`;
+        p++;
+        await new Promise((resolve) => setTimeout(resolve, 75)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+}
+
+document.querySelector(".roulette-wheel").addEventListener(
+  "touchmove",
+  e => {
+    e.preventDefault();
+  },
+  { passive: false }
+);
 /* ---------- MarcoSaldo ---------- */
 document.getElementById("botonComprarMonedas").addEventListener("click", function () {
     window.location.href = "/dinero/";
