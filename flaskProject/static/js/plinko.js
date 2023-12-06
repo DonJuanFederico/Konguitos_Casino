@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var audio = new Audio('/static/audio/uff.mp3');
     var botonComienzo = document.getElementById("botonComienzo");
 
+    var musica = document.getElementById("musica");
+    musica.play();
+
     let saldo = document.getElementById('monedas').textContent;
     let apuesta;
 
@@ -136,10 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         bola.style.left = (bola.offsetLeft + superposicion * normalX) + "px";
 
                         audio.play();
-
-                        var colores = ["#F5F5DC", "#000000", "#D2691E"];
-                        var colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
-                        peg.style.backgroundColor = colorAleatorio;
 
                         ignorarColisiones = true;
                         setTimeout(function () {
