@@ -536,7 +536,7 @@ def obtenerRankingDineroGanado():
 
                 # Agregar la información del usuario a la lista con el número en el ranking
                 usuarios_con_dinero.append(
-                    { "NombreUsuario": nombre_usuario, "DineroGanado": dinero_ganado, "Calle": calle,"Ranking": i})
+                    {"NombreUsuario": nombre_usuario, "DineroGanado": dinero_ganado, "Calle": calle, "Ranking": i})
 
             return usuarios_con_dinero
         except mysql.connector.Error as err:

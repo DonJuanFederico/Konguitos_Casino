@@ -20,7 +20,9 @@
 body{
     width: 100%;
     height: 100vh;
-    background-color: var(--light-blue);
+    background-image: url("https://e1.pxfuel.com/desktop-wallpaper/813/153/desktop-wallpaper-vaporwave-offline-sunrise-t-retro-gaming-sunrise.jpg");
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,7 +34,6 @@ body{
     height: auto;
     border-radius: 10px;
     display: flex;
-    /*display: none;*/
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -44,7 +45,6 @@ body{
 }
 #nuevaPw{
     display: none;
-    /*display: flex;*/
     height: 35%;
 }
 
@@ -138,10 +138,10 @@ body{
     left: 30%;
     padding: 1%;
     border-radius: 5px;
-    background-color: gold;
+    background-color: #b1ebfd;
 }
 #requisitos:hover{
     cursor: pointer;
-    background-color: goldenrod;
+    background-color: #7addf3;
     box-shadow: 5px 4px 11px 3px rgba(0,0,0,0.3);
 }
