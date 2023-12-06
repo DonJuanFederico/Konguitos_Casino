@@ -23,7 +23,7 @@ body {
     top: 1vh;
     left: 1vw;
     width: 5%;
-    height: 5%;
+    height: 10%;
     background-color: #808080;
     border: 0.2vw solid black;
     padding: 1vw;
@@ -156,8 +156,64 @@ body {
   align-items: center;
   justify-content: center;
 }
+#marcoMonedas{
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
+    background-size: cover;
+    position: absolute;
+    display: flex;
+    width: 16%;
+    height: 22%;
+    top: 1%;
+    left: 73%;
+    overflow: hidden;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.9));
+}
 
 
+#marcoMonedas span {
+    top: 35%;
+    left: 40%;
+    position: absolute;
+    font-size: 200%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+#fotoMoneda {
+    margin-left: -14%;
+    margin-top: -7%;
+    transform: scale(0.23);
+    filter: drop-shadow(5px 10px 8px rgba(0,0,0,1));
+}
+
+#masMonedas{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 15%;
+    left: 7%;
+    animation: masMonedasAnimation 2s infinite alternate;
+    cursor: pointer;
+}
+
+/* animacion del boton '+' */
+@keyframes masMonedasAnimation{
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+    50% {
+        transform: scale(1.2);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+}
 
 @keyframes spin {
     from {
@@ -168,8 +224,6 @@ body {
         transform: translateX(-50%) rotate(360deg);
     }
 }
-
-/* Define el estado final de la animación, con la bola centrada y rotada 360 grados
 
 
 
