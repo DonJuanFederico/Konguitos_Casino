@@ -402,6 +402,7 @@ function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda
 
 let result = 0;
 function iniciarTemporizador(tiempoInicial) {
+    tiempoInicial = 7;
     console.log(tiempoInicial);
     var elementosNumero = document.getElementsByClassName('numero');
     let onclickAnterior = [];
@@ -501,13 +502,13 @@ function addFlipper() {
 }
 
 async function startRotation(speed) {
-    let imagen = document.getElementById('KonguitoRuleta');
     const nuevoDiv = document.createElement("div");
     nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
 
     const cuerpoDocumento = document.body;
     cuerpoDocumento.appendChild(nuevoDiv);
-    setTimeout(() => {
+    setTimeout(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 100)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
         const writeResult = addFlipper();
 
         const bezier = [0.165, 0.84, 0.44, 1.005];
@@ -557,15 +558,14 @@ async function startRotation(speed) {
                 }
             });
         })();
-    }, 500);
+    }, 4000);
     let p = 0;
     while (p <= 18) {
-        imagen.src = `/static/images/ruleta/framesRuleta/${i}.png`;
-        p++;
-        await new Promise((resolve) => setTimeout(resolve, 75)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
+    let imagen = document.getElementById('KonguitoRuleta');
+    console.log(imagen)
+        imagen.src = `../static/images/ruleta/framesRuleta/${p}.png`;
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
     }
-
-    await new Promise((resolve) => setTimeout(resolve, 1500));
 }
 
 document.querySelector(".roulette-wheel").addEventListener(

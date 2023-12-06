@@ -28,9 +28,11 @@ function unclockEventoRuleta(){
 }
 
 function gashapon(){
-    if(!bloqueoEvento){
+    //if(!bloqueoEvento){
+        console.log("Entrando en la función gashapon"); // Esto se mostrará en la consola cuando se haga clic en la imagen
         window.location.href = '/Juegos/Eventos/Gashapon';  // GASHAPON
-    }
+        console.log("Redirigiendo a " + window.location.href); // Esto se mostrará en la consola después de cambiar la URL
+    //}
 }
 function ruletaRusa(){
     //if(!bloqueoEvento){

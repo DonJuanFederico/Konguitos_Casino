@@ -1,0 +1,56 @@
+{% extends 'plantilla.html' %}
+{% block title %} Blackjack {% endblock %}
+{% block stylesheets %}
+    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/static/css/poker_texas.css">
+{% endblock %}
+{% block body %}
+    <div id="container">
+        <h1>Póker de Texas</h1>
+        <h3>Tu rival: </h3>
+        <div id="player2-hand" class="card-container">
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+        </div>
+
+        <div id="table" class="card-container">
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+        </div>
+
+        <h3>Tu mano: </h3>
+        <div id="player-hand" class="card-container">
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+            <img src="/static/images/cards/reverse.jpg" class="card-image" />
+        </div>
+
+        <p id="result"></p>
+        <button id="deal-button">Repartir</button>
+        <button id="hit-button">Pedir Carta</button>
+        <button id="stand-button">Plantarse</button>
+
+    </div>
+
+    <div id = cajaApuesta>
+        <img id ="fotoMoneda" src="/static/images/moneda.png">
+        <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
+        <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
+    </div>
+
+    <div id="bet-container">
+        <label for="apuesta">Apuesta inicial:</label>
+        <input type="number" id="apuesta" min="1">
+    </div>
+
+    <!--<audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/lancer.mp3" type="audio/mpeg">
+    </audio>-->
+
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/poker_texas.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
+{% endblock %}
