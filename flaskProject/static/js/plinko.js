@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", function () {
     var board = document.getElementById("board");
     var pegs = document.querySelectorAll(".peg");
     var audio = new Audio('/static/audio/uff.mp3');
+    var botonComienzo = document.getElementById("botonComienzo");
+
+    let saldo = document.getElementById('monedas').textContent;
+    let apuesta;
+
+    var semaforo = false;
 
     var aceleracionInicial = 0.1;
     var factorRebote = 0.6;
@@ -10,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var multiplicadores = [0, 12, 1, 0.5, 0, 0.5, 1, 12, 0];
 
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+
+
     function mostrarMultiplicadores() {
         for (var i = 0; i < multiplicadores.length; i++) {
             var span = document.getElementById("multi-" + (i + 1));
@@ -17,6 +27,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function mostrarModal() {
+        modal.style.display = "block";
+        setTimeout(function () {
+            modal.querySelector('.modal-content').classList.add('show');
+        }, 10);
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
     mostrarMultiplicadores();
 
@@ -30,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var paso = false;
 
     function reiniciarBola() {
+        semaforo = true;
         if (idAnimacion) {
             cancelAnimationFrame(idAnimacion);
         }
@@ -48,13 +75,28 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarContador();
     }
 
+    function agregarDinero() {
+
+        var monto = apuesta * score;
+        // Enviar solicitud HTTP a tu servidor Flask
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/agregar_dinero", true);  //Esto es para agregar en ganancias
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&cantidad_a_agregar=" + monto);
+        console.log("Esta pasando"+monto);
+    }
+
     function actualizarPosicionBola() {
-        if (valor > 0) {
-            if (valor > 0) {
-                if (bola.offsetTop + bola.clientHeight >= board.clientHeight * 0.9) {
+        if (apuesta > 0) {
+            if (apuesta > 0) {
+                if (bola.offsetTop + bola.clientHeight >= board.clientHeight * 0.59) {
+                    if (semaforo == true) {
+                        agregarDinero();
+                    }
                     bola.velocidadX = 0;
                     bola.velocidadY = 0;
                     bola.aceleracion = 0;
+                    semaforo = false;
                 } else {
                     bola.velocidadY += bola.aceleracion;
                 }
@@ -107,23 +149,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (posXActual >= 0 && posXActual < board.clientWidth * 0.325) {
-                    actualizarScore(1);
+                    actualizarScore(0);
                 } else if (posXActual >= board.clientWidth * 0.325 && posXActual < board.clientWidth * 0.375) {
-                    actualizarScore(2);
+                    actualizarScore(12);
                 } else if (posXActual >= board.clientWidth * 0.375 && posXActual < board.clientWidth * 0.425) {
-                    actualizarScore(3);
+                    actualizarScore(1);
                 } else if (posXActual >= board.clientWidth * 0.425 && posXActual < board.clientWidth * 0.475) {
-                    actualizarScore(4);
+                    actualizarScore(0.5);
                 } else if (posXActual >= board.clientWidth * 0.475 && posXActual < board.clientWidth * 0.525) {
-                    actualizarScore(5);
+                    actualizarScore(0);
                 } else if (posXActual >= board.clientWidth * 0.525 && posXActual < board.clientWidth * 0.575) {
-                    actualizarScore(6);
+                    actualizarScore(0.5);
                 } else if (posXActual >= board.clientWidth * 0.575 && posXActual < board.clientWidth * 0.625) {
-                    actualizarScore(7);
+                    actualizarScore(1);
                 } else if (posXActual >= board.clientWidth * 0.625 && posXActual < board.clientWidth * 0.675) {
-                    actualizarScore(8);
+                    actualizarScore(12);
                 } else if (posXActual >= board.clientWidth * 0.675 && posXActual <= board.clientWidth) {
-                    actualizarScore(9);
+                    actualizarScore(0);
                 }
 
                 if (posYActual >= board.clientHeight * 0.585) {
@@ -162,28 +204,46 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function retirarDinero() {
+        var monto = apuesta;
+        // Enviar solicitud HTTP a tu servidor Flask
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/retirar_dinero", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&cantidad_a_retirar=" + monto);
+    }
+
     function mostrarContador() {
         console.log("La bola ha pasado el top: 58.5% " + contador + " veces.");
     }
 
+    function retirarDinero() {
+        var monto = apuesta;
+        // Enviar solicitud HTTP a tu servidor Flask
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/retirar_dinero", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&cantidad_a_retirar=" + monto);
+    }
+
     document.getElementById("guardar").addEventListener("click", function () {
+
         valor = document.getElementById("numero").value;
-        console.log("Se ha guardado el número " + valor);
+        if ((saldo - valor) >= 0) {
+            apuesta = valor;
+            console.log("Se ha guardado el número " + apuesta);
+
+            reiniciarBola();
+            retirarDinero();
+        } else {
+            mostrarModal()
+        }
 
         // Llamamos a la función para reiniciar la bola después de guardar el valor
-        reiniciarBola();
 
         setTimeout(function () {
             ignorarColisiones = false;
         }, 1);
     });
-
-    document.addEventListener("click", function () {
-        reiniciarBola();
-        setTimeout(function () {
-            ignorarColisiones = false;
-        }, 1);
-    });
-
     reiniciarBola();
 });

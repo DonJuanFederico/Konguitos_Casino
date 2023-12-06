@@ -2,6 +2,7 @@ function girar() {
     // Hide the ruedecilla element
     document.querySelector('#ruedecilla').style.display = "none";
     apuesta = 10;
+    actualizarDineroUsuario(-apuesta)
     retirarDinero()
     var imagenElement = document.getElementById("GachaponWey");
     var imageSources = [
@@ -46,6 +47,7 @@ function girar() {
             accumulatedProbability += rewards[i].probability;
             if (randomNumber <= accumulatedProbability) {
                 premio = rewards[i].value;
+                actualizarDineroUsuario(premio)
                 agregarDinero()
                 alert("¡Has ganado una recompensa: " + rewards[i].value + "KC!");
                 break;
@@ -58,6 +60,11 @@ function girar() {
 
     // Detener la rotación después de 2.1 segundos (2100 milisegundos)
     setTimeout(stopRotation, 2100);
+}
+
+function actualizarDineroUsuario(cantidad) {
+    let dineroUsuarioElement = document.querySelector('#monedasUsuario');
+    dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) + cantidad;
 }
 
 function retirarDinero() {
