@@ -193,7 +193,7 @@ function agregarDinero() {
     var monto = premio;
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/agregar_dinero", true);
+    xhr.open("POST", "/agregar_ganancias", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("&cantidad_a_agregar=" + monto);
 }

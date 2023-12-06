@@ -263,7 +263,7 @@ document.getElementById("masMonedas").addEventListener("click", function () {
 
 function agregarDinero(monto) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/agregar_dinero", true);
+    xhr.open("POST", "/agregar_ganancias", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("&cantidad_a_agregar=" + monto);
 
