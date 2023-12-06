@@ -7,7 +7,7 @@ from BBDD.conexionBBDD import obtener_correo_por_usuario
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 smtp_usuario = 'konguitoscasino@gmail.com'
-smtp_password = 'giih cjoo ebyh fkaa'           #kongo1234
+smtp_password = 'giih cjoo ebyh fkaa'           #kongo1234Aa
 
 
 
