@@ -1,116 +1,123 @@
-
 {% extends 'plantilla.html' %}
 {% block title %} Plinko {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="/static/css/plinko.css" type="text/css">
 {% endblock %}
 {% block body %}
-<div id="board">
-    <div id = marcoMonedas>
-        <img id ="fotoMoneda" src="/static/images/moneda.png">
-        <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
-        <span id= "monedas"> {{ DINERO }} </span>
+    <div id="board">
+        <div id=marcoMonedas>
+            <img id="fotoMoneda" src="/static/images/moneda.png">
+            <img id="masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
+            <span id="monedas"> {{ DINERO }} </span>
+        </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p class="message">Lo siento KongoAmigo, pero no puedes apostar más de lo que tienes.</p>
+            </div>
+        </div>
+
+        <div class="peg" style="top: 20%; left: 50%;"></div>
+        <div class="peg" style="top: 20%; left: 45%;"></div>
+        <div class="peg" style="top: 20%; left: 55%;"></div>
+        <div class="peg" style="top: 20%; left: 40%;"></div>
+        <div class="peg" style="top: 20%; left: 60%;"></div>
+        <div class="peg" style="top: 20%; left: 65%;"></div>
+        <div class="peg" style="top: 20%; left: 35%;"></div>
+        <div class="peg" style="top: 25%; left: 52.5%;"></div>
+        <div class="peg" style="top: 25%; left: 47.5%;"></div>
+        <div class="peg" style="top: 25%; left: 57.5%;"></div>
+        <div class="peg" style="top: 25%; left: 42.5%;"></div>
+        <div class="peg" style="top: 25%; left: 62.5%;"></div>
+        <div class="peg" style="top: 25%; left: 37.5%;"></div>
+        <div class="peg" style="top: 25%; left: 32.5%;"></div>
+        <div class="peg" style="top: 25%; left: 67.5%;"></div>
+        <div class="peg" style="top: 30%; left: 50%;"></div>
+        <div class="peg" style="top: 30%; left: 45%;"></div>
+        <div class="peg" style="top: 30%; left: 55%;"></div>
+        <div class="peg" style="top: 30%; left: 40%;"></div>
+        <div class="peg" style="top: 30%; left: 60%;"></div>
+        <div class="peg" style="top: 30%; left: 65%;"></div>
+        <div class="peg" style="top: 30%; left: 35%;"></div>
+        <div class="peg" style="top: 35%; left: 52.5%;"></div>
+        <div class="peg" style="top: 35%; left: 47.5%;"></div>
+        <div class="peg" style="top: 35%; left: 57.5%;"></div>
+        <div class="peg" style="top: 35%; left: 42.5%;"></div>
+        <div class="peg" style="top: 35%; left: 62.5%;"></div>
+        <div class="peg" style="top: 35%; left: 37.5%;"></div>
+        <div class="peg" style="top: 35%; left: 32.5%;"></div>
+        <div class="peg" style="top: 35%; left: 67.5%;"></div>
+        <div class="peg" style="top: 40%; left: 50%;"></div>
+        <div class="peg" style="top: 40%; left: 45%;"></div>
+        <div class="peg" style="top: 40%; left: 55%;"></div>
+        <div class="peg" style="top: 40%; left: 40%;"></div>
+        <div class="peg" style="top: 40%; left: 60%;"></div>
+        <div class="peg" style="top: 40%; left: 65%;"></div>
+        <div class="peg" style="top: 40%; left: 35%;"></div>
+        <div class="peg" style="top: 45%; left: 52.5%;"></div>
+        <div class="peg" style="top: 45%; left: 47.5%;"></div>
+        <div class="peg" style="top: 45%; left: 57.5%;"></div>
+        <div class="peg" style="top: 45%; left: 42.5%;"></div>
+        <div class="peg" style="top: 45%; left: 62.5%;"></div>
+        <div class="peg" style="top: 45%; left: 37.5%;"></div>
+        <div class="peg" style="top: 45%; left: 32.5%;"></div>
+        <div class="peg" style="top: 45%; left: 67.5%;"></div>
+        <div class="peg" style="top: 50%; left: 50%;"></div>
+        <div class="peg" style="top: 50%; left: 45%;"></div>
+        <div class="peg" style="top: 50%; left: 55%;"></div>
+        <div class="peg" style="top: 50%; left: 40%;"></div>
+        <div class="peg" style="top: 50%; left: 60%;"></div>
+        <div class="peg" style="top: 50%; left: 65%;"></div>
+        <div class="peg" style="top: 50%; left: 35%;"></div>
+
+        <div class="peg" style="top: 55%; left: 52.5%;"></div>
+        <div class="peg" style="top: 55%; left: 47.5%;"></div>
+        <div class="peg" style="top: 55%; left: 57.5%;"></div>
+        <div class="peg" style="top: 55%; left: 42.5%;"></div>
+        <div class="peg" style="top: 55%; left: 62.5%;"></div>
+        <div class="peg" style="top: 55%; left: 37.5%;"></div>
+        <div class="peg" style="top: 55%; left: 32.5%;"></div>
+        <div class="peg" style="top: 55%; left: 67.5%;"></div>
+
+        <div class="peg" style="top: 52%; left: 52.5%;"></div>
+        <div class="peg" style="top: 52%; left: 47.5%;"></div>
+        <div class="peg" style="top: 52%; left: 57.5%;"></div>
+        <div class="peg" style="top: 52%; left: 42.5%;"></div>
+        <div class="peg" style="top: 52%; left: 62.5%;"></div>
+        <div class="peg" style="top: 52%; left: 37.5%;"></div>
+        <div class="peg" style="top: 52%; left: 32.5%;"></div>
+        <div class="peg" style="top: 52%; left: 67.5%;"></div>
+        <div class="zona zona-1"></div>
+        <div class="zona zona-2"></div>
+        <div class="zona zona-3"></div>
+        <div class="zona zona-4"></div>
+        <div class="zona zona-5"></div>
+        <div class="zona zona-6"></div>
+        <div class="zona zona-7"></div>
+        <div class="zona zona-8"></div>
+        <div class="zona zona-9"></div>
+        <div id="indicador-zona"></div>
+
+        <div id="multiplicadores">
+            <div class="zona zona-1"><span id="multi-1"></span></div>
+            <div class="zona zona-2"><span id="multi-2"></span></div>
+            <div class="zona zona-3"><span id="multi-3"></span></div>
+            <div class="zona zona-4"><span id="multi-4"></span></div>
+            <div class="zona zona-5"><span id="multi-5"></span></div>
+            <div class="zona zona-6"><span id="multi-6"></span></div>
+            <div class="zona zona-7"><span id="multi-7"></span></div>
+            <div class="zona zona-8"><span id="multi-8"></span></div>
+            <div class="zona zona-9"><span id="multi-9"></span></div>
+        </div>
+        <div id="score"></div>
+
+        <div id="ball"></div>
+        <div id="rectangulo">
+            <input id="numero" type="number" placeholder="Introduce un número">
+            <button id="guardar">Empezar</button>
+        </div>
     </div>
-    <div class="peg" style="top: 20%; left: 50%;"></div>
-    <div class="peg" style="top: 20%; left: 45%;"></div>
-    <div class="peg" style="top: 20%; left: 55%;"></div>
-    <div class="peg" style="top: 20%; left: 40%;"></div>
-    <div class="peg" style="top: 20%; left: 60%;"></div>
-    <div class="peg" style="top: 20%; left: 65%;"></div>
-    <div class="peg" style="top: 20%; left: 35%;"></div>
-    <div class="peg" style="top: 25%; left: 52.5%;"></div>
-    <div class="peg" style="top: 25%; left: 47.5%;"></div>
-    <div class="peg" style="top: 25%; left: 57.5%;"></div>
-    <div class="peg" style="top: 25%; left: 42.5%;"></div>
-    <div class="peg" style="top: 25%; left: 62.5%;"></div>
-    <div class="peg" style="top: 25%; left: 37.5%;"></div>
-    <div class="peg" style="top: 25%; left: 32.5%;"></div>
-    <div class="peg" style="top: 25%; left: 67.5%;"></div>
-    <div class="peg" style="top: 30%; left: 50%;"></div>
-    <div class="peg" style="top: 30%; left: 45%;"></div>
-    <div class="peg" style="top: 30%; left: 55%;"></div>
-    <div class="peg" style="top: 30%; left: 40%;"></div>
-    <div class="peg" style="top: 30%; left: 60%;"></div>
-    <div class="peg" style="top: 30%; left: 65%;"></div>
-    <div class="peg" style="top: 30%; left: 35%;"></div>
-    <div class="peg" style="top: 35%; left: 52.5%;"></div>
-    <div class="peg" style="top: 35%; left: 47.5%;"></div>
-    <div class="peg" style="top: 35%; left: 57.5%;"></div>
-    <div class="peg" style="top: 35%; left: 42.5%;"></div>
-    <div class="peg" style="top: 35%; left: 62.5%;"></div>
-    <div class="peg" style="top: 35%; left: 37.5%;"></div>
-    <div class="peg" style="top: 35%; left: 32.5%;"></div>
-    <div class="peg" style="top: 35%; left: 67.5%;"></div>
-    <div class="peg" style="top: 40%; left: 50%;"></div>
-    <div class="peg" style="top: 40%; left: 45%;"></div>
-    <div class="peg" style="top: 40%; left: 55%;"></div>
-    <div class="peg" style="top: 40%; left: 40%;"></div>
-    <div class="peg" style="top: 40%; left: 60%;"></div>
-    <div class="peg" style="top: 40%; left: 65%;"></div>
-    <div class="peg" style="top: 40%; left: 35%;"></div>
-    <div class="peg" style="top: 45%; left: 52.5%;"></div>
-    <div class="peg" style="top: 45%; left: 47.5%;"></div>
-    <div class="peg" style="top: 45%; left: 57.5%;"></div>
-    <div class="peg" style="top: 45%; left: 42.5%;"></div>
-    <div class="peg" style="top: 45%; left: 62.5%;"></div>
-    <div class="peg" style="top: 45%; left: 37.5%;"></div>
-    <div class="peg" style="top: 45%; left: 32.5%;"></div>
-    <div class="peg" style="top: 45%; left: 67.5%;"></div>
-    <div class="peg" style="top: 50%; left: 50%;"></div>
-    <div class="peg" style="top: 50%; left: 45%;"></div>
-    <div class="peg" style="top: 50%; left: 55%;"></div>
-    <div class="peg" style="top: 50%; left: 40%;"></div>
-    <div class="peg" style="top: 50%; left: 60%;"></div>
-    <div class="peg" style="top: 50%; left: 65%;"></div>
-    <div class="peg" style="top: 50%; left: 35%;"></div>
-
-    <div class="peg" style="top: 55%; left: 52.5%;"></div>
-    <div class="peg" style="top: 55%; left: 47.5%;"></div>
-    <div class="peg" style="top: 55%; left: 57.5%;"></div>
-    <div class="peg" style="top: 55%; left: 42.5%;"></div>
-    <div class="peg" style="top: 55%; left: 62.5%;"></div>
-    <div class="peg" style="top: 55%; left: 37.5%;"></div>
-    <div class="peg" style="top: 55%; left: 32.5%;"></div>
-    <div class="peg" style="top: 55%; left: 67.5%;"></div>
-
-    <div class="peg" style="top: 52%; left: 52.5%;"></div>
-    <div class="peg" style="top: 52%; left: 47.5%;"></div>
-    <div class="peg" style="top: 52%; left: 57.5%;"></div>
-    <div class="peg" style="top: 52%; left: 42.5%;"></div>
-    <div class="peg" style="top: 52%; left: 62.5%;"></div>
-    <div class="peg" style="top: 52%; left: 37.5%;"></div>
-    <div class="peg" style="top: 52%; left: 32.5%;"></div>
-    <div class="peg" style="top: 52%; left: 67.5%;"></div>
-    <div class="zona zona-1"></div>
-    <div class="zona zona-2"></div>
-    <div class="zona zona-3"></div>
-    <div class="zona zona-4"></div>
-    <div class="zona zona-5"></div>
-    <div class="zona zona-6"></div>
-    <div class="zona zona-7"></div>
-    <div class="zona zona-8"></div>
-    <div class="zona zona-9"></div>
-    <div id="indicador-zona"></div>
-
-    <div id="multiplicadores">
-        <div class="zona zona-1"><span id="multi-1"></span></div>
-        <div class="zona zona-2"><span id="multi-2"></span></div>
-        <div class="zona zona-3"><span id="multi-3"></span></div>
-        <div class="zona zona-4"><span id="multi-4"></span></div>
-        <div class="zona zona-5"><span id="multi-5"></span></div>
-        <div class="zona zona-6"><span id="multi-6"></span></div>
-        <div class="zona zona-7"><span id="multi-7"></span></div>
-        <div class="zona zona-8"><span id="multi-8"></span></div>
-        <div class="zona zona-9"><span id="multi-9"></span></div>
-    </div>
-    <div id="score"></div>
-
-    <div id="ball"></div>
-    <div id="rectangulo">
-        <input id="numero" type="number" placeholder="Introduce un número">
-        <button id="guardar">Guardar</button>
-    </div>
-</div>
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/plinko.js"></script>
