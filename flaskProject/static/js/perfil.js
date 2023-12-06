@@ -41,7 +41,12 @@ function volverAtras(){
 
 function requestContrasena(){
     // hacer q envie email automatico
+    generarCodigoCorreo();
     document.location.href = '/Perfil_de_usuario/nueva_pw/';
+}
+
+function generarCodigoCorreo(){
+    codigoGenerado = Math.floor(Math.random() * 900000) + 100000;
 }
 
 /*

@@ -135,7 +135,7 @@ def agregarDineroGanado(cantidad_a_agregar):     #Este metodo agrega el dinero q
             cursor = conn.cursor()
             try:
                 # Consulta para actualizar la cantidad de dinero y dinero ganado en la cuenta del usuario
-                query = "UPDATE usuarios SET DineroGanado = DineroGanado + %s WHERE NombreUsuario = %s"
+                query = "UPDATE usuarios SET Dinero = Dinero + %s, DineroGanado = DineroGanado + %s WHERE NombreUsuario = %s"
                 cursor.execute(query, (cantidad_a_agregar, cantidad_a_agregar, obtener_nombre()))
                 conn.commit()
             except mysql.connector.Error as err:
@@ -522,7 +522,7 @@ def obtenerRankingDineroGanado():
         try:
             # Consulta SQL para obtener los 50 mejores usuarios con su correspondiente DineroGanado y Calle,
             # ordenado de mas a menos dinero ganado
-            query = "SELECT NombreUsuario, DineroGanado, Calle FROM usuarios ORDER BY DineroGanado DESC LIMIT 50"
+            query = "SELECT NombreUsuario, DineroGanado, Calle FROM usuarios ORDER BY DineroGanado ASC LIMIT 50"
             cursor.execute(query)
             resultados = cursor.fetchall()
 
@@ -683,6 +683,7 @@ def obtener_correo_por_usuario(nombre_usuario):
         if conn.is_connected():
             cursor.close()
             conn.close()
+
 def cambiarContraseña(nombre_usuario, nueva_contraseña):
     conn = connect()
     if not conn:

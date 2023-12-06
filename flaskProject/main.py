@@ -208,10 +208,8 @@ def juegos():
 @app.route('/Rankings/')
 def rankings():
     datos_ranking = obtenerRankingDineroGanado()
-    usuario = session.get('nombreUsuario')
-    ganancias = obtenerDineroGanado(usuario)
     print(datos_ranking)
-    return render_template('rankings.html', datos_ranking=datos_ranking, ganancias=ganancias)
+    return render_template('rankings.html', datos_ranking=datos_ranking)
 
 @app.route('/Perfil_de_usuario/', methods=['GET', 'POST'])
 def perfil():

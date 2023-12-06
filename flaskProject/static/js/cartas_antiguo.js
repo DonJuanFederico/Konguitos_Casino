@@ -128,7 +128,7 @@ function retirarDinero() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/retirar_dinero", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("&cantidad_a_retirar=" + monto);
+    xhr.send("cantidad_a_retirar=" + monto);
 }
 
 // funcion para agregar el dinero ganado de la partida
@@ -138,17 +138,27 @@ function agregarDinero() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/agregar_ganancias", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("&cantidad_a_agregar=" + monto);
+    xhr.send("cantidad_a_agregar=" + monto);
 }
 
 // funcion para agregar las ganancias de la partida
 function agregarGanancias() {
     var monto = apuesta;
-    // Enviar solicitud HTTP a tu servidor Flask
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/agregar_ganancias", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("&cantidad_a_agregar=" + monto);
+    fetch('/actualizar_dato', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nuevo_valor: monto }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Respuesta del servidor:', data);
+        // Puedes hacer algo con la respuesta del servidor si es necesario
+    })
+    .catch(error => {
+        console.error('Error al enviar la solicitud:', error);
+    });
 }
 
 // funcion para comparar las cartas y repartir el dinero apostado

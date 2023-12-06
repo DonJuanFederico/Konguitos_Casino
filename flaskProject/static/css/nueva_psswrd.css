@@ -103,19 +103,16 @@ body{
 }
 /* PARA EL CAMBIO DE CONTRASEÑA */
 #contrasenas{
-    /*border: 2px solid red;*/
     width: 50%;
     height: 100%;
 }
 
 .nueva{
-    /*border: 2px solid rebeccapurple;*/
     font-weight: bold;
     margin: 12% 0;
 }
 
 .pw{
-    /*border: 2px solid lightskyblue;*/
     margin: 5% 0;
     width: 100%;
     padding: 5%;
@@ -132,5 +129,19 @@ body{
 #comprobar:hover{
     cursor: pointer;
     background-color: #7addf3;
+    box-shadow: 5px 4px 11px 3px rgba(0,0,0,0.3);
+}
+
+#requisitos{
+    display: none;
+    position: absolute;
+    left: 30%;
+    padding: 1%;
+    border-radius: 5px;
+    background-color: gold;
+}
+#requisitos:hover{
+    cursor: pointer;
+    background-color: goldenrod;
     box-shadow: 5px 4px 11px 3px rgba(0,0,0,0.3);
 }
