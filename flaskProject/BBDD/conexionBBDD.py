@@ -168,8 +168,9 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
         cursor = conn.cursor()
         try:
             # Consulta para insertar un nuevo usuario en la tabla "usuarios"
-            query = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal, Avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FotoIMG, Calle, CodigoPostal, Avatar))
+            query = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, DineroGanado, Telefono, FotoIMG, Calle, CodigoPostal, Avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            # Añadimos DineroGanado y lo inicializamos a 0
+            cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, 0, Telefono, FotoIMG, Calle, CodigoPostal, Avatar))
             conn.commit()
             print(f"Nuevo usuario '{NombreUsuario}' ha sido agregado con éxito.")
             return True
@@ -179,6 +180,7 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
         finally:
             cursor.close()
             close_connection(conn)
+
 
 def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV):
     conn = connect()
