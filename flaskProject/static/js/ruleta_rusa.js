@@ -3,7 +3,7 @@ let bala = null;
 let apuesta = 0;
 let recamara = 0; // Declaración de la variable recamara
 const mensaje = document.querySelector('#mensajeDeInstrucciones');
-let dineroUsuario = parseFloat(document.querySelector('#monedasUsuario').textContent);
+let saldo = parseFloat(document.querySelector('#monedasUsuario').textContent);
 let HaDisparado = 0;
 console.log("Apostado: " + apuesta)
 
