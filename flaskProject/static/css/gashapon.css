@@ -1,3 +1,59 @@
+body {
+    color: #070707;
+    background-image: url("/static/images/gashapon/fondo.jpg");
+    background-size: cover;
+}
+
+/* Gachapon Imagen*/
+#player {
+    position: absolute;
+    width: 17%;
+    height: 60%;
+    top: 20%;
+    left: 39.95%;
+    scale: 1.3;
+
+}
+
+#player img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* Rueda */
+#ruedecilla {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background-color: rgba(100, 103, 110, 0); /* Color de fondo del círculo */
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 64%;
+    left: 46%;
+
+}
+
+buttonspin{
+    cursor: pointer;
+}
+
+/* (A) BASIC STYLES FOR THE THINKING BUBBLE */
+.thinking {
+  position: absolute;
+  max-width: 300px;
+  padding: 10px;
+  margin: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  background: white;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+    top: 60%;
+    left: 15%
+}
+
 /*SALDO*/
 
 #marcoMonedas {
