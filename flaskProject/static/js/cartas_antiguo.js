@@ -6,6 +6,10 @@ let dealerCard = null;
 const messageDiv = document.getElementById('message');
 var deck = document.getElementById('deck');
 var slots = document.querySelectorAll('.slot');
+// variables de saldo y apuesta
+let saldo = document.getElementById('monedas').textContent;
+//let apuesta = parseFloat(document.getElementById('apuesta').value);
+let ganancia = 0;
 
 // Pone los palos a las cartas
 function createDeck() {
@@ -99,7 +103,7 @@ deck.addEventListener('click', () => {
             bloqueo = false;
             messageDiv.textContent = '';
             // Pide la apuesta al usuario
-            apuesta = parseFloat(document.getElementById('apuesta').value);
+            let apuesta = parseFloat(document.getElementById('apuesta').value);
             saldo = Math.round((parseFloat(saldo) - parseFloat(apuesta)) * 100)/ 100;
             document.getElementById('monedas').textContent = saldo;
             // Verifica si la apuesta es válida
@@ -116,50 +120,6 @@ deck.addEventListener('click', () => {
         alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
     }
 });
-
-// variables de saldo y apuesta
-let saldo = document.getElementById('monedas').textContent;
-let apuesta = parseFloat(document.getElementById('apuesta').value);
-
-// funcion para retirar la cantidad de dinero apoostado
-function retirarDinero() {
-    var monto = apuesta;
-    // Enviar solicitud HTTP a tu servidor Flask
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/retirar_dinero", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("cantidad_a_retirar=" + monto);
-}
-
-// funcion para agregar el dinero ganado de la partida
-function agregarDinero() {
-    var monto = apuesta * 2;
-    // Enviar solicitud HTTP a tu servidor Flask
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/agregar_ganancias", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("cantidad_a_agregar=" + monto);
-}
-
-// funcion para agregar las ganancias de la partida
-function agregarGanancias() {
-    var monto = apuesta;
-    fetch('/actualizar_dato', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nuevo_valor: monto }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Respuesta del servidor:', data);
-        // Puedes hacer algo con la respuesta del servidor si es necesario
-    })
-    .catch(error => {
-        console.error('Error al enviar la solicitud:', error);
-    });
-}
 
 // funcion para comparar las cartas y repartir el dinero apostado
 function compareCards(selectedCardValue, dealerCardValue) {
@@ -199,22 +159,22 @@ function compareCards(selectedCardValue, dealerCardValue) {
             background: `none`,
         });
     }
-    //messageDiv.textContent = message
+    messageDiv.textContent = message
 
     //apostar
-    apuesta = parseFloat(document.getElementById('apuesta').value);
+    let apuesta = parseFloat(document.getElementById('apuesta').value);
     // Realiza la apuesta
     if (saldo > 0 && apuesta <= saldo) {
         let gananciaPerdida = apuesta;
         if (messageDiv.textContent === '¡¡¡KONGUITO GANADOORRRR!!!') {
             saldo += 2 * apuesta;
+            ganancia = apuesta * 2;
             agregarDinero();
-            agregarGanancias();
         } else if (messageDiv.textContent === 'Empate') {
             gananciaPerdida = -apuesta / 2;
             saldo -= apuesta / 2;
-            apuesta = apuesta / 2;
-            retirarDinero();
+            ganancia = apuesta / 2;
+            agregarDinero();
         }
         document.getElementById('dinero').textContent = `Ganancias/Pérdidas: ${gananciaPerdida}`;
         // Muestra el saldo actualizado
@@ -251,6 +211,26 @@ function showRules(){
             htmlContainer: 'custom-container'
           },
     });
+}
+
+// funcion para retirar la cantidad de dinero apoostado
+function retirarDinero() {
+    var monto = parseFloat(document.getElementById('apuesta').value);
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + monto);
+}
+
+// funcion para agregar el dinero ganado de la partida
+function agregarDinero() {
+    var monto = ganancia;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_ganancias", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + monto);
 }
 
 // boton de la toolbar de marcha atras

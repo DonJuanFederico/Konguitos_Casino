@@ -85,7 +85,7 @@ body {
 
 /* mensage de vistoria/derrota */
 #message{
-    /*display: none;*/
+    display: none;
 }
 
 /* contenedor del titulo (Dentro) */
