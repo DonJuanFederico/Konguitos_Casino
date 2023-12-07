@@ -64,11 +64,13 @@
               </svg>
         </div>
         <div id="giraRuleta">
-            <button  class="girar" onclick="iniciarTemporizador(20)"> JUGAR </button>
+            <button  class="girar" onclick="iniciarTemporizador(20)"> Cambiar Apuesta </button>
         </div>
         <div id="player">
-            <img src="/static/images/ruleta/framesRuleta/1.png" alt="ImagenRuleta" id="KonguitoRuleta">
+            <img src="/static/images/ruleta/framesRuleta/1.png" alt="ImagenRuleta" id="KonguitoRuleta" class="animacionKonguito">
         </div>
+        <div class="resultado"></div>
+
 
         <div id="tablero">
             <button class="numero verde 0" id="0" style="left: -50px; height: 150px">0</button>
@@ -136,6 +138,7 @@
             <button class="numero externo apuesta_impar" id="apuesta_impar"  style="top:200px; left: 400px; width: 100px">Impar</button>
             <button class="numero externo apuesta_19_36" id="apuesta_19_36"  style="top:200px; left: 500px; width: 100px">18-36</button>
         </div>
+        <div class="fondoTemporizador"></div>
 
         <div class="caja-gris">
             <div class="opciones">
@@ -144,13 +147,16 @@
                 <button class="moneda rubi" onclick="colocarBordeMoneda(this)"></button>
                 <button class="moneda oro" onclick="colocarBordeMoneda(this)"></button>
                 <button class="moneda diamante" onclick="colocarBordeMoneda(this)"></button>
-                <button class=" quitarTodasApuestas" onclick="colocarBordeMoneda(this)"></button>
-                <button class=" eliminarFicha" onclick="colocarBordeMoneda(this)"></button>
-                <button class=" duplicarApuesta" onclick="colocarBordeMoneda(this)"></button>
-                <button class=" repetirApuesta" onclick="colocarBordeMoneda(this)"></button>
+                <button class="boton quitarTodasApuestas" onclick="opciones_botones_apuesta(this)"></button>
+                <!--button class="boton eliminarUltimaFicha" onclick="opciones_botones_apuesta(this)"></button-->
+                <button class="boton duplicarApuesta" onclick="opciones_botones_apuesta(this)"></button>
+                <button class="boton repetirApuesta" onclick="opciones_botones_apuesta(this)"></button>
             </div>
         </div>
     </div>
+     <audio controls autoplay loop id="audio-player" style="display: none">
+        <source src="/static/audio/musicaRuleta.mp3" type="audio/mp3">
+    </audio>
 {% endblock %}
 {% block javascript %}
     <script src="/static/js/ruleta.js"></script>
