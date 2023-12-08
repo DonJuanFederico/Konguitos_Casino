@@ -12,11 +12,23 @@ body {
 
 .girar {
     position: absolute;
+    background-color: #b06a33;
+    border: none;
     top: 80%;
     left: 35%;
     height: 10%;
     width: 10%;
     z-index: 10;
+    color: #FFFFFF;
+    padding: 14px 28px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.girar:hover {
+    background-color: #946640;
 }
 
 /* ---------- Alertas ---------- */
@@ -67,7 +79,11 @@ buttonRR {
     padding: 10px 15px;
     width: 400%;
     height: 150%;
-    background: #f53535;
+    background: #b06a33;
+}
+
+buttonRR:hover {
+    background: #946640;
 }
 
 /* ---------- Tiempo de apuesta ---------- */
@@ -76,6 +92,8 @@ buttonRR {
     left: 40%;
     height: 30%;
     width: 30%;
+    margin-top: 10%;
+    text-align: center;
     border-radius: 3px;
     z-index: 2;
 }

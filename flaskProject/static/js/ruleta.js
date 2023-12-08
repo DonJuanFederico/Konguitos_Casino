@@ -29,9 +29,10 @@ function recompensas() {
     Swal.fire({
         title: 'Recompensas',
         html: "<div style='text-align: center;'></div>" +
+            "<br> 36 números: 1 a 1" +
             "<br> 18 números: 2 a 1" +
             "<br> 12 números: 3 a 1" +
-            "<br> 1 números: 35 a 1",
+            "<br> 1 números: 36 a 1",
         confirmButtonText: '¡Dejame Jugar!',
         confirmButtonColor: '#3085d6',
         backdrop: true,
@@ -74,13 +75,15 @@ if (divCollection.length > 0) {
     img1.style.position = "absolute";
     img1.style.top = "2%";
     img1.style.left = "60%";
-    img1.style.width = "15%";
-    img1.style.height = "15%";
+    img1.style.width = "10%";
+    img1.style.height = "13.5%";
     img1.style.borderRadius = "50%";
     img1.style.textAlign = "center";
-    img1.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-    img1.innerHTML = "Ganado: " + ganancias + "<br>" + "Total Apostado: " + total;
+    img1.style.marginTop = "2%";
+    img1.style.backgroundColor = "#b06a33";
+    img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + total;
     img1.style.zIndex = 1;
+    img1.style.fontSize = "1rem";
 
     // Append the new div to the selected element
     div.appendChild(img1);
@@ -332,14 +335,14 @@ function opciones_botones_apuesta(opciones) {
                 }
 
                 puedeMultiplicar = true;
-                img1.innerHTML = "Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
+                img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
             }
         } else if (clase === "boton repetirApuesta") {
                 tiempoBooleano = true;
                 iniciarTemporizador(20);
                 ganancias = 0;
                 var img1 = document.getElementById('abcd');
-                img1.innerHTML = "Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
+                img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
                 puedeGirar = false;
         } else if (clase === "boton quitarTodasApuestas") {
             for (const apuesta of arrayApuestas) {
@@ -351,21 +354,15 @@ function opciones_botones_apuesta(opciones) {
                 }
             }
         } else if (clase === "boton eliminarUltimaFicha") {
-    console.log("No ordenada:" + arrayApuestas);
-    console.log("Ordenada:" + arrayApuestasPorOrden);
 
     const ultimaFicha = arrayApuestasPorOrden[arrayApuestasPorOrden.length - 1][0].split(" ");
-    console.log("Ultima ficha:" + ultimaFicha);
 
     // Mover arrayApuestasPorOrden.pop() fuera del bucle
     arrayApuestasPorOrden.pop();
 
     for (const apuesta of arrayApuestas) {
-        console.log("Apuesta[0]:" + apuesta[0]);
-        console.log("Apuesta[1]:" +apuesta[1]);
         if (apuesta[0] === ultimaFicha[0]) {
             apuesta[1] = apuesta[1] - ultimaFicha[1];
-            console.log(arrayApuestas);
         }
 
         for (const elemento of elementos) {
@@ -449,7 +446,6 @@ let valorAcumulado = 0
 function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda, tipo) {
     for (const apuesta of arrayApuestas) {
         if (apuesta[0] === tipo) {
-            console.log("Apuesta[1]:" + apuesta[1]);
             valorAcumulado = apuesta[1];
             apuestaTotal += valorMoneda;
         }
@@ -500,7 +496,7 @@ function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda
             }
         }
         var img1 = document.getElementById('abcd');
-        img1.innerHTML = "Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
+        img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
     }
 }
 
@@ -580,14 +576,13 @@ function iniciarTemporizador(tiempoInicial) {
 }
 let ganancias = 0;
 let total = 0;
+let perdido = 0;
 /* ---------- Ganancias ---------- */
 function obtenerGanancias(result) {
-    var perdido = 0;
+    perdido = 0;
     ganancias = 0;
     let total = 0;
     let casillasRojas = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
-    console.log(arrayApuestas);
-    console.log(ganancias);
     arrayApuestas.forEach(function (apostado) {
         if((apostado[0] === "apuesta_19_36") && (result >= 19)){
             ganancias += apostado[1] * 2;
@@ -629,14 +624,10 @@ function obtenerGanancias(result) {
             ganancias += apostado[1] * 36;
         }
         perdido += apostado[1];
-        console.log(ganancias, apostado[0], result)
     });
-    console.log("Ganado: " + ganancias)
-    console.log("Perdido: " + perdido)
     total = ganancias - perdido
     var img1 = document.getElementById('abcd');
-    img1.innerHTML = "Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
-    console.log("Total: " + total)
+    img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
 }
 
 /* ---------- Girar ---------- */
@@ -744,7 +735,26 @@ async function startRotation(speed) {
         imagen.style.zIndex = 0;
     }
 }
-/* ---------- Resultado ---------- */
+
+function retirarDinero() {
+    // MONTO EN ESTE CASO ES VALOR DE LA APUESTA
+    var montoRetirar = perdido;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + montoRetirar);
+}
+
+function agregarDinero() {
+    // MONTO EN ESTE CASO ES VALOR DE LO GANADO (MIRAR TRAGAPERRAS PARA VERLO BIEN)
+    var montoSumar = ganancias;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_ganancias", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + montoSumar);
+}
 
 
 document.querySelector(".roulette-wheel").addEventListener(
