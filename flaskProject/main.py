@@ -336,6 +336,11 @@ def craps():
     DINERO = obtenerDinero()
     return render_template("craps.html", DINERO = DINERO)
 
+@app.route('/Juegos/Indice_Dados/Poker/', methods=['GET'])
+def poker_dados():
+    DINERO = obtenerDinero()
+    return render_template("poker_dados.html", DINERO = DINERO)
+
 @app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():
     DINERO = obtenerDinero()
