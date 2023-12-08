@@ -260,7 +260,6 @@ buttonRR {
     width: 100%;
     position: fixed;
     color: white;
-    z-index: 10;
 }
 
 /* MENU HAMBURGUESA */
@@ -328,6 +327,7 @@ buttonRR {
     margin: auto;
     padding: 10px;
     font-size: 18px;
+    z-index: 8;
 }
 
 #box-search{
