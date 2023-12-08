@@ -46,6 +46,7 @@ def inicio():
     return render_template('inicio.html', form=form)
 
 
+
 @app.route('/Registro/', methods=['GET', 'POST'])
 def registroUsuario():
     form = crearUsuario()
@@ -77,6 +78,10 @@ def registroUsuario():
         else:
             return redirect(url_for('registroUsuario'))
     return render_template('registroUsuario.html', form=form)
+
+@app.route('/Registro/Tarjeta/', methods=['GET', 'POST'])
+def registroTarjeta():
+    return render_template('registroTarjeta.html')
 
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
