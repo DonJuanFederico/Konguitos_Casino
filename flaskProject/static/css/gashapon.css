@@ -1,13 +1,18 @@
 body {
     color: #070707;
+    background-size: cover;
+    background-image: url("/static/images/gashapon/historiasCorrientes_wallpaper.jpg");
 }
 
+#audio-player {
+    display: none;
+}
 /* Gachapon Imagen*/
 #player {
     position: absolute;
     width: 17%;
     height: 60%;
-    top: 20%;
+    top: 24%;
     left: 39.95%;
     scale: 1.3;
 }
@@ -58,7 +63,7 @@ body {
     position: absolute;
     justify-content: center;
     align-items: center;
-    top: 64%;
+    top: 68%;
     left: 46%;
 
 }
