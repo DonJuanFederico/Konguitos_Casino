@@ -524,7 +524,7 @@ def obtenerRankingDineroGanado():
         try:
             # Consulta SQL para obtener los 50 mejores usuarios con su correspondiente DineroGanado y Calle,
             # ordenado de mas a menos dinero ganado
-            query = "SELECT NombreUsuario, DineroGanado, Calle FROM usuarios ORDER BY DineroGanado ASC LIMIT 50"
+            query = "SELECT NombreUsuario, DineroGanado, Calle FROM usuarios ORDER BY DineroGanado DESC LIMIT 50"
             cursor.execute(query)
             resultados = cursor.fetchall()
 

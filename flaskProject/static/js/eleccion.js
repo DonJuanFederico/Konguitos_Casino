@@ -15,11 +15,10 @@ let optionButton = document.createElement('div');
 let marco = document.getElementById('marcoJuego');
 function startGame(){
     if(isNaN(parseFloat(document.getElementById('amount').value)) === false) {
-        firstOptions();
-
-        document.getElementById('marcoJuego').addEventListener('click', function (event) {
-            if(!cierre) {
-                cierre = true;
+        if(!cierre) {
+            cierre = true;
+            firstOptions();
+            document.getElementById('marcoJuego').addEventListener('click', function (event) {
                 if (event.target.classList.contains('option-button')) {
                     roundCounter++;
                     checkOption();
@@ -41,8 +40,8 @@ function startGame(){
                 }
                 document.getElementById('nextRound').style.opacity = '1';
                 document.getElementById('nextRound').style.cursor = 'pointer';
-            }
-        });
+            });
+        }
     } else alert('Tienes que apostar un mínimo de 1 KG. Gracias.')
 }
 
@@ -119,7 +118,7 @@ function nextRound(){
         }
         marco.style.color = 'transparent';
         ronda = true;
-        cierre = false;
+        //cierre = false;
         hideGameButtons();
     }
 }
