@@ -16,11 +16,12 @@ function girar() {
     ];
 
     var rewards = [
-        { value: 500, probability: 0.1 },  // 10% probability
-        { value: 100, probability: 0.2 },  // 20% probability
-        { value: 50, probability: 0.3 },  // 30% probability
-        { value: 10, probability: 0.15 }, // 15% probability
-        { value: 5, probability: 0.25 }  // 25% probability
+        { value: 500, probability: 0.01 }, //2% probability
+        { value: 100, probability: 0.025 },  //5% probability
+        { value: 50, probability: 0.05 },  //10% probability
+        { value: 10, probability: 0.165 },  //15% probability
+        { value: 5, probability: 0.30 },   //25
+        { value: 2, probability: 0.45 }
     ];
 
     var currentIndex = 0;

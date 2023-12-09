@@ -30,10 +30,9 @@ function recompensas() {
         title: 'Recompensas',
         html: "<div style='text-align: center;'></div>" +
             "<br> 36 números: 1 a 1" +
-            "<br> 24 números: 1 a 1" +
-            "<br> 18 números: 1 a 1" +
-            "<br> 12 números: 2 a 1" +
-            "<br> 1 número: 35 a 1",
+            "<br> 18 números: 2 a 1" +
+            "<br> 12 números: 3 a 1" +
+            "<br> 1 números: 36 a 1",
         confirmButtonText: '¡Dejame Jugar!',
         confirmButtonColor: '#3085d6',
         backdrop: true,
@@ -63,8 +62,35 @@ function leyenda() {
         width: '50%',
     });
 }
-/* ---------- Tiempo para apostar ---------- */
+document.addEventListener("DOMContentLoaded", function() {
+    var divCollection = document.getElementsByClassName('resultado');
 
+// Check if there's at least one element with the class 'resultado'
+if (divCollection.length > 0) {
+    // Select the first element in the collection
+    var div = divCollection[0];
+    // Create a new div element
+    var img1 = document.createElement('a');
+    img1.id = "abcd";
+    img1.style.position = "absolute";
+    img1.style.top = "2%";
+    img1.style.left = "60%";
+    img1.style.width = "10%";
+    img1.style.height = "13.5%";
+    img1.style.borderRadius = "50%";
+    img1.style.textAlign = "center";
+    img1.style.marginTop = "2%";
+    img1.style.backgroundColor = "#b06a33";
+    img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + total;
+    img1.style.zIndex = 1;
+    img1.style.fontSize = "1rem";
+
+    // Append the new div to the selected element
+    div.appendChild(img1);
+} else {
+    console.error("No element with class 'resultado' found.");
+}
+});
 
 /* ---------- Apuestas ----------*/
 var apuesta_2_1_primera = document.getElementById('apuesta_2_1_primera');
@@ -276,27 +302,100 @@ apuesta_19_36.addEventListener("mouseout", function (){
 /*---------- SALDO ----------*/
 function apostar(tipo) {
     if(tipo === "0"){
-        alert("No se puede apostar a 0");
     }else{
         asignar_valor_moneda(monedaElejida); //Obtengo valorMoneda en f() de la moneda seleccionada
         obtener_array_apuestas(tipo, valorMoneda); //Obtengo a que casilla se ha apostado y cuánta cantidad en una array bidimensional
         colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, monedaElejida, tipo); //Coloco la moneda en la casilla
-
     }
 }
 
 /* ---------- colocarBrodeMoneda, asignarValorMoneda, ---------- */
+let apuestaTotal = 0;
+let puedeMultiplicar = true;
+function opciones_botones_apuesta(opciones) {
+    if (puedePulsarBoton === true) {
+        colocarBordeMoneda(opciones)
+        const clase = opciones.className
+        var elementos = document.querySelectorAll('.texto');
+
+        if (clase === "boton duplicarApuesta") {
+            var img1 = document.getElementById('abcd');
+            if (puedeMultiplicar === true) {
+                apuestaTotal = apuestaTotal * 2;
+                puedeMultiplicar = false;
+            }
+            for (const apuesta of arrayApuestas) {
+                    apuesta[1] = apuesta[1] * 2;
+
+                for (const elemento of elementos) {
+                    if (elemento.className.split(" ")[2] === apuesta[0]) {
+                        elemento.innerHTML = "";
+                        elemento.textContent = apuesta[1];
+                    }
+                }
+
+                puedeMultiplicar = true;
+                img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
+            }
+        } else if (clase === "boton repetirApuesta") {
+                tiempoBooleano = true;
+                iniciarTemporizador(20);
+                ganancias = 0;
+                var img1 = document.getElementById('abcd');
+                img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
+                puedeGirar = false;
+        } else if (clase === "boton quitarTodasApuestas") {
+            for (const apuesta of arrayApuestas) {
+                for (const elemento of elementos) {
+                    if (elemento.className.split(" ")[2] === apuesta[0]) {
+                        elemento.remove();
+                        arrayApuestas = [];
+                    }
+                }
+            }
+        } else if (clase === "boton eliminarUltimaFicha") {
+
+    const ultimaFicha = arrayApuestasPorOrden[arrayApuestasPorOrden.length - 1][0].split(" ");
+
+    // Mover arrayApuestasPorOrden.pop() fuera del bucle
+    arrayApuestasPorOrden.pop();
+
+    for (const apuesta of arrayApuestas) {
+        if (apuesta[0] === ultimaFicha[0]) {
+            apuesta[1] = apuesta[1] - ultimaFicha[1];
+        }
+
+        for (const elemento of elementos) {
+            if (elemento.className.includes(ultimaFicha[0])) {
+                elemento.innerHTML = "";
+                elemento.textContent = apuesta[1];
+                if (apuesta[1] <= 0) {
+                        elemento.remove();
+                        arrayApuestas.pop();
+                }
+            }
+        }
+    }
+}
+
+    } else {
+    }
+}
+let puedePulsarBoton = true;
+let puedeGirar = true;
 let monedaElejida;
 let valorMoneda;
+let botonElegido;
 
 function colocarBordeMoneda(moneda){
+    botonElegido = moneda;
     /* ---- COLOCAR BORDE ---- */
     const clasesMonedas = [
         'cobre', 'plata', 'rubi', 'oro', 'diamante',
         'quitarTodasApuestas','eliminarFicha', 'duplicarApuesta', 'repetirApuesta'];
 
     // Eliminar el borde de todas las monedas
-    document.querySelectorAll('.moneda').forEach(otraMoneda => {
+    document.querySelectorAll('.moneda, .boton').forEach(otraMoneda => {
         otraMoneda.style.border = "none";
     });
     monedaElejida = moneda.classList;
@@ -318,9 +417,9 @@ function asignar_valor_moneda(monedaElejida){
         } else if (monedaElejida.contains('rubi')) {
             valorMoneda = 50;
         } else if (monedaElejida.contains('diamante')) {
-            valorMoneda = 100;
-        } else if (monedaElejida.contains('oro')) {
             valorMoneda = 250;
+        } else if (monedaElejida.contains('oro')) {
+            valorMoneda = 100;
         } else {
             valorMoneda = 0;
         }
@@ -328,34 +427,34 @@ function asignar_valor_moneda(monedaElejida){
 }
 
 let arrayApuestas = [];
-
+let arrayApuestasPorOrden = [];
 function obtener_array_apuestas(tipo, cantidadApostada) {
     const index = arrayApuestas.findIndex(apuesta => apuesta[0] === tipo);
     if(valorMoneda === 0){
-        alert("No has seleccionado ninguna moneda");
+        alert("Seleccione una moneda");
     } else {
         if (index !== -1) {
             arrayApuestas[index][1] += cantidadApostada;
+            arrayApuestasPorOrden.push([tipo + " " + valorMoneda]);
         } else {
             arrayApuestas.push([tipo, cantidadApostada]);
+            arrayApuestasPorOrden.push([tipo + " " + valorMoneda]);
         }
     }
-    console.log(arrayApuestas);
 }
 let valorAcumulado = 0
 function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda, tipo) {
-    console.log("-------------------------------------------")
     for (const apuesta of arrayApuestas) {
         if (apuesta[0] === tipo) {
             valorAcumulado = apuesta[1];
+            apuestaTotal += valorMoneda;
         }
     }
     if (valorAcumulado === 0) {
     } else {
         const tipoMoneda = tipo_moneda[1];
         const div = document.createElement('div');
-        divTexto = div;
-        div.className = tipoMoneda;
+        div.className = "texto " + tipoMoneda + " " + tipo;
         div.style.position = 'absolute';
         div.style.display = 'flex';
         div.style.flexDirection = 'column';
@@ -388,29 +487,37 @@ function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda
             div.style.height = '80%';
         }
         const tipoElement = document.getElementById(tipo);
-
-        // Check if the element exists before appending children
-        if (tipoElement) {
-            tipoElement.appendChild(divTexto);
-            tipoElement.appendChild(div);
-        } else {
-            console.error('Element with ID ' + tipo + ' not found.');
+        if((tipoMoneda === "cobre") || (tipoMoneda === "plata") || (tipoMoneda === "rubi")
+        || (tipoMoneda === "oro") || (tipoMoneda === "diamante")){
+            if (tipoElement) {
+                tipoElement.appendChild(div);
+            } else {
+                console.error('Element with ID ' + tipo + ' not found.');
+            }
         }
+        var img1 = document.getElementById('abcd');
+        img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
     }
 }
 
 
 let result = 0;
+let countDownElement = null;
+let tiempoBooleano = false;
+let tiempoRestante = 0;
+
+const fondoDesaparecer = document.getElementsByClassName('fondoTemporizador');
+fondoDesaparecer.item(0).style.display = 'none';
+
 function iniciarTemporizador(tiempoInicial) {
-    tiempoInicial = 7;
-    console.log(tiempoInicial);
+    var botonDesaparecer = document.getElementsByClassName('girar');
+    botonDesaparecer.item(0).style.display = 'none';
+    fondoDesaparecer.item(0).style.display = 'block';
+
     var elementosNumero = document.getElementsByClassName('numero');
-    let onclickAnterior = [];
-    console.log('ElementosNumero:', elementosNumero);
         for (let i = 0; i < elementosNumero.length; i++) {
             elementosNumero[i].addEventListener('click', function() {
                 if(elementosNumero === null) {
-                    alert("Apuesta cerrada");
                 } else{
                     const nuevoClick = elementosNumero[i].getAttribute('class');
                     const click = nuevoClick.split(" ")
@@ -418,47 +525,110 @@ function iniciarTemporizador(tiempoInicial) {
                 }
             });
         }
-
-
     var tiempoApostar = document.createElement('div');
 
     document.body.appendChild(tiempoApostar);
 
     var quizTimerElement = document.createElement('div');
-    quizTimerElement.id = 'quiz-time-left';
+    quizTimerElement.className = 'quiz-time-left';
     document.body.appendChild(quizTimerElement);
 
-    var countdownElement = document.createElement('div');
-    countdownElement.id = 'countdown';
-    document.body.appendChild(countdownElement);
+    if(countDownElement === null){
+        countDownElement = document.createElement('div');
+        countDownElement.id = 'countdown';
+    } else {
+        countDownElement.innerHTML = '';
+    }
+    document.body.appendChild(countDownElement);
 
     var fechaFinalizacion = new Date().getTime() + tiempoInicial * 1000;
 
     var temporizador = setInterval(async function () {
-        var tiempoRestante = Math.floor((fechaFinalizacion - new Date().getTime()) / 1000);
+        if(tiempoBooleano === false){
+            tiempoRestante = Math.floor((fechaFinalizacion - new Date().getTime()) / 1000);
+        }else{
+            quizTimerElement.style.animation = 'progreso 1s linear';
+            tiempoRestante = 0;
+        }
         if (tiempoRestante <= 0) {
             clearInterval(temporizador);
             elementosNumero = null;
-            countdownElement.innerHTML = "¡Apuestas cerradas!";
+            puedePulsarBoton = false;
+            countDownElement.innerHTML = "¡Apuestas cerradas!";
             setTimeout(function () {
-                countdownElement.innerHTML = '¡Apuestas aceptadas!';
-            }, 2000);
-            setTimeout(function () {
-                countdownElement.innerHTML = 'Girando';
+                countDownElement.innerHTML = 'Girando';
                 startRotation(Math.floor(Math.random() * (110 - 77 + 1)) + 77);
             }, 2000);
             setTimeout(function () {
-                countdownElement.innerHTML = "Ha salido:" + result;
-            }, 11000);
+                obtenerGanancias(result);
+                countDownElement.innerHTML = "Ha salido:" + result;
+                botonDesaparecer.item(0).style.display = 'block';
+                tiempoBooleano = false;
+                puedePulsarBoton = true;
+            }, 12000);
         } else {
             var minutos = Math.floor(tiempoRestante / 60);
             var segundos = tiempoRestante % 60;
             var cantidad = segundos < 10 ? +segundos : segundos;
-            countdownElement.textContent = "Quedan " + cantidad + " para apostar";
+            countDownElement.textContent = "Quedan " + cantidad + " para apostar";
         }
     });
 }
-
+let ganancias = 0;
+let total = 0;
+let perdido = 0;
+/* ---------- Ganancias ---------- */
+function obtenerGanancias(result) {
+    perdido = 0;
+    ganancias = 0;
+    let total = 0;
+    let casillasRojas = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
+    arrayApuestas.forEach(function (apostado) {
+        if((apostado[0] === "apuesta_19_36") && (result >= 19)){
+            ganancias += apostado[1] * 2;
+        }
+        if ((apostado[0] === "apuesta_1_18") && (result <= 18)){
+            ganancias += apostado[1] * 2;
+        }
+        if ((apostado[0] === "apuesta_par") && (result%2 === 0)){
+            ganancias += apostado[1] * 2;
+        }
+        if ((apostado[0] === "apuesta_impar") && (result%2 === 1)){
+            ganancias += apostado[1] * 2;
+        }
+        if ((apostado[0] === "apuesta_rojo") && (casillasRojas.includes(result))){
+            ganancias += apostado[1] * 2;
+        }
+        if ((apostado[0] === "apuesta_negro") && (!casillasRojas.includes(result))){
+            ganancias += apostado[1] * 2;
+        }
+        if ((apostado[0] === "apuesta_1_12") && (result <= 12)){
+            ganancias += apostado[1] * 3;
+        }
+        if ((apostado[0] === "apuesta_13_24") && (13 <= result) &&(result <= 24)){
+            ganancias += apostado[1] * 3;
+        }
+        if ((apostado[0] === "apuesta_25_36") && (result >= 25)){
+            ganancias += apostado[1] * 3;
+        }
+        if ((apostado[0] === "apuesta_2_1_primera") && (result%3 ===0)){
+            ganancias += apostado[1] * 3;
+        }
+        if ((apostado[0] === "apuesta_2_1_segunda") && (result%3 ===2)){
+            ganancias += apostado[1] * 3;
+        }
+        if ((apostado[0] === "apuesta_2_1_tercera") && (result%3 === 1)){
+            ganancias += apostado[1] * 3;
+        }
+        if (apostado[0] === `${result}`){
+            ganancias += apostado[1] * 36;
+        }
+        perdido += apostado[1];
+    });
+    total = ganancias - perdido
+    var img1 = document.getElementById('abcd');
+    img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
+}
 
 /* ---------- Girar ---------- */
 window.anime = anime;
@@ -482,6 +652,7 @@ const getRouletteWheelColor = index => {
   return i == 37 ? "green" : i % 2 == 0 ? "black" : "red";
 };
 
+
 window.rouletteWheelNumbers = rouletteWheelNumbers;
 
 function addFlipper() {
@@ -502,11 +673,7 @@ function addFlipper() {
 }
 
 async function startRotation(speed) {
-    const nuevoDiv = document.createElement("div");
-    nuevoDiv.innerHTML = "<div id=\"animacion\" class=\"animacionKoniguito\"></div>";
-
-    const cuerpoDocumento = document.body;
-    cuerpoDocumento.appendChild(nuevoDiv);
+    const nuevoDiv = document.getElementsByClassName('animacionKonguito');
     setTimeout(async () => {
         await new Promise((resolve) => setTimeout(resolve, 100)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
         const writeResult = addFlipper();
@@ -517,7 +684,7 @@ async function startRotation(speed) {
         const resultColor = getRouletteWheelColor(newWheelIndex);
         (() => {
             const newRotaion = currentWheelRotation + (360 / 37) * speed;
-            console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
+            //console.log(getRouletteWheelNumber(currentWheelIndex), "---> ", result);
             var myAnimation = anime({
                 targets: [".capa-2", ".capa-4"],
                 rotate: function () {
@@ -526,7 +693,6 @@ async function startRotation(speed) {
                 duration: function () {
                     return 10000;
                 },
-                loop: 1,
                 // easing: "cubicBezier(0.010, 0.990, 0.855, 1.010)",
                 easing: `cubicBezier(${bezier.join(",")})`,
                 // easing: "cubicBezier(0.000, 1.175, 0.980, 0.990)",
@@ -554,19 +720,42 @@ async function startRotation(speed) {
                 complete: () => {
                     currentBallRotation = newRotaion;
                     writeResult(result, resultColor);
-                    isRotating = false;
                 }
             });
         })();
-    }, 4000);
-    let p = 0;
+    }, 1000);
+    let p = 1;
     while (p <= 18) {
     let imagen = document.getElementById('KonguitoRuleta');
-    console.log(imagen)
-        imagen.src = `../static/images/ruleta/framesRuleta/${p}.png`;
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
+        imagen.src = `/static/images/ruleta/framesRuleta/${p}.png`;
+        await new Promise((resolve) => setTimeout(resolve, 100)); // Cambia el valor de 100 a la cantidad de milisegundos que desees
+        p++;
+        imagen.style.position = "absolute";
+        imagen.style.top = "8%";
+        imagen.style.zIndex = 0;
     }
 }
+
+function retirarDinero() {
+    // MONTO EN ESTE CASO ES VALOR DE LA APUESTA
+    var montoRetirar = perdido;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/retirar_dinero", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_retirar=" + montoRetirar);
+}
+
+function agregarDinero() {
+    // MONTO EN ESTE CASO ES VALOR DE LO GANADO (MIRAR TRAGAPERRAS PARA VERLO BIEN)
+    var montoSumar = ganancias;
+    // Enviar solicitud HTTP a tu servidor Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/agregar_ganancias", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&cantidad_a_agregar=" + montoSumar);
+}
+
 
 document.querySelector(".roulette-wheel").addEventListener(
   "touchmove",

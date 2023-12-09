@@ -1,8 +1,6 @@
-/* 5 Capas de la ruleta y pelota: 14 */
-
 body {
     font-family: sans-serif;
-    background-image: url(/static/images/ruleta/felt.png), -webkit-radial-gradient(50% 40%,#527c14,#243a0a);
+    background-image: url(/static/images/ruleta/suelo.avif), -webkit-radial-gradient(50% 40%,#527c14,#243a0a);
     background-attachment: fixed;
 }
 
@@ -14,10 +12,23 @@ body {
 
 .girar {
     position: absolute;
+    background-color: #b06a33;
+    border: none;
     top: 80%;
-    left: 30%;
+    left: 35%;
     height: 10%;
     width: 10%;
+    z-index: 10;
+    color: #FFFFFF;
+    padding: 14px 28px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.girar:hover {
+    background-color: #946640;
 }
 
 /* ---------- Alertas ---------- */
@@ -68,10 +79,25 @@ buttonRR {
     padding: 10px 15px;
     width: 400%;
     height: 150%;
-    background: #f53535;
+    background: #b06a33;
+}
+
+buttonRR:hover {
+    background: #946640;
 }
 
 /* ---------- Tiempo de apuesta ---------- */
+.resultado {
+    top: 13%;
+    left: 40%;
+    height: 30%;
+    width: 30%;
+    margin-top: 10%;
+    text-align: center;
+    border-radius: 3px;
+    z-index: 2;
+}
+
 #tiempoApostar{
     position: absolute;
     top: 13%;
@@ -79,28 +105,39 @@ buttonRR {
     height: 5%;
     width: 20%;
     background-color: #484848;
-    z-index: 1;
+    z-index: 2;
 }
 
-#quiz-time-left {
+.quiz-time-left {
     position: absolute;
     width: 0;
     height: 5%;
     top: 13%;
-    left: 40%;
+    left: 35%;
     -webkit-animation: progreso 20s linear;
             animation: progreso 20s linear;
     background: #26c94a;
     z-index: 1;
  }
+
 #countdown {
     position: absolute;
     top: 15%;
-    left: 50%;
+    left: 45%;
     transform: translate(-50%, -50%);
     font-size: 1rem;
     color: #fff;
     z-index: 2;
+}
+
+.fondoTemporizador {
+    position: absolute;
+    top: 13%;
+    left: 35%;
+    height: 5%;
+    width: 20%;
+    background-color: #484848;
+    z-index: 0;
 }
 
 #page-mod-quiz-summary #quiz-timer {
@@ -109,6 +146,7 @@ buttonRR {
     position: absolute;
     left: -50px;
     top: -50px;
+    background-color: #3A3B3C;
     z-index: 1;
 }
 
@@ -116,6 +154,7 @@ buttonRR {
     border: 2px solid #000000;
     text-indent: -9999px;
     display:block;
+    background-color: #3A3B3C;
     font-size: 0px;
     height: 35px;
     z-index: 1;
@@ -196,11 +235,11 @@ buttonRR {
 }
 /* ---------- Capas de la Ruleta ---------- */
 .ruleta {
-    position: relative;
+    position: absolute;
     width: 400px;
     height: 400px;
     left: 10%;
-    top: 100px;
+    top: 14%;
 }
 
 .capa-1, .capa-2, .capa-3, .capa-4, .capa-5, .ball-container {
@@ -330,7 +369,17 @@ buttonRR {
 .moneda:active {
     border: 3px solid white; /* Añade un borde de 2px de color azul en hover o clic */
 }
-
+.boton{
+    position: absolute;
+    display: flex;
+    height: 50%;
+    width: 16%;
+    top: 50%;
+    overflow: hidden;
+    border-radius: 50%/10%;
+    cursor: pointer;
+    border: none;
+}
 
 .quitarTodasApuestas{
     background-image: url("/static/images/ruleta/eliminarTodasApuestas.png");
@@ -341,11 +390,10 @@ buttonRR {
     border:none;
     height: 30%;
     width: 10%;
-    left: 12%;
-    top:50%
+    left: 32%;
 }
 
-.eliminarFicha{
+.eliminarUltimaFicha{
     background-image: url("/static/images/ruleta/eliminarFicha.png");
     background-size: 110%;
     background-position-y: 12%;
@@ -428,12 +476,4 @@ buttonRR {
     border-radius: 50%;
     border: none;
     left: 80%;
-}
-
-#KonguitoRuleta {
-    position: absolute;
-    top: 30%;
-    transform: translate(-50%, -50%);
-    animation: animacionKonguitoRuleta 10s infinite alternate;
-    cursor: pointer;
 }

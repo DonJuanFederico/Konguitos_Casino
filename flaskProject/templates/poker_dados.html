@@ -1,0 +1,80 @@
+{% extends 'plantilla.html' %}
+{% block title %} Poker con Dados {% endblock %}
+{% block stylesheets %}
+    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/static/css/poker_dados.css">
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="botonDeReglas">
+            <buttonRR onclick="reglas()">Reglas</buttonRR>
+        </div>
+        <div class="botonDeRecompensas">
+            <buttonRR onclick="puntuaciones()">Puntuaciones</buttonRR>
+        </div>
+
+        <div class="content">
+            <h1>Poker con Dados</h1>
+            <h2><br><br>Tus dados: </h2>
+            <div id="dice-container" class="dice-container">
+                <div class="dice-wrapper">
+                    <div class="dice-container-inner">
+                        <img class="dice-img" id="dice1" src="/static/images/dados/0.png" alt="Dado 1" onclick="toggleBloquearDado('dice1')">
+                        <span class="lock-icon" id="lock1"></span>
+                    </div>
+                </div>
+                <div class="dice-wrapper">
+                    <div class="dice-container-inner">
+                        <img class="dice-img" id="dice2" src="/static/images/dados/0.png" alt="Dado 2" onclick="toggleBloquearDado('dice2')">
+                        <span class="lock-icon" id="lock2"></span>
+                    </div>
+                </div>
+                <div class="dice-wrapper">
+                    <div class="dice-container-inner">
+                        <img class="dice-img" id="dice3" src="/static/images/dados/0.png" alt="Dado 3" onclick="toggleBloquearDado('dice3')">
+                        <span class="lock-icon" id="lock3"></span>
+                    </div>
+                </div>
+                <div class="dice-wrapper">
+                    <div class="dice-container-inner">
+                        <img class="dice-img" id="dice4" src="/static/images/dados/0.png" alt="Dado 4" onclick="toggleBloquearDado('dice4')">
+                        <span class="lock-icon" id="lock4"></span>
+                    </div>
+                </div>
+                <div class="dice-wrapper">
+                    <div class="dice-container-inner">
+                        <img class="dice-img" id="dice5" src="/static/images/dados/0.png" alt="Dado 5" onclick="toggleBloquearDado('dice5')">
+                        <span class="lock-icon" id="lock5"></span>
+                    </div>
+                </div>
+
+            </div>
+            <p id="result">Resultado</p>
+            <button class="lanzar-button" onclick="lanzarDados()">Lanzar Dados</button>
+        </div>
+
+        <div id = cajaApuesta>
+            <img id ="fotoMoneda" src="/static/images/moneda.png">
+            <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
+            <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
+        </div>
+
+        <div id="bet-container">
+            <label for="apuesta">Cantidad a apostar:</label>
+            <input type="number" id="apuesta" min="1">
+        </div>
+
+        <audio controls autoplay loop id="audio-player">
+            <source src="/static/audio/lancer.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/poker_dados.js"></script>
+    <script src="/static/js/dadosAlertas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/mutearPagina.js"></script>
+
+{% endblock %}
