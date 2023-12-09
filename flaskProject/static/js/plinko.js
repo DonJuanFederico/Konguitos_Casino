@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function agregarDinero() {
-
         var monto = apuesta * score;
         // Enviar solicitud HTTP a tu servidor Flask
         var xhr = new XMLHttpRequest();
@@ -87,6 +86,15 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send("&cantidad_a_agregar=" + monto);
         console.log("Esta pasando"+monto);
+    }
+
+    function retirarDinero() {
+        var monto = apuesta;
+        // Enviar solicitud HTTP a tu servidor Flask
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/retirar_dinero", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&cantidad_a_retirar=" + monto);
     }
 
     function actualizarPosicionBola() {
@@ -203,27 +211,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function retirarDinero() {
-        var monto = apuesta;
-        // Enviar solicitud HTTP a tu servidor Flask
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/retirar_dinero", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("&cantidad_a_retirar=" + monto);
-    }
-
     function mostrarContador() {
         console.log("La bola ha pasado el top: 58.5% " + contador + " veces.");
     }
 
-    function retirarDinero() {
-        var monto = apuesta;
-        // Enviar solicitud HTTP a tu servidor Flask
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/retirar_dinero", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("&cantidad_a_retirar=" + monto);
-    }
+
 
     document.getElementById("guardar").addEventListener("click", function () {
 
