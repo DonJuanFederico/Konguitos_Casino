@@ -86,6 +86,7 @@ body {
     top: 58.5%; /* Centradas verticalmente */
     transform: translateY(-50%); /* Ajuste para centrar */
     border: 2px solid #000;
+    opacity: 0.4;
 }
 
 .zona-1 {
