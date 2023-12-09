@@ -8,7 +8,6 @@ const posicionamiento = document.querySelectorAll('.slot');
 //RECUADRO DE SALDO DE CLIENTE
 let monedasUsuarioElement = document.querySelector('#monedasUsuario');
 
-
 //RECUADRO DE GANADO
 const prizeElement = document.querySelector('#prize');
 

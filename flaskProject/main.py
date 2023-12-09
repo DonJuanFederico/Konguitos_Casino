@@ -46,6 +46,7 @@ def inicio():
     return render_template('inicio.html', form=form)
 
 
+
 @app.route('/Registro/', methods=['GET', 'POST'])
 def registroUsuario():
     form = crearUsuario()
@@ -77,6 +78,10 @@ def registroUsuario():
         else:
             return redirect(url_for('registroUsuario'))
     return render_template('registroUsuario.html', form=form)
+
+@app.route('/Registro/Tarjeta/', methods=['GET', 'POST'])
+def registroTarjeta():
+    return render_template('registroTarjeta.html')
 
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
@@ -330,6 +335,11 @@ def blackjack():
 def craps():
     DINERO = obtenerDinero()
     return render_template("craps.html", DINERO = DINERO)
+
+@app.route('/Juegos/Indice_Dados/Poker/', methods=['GET'])
+def poker_dados():
+    DINERO = obtenerDinero()
+    return render_template("poker_dados.html", DINERO = DINERO)
 
 @app.route('/Juegos/Juegos_extra/KonguitoRun')
 def konguito():
