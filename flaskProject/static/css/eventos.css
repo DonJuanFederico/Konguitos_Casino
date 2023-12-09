@@ -8,6 +8,7 @@ body{
   background-size: cover;
   background-position: center 100%;
   z-index: 1;
+  overflow: hidden;
 }
 
 audio{
