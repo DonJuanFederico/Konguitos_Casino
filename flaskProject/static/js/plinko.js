@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.open("POST", "/agregar_ganancias", true);  //Esto es para agregar en ganancias
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send("&cantidad_a_agregar=" + monto);
+        document.getElementById('monedas').textContent = saldo + monto;
         console.log("Esta pasando"+monto);
     }
 
@@ -221,11 +222,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         valor = document.getElementById("numero").value;
         if ((saldo - valor) >= 0) {
+            saldo = saldo - valor;
             apuesta = valor;
             console.log("Se ha guardado el número " + apuesta);
 
             reiniciarBola();
             retirarDinero();
+            document.getElementById('monedas').textContent = saldo;
         } else {
             mostrarModal()
         }

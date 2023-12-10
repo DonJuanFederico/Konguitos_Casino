@@ -11,6 +11,9 @@ body {
     overflow: hidden;
 }
 
+#audio-player {
+     display: none;
+}
 
 #Ingreso {
     background-color: rgb(214, 225, 56);
