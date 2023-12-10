@@ -24,14 +24,15 @@ function girar() {
         {value: 500, probability: 0.01}, //2% probability
         {value: 100, probability: 0.025},  //5% probability
         {value: 50, probability: 0.05},  //10% probability
-        {value: 10, probability: 0.165},  //15% probability
+        {value: 10, probability: 0.155},  //15% probability
         {value: 5, probability: 0.30},   //25
         {value: 2, probability: 0.40},
         {name: "pirata", probability: 0.01},
         {name: "astronauta", probability: 0.01},
         {name: "rey", probability: 0.01},
         {name: "capitan", probability: 0.01},
-        {name: "tigre", probability: 0.01}
+        {name: "tigre", probability: 0.01},
+        {name: "vikingo", probability: 0.01}
     ];
 
     var currentIndex = 0;
@@ -87,19 +88,22 @@ function manejarAvatar(tipoAvatar) {
     // Realizar acciones específicas para cada tipo de avatar
     switch (tipoAvatar) {
         case "pirata":
-            // Acciones para el avatar pirata
+            activarColumnaGashapon(id_usuario, pirata);
             break;
         case "astronauta":
-            // Acciones para el avatar astronauta
+            activarColumnaGashapon(id_usuario, astronauta);
             break;
         case "rey":
-            // Acciones para el avatar rey
+            activarColumnaGashapon(id_usuario, rey);
             break;
         case "capitan":
-            // Acciones para el avatar capitan
+            activarColumnaGashapon(id_usuario, capitan);
             break;
         case "tigre":
-            // Acciones para el avatar tigre
+            activarColumnaGashapon(id_usuario, tigre);
+            break;
+        case "vikingo":
+            activarColumnaGashapon(id_usuario, vikingo);
             break;
         default:
             // Acciones por defecto o manejar otros avatares si es necesario
@@ -132,13 +136,14 @@ function agregarDinero() {
     xhr.send("&cantidad_a_agregar=" + monto);
 }
 
-function avatarReclamado() {
+function activarColumnaGashapon(id_usuario, columna) {
     // Enviar solicitud HTTP a tu servidor Flask
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/avatar_reclamado", true);
+    xhr.open("POST", "/update_columna_gashapon", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("&reclamar=" + 1);
+    xhr.send("id_usuario=" + id_usuario + "&columna=" + columna);
 }
+
 
 
 
