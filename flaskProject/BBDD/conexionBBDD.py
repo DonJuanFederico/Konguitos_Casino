@@ -168,10 +168,20 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
         cursor = conn.cursor()
         try:
             # Consulta para insertar un nuevo usuario en la tabla "usuarios"
-            query = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, DineroGanado, Telefono, FotoIMG, Calle, CodigoPostal, Avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query_usuario = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, DineroGanado, Telefono, FotoIMG, Calle, CodigoPostal, Avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             # Añadimos DineroGanado y lo inicializamos a 0
-            cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, 0, Telefono, FotoIMG, Calle, CodigoPostal, Avatar))
+            cursor.execute(query_usuario, (NombreUsuario, Contraseña, Correo, DNI, Dinero, 0, Telefono, FotoIMG, Calle, CodigoPostal, Avatar))
             conn.commit()
+
+            # Obtener el ID del nuevo usuario
+            id_nuevo_usuario = cursor.lastrowid
+
+            # Consulta para insertar el nuevo usuario en la tabla "gashapong"
+            query_gashapong = "INSERT INTO gashapon (id_usuario, pirata, astronauta, basico, rey, capitan, tigre, vikingo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            # Añadir el nuevo usuario a la tabla "gashapong" con valores iniciales
+            cursor.execute(query_gashapong, (id_nuevo_usuario, 0, 0, 0, 0, 0, 0, 0))
+            conn.commit()
+
             print(f"Nuevo usuario '{NombreUsuario}' ha sido agregado con éxito.")
             return True
         except mysql.connector.Error as err:
@@ -180,6 +190,7 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
         finally:
             cursor.close()
             close_connection(conn)
+
 
 
 def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV):
