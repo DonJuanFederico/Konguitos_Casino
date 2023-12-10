@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function agregarDinero() {
         var monto = apuesta * score;
+        saldo = saldo + monto;
         // Enviar solicitud HTTP a tu servidor Flask
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/agregar_ganancias", true);  //Esto es para agregar en ganancias
