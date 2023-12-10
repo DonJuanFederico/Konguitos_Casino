@@ -730,6 +730,10 @@ def almacenar_idUsuario(id_usuario):
     idDelUsuario = id_usuario
 def obtener_id_usuario():
     return idDelUsuario
+
+
+
+"""""
 def TienePirata():
     conn = connect()
     pirata = None
@@ -848,3 +852,42 @@ def TieneVikingo():
             close_connection(conn)
     return vikingo
 
+def obtenerValoresGashapon(id_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)  # Establecer el cursor para devolver resultados como diccionarios
+        try:
+            # Consulta para obtener los valores de la tabla "gashapon" para el usuario dado
+            query = "SELECT * FROM gashapon WHERE id_usuario = %s"
+            cursor.execute(query, (id_usuario,))
+            resultados = cursor.fetchone()
+
+            if resultados:
+                return resultados
+            else:
+                print("No se encontraron valores en la tabla gashapon para el usuario.")
+                return None
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+"""
+
+def activarColumnaGashapon(id_usuario, columna):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para actualizar la columna específica en la tabla "gashapon" a 1 para el usuario dado
+            query = f"UPDATE gashapon SET {columna} = 1 WHERE id_usuario = %s"
+            cursor.execute(query, (id_usuario,))
+            conn.commit()
+
+            print(f"La columna {columna} ha sido activada para el usuario con ID {id_usuario}.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
