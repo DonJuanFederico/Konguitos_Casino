@@ -11,7 +11,7 @@ body {
 }
 
 #board {
-    background-image: url("/static/images/dora.jpg");
+    background-image: url("/static/images/macaco.jpg");
     background-size: cover;
     position: relative;
     width: 100%;
