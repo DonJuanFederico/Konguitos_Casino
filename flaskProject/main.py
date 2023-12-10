@@ -286,7 +286,13 @@ def ruletaRusa():
 @app.route('/Juegos/Eventos/Gashapon', methods=['GET'])
 def gashapon():
     DINERO = obtenerDinero()
-    return render_template('gashapon.html', DINERO = DINERO)
+    PIRATA = TienePirata()
+    ASTRONAUTA = TieneAstronauta()
+    REY = TieneRey()
+    CAPITAN = TieneCapitan()
+    TIGRE = TieneTigre()
+    VIKINGO = TieneVikingo()
+    return render_template('gashapon.html', DINERO = DINERO, PIRATA = PIRATA, ASTRONAUTA = ASTRONAUTA, REY = REY, CAPITAN = CAPITAN, TIGRE = TIGRE, VIKINGO = VIKINGO)
 
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])
 def juegos_extra():
@@ -303,6 +309,12 @@ def agregar_dinero():
     cantidad_a_agregar = float(request.form.get('cantidad_a_agregar'))
     agregarDineroTarjeta(cantidad_a_agregar)
     return "Dinero agregado correctamente"
+
+@app.route('/avatar_reclamado', methods=['POST'])
+def avatarReclamado():
+    cantidad_a_agregar = float(request.form.get('reclamar'))
+    reclamarAvatar(reclamar)
+    return "Avatar reclamado correctamente"
 
 @app.route('/agregar_ganancias', methods=['POST'])
 def agregar_ganancias():
