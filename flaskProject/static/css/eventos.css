@@ -181,7 +181,7 @@ a {
 a:before,
 a:after {
   content: '';
-  padding: .9em .4em;
+  padding: .4em .3em;
   position: absolute;
   left: 50%;
   width: 100%;
