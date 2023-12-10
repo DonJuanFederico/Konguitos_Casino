@@ -8,6 +8,7 @@ let dadosBloqueados = {
 };
 
 let valoresDados = [0, 0, 0, 0, 0];
+let numeroTiros = 3;
 
 function toggleBloquearDado(dadoId) {
     const dadoImg = document.getElementById(dadoId);
@@ -26,7 +27,6 @@ function lanzarDados() {
 
     // Validar si la apuesta es válida (por ejemplo, si es mayor que cero)
     if (betAmount <= 0 || isNaN(betAmount)) {
-        gameOver = true;
         alert('Ingresa una cantidad válida para apostar.');
 
         return; // Evitar iniciar el juego si la apuesta no es válida
@@ -47,7 +47,15 @@ function lanzarDados() {
         }
 
         const resultado = calcularResultado(valoresDados);
+        numeroTiros = numeroTiros -1;
         document.getElementById("result").textContent = `Mano actual: ${resultado}`;
+        document.getElementById("throws").textContent = `Tiradas restantes: ${numeroTiros}`;
+
+        if (numeroTiros === 0){
+
+            alert(`Tu resultado final es: ${resultado}`);
+            resetGame();
+        }
     }
 }
 
@@ -77,7 +85,26 @@ function calcularResultado(valoresDados) {
     }
 }
 
+function resetGame(){
+    // Desbloquear todos los dados
+    for (let i = 1; i <= 5; i++) {
+        const dadoId = `dice${i}`;
+        dadosBloqueados[dadoId] = false;
+        //dadoImg.style.border = 'none';
+    }
 
+    // Cambiar la imagen de cada dado a la por defecto
+    for (let i = 1; i <= 5; i++) {
+        const dadoId = `dice${i}`;
+        document.getElementById(dadoId).src = `/static/images/dados/0.png`;
+    }
+
+    // Reiniciar el contador de tiradas y mostrar el número de tiradas restantes
+    numeroTiros = 3;
+    document.getElementById("throws").textContent = `Tiradas restantes: ${numeroTiros}`;
+    document.getElementById("result").textContent = `Mano actual: Ninguna`;
+
+}
 
 
 document.getElementById("masMonedas").addEventListener("click", function () {
