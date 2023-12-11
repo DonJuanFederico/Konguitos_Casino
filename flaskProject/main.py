@@ -286,12 +286,13 @@ def ruletaRusa():
 @app.route('/Juegos/Eventos/Gashapon', methods=['GET'])
 def gashapon():
     DINERO = obtenerDinero()
-    PIRATA = TienePirata()
-    ASTRONAUTA = TieneAstronauta()
-    REY = TieneRey()
-    CAPITAN = TieneCapitan()
-    TIGRE = TieneTigre()
-    VIKINGO = TieneVikingo()
+    #PIRATA = TienePirata()
+    #ASTRONAUTA = TieneAstronauta()
+    #REY = TieneRey()
+    #CAPITAN = TieneCapitan()
+    #TIGRE = TieneTigre()
+    #VIKINGO = TieneVikingo()
+
     return render_template('gashapon.html', DINERO = DINERO, PIRATA = PIRATA, ASTRONAUTA = ASTRONAUTA, REY = REY, CAPITAN = CAPITAN, TIGRE = TIGRE, VIKINGO = VIKINGO)
 
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])

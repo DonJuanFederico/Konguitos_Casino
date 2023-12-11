@@ -11,7 +11,7 @@ body {
 }
 
 #board {
-    background-image: url("/static/images/macaco.jpg");
+    background-image: url("/static/images/sonicFondo.jpg");
     background-size: cover;
     position: relative;
     width: 100%;
@@ -20,6 +20,24 @@ body {
     border-radius: 1.5vw;
     overflow: hidden;
 
+}
+
+.contenedor {
+    position: absolute;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.sonic {
+    position: absolute;
+    top: 75%;
+    transform: translateY(-50%);
+    left: 100%;
+    transition: left 1s linear;
+    z-index: 1;
+    width: 10%;
+    opacity: 0;
 }
 
 #rectangulo {

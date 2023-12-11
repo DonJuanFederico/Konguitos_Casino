@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var pegs = document.querySelectorAll(".peg");
     var audio = new Audio('/static/audio/uff.mp3');
     var botonComienzo = document.getElementById("botonComienzo");
+    var sonicCorriendo = document.getElementById("sonicCorriendo");
 
     var musica = document.getElementById("musica");
     musica.play();
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close")[0];
+    var masMonedasImagen = document.getElementById('masMonedas');
 
 
     function mostrarMultiplicadores() {
@@ -29,6 +31,11 @@ document.addEventListener("DOMContentLoaded", function () {
             span.textContent = "x" + multiplicadores[i];
         }
     }
+
+    masMonedasImagen.addEventListener('click', function() {
+      alert('¡Se hizo clic en la imagen "masMonedas"!');
+      window.location.href = "/dinero/";
+    });
 
     function mostrarModal() {
         modal.style.display = "block";
@@ -48,6 +55,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     mostrarMultiplicadores();
+
+    function desplazarSonic() {
+
+        sonicCorriendo.style.opacity = 1;
+        // Cambia la posición de Sonic a la derecha de la pantalla
+        sonicCorriendo.style.left = "100%";
+
+
+        // Imprime un mensaje en la consola
+        console.log("Sonic se está moviendo...");
+
+        // Vuelve a la posición inicial después de un retraso
+        setTimeout(function() {
+            sonicCorriendo.style.opacity = 0;
+            sonicCorriendo.style.left = "-100%";
+
+        }, 1000); // Ajusta el tiempo de espera según tus necesidades
+    }
+
+    // Llama a la función cada 5 segundos
+    setInterval(desplazarSonic, 10000); // 5 segundos
 
 
     var valor = 0;
@@ -87,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send("&cantidad_a_agregar=" + monto);
         document.getElementById('monedas').textContent = saldo + monto;
-        console.log("Esta pasando"+monto);
+        console.log("Esta pasando" + monto);
     }
 
     function retirarDinero() {
@@ -218,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
     document.getElementById("guardar").addEventListener("click", function () {
 
         valor = document.getElementById("numero").value;
@@ -241,4 +268,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1);
     });
     reiniciarBola();
+
+
+
 });
+
