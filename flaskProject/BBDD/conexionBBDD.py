@@ -168,10 +168,20 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
         cursor = conn.cursor()
         try:
             # Consulta para insertar un nuevo usuario en la tabla "usuarios"
-            query = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, DineroGanado, Telefono, FotoIMG, Calle, CodigoPostal, Avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query_usuario = "INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, DineroGanado, Telefono, FotoIMG, Calle, CodigoPostal, Avatar) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             # Añadimos DineroGanado y lo inicializamos a 0
-            cursor.execute(query, (NombreUsuario, Contraseña, Correo, DNI, Dinero, 0, Telefono, FotoIMG, Calle, CodigoPostal, Avatar))
+            cursor.execute(query_usuario, (NombreUsuario, Contraseña, Correo, DNI, Dinero, 0, Telefono, FotoIMG, Calle, CodigoPostal, Avatar))
             conn.commit()
+
+            # Obtener el ID del nuevo usuario
+            id_nuevo_usuario = cursor.lastrowid
+
+            # Consulta para insertar el nuevo usuario en la tabla "gashapong"
+            query_gashapong = "INSERT INTO gashapon (id_usuario, pirata, astronauta, basico, rey, capitan, tigre, vikingo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            # Añadir el nuevo usuario a la tabla "gashapong" con valores iniciales
+            cursor.execute(query_gashapong, (id_nuevo_usuario, 0, 0, 0, 0, 0, 0, 0))
+            conn.commit()
+
             print(f"Nuevo usuario '{NombreUsuario}' ha sido agregado con éxito.")
             return True
         except mysql.connector.Error as err:
@@ -180,6 +190,7 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
         finally:
             cursor.close()
             close_connection(conn)
+
 
 
 def agregarTarjeta(nombre_usuario, NumeroTarjeta, NombreTitular, FechaCaducidad, CVV):
@@ -713,3 +724,170 @@ def cambiarContraseña(nombre_usuario, nueva_contraseña):
     finally:
         cursor.close()
         close_connection(conn)
+
+def almacenar_idUsuario(id_usuario):
+    global idDelUsuario
+    idDelUsuario = id_usuario
+def obtener_id_usuario():
+    return idDelUsuario
+
+
+
+"""""
+def TienePirata():
+    conn = connect()
+    pirata = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT pirata FROM gashapon WHERE id_usario = %s"
+            cursor.execute(query, (obtener_id_usuario(),))
+            pirata = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return pirata
+def TieneAstronauta():
+    conn = connect()
+    astronauta = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT astronauta FROM gashapon WHERE id_usario = %s"
+            cursor.execute(query, (obtener_id_usuario(),))
+            astronauta = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return astronauta
+
+def TieneBasico():
+    conn = connect()
+    basico = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT basico FROM gashapon WHERE id_usario = %s"
+            cursor.execute(query, (obtener_id_usuario(),))
+            basico = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return basico
+
+def TieneRey():
+    conn = connect()
+    rey = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT rey FROM gashapon WHERE id_usario = %s"
+            cursor.execute(query, (obtener_id_usuario(),))
+            rey = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return rey
+
+def TieneCapitan():
+    conn = connect()
+    capitan = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT capitan FROM gashapon WHERE id_usario = %s"
+            cursor.execute(query, (obtener_id_usuario(),))
+            capitan = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return capitan
+
+def TieneTigre():
+    conn = connect()
+    tigre = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT tigre FROM gashapon WHERE id_usario = %s"
+            cursor.execute(query, (obtener_id_usuario(),))
+            tigre = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return tigre
+
+def TieneVikingo():
+    conn = connect()
+    vikingo = None
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para obtener el dinero del usuario
+            query = "SELECT vikingo FROM gashapon WHERE id_usario = %s"
+            cursor.execute(query, (obtener_id_usuario(),))
+            vikingo = cursor.fetchone()[0]
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return vikingo
+
+def obtenerValoresGashapon(id_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)  # Establecer el cursor para devolver resultados como diccionarios
+        try:
+            # Consulta para obtener los valores de la tabla "gashapon" para el usuario dado
+            query = "SELECT * FROM gashapon WHERE id_usuario = %s"
+            cursor.execute(query, (id_usuario,))
+            resultados = cursor.fetchone()
+
+            if resultados:
+                return resultados
+            else:
+                print("No se encontraron valores en la tabla gashapon para el usuario.")
+                return None
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+"""
+
+def activarColumnaGashapon(id_usuario, columna):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para actualizar la columna específica en la tabla "gashapon" a 1 para el usuario dado
+            query = f"UPDATE gashapon SET {columna} = 1 WHERE id_usuario = %s"
+            cursor.execute(query, (id_usuario,))
+            conn.commit()
+
+            print(f"La columna {columna} ha sido activada para el usuario con ID {id_usuario}.")
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)

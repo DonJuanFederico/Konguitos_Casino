@@ -23,6 +23,7 @@ h1 {
     overflow: hidden;
     position: relative;
     width: 100%;
+    height: 100%;
 }
 
 h1 span {
@@ -120,6 +121,7 @@ h1 span {
 
 #mostrar{
     left: 50%;
+    height: 10%;
 }
 
 :root{
@@ -149,34 +151,38 @@ img{
 
 .slider_container{
     position: relative;
-    top: -100%;
+    top: -99%;
     right: 00%;
     height: 50%;
     width: 21%;
     margin-left: auto;
     margin-right: auto;
-    border: 4px solid rgb(255, 0, 228);
+    border-radius: 20px;
     overflow: hidden;
 }
 
 .slider_container2{
     position: relative;
     left: 10%;
-    top: 0;
+    top: 1%;
     height: 50%;
     width: 21%;
-    border: 4px solid rgb(0, 255, 0);
+    border-radius: 20px;
     overflow: hidden;
 }
 
 .slider_container3{
     position: relative;
     right: -68%;
-    top: -50%;
+    top: -49%;
     height: 50%;
     width: 21%;
-    border: 4px solid rgb(0, 0, 255);
+    border-radius: 20px;
     overflow: hidden;
+}
+
+.slider_container:hover, .slider_container2:hover, .slider_container3:hover{
+    transform: scale(1.1);
 }
 
 #botonIzquierda{

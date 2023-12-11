@@ -8,52 +8,11 @@ body{
   background-size: cover;
   background-position: center 100%;
   z-index: 1;
+  overflow: hidden;
 }
 
 audio{
   display: none;
-}
-
-.title-word {
-  animation: color-animation 4s linear infinite;
-}
-
-.title {
-  margin: 0;
-  place-items: center;
-  text-align: center;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 800;
-  font-size: 8.5vw;
-  text-transform: uppercase;
-}
-
-.title-word-1 {
-  --color-1: #47EFFC;
-  --color-2: #7E098E;
-  --color-3: #228cb9;
-}
-
-.title-word-2 {
-  --color-1: #db11e8;
-  --color-2: #7776C7;
-  --color-3: #6729b6;
-}
-
-.title-word-3 {
-  --color-1: #389cc5;
-  --color-2: #61349A;
-  --color-3: #939393;
-}
-
-@keyframes color-animation {
-  0%    {color: var(--color-1)}
-  32%   {color: var(--color-2)}
-  33%   {color: var(--color-3)}
-  65%   {color: var(--color-1)}
-  66%   {color: var(--color-2)}
-  99%   {color: var(--color-3)}
-  100%  {color: var(--color-1)}
 }
 
 /* contenedor global */
@@ -148,7 +107,7 @@ article.hover:hover img:last-child{
 
 /* TEMPORIZADOR */
 .contendorTimers{
-  margin-top: 4%;
+  margin-top: 2%;
   top: 20%;
   height: 15%;
   position: relative;
@@ -190,3 +149,55 @@ article.hover:hover img:last-child{
   height: 60%;
   top: 10%;
 }
+
+@keyframes tipsy{
+  0% {
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  } 100% {
+    transform: translateX(-50%) translateY(-50%) rotate(360deg);
+  }
+}
+
+.container{
+  width: 30%;
+  height: 30%;
+
+}
+
+a {
+  color: #fffbf1;
+  text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
+  font-size: 80px;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: -3px;
+  margin: 0;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+a:before,
+a:after {
+  content: '';
+  padding: .4em .3em;
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  top: 50%;
+  display: block;
+  border: 15px solid red;
+  transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  animation: 10s infinite alternate ease-in-out tipsy;
+}
+
+a:before {
+  border-color: #1dd21f #1dd21f rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  z-index: -1;
+}
+
+a:after {
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #1dd21f #1dd21f;
+}
+

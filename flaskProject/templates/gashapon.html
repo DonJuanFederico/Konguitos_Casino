@@ -8,6 +8,9 @@
 <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
 {% endblock %}
 {% block body %}
+<audio controls autoplay loop id="audio-player">
+    <source src="/static/audio/historiasCorrientes.mp3" type="audio/mpeg">
+</audio>
 <div id="marcoMonedas">
     <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
     <div id="divMonedasUsuario">
@@ -32,6 +35,14 @@
         <li class="list-item">Avatar Pirata <span style="float: right;">2%</span></li>
         <li class="list-item">Avatar Astronauta<span style="float: right;">2%</span></li>
     </ul>
+</div>
+<div id="valoresGashapon" style="display: none;">
+    data-capitan="{{ CAPITAN }}"
+    data-tigre="{{ TIGRE }}"
+    data-astronauta="{{ ASTRONAUTA }}"
+    data-king="{{ KING }}"
+    data-pirata="{{ PIRATA }}"
+    data-viking="{{ VIKING }}"
 </div>
 {% endblock %}
 {% block javascript %}
