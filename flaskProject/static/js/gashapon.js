@@ -2,6 +2,14 @@
 var capitanValue = document.getElementById('valoresGashapon').getAttribute('data-capitan');
 // Ahora, puedes hacer lo que quieras con el valor de Capitan
 console.log('Valor de Capitan:', capitanValue);
+console.log(VALORES);
+// gashapon.js
+var gashaponValue = parseFloat(document.querySelector('#valoresGashapon').textContent);
+
+// Convierte la cadena JSON a un objeto JavaScript
+console.log('Valores de Gashapon:', gashaponValue);
+var dinero = parseFloat(document.querySelector('#monedasUsuario').textContent);
+console.log('Dinero del usuario:', dinero);
 
 function girar() {
     // Hide the ruedecilla element
@@ -62,7 +70,7 @@ function girar() {
 
                 if (recompensa.value) {
                     // Si es un valor monetario, simplemente actualizar el dinero del usuario
-                    premio = recompensa[i].value;
+                    premio = recompensa.value;
                     actualizarDineroUsuario(premio);
                     agregarDinero();
                     alert("¡Has ganado una recompensa: " + recompensa.value + "KC!");

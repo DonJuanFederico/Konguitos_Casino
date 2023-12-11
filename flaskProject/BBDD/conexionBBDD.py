@@ -851,7 +851,7 @@ def TieneVikingo():
             cursor.close()
             close_connection(conn)
     return vikingo
-
+"""
 def obtenerValoresGashapon(id_usuario):
     conn = connect()
     if conn:
@@ -872,7 +872,7 @@ def obtenerValoresGashapon(id_usuario):
         finally:
             cursor.close()
             close_connection(conn)
-"""
+
 
 def activarColumnaGashapon(id_usuario, columna):
     conn = connect()
