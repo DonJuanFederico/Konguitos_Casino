@@ -135,7 +135,6 @@ audio{
     height: 55%;
     width: 100%;
     border-radius: 50%;
-    background-image: url("https://i.pinimg.com/236x/52/01/5f/52015f81939f893c56b492a99c27d553.jpg");
     background-size: cover;
     cursor: pointer;
 }

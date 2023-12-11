@@ -1,3 +1,19 @@
+//Cargar el avatar elegido por el usuario
+document.addEventListener("DOMContentLoaded", function () {
+    // Supongamos que obtienes estos datos de la base de datos
+    const nombrePersonaje = "basic"; //Aquí debería estar el nombre sacado de la BBDD
+    const colorFondo = "white"; // Aquí debería estar el color sacado de la BBDD
+
+    const rutaBase = "/static/images/avatares/"; // Ruta base donde se encuentran las imágenes de los avatares
+    const rutaAvatarCompleta = rutaBase + nombrePersonaje + ".png";
+
+    const contenedorAvatar = document.querySelector('.imagen');
+
+    // Aplicar la combinación de color de fondo + personaje al contenedor del avatar al cargar la página
+    contenedorAvatar.style.backgroundColor = colorFondo;
+    contenedorAvatar.style.backgroundImage = `url('${rutaAvatarCompleta}')`;
+});
+
 // campos para poder editar
 var nombre_usuario = document.getElementById('introducir');
 var email = document.getElementById('introducir1');
@@ -53,3 +69,4 @@ function generarCodigoCorreo(){
     hacer un swal.fire para realizar el cambio de idioma
     Para traducir la pagina la idea es q lea el texto de cada pagina y la traduzca (la aplicacion entera)
 */
+
