@@ -159,7 +159,7 @@ function newGame() {
     betAmount = parseFloat(betInput.value);
 
     // Validar si la apuesta es válida (por ejemplo, si es mayor que cero)
-    if (betAmount <= 0 || isNaN(betAmount)) {
+    if (betAmount <= 0 || isNaN(betAmount) || betAmount > balance) {
         gameOver = true;
         alert('Ingresa una cantidad válida para apostar.');
 
