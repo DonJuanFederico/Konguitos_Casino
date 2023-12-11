@@ -500,6 +500,22 @@ def buscar_anfitrion():
     resultado = buscarAnfitrion(nombre_usuario)
     return jsonify({'resultado': resultado})
 
+@app.route('/obtener_avatar', methods=['GET'])
+def obtener_Avatar():
+    usuario = session.get('nombreUsuario')
+    id_usuario = obtenerId(usuario)
+    resultado = obtenerAvatar(id_usuario)
+    return jsonify({'resultado': resultado})
+
+@app.route('/modificar_avatar', methods=['POST'])
+def modificar_Avatar():
+    usuario = session.get('nombreUsuario')
+    id_usuario = obtenerId(usuario)
+    datos_avatar = request.get_json()
+    fondo = datos_avatar.get('backgroundColor')
+    personaje = datos_avatar.get('characterImage')
+    resultado = modificarAvatar(id_usuario, fondo, personaje)
+    return jsonify({'resultado': resultado})
 
 if __name__ == "__main__":
     import os

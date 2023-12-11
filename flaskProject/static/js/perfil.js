@@ -1,18 +1,35 @@
-//Cargar el avatar elegido por el usuario
+//Cargar imagen actual del perfil
 document.addEventListener("DOMContentLoaded", function () {
-    // Supongamos que obtienes estos datos de la base de datos
-    const nombrePersonaje = "basic"; //Aquí debería estar el nombre sacado de la BBDD
-    const colorFondo = "white"; // Aquí debería estar el color sacado de la BBDD
+    var xhr = new XMLHttpRequest();
 
-    const rutaBase = "/static/images/avatares/"; // Ruta base donde se encuentran las imágenes de los avatares
-    const rutaAvatarCompleta = rutaBase + nombrePersonaje + ".png";
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                console.log("Respuesta del servidor:", data);
+                const nombrePersonaje = data.resultado.personaje; // Asigna el nombre del personaje
+                const colorFondo = data.resultado.fondo;
+                console.log("Nombre del personaje obtenido:", nombrePersonaje);
 
-    const contenedorAvatar = document.querySelector('.imagen');
+                const rutaBase = "/static/images/avatares/";
+                const rutaAvatarCompleta = rutaBase + nombrePersonaje + ".png";
+                const contenedorAvatar = document.querySelector('.imagen');
 
-    // Aplicar la combinación de color de fondo + personaje al contenedor del avatar al cargar la página
-    contenedorAvatar.style.backgroundColor = colorFondo;
-    contenedorAvatar.style.backgroundImage = `url('${rutaAvatarCompleta}')`;
+                contenedorAvatar.style.backgroundColor = colorFondo;
+                contenedorAvatar.style.backgroundImage = `url('${rutaAvatarCompleta}')`;
+
+            } else {
+                console.error('Error al obtener el nombre del personaje:', xhr.status);
+            }
+        }
+    };
+
+    xhr.open("GET", "/obtener_avatar", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send();
 });
+
 
 // campos para poder editar
 var nombre_usuario = document.getElementById('introducir');

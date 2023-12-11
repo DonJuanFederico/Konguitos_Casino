@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'plantilla.html' %}
+{% block title %} Selector de Avatares {% endblock %}
+{% block stylesheets %}
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/avatares.css">
-    <title>Selector de Avatares</title>
-</head>
-<body>
+{% endblock %}
+{% block body %}
     <h1>Selector de Avatares</h1>
     
     <div id="current-photo-container">
-        <h1>Foto actual</h1>
+        <h2>Foto actual</h2>
         <div id="current-photo" class="avatar">
             <div class="background"></div>
             <div class="character"></div>
@@ -20,7 +17,7 @@
     
     <div id="photo-container">
         <div class="section">
-            <h1>Colores de fondo</h1>
+            <h2>Colores de fondo</h2>
                 <div class="image-container background-container">
                     <div class="background white" data-background="white"></div>
                     <div class="background red" data-background="red"></div>
@@ -34,7 +31,7 @@
 
         
         <div class="section">
-            <h1>Colección Conguitos</h1>
+            <h2>Colección Conguitos</h2>
             <div class="image-container character-container">
                 <div class="character basic" data-character="basic"></div>
                 <div class="character viking" data-character="viking" data-locked="true"></div>
@@ -46,7 +43,7 @@
         </div>
         
         <div class="section">
-            <h1>Colaboraciones</h1>
+            <h2>Colaboraciones</h2>
             <div class="image-container character-container">
                 <div class="character tiger" data-character="tiger" data-locked="true"></div>
                 <div class="character captain" data-character="captain" data-locked="true"></div>
@@ -54,11 +51,19 @@
             </div>
         </div>
     </div>
-    
+
+    <button id="save-changes">Guardar cambios</button>
     <button id="unlock-button">Desbloquear todo</button>
 
+    <audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/fortnite.mp3" type="audio/mpeg">
+    </audio>
+
+{% endblock %}
+{% block javascript %}
     <script src="/static/js/avatares.js"></script>
-</body>
-</html>
+    <script src="/static/js/mutearPagina.js"></script>
+{% endblock %}
+
 
 
