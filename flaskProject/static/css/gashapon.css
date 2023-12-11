@@ -28,7 +28,7 @@ body {
 #rectangle {
     position: absolute;
     width: 25%;
-    height: 35%;
+    height: 43%;
     background-color: lightblue;
     border: 2px solid black;
     top: 10%;
@@ -129,6 +129,7 @@ buttonspin {
 }
 
 #botonComprarMonedas {
+    cursor: pointer;
     margin-left: -190%;
     margin-top: -30%;
     transform: scale(0.07);

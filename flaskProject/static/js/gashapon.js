@@ -59,99 +59,103 @@ function activarColumnaGashapon(id_usuario, columna) {
 }
 
 function girar() {
-    // Hide the ruedecilla element
-    document.querySelector('#ruedecilla').style.display = "none";
-    apuesta = 10;
-    actualizarDineroUsuario(-apuesta)
-    retirarDinero()
-    var imagenElement = document.getElementById("GachaponWey");
-    var imageSources = [
-        "/static/images/gashapon/1Gachapon.png",
-        "/static/images/gashapon/2Gachapon.png",
-        "/static/images/gashapon/3Gachapon.png",
-        "/static/images/gashapon/4Gachapon.png",
-        "/static/images/gashapon/3Gachapon.png",
-        "/static/images/gashapon/2Gachapon.png",
-        "/static/images/gashapon/1Gachapon.png"
-    ];
+    if(dinero < 10){
+        alert("No tienes suficiente dinero para jugar.");
+    }else {
+        // Hide the ruedecilla element
+        document.querySelector('#ruedecilla').style.display = "none";
+        apuesta = 10;
+        actualizarDineroUsuario(-apuesta)
+        retirarDinero()
+        var imagenElement = document.getElementById("GachaponWey");
+        var imageSources = [
+            "/static/images/gashapon/1Gachapon.png",
+            "/static/images/gashapon/2Gachapon.png",
+            "/static/images/gashapon/3Gachapon.png",
+            "/static/images/gashapon/4Gachapon.png",
+            "/static/images/gashapon/3Gachapon.png",
+            "/static/images/gashapon/2Gachapon.png",
+            "/static/images/gashapon/1Gachapon.png"
+        ];
 
-    /*var rewards = [
-        {value: 500, probability: 0.01}, // 1% de probabilidad
-        {value: 100, probability: 0.025},  // 2.5% de probabilidad
-        {value: 50, probability: 0.05},  // 5% de probabilidad
-        {value: 10, probability: 0.155}, // 15.5% de probabilidad
-        {value: 5, probability: 0.30},   // 30% de probabilidad
-        {value: 2, probability: 0.40}, // 40% de probabilidad
-        {name: "pirata", probability: 0.01}, // 1% de probabilidad
-        {name: "astronauta", probability: 0.01}, // 1% de probabilidad
-        {name: "rey", probability: 0.01}, // 1% de probabilidad
-        {name: "capitan", probability: 0.01}, // 1% de probabilidad
-        {name: "tigre", probability: 0.01}, // 1% de probabilidad
-        {name: "vikingo", probability: 0.01} // 1% de probabilidad
-    ];*/
+        /*var rewards = [
+            {value: 500, probability: 0.01}, // 1% de probabilidad
+            {value: 100, probability: 0.025},  // 2.5% de probabilidad
+            {value: 50, probability: 0.05},  // 5% de probabilidad
+            {value: 10, probability: 0.155}, // 15.5% de probabilidad
+            {value: 5, probability: 0.30},   // 30% de probabilidad
+            {value: 2, probability: 0.40}, // 40% de probabilidad
+            {name: "pirata", probability: 0.01}, // 1% de probabilidad
+            {name: "astronauta", probability: 0.01}, // 1% de probabilidad
+            {name: "rey", probability: 0.01}, // 1% de probabilidad
+            {name: "capitan", probability: 0.01}, // 1% de probabilidad
+            {name: "tigre", probability: 0.01}, // 1% de probabilidad
+            {name: "vikingo", probability: 0.01} // 1% de probabilidad
+        ];*/
 
-   var rewards = [
-        {value: 500, probability: 0.01}, // 1% de probabilidad
-        {value: 100, probability: 0.01},  // 2.5% de probabilidad
-        {value: 50, probability: 0.01},  // 5% de probabilidad
-        {value: 10, probability: 0.01}, // 15.5% de probabilidad
-        {value: 5, probability: 0.01},   // 30% de probabilidad
-        {value: 2, probability: 0.01}, // 40% de probabilidad
-        {name: "pirata", probability: 0.1567}, // 1% de probabilidad
-        {name: "astronauta", probability: 0.1567}, // 1% de probabilidad
-        {name: "rey", probability: 0.1567}, // 1% de probabilidad
-        {name: "capitan", probability: 0.1567}, // 1% de probabilidad
-        {name: "tigre", probability: 0.1567}, // 1% de probabilidad
-        {name: "vikingo", probability: 0.1567} // 1% de probabilidad
-    ];
+        var rewards = [
+            {value: 500, probability: 0.01}, // 1% de probabilidad
+            {value: 100, probability: 0.01},  // 2.5% de probabilidad
+            {value: 50, probability: 0.01},  // 5% de probabilidad
+            {value: 10, probability: 0.01}, // 15.5% de probabilidad
+            {value: 5, probability: 0.01},   // 30% de probabilidad
+            {value: 2, probability: 0.01}, // 40% de probabilidad
+            {name: "pirata", probability: 0.1567}, // 1% de probabilidad
+            {name: "astronauta", probability: 0.1567}, // 1% de probabilidad
+            {name: "rey", probability: 0.1567}, // 1% de probabilidad
+            {name: "capitan", probability: 0.1567}, // 1% de probabilidad
+            {name: "tigre", probability: 0.1567}, // 1% de probabilidad
+            {name: "vikingo", probability: 0.1567} // 1% de probabilidad
+        ];
 
-    var currentIndex = 0;
-    var rotationTimeout;
+        var currentIndex = 0;
+        var rotationTimeout;
 
-    function changeImage() {
-        imagenElement.src = imageSources[currentIndex];
-        currentIndex = (currentIndex + 1) % imageSources.length; // Circular rotation
-        rotationTimeout = setTimeout(changeImage, 300); // Change image every 300 milliseconds
-    }
+        function changeImage() {
+            imagenElement.src = imageSources[currentIndex];
+            currentIndex = (currentIndex + 1) % imageSources.length; // Circular rotation
+            rotationTimeout = setTimeout(changeImage, 300); // Change image every 300 milliseconds
+        }
 
-    function stopRotation() {
-        clearTimeout(rotationTimeout);
-        document.querySelector('#ruedecilla').style.display = "block";
-        mostrarRecompensa();
-    }
+        function stopRotation() {
+            clearTimeout(rotationTimeout);
+            document.querySelector('#ruedecilla').style.display = "block";
+            mostrarRecompensa();
+        }
 
-    // Función para mostrar la recompensa
-    function mostrarRecompensa() {
-        var randomNumber = Math.random(); // Generar un número aleatorio entre 0 y 1
+        // Función para mostrar la recompensa
+        function mostrarRecompensa() {
+            var randomNumber = Math.random(); // Generar un número aleatorio entre 0 y 1
 
-        var accumulatedProbability = 0;
-        for (var i = 0; i < rewards.length; i++) {
-            accumulatedProbability += rewards[i].probability;
-            if (randomNumber <= accumulatedProbability) {
-                var recompensa = rewards[i];
+            var accumulatedProbability = 0;
+            for (var i = 0; i < rewards.length; i++) {
+                accumulatedProbability += rewards[i].probability;
+                if (randomNumber <= accumulatedProbability) {
+                    var recompensa = rewards[i];
 
-                if (recompensa.value) {
-                    // Si es un valor monetario, simplemente actualizar el dinero del usuario
-                    premio = recompensa.value;
-                    actualizarDineroUsuario(premio);
-                    agregarDinero();
-                    alert("¡Has ganado una recompensa: " + recompensa.value + "KC!");
-                } else if (recompensa.name) {
-                    // Si es un avatar, realizar acciones específicas para el tipo de avatar
-                    manejarAvatar(recompensa.name);
-                    alert("¡Has ganado una recompensa: Avatar " + recompensa.name + "!");
+                    if (recompensa.value) {
+                        // Si es un valor monetario, simplemente actualizar el dinero del usuario
+                        premio = recompensa.value;
+                        actualizarDineroUsuario(premio);
+                        agregarDinero();
+                        alert("¡Has ganado una recompensa: " + recompensa.value + "KC!");
+                    } else if (recompensa.name) {
+                        // Si es un avatar, realizar acciones específicas para el tipo de avatar
+                        manejarAvatar(recompensa.name);
+                        alert("¡Has ganado una recompensa: Avatar " + recompensa.name + "!");
+                    }
+
+                    break;
                 }
-
-                break;
             }
         }
+
+        // Iniciar la rotación de la imagen
+        changeImage();
+
+        // Detener la rotación después de 2.1 segundos (2100 milisegundos)
+        setTimeout(stopRotation, 2100);
     }
-
-    // Iniciar la rotación de la imagen
-    changeImage();
-
-    // Detener la rotación después de 2.1 segundos (2100 milisegundos)
-    setTimeout(stopRotation, 2100);
 }
 
 function manejarAvatar(tipoAvatar) {
