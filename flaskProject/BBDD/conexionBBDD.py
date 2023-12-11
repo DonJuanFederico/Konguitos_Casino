@@ -881,12 +881,17 @@ def obtenerValoresGashapon(id_usuario):
 
 
 def activarColumnaGashapon(id_usuario, columna):
+    columnas_permitidas = ['pirata', 'astronauta', 'rey', 'capitan', 'tigre', 'vikingo']
+    if columna not in columnas_permitidas:
+        print("Columna no permitida")
+        return
     conn = connect()
     if conn:
         cursor = conn.cursor()
         try:
-            # Consulta para actualizar la columna específica en la tabla "gashapon" a 1 para el usuario dado
             query = f"UPDATE gashapon SET {columna} = 1 WHERE id_usuario = %s"
+            print("Query ejecutada:", query)  # Agregar esta línea para depurar
+
             cursor.execute(query, (id_usuario,))
             conn.commit()
 

@@ -348,6 +348,13 @@ def agregar_dinero():
     return "Dinero agregado correctamente"
 
 
+@app.route('/update_columna_gashapon', methods=['POST'])
+def update_columna_gashapon():
+    id_usuario = request.form.get('id_usuario')  # Obtener el valor de 'id_usuario' de la solicitud POST
+    columna = request.form.get('columna')  # Obtener el valor de 'columna' de la solicitud POST
+    activarColumnaGashapon(id_usuario, columna)
+    return "Columna actualizada correctamente"
+
 @app.route('/avatar_reclamado', methods=['POST'])
 def avatarReclamado():
     cantidad_a_agregar = float(request.form.get('reclamar'))
