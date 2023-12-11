@@ -326,7 +326,7 @@ def gashapon():
     print("vikingo: ", vikingo)
     # Pasa las variables a la plantilla
     return render_template('gashapon.html', DINERO=DINERO, PIRATA=pirata, ASTRONAUTA=astronauta, REY=rey,
-                           CAPITAN=capitan, TIGRE=tigre, VIKINGO=vikingo)
+                           CAPITAN=capitan, TIGRE=tigre, VIKINGO=vikingo, ID=id_usuario)
 
 
 @app.route('/Juegos/Juegos_extra/', methods=['GET'])

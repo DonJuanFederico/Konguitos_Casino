@@ -1,16 +1,21 @@
-// Obtén los valores de Capitan desde el div oculto
-var capitanValue = document.getElementById('valoresGashapon').getAttribute('data-capitan');
-// Ahora, puedes hacer lo que quieras con el valor de Capitan
-console.log('Valor de Capitan:', capitanValue);
-console.log(VALORES);
-// gashapon.js
-var gashaponValue = parseFloat(document.querySelector('#valoresGashapon').textContent);
 
-// Convierte la cadena JSON a un objeto JavaScript
-console.log('Valores de Gashapon:', gashaponValue);
+
 var dinero = parseFloat(document.querySelector('#monedasUsuario').textContent);
 console.log('Dinero del usuario:', dinero);
-
+var pirata = document.querySelector('#pirata').textContent;
+console.log('Pirata: ', pirata);
+var astronauta = document.querySelector('#astronauta').textContent;
+console.log('Astronauta: ', astronauta);
+var rey = document.querySelector('#rey').textContent;
+console.log('Rey: ', rey);
+var capitan = document.querySelector('#capitan').textContent;
+console.log('Capitan: ', capitan);
+var tigre = document.querySelector('#tigre').textContent;
+console.log('Tigre: ', tigre);
+var vikingo = document.querySelector('#vikingo').textContent;
+console.log('Vikingo: ', vikingo);
+var id_usuario = document.querySelector('#id_usuario').textContent;
+console.log('Id usuario: ', id_usuario);
 function girar() {
     // Hide the ruedecilla element
     document.querySelector('#ruedecilla').style.display = "none";
@@ -32,7 +37,7 @@ function girar() {
         {value: 500, probability: 0.01}, //2% probability
         {value: 100, probability: 0.025},  //5% probability
         {value: 50, probability: 0.05},  //10% probability
-        {value: 10, probability: 0.155},  //15% probability
+        {value: 10, probability: 0.149},  //15% probability
         {value: 5, probability: 0.30},   //25
         {value: 2, probability: 0.40},
         {name: "pirata", probability: 0.01},
@@ -96,22 +101,58 @@ function manejarAvatar(tipoAvatar) {
     // Realizar acciones específicas para cada tipo de avatar
     switch (tipoAvatar) {
         case "pirata":
-            activarColumnaGashapon(id_usuario, pirata);
+            if(pirata == 0){
+                activarColumnaGashapon(id_usuario, pirata);
+            }else{
+                alert("Ya tienes este avatar. Te devolvemos el dinero.");
+                actualizarDineroUsuario(apuesta);
+                agregarDinero();
+            }
             break;
         case "astronauta":
-            activarColumnaGashapon(id_usuario, astronauta);
+            if(pirata == 0){
+                activarColumnaGashapon(id_usuario, pirata);
+            }else{
+                alert("Ya tienes este avatar. Te devolvemos el dinero.");
+                actualizarDineroUsuario(apuesta);
+                agregarDinero();
+            }
             break;
         case "rey":
-            activarColumnaGashapon(id_usuario, rey);
+            if(pirata == 0){
+                activarColumnaGashapon(id_usuario, pirata);
+            }else{
+                alert("Ya tienes este avatar. Te devolvemos el dinero.");
+                actualizarDineroUsuario(apuesta);
+                agregarDinero();
+            }
             break;
         case "capitan":
-            activarColumnaGashapon(id_usuario, capitan);
+            if(pirata == 0){
+                activarColumnaGashapon(id_usuario, pirata);
+            }else{
+                alert("Ya tienes este avatar. Te devolvemos el dinero.");
+                actualizarDineroUsuario(apuesta);
+                agregarDinero();
+            }
             break;
         case "tigre":
-            activarColumnaGashapon(id_usuario, tigre);
+            if(pirata == 0){
+                activarColumnaGashapon(id_usuario, pirata);
+            }else{
+                alert("Ya tienes este avatar. Te devolvemos el dinero.");
+                actualizarDineroUsuario(apuesta);
+                agregarDinero();
+            }
             break;
         case "vikingo":
-            activarColumnaGashapon(id_usuario, vikingo);
+            if(pirata == 0){
+                activarColumnaGashapon(id_usuario, pirata);
+            }else{
+                alert("Ya tienes este avatar. Te devolvemos el dinero.");
+                actualizarDineroUsuario(apuesta);
+                agregarDinero();
+            }
             break;
         default:
             // Acciones por defecto o manejar otros avatares si es necesario
@@ -119,6 +160,9 @@ function manejarAvatar(tipoAvatar) {
     }
 }
 
+document.getElementById("botonComprarMonedas").addEventListener("click", function () {
+    window.location.href = "/dinero/";
+});
 function actualizarDineroUsuario(cantidad) {
     let dineroUsuarioElement = document.querySelector('#monedasUsuario');
     dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) + cantidad;
