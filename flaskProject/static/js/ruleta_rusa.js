@@ -13,8 +13,9 @@ async function iniciarJuego() {
     // Obtiene el valor de apuesta justo antes de usarlo
     apuesta = parseFloat(document.querySelector('#bet').value);
     // Comprueba que la apuesta es válida
-    if (apuesta > 1 && apuesta <= saldo) {
+    if (apuesta >= 1 && apuesta <= saldo) {
         bala = Math.floor(Math.random() * 6) + 1;
+        console.log("bala: " + bala)
         document.querySelector('#recuadroApuesta').style.display = "none";
         document.getElementById('iniciarJuego').style.display = 'none';
         console.log("apuesta: " + apuesta)
@@ -24,7 +25,7 @@ async function iniciarJuego() {
         await EncenderRecamaras();
     } else {
         // Muestra un mensaje de error al usuario
-        alert("La apuesta no es válida. Debe ser un NUMERO mayor que 1 y menor o igual que el saldo. ");
+        alert("La apuesta no es válida. Debe ser un NUMERO positivo y menor que el saldo. ");
     }
 }
 
@@ -84,10 +85,13 @@ async function disparar() {
     } else {
         const elementoRecamara = document.getElementById(`recamara${recamara}`);
         if (elementoRecamara) {
-            if (recamara === 5 && recamara !== bala) {
+            if (recamara === 5) {
                 elementoRecamara.style.backgroundColor = "#47f403";
                 mensaje.textContent = "Has ganada suertudo.";
-                verficarResultado(recamara - 1);
+                alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+                verficarResultado(recamara);
+                //Espera 2 segundos y reinicia el juego
+                setTimeout(reiniciarJuego, 2000);
             } else if (recamara === bala) {
                 elementoRecamara.style.backgroundColor = "#d70c0c";
                 mensaje.textContent = "Moriste puto pringado";
@@ -105,6 +109,8 @@ async function disparar() {
             console.error(`El elemento recamara${recamara} no existe.`);
         }
     }
+    //espera 1 segundo para que se pueda disparar otra vez
+    await new Promise(resolve => setTimeout(resolve, 500));
 }
 
 function reiniciarJuego() {
@@ -159,7 +165,6 @@ function verficarResultado(recamara) {
         agregarDinero()
     } else if (recamara === 5) {
         multiplicador = 2;
-        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
