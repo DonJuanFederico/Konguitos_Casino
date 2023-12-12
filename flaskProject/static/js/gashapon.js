@@ -59,9 +59,9 @@ function activarColumnaGashapon(id_usuario, columna) {
 }
 
 function girar() {
-    if(dinero < 10){
+    if (dinero < 10) {
         alert("No tienes suficiente dinero para jugar.");
-    }else {
+    } else {
         // Hide the ruedecilla element
         document.querySelector('#ruedecilla').style.display = "none";
         apuesta = 10;
@@ -78,7 +78,7 @@ function girar() {
             "/static/images/gashapon/1Gachapon.png"
         ];
 
-        /*var rewards = [
+        var rewards = [
             {value: 500, probability: 0.01}, // 1% de probabilidad
             {value: 100, probability: 0.025},  // 2.5% de probabilidad
             {value: 50, probability: 0.05},  // 5% de probabilidad
@@ -91,22 +91,8 @@ function girar() {
             {name: "capitan", probability: 0.01}, // 1% de probabilidad
             {name: "tigre", probability: 0.01}, // 1% de probabilidad
             {name: "vikingo", probability: 0.01} // 1% de probabilidad
-        ];*/
-
-        var rewards = [
-            {value: 500, probability: 0.01}, // 1% de probabilidad
-            {value: 100, probability: 0.01},  // 2.5% de probabilidad
-            {value: 50, probability: 0.01},  // 5% de probabilidad
-            {value: 10, probability: 0.01}, // 15.5% de probabilidad
-            {value: 5, probability: 0.01},   // 30% de probabilidad
-            {value: 2, probability: 0.01}, // 40% de probabilidad
-            {name: "pirata", probability: 0.1567}, // 1% de probabilidad
-            {name: "astronauta", probability: 0.1567}, // 1% de probabilidad
-            {name: "rey", probability: 0.1567}, // 1% de probabilidad
-            {name: "capitan", probability: 0.1567}, // 1% de probabilidad
-            {name: "tigre", probability: 0.1567}, // 1% de probabilidad
-            {name: "vikingo", probability: 0.1567} // 1% de probabilidad
         ];
+
 
         var currentIndex = 0;
         var rotationTimeout;
@@ -164,7 +150,7 @@ function manejarAvatar(tipoAvatar) {
         case "pirata":
             if (PIRATA == 0) {
                 console.log("pirata: ", PIRATA, "id_usuario: ", id_usuario)
-                activarColumnaGashapon(id_usuario,"pirata");
+                activarColumnaGashapon(id_usuario, "pirata");
                 console.log("pirata: ", PIRATA)
             } else {
                 alert("Ya tienes este avatar: pirata. Te devolvemos el dinero.");
@@ -175,7 +161,7 @@ function manejarAvatar(tipoAvatar) {
         case "astronauta":
             if (ASTRONAUTA == 0) {
                 console.log("astronauta: ", ASTRONAUTA, "id_usuario: ", id_usuario)
-                activarColumnaGashapon(id_usuario,"astronauta");
+                activarColumnaGashapon(id_usuario, "astronauta");
                 console.log("astronauta: ", ASTRONAUTA)
             } else {
                 alert("Ya tienes este avatar: astronauta. Te devolvemos el dinero.");
@@ -186,7 +172,7 @@ function manejarAvatar(tipoAvatar) {
         case "rey":
             if (REY == 0) {
                 console.log("rey: ", REY, "id_usuario: ", id_usuario)
-                activarColumnaGashapon(id_usuario,"rey");
+                activarColumnaGashapon(id_usuario, "rey");
                 console.log("rey: ", REY)
             } else {
                 alert("Ya tienes este avatar: rey. Te devolvemos el dinero.");
@@ -197,7 +183,7 @@ function manejarAvatar(tipoAvatar) {
         case "capitan":
             if (CAPITAN == 0) {
                 console.log("capitan: ", CAPITAN, "id_usuario: ", id_usuario)
-                activarColumnaGashapon(id_usuario,"capitan");
+                activarColumnaGashapon(id_usuario, "capitan");
                 console.log("capitan: ", CAPITAN)
             } else {
                 alert("Ya tienes este avatar: capitan. Te devolvemos el dinero.");
@@ -208,7 +194,7 @@ function manejarAvatar(tipoAvatar) {
         case "tigre":
             if (TIGRE == 0) {
                 console.log("tigre: ", TIGRE, "id_usuario: ", id_usuario)
-                activarColumnaGashapon(id_usuario,"tigre");
+                activarColumnaGashapon(id_usuario, "tigre");
                 console.log("tigre: ", TIGRE)
             } else {
                 alert("Ya tienes este avatar: tigre. Te devolvemos el dinero.");
@@ -219,7 +205,7 @@ function manejarAvatar(tipoAvatar) {
         case "vikingo":
             if (VIKINGO == 0) {
                 console.log("vikingo: ", VIKINGO, "id_usuario: ", id_usuario)
-                activarColumnaGashapon(id_usuario,"vikingo");
+                activarColumnaGashapon(id_usuario, "vikingo");
                 console.log("vikingo: ", VIKINGO)
             } else {
                 alert("Ya tienes este avatar: vikingo. Te devolvemos el dinero.");
@@ -240,6 +226,15 @@ document.getElementById("botonComprarMonedas").addEventListener("click", functio
 function actualizarDineroUsuario(cantidad) {
     let dineroUsuarioElement = document.querySelector('#monedasUsuario');
     dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) + cantidad;
+}
+
+// funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
+let prevUrl = document.referrer;
+function volverAtras(){
+    if(prevUrl.indexOf(window.location.host) !== -1) {
+    // Ir a la página anterior
+    window.history.back();
+    }
 }
 
 
