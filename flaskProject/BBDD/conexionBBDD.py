@@ -128,7 +128,6 @@ def agregarDineroTarjeta(cantidad_a_agregar):           #Este metodo no afecta a
         finally:
             cursor.close()
             close_connection(conn)
-
 def agregarDineroGanado(cantidad_a_agregar):     #Este metodo agrega el dinero que se ha ganado jugando a juegos (lo agrega a dinero ganado y a dinero)
         conn = connect()
         if conn:
@@ -144,7 +143,6 @@ def agregarDineroGanado(cantidad_a_agregar):     #Este metodo agrega el dinero q
             finally:
                 cursor.close()
                 close_connection(conn)
-
 def retirarDinero(cantidad_a_retirar):
     conn = connect()
     if conn:
@@ -375,7 +373,7 @@ def editarTarjeta(id_tarjeta, numero_tarjeta, nombre_titular, fecha_caducidad, c
             close_connection(conn)
             return False  # En caso de error
 
-def editarForoImagen(id_usuario, nueva_foto_img):
+def editarFotoImagen(id_usuario, nueva_foto_img):
     conn = connect()
     if conn:
         cursor = conn.cursor()

@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sonicCorriendo.style.opacity = 0;
             sonicCorriendo.style.left = "-100%";
 
-        }, 1000); // Ajusta el tiempo de espera según tus necesidades
+        }, Math.floor(Math.random() * 8000)); // Ajusta el tiempo de espera según tus necesidades
     }
 
     // Llama a la función cada 5 segundos
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("guardar").addEventListener("click", function () {
 
         valor = document.getElementById("numero").value;
-        if ((saldo - valor) >= 0) {
+        if ((valor>=0)&&(saldo - valor >= 0)) {
             saldo = saldo - valor;
             apuesta = valor;
             console.log("Se ha guardado el número " + apuesta);
