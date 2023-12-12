@@ -79,10 +79,10 @@ function girar() {
         ];
 
         var rewards = [
-            {value: 500, probability: 0.01}, // 1% de probabilidad
+            {value: 500, probability: 0.005}, // 1% de probabilidad
             {value: 100, probability: 0.025},  // 2.5% de probabilidad
             {value: 50, probability: 0.05},  // 5% de probabilidad
-            {value: 10, probability: 0.155}, // 15.5% de probabilidad
+            {value: 10, probability: 0.16}, // 16% de probabilidad
             {value: 5, probability: 0.30},   // 30% de probabilidad
             {value: 2, probability: 0.40}, // 40% de probabilidad
             {name: "pirata", probability: 0.01}, // 1% de probabilidad
