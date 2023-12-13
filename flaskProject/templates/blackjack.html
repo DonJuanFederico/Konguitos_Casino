@@ -1,47 +1,56 @@
 {% extends 'plantilla.html' %}
 {% block title %} Blackjack {% endblock %}
 {% block stylesheets %}
-    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/static/css/blackjack.css">
+<link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="/static/css/blackjack.css">
 {% endblock %}
 {% block body %}
-    <div id="container">
-        <h1>Blackjack</h1>
-        <h3>Tu mano: <span id="player-hand-value"></span></h3>
-        <div id="player-hand" class="card-container">
-            <img src="/static/images/cards/reverse.jpg" class="card-image" />
-            <img src="/static/images/cards/reverse.jpg" class="card-image" />
-        </div>
-        <h3>Mano de la banca: <span id="dealer-hand-value" class="hidden"></span></h3>
-        <div id="dealer-hand" class="card-container">
-            <img src="/static/images/cards/reverse.jpg" class="card-image" />
-            <img src="/static/images/cards/reverse.jpg" class="card-image" />
-        </div>
-        <p id="result"></p>
-        <button id="deal-button">Repartir</button>
-        <button id="hit-button">Pedir Carta</button>
-        <button id="stand-button">Plantarse</button>
-
+<div id="container">
+    <h1>Blackjack</h1>
+    <h3>Tu mano: <span id="player-hand-value"></span></h3>
+    <div id="player-hand" class="card-container">
+        <img src="/static/images/cards/reverse.jpg" class="card-image"/>
+        <img src="/static/images/cards/reverse.jpg" class="card-image"/>
     </div>
-
-    <div id = cajaApuesta>
-        <img id ="fotoMoneda" src="/static/images/moneda.png">
-        <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
-        <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
+    <h3>Mano de la banca: <span id="dealer-hand-value" class="hidden"></span></h3>
+    <div id="dealer-hand" class="card-container">
+        <img src="/static/images/cards/reverse.jpg" class="card-image"/>
+        <img src="/static/images/cards/reverse.jpg" class="card-image"/>
     </div>
+    <p id="result"></p>
+    <button id="deal-button">Repartir</button>
+    <button id="hit-button">Pedir Carta</button>
+    <button id="stand-button">Plantarse</button>
 
-    <div id="bet-container">
-        <label for="apuesta">Cantidad a apostar:</label>
-        <input type="number" id="apuesta" min="1">
-    </div>
+</div>
 
-    <audio controls autoplay loop id="audio-player">
-        <source src="/static/audio/lancer.mp3" type="audio/mpeg">
-    </audio>
+<div id=cajaApuesta>
+    <img id="fotoMoneda" src="/static/images/moneda.png">
+    <img id="masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
+    <span style="color: white" id="monedas">{{ DINERO }}</span><br><br>
+</div>
 
+<div id="bet-container">
+    <label for="apuesta">Cantidad a apostar:</label>
+    <input type="number" id="apuesta" min="1">
+</div>
+
+<audio controls autoplay loop id="audio-player">
+    <source src="/static/audio/lancer.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Botones de reglas y recompensas -->
+<div class="botonDeReglas">
+    <buttonRR onclick="reglas()">Reglas</buttonRR>
+</div>
+<div class="botonDeRecompensas">
+    <buttonRR onclick="recompensas()">Recompensas</buttonRR>
+</div>
 {% endblock %}
 {% block javascript %}
-    <script src="/static/js/blackjack.js"></script>
-    <script src="/static/js/mutearPagina.js"></script>
+<script src="/static/js/blackjack_alertas.js"></script>
+<script src="/static/js/blackjack.js"></script>
+<script src="/static/js/mutearPagina.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {% endblock %}
 

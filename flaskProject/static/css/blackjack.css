@@ -30,9 +30,9 @@
 }
 
 #bet-container {
-    margin: 20px;
     position: absolute;
     top: 50%;
+    left: 10%;
 }
 
 .recuadroSaldo {
@@ -101,4 +101,42 @@ body {
     background-image: url('https://image.freepik.com/free-vector/poker-table-background-green-color_47243-1068.jpg');
     background-size: cover;
     color: white;
+}
+
+/*REGLAS*/
+
+.botonDeReglas {
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 3%;
+}
+
+.botonDeRecompensas {
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 3%;
+}
+
+buttonRR {
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 400%;
+    height: 150%;
+    background: #070707;
 }

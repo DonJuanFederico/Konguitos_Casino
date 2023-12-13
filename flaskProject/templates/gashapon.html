@@ -18,32 +18,38 @@
         <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
     </div>
 </div>
-<div class="thinking">Gira la rueda y que la fortuna te sonría (10KC de Ingreso).</div>
+<div class="thinking">Gira la rueda del Gashapon y que la fortuna te sonría (10KC de Ingreso).</div>
 <div id="player">
     <img src="/static/images/gashapon/1Gachapon.png" alt="ImagenGashapon" id="GachaponWey">
 </div>
 <buttonSpin id="ruedecilla" onclick="girar()"></buttonSpin>
 <div id="rectangle">
-    <h1 id="title">Recompensas</h1>
+    <h1 id="title">Recompensas:</h1>
     <ul id="list">
-        <li class="list-item">Gana 500KC <span style="float: right;">1%</span></li>
+        <li class="list-item">Gana 500KC <span style="float: right;">0.5%</span></li>
+        <li class="list-item">Avatar Pirata <span style="float: right;">1%</span></li>
+        <li class="list-item">Avatar Astronauta<span style="float: right;">1%</span></li>
+        <li class="list-item">Avatar Rey<span style="float: right;">1%</span></li>
+        <li class="list-item">Avatar Capitan<span style="float: right;">1%</span></li>
+        <li class="list-item">Avatar Tigre<span style="float: right;">1%</span></li>
+        <li class="list-item">Avatar Vikingo<span style="float: right;">1%</span></li>
         <li class="list-item">Gana 100KC <span style="float: right;">2.5%</span></li>
         <li class="list-item">Gana 50KC <span style="float: right;">5%</span></li>
-        <li class="list-item">Gana 10KC <span style="float: right;">16.5%</span></li>
+        <li class="list-item">Gana 10KC <span style="float: right;">16%</span></li>
         <li class="list-item">Gana 5KC <span style="float: right;">30%</span></li>
         <li class="list-item">Gana 2KC <span style="float: right;">41%</span></li>
-        <li class="list-item">Avatar Pirata <span style="float: right;">2%</span></li>
-        <li class="list-item">Avatar Astronauta<span style="float: right;">2%</span></li>
     </ul>
 </div>
-<div id="valoresGashapon" style="display: none;">
-    data-capitan="{{ CAPITAN }}"
-    data-tigre="{{ TIGRE }}"
-    data-astronauta="{{ ASTRONAUTA }}"
-    data-king="{{ KING }}"
-    data-pirata="{{ PIRATA }}"
-    data-viking="{{ VIKING }}"
+<div style="display: none">
+    <span id="pirata">{{ PIRATA }}</span>
+    <span id="astronauta">{{ ASTRONAUTA }}</span>
+    <span id="rey">{{ REY }}</span>
+    <span id="capitan">{{ CAPITAN }}</span>
+    <span id="tigre">{{ TIGRE }}</span>
+    <span id="vikingo">{{ VIKINGO }}</span>
+    <span id="id">{{ ID }}</span>
 </div>
+
 {% endblock %}
 {% block javascript %}
 <script src="/static/js/gashapon.js"></script>

@@ -2,23 +2,15 @@
 
 var anfitrion = false;
 var socket = io();
+var jugadoresRestantes = 1;
+var usuariosEntrados = [];
 
-document.addEventListener("DOMContentLoaded", () => {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/buscar_anfitrion", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("&nombre_usuario=" + username);
+/***
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            const data = JSON.parse(xhr.responseText);
-            if (data.resultado === true) {
-                anfitrion = true; // Establecer la variable anfitrion como true si la respuesta es true
-            }
-        }
-    };
-});
+                                        ESTO LUEGO HAY QUE CAMBIARLO
 
+ ***/
+let room = "Lounge";
 
 document.addEventListener("DOMContentLoaded", () =>{
 
@@ -42,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () =>{
             console.error('Error al obtener el cartón:', error);
         });
 
-    let room = "Lounge";
     joinRoom("Lounge");
     socket.on("message", data => {
         //console.log(`Message received: ${data}`)
@@ -57,27 +48,68 @@ document.addEventListener("DOMContentLoaded", () =>{
             document.querySelector("#display-message-section").append(p);
         } else{
             printSysMsg(data.msg);
+            if(anfitrion && !usuariosEntrados.includes(data.nuevo_usuario)){
+                usuariosEntrados.push(data.nuevo_usuario);
+                jugadoresRestantes--;
+                empezarPartida();
+            }
         }
     });
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/buscar_anfitrion", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&nombre_usuario=" + username);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            if (data.resultado === true) {
+                anfitrion = true; // Establecer la variable anfitrion como true si la respuesta es true
+            }
+        }
+    };
 
     document.querySelector("#send-message").onclick = () => {
         socket.send({"msg" : document.querySelector("#user-message").value, "username": username, "room": room});
         document.querySelector("#user-message").value = "";
     }
-
-    function joinRoom(room){
-        //Emit ya que es personalizado, y pasando los dos valores que necesita
-        socket.emit("join", {"username" : username, "room": room});
-        document.querySelector("#display-message-section").innerHTML = "";
-        document.querySelector("#user-message").focus();
-    }
-
-    function printSysMsg(msg){
-        const p = document.createElement("p");
-        p.innerHTML = msg;
-        document.querySelector("#display-message-section").append(p);
-    }
 })
+
+function joinRoom(room){
+    //Emit ya que es personalizado, y pasando los dos valores que necesita
+    socket.emit("join", {"username" : username, "room": room});
+    document.querySelector("#display-message-section").innerHTML = "";
+    document.querySelector("#user-message").focus();
+}
+
+function printSysMsg(msg){
+    const p = document.createElement("p");
+    p.innerHTML = msg;
+    document.querySelector("#display-message-section").append(p);
+}
+
+function empezarPartida(){
+    if (jugadoresRestantes === 0) {
+        let numeros_elegidos = sacarNumeros()
+        socket.emit("empezar", { "room": room, "array_numeros": numeros_elegidos });
+    }else {
+        socket.emit("esperando", { "room": room, "jugadoresRestantes": jugadoresRestantes });
+    }
+}
+
+function sacarNumeros() {
+  let numerosOrdenados = [];
+  for (let i = 1; i <= 90; i++) {
+    numerosOrdenados.push(i);
+  }
+  let numerosAleatorios = [];
+  while (numerosOrdenados.length > 0) {
+    const indiceAleatorio = Math.floor(Math.random() * numerosOrdenados.length);
+    numerosAleatorios.push(numerosOrdenados[indiceAleatorio]);
+    numerosOrdenados.splice(indiceAleatorio, 1);
+  }
+  return numerosAleatorios;
+}
 
 primeroFila = true;
 primeroDobleFila = true;
@@ -95,62 +127,84 @@ socket.on("numeroRecibido", data => {
     numeroSeleccionado = data.resultado;
 });
 
-function mostrarNumerosRapidos() {
-    if (anfitrion) {
-        numeroSeleccionado = obtenerNumeroAleatorio();
-        socket.emit("valorNumero", {"username" : username, "room": room, "resultado": numeroSeleccionado});
-    }
+socket.on("numeros_bingo", data => {
+    cambiarImagenes(data.numeros_mostrar_bingo);
+});
 
-    const spanNumero = document.getElementById("numeroSeleccionado");
-    const tiempoVisualizacion = 4; // Tiempo de visualización de números en segundos
-    const tiempoEspera = 3; // Tiempo de espera entre visualizaciones en segundos
+function cambiarImagenes(array) {
+    const imagen = document.getElementById("imagenBingo");
+    let contador = 1;
 
-    const intervalo = setInterval(() => {
-        const numeroAleatorio = Math.floor(Math.random() * 90) + 1;
-        spanNumero.textContent = numeroAleatorio;
-    }, 100); // Intervalo de actualización rápida
-
-    setTimeout(() => {
-        clearInterval(intervalo);
-        spanNumero.textContent = Math.floor(Math.random() * 90) + 1;
-
-        const spans = document.querySelectorAll('#carton > div > span');
-        let iteracion = 0;
-
-        spanNumero.textContent = numeroSeleccionado;
-        console.log(numeroSeleccionado)
-        spans.forEach((span) => {
-            const valor = parseInt(span.textContent.trim(), 10);
-            if (valor === numeroSeleccionado) {
-                span.parentElement.style.backgroundColor = "red"; // Cambiar el fondo del span a rojo si coincide con el número generado
-                if(iteracion<9){
-                    fila1++;
-                }else if (iteracion>= 9 && iteracion <18){
-                    fila2++;
-                }else{
-                    fila3++;
-                }
-                if((fila1 === 5 || fila2 === 5 || fila3 === 5) && primeroFila){
-                    console.log("Hizo fila");
-                    primeroFila = false;
-                }
-                if((((fila1 + fila2) === 10) || ((fila1 + fila3) === 10) || ((fila2 + fila3) === 10)) && primeroDobleFila){
-                    console.log("Hizo doble fila");
-                    primeroDobleFila = false;
-                }
-                if((fila1 + fila2 + fila3 === 15) && primeroBingo){
-                    console.log("Bingo");
-                    primeroBingo = false;
-                }
-            }
-            iteracion++;
-        });
-
-        setTimeout(mostrarNumerosRapidos, tiempoEspera * 1000);
-    }, (tiempoVisualizacion + tiempoEspera) * 1000);
+    const cambioImagen = () => {
+        imagen.src = `/static/images/bingo/${contador}.png`;
+        console.log(contador);
+        if (contador === 6) {
+            mostrarNumerosRapido(array);
+            setTimeout(() => {
+                contador++;
+                cambioImagen();
+            }, 200);
+        } else if(contador !== 11) {
+            setTimeout(() => {
+                contador++;
+                cambioImagen();
+            }, 200);
+        }
+    };
+    cambioImagen();
 }
 
-mostrarNumerosRapidos();
+function mostrarNumerosRapido(array) {
+    if(array.length > 0) {
+        const spanNumero = document.getElementById("numeroSeleccionado");
+        const tiempoVisualizacion = 2; // Tiempo de visualización de números en segundos
+        const tiempoEspera = 3; // Tiempo de espera entre visualizaciones en segundos
+
+        const intervalo = setInterval(() => {
+            const numeroAleatorio = Math.floor(Math.random() * 90) + 1;
+            spanNumero.textContent = numeroAleatorio;
+        }, 100); // Intervalo de actualización rápida
+
+        setTimeout(() => {
+            clearInterval(intervalo);
+            spanNumero.textContent = Math.floor(Math.random() * 90) + 1;
+            const spans = document.querySelectorAll('#carton > div > span');
+            let iteracion = 0;
+            spanNumero.textContent = array[0];
+
+            spans.forEach((span) => {
+                const valor = parseInt(span.textContent.trim(), 10);
+                if (valor === parseInt(array[0], 10)) {
+                    span.parentElement.style.backgroundColor = "red"; // Cambiar el fondo del span a rojo si coincide con el número generado
+                    if (iteracion < 9) {
+                        fila1++;
+                    } else if (iteracion >= 9 && iteracion < 18) {
+                        fila2++;
+                    } else {
+                        fila3++;
+                    }
+                    if ((fila1 === 5 || fila2 === 5 || fila3 === 5) && primeroFila) {
+                        alert("Hizo fila");
+                        primeroFila = false;
+                    }
+                    if ((((fila1 + fila2) === 10) || ((fila1 + fila3) === 10) || ((fila2 + fila3) === 10)) && primeroDobleFila) {
+                        alert("Hizo doble fila");
+                        primeroDobleFila = false;
+                    }
+                    if ((fila1 + fila2 + fila3 === 15) && primeroBingo) {
+                        alert("Bingo");
+                        primeroBingo = false;
+                    }
+                }
+                iteracion++;
+            });
+            array.shift();
+            setTimeout(() => {
+                cambiarImagenes(array);
+            }, tiempoEspera * 1000);
+        }, (tiempoVisualizacion + tiempoEspera) * 1000);
+    }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     let msg = document.querySelector("#user-message");
@@ -161,15 +215,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 })
-
-function obtenerNumeroAleatorio() {
-    if (numeros.length === 0) {
-        console.log("Todos los números ya han sido seleccionados.");
-        return null; // O manejar de otra forma que no hay más números disponibles
-    }
-
-    const indiceAleatorio = Math.floor(Math.random() * numeros.length);
-    const numeroSeleccionado = numeros.splice(indiceAleatorio, 1)[0];
-    console.log("Número seleccionado:", numeroSeleccionado);
-    return numeroSeleccionado;
-}

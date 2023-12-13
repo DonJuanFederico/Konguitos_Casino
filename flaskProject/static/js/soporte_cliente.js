@@ -26,3 +26,12 @@ function submitForm() {
         }
     );
 }
+
+// funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
+let prevUrl = document.referrer;
+function volverAtras(){
+    if(prevUrl.indexOf(window.location.host) !== -1) {
+    // Ir a la página anterior
+    window.history.back();
+    }
+}

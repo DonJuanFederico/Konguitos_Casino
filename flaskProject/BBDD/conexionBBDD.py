@@ -128,7 +128,6 @@ def agregarDineroTarjeta(cantidad_a_agregar):           #Este metodo no afecta a
         finally:
             cursor.close()
             close_connection(conn)
-
 def agregarDineroGanado(cantidad_a_agregar):     #Este metodo agrega el dinero que se ha ganado jugando a juegos (lo agrega a dinero ganado y a dinero)
         conn = connect()
         if conn:
@@ -144,7 +143,6 @@ def agregarDineroGanado(cantidad_a_agregar):     #Este metodo agrega el dinero q
             finally:
                 cursor.close()
                 close_connection(conn)
-
 def retirarDinero(cantidad_a_retirar):
     conn = connect()
     if conn:
@@ -176,10 +174,16 @@ def agregarUsuario(NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, Fo
             # Obtener el ID del nuevo usuario
             id_nuevo_usuario = cursor.lastrowid
 
-            # Consulta para insertar el nuevo usuario en la tabla "gashapong"
-            query_gashapong = "INSERT INTO gashapon (id_usuario, pirata, astronauta, basico, rey, capitan, tigre, vikingo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-            # Añadir el nuevo usuario a la tabla "gashapong" con valores iniciales
-            cursor.execute(query_gashapong, (id_nuevo_usuario, 0, 0, 0, 0, 0, 0, 0))
+            # Consulta para insertar el nuevo usuario en la tabla "gashapon"
+            query_gashapon = "INSERT INTO gashapon (id_usuario, pirata, astronauta, basico, rey, capitan, tigre, vikingo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            # Añadir el nuevo usuario a la tabla "gashapon" con valores iniciales
+            cursor.execute(query_gashapon, (id_nuevo_usuario, 0, 0, 0, 0, 0, 0, 0))
+            conn.commit()
+
+            # Consulta para insertar el nuevo usuario en la tabla "avatar"
+            query_avatar = "INSERT INTO avatar (id_usuario, fondo, personaje) VALUES (%s, %s, %s)"
+            # Añadir el nuevo usuario a la tabla "avatar" con valores iniciales
+            cursor.execute(query_avatar, (id_nuevo_usuario, 'white', 'basic'))
             conn.commit()
 
             print(f"Nuevo usuario '{NombreUsuario}' ha sido agregado con éxito.")
@@ -369,7 +373,7 @@ def editarTarjeta(id_tarjeta, numero_tarjeta, nombre_titular, fecha_caducidad, c
             close_connection(conn)
             return False  # En caso de error
 
-def editarForoImagen(id_usuario, nueva_foto_img):
+def editarFotoImagen(id_usuario, nueva_foto_img):
     conn = connect()
     if conn:
         cursor = conn.cursor()
@@ -851,7 +855,7 @@ def TieneVikingo():
             cursor.close()
             close_connection(conn)
     return vikingo
-
+"""
 def obtenerValoresGashapon(id_usuario):
     conn = connect()
     if conn:
@@ -872,15 +876,20 @@ def obtenerValoresGashapon(id_usuario):
         finally:
             cursor.close()
             close_connection(conn)
-"""
+
 
 def activarColumnaGashapon(id_usuario, columna):
+    columnas_permitidas = ['pirata', 'astronauta', 'rey', 'capitan', 'tigre', 'vikingo']
+    if columna not in columnas_permitidas:
+        print("Columna no permitida")
+        return
     conn = connect()
     if conn:
         cursor = conn.cursor()
         try:
-            # Consulta para actualizar la columna específica en la tabla "gashapon" a 1 para el usuario dado
             query = f"UPDATE gashapon SET {columna} = 1 WHERE id_usuario = %s"
+            print("Query ejecutada:", query)  # Agregar esta línea para depurar
+
             cursor.execute(query, (id_usuario,))
             conn.commit()
 
@@ -888,6 +897,45 @@ def activarColumnaGashapon(id_usuario, columna):
         except mysql.connector.Error as err:
             conn.rollback()
             print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+def obtenerAvatar(id_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor(dictionary=True)  # Establecer el cursor para devolver resultados como diccionarios
+        try:
+            # Consulta SQL para obtener la información del avatar del usuario
+            query = "SELECT fondo, personaje FROM avatar WHERE id_usuario = %s"
+            cursor.execute(query, (id_usuario,))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                return resultado
+            else:
+                print("No se encontró información de avatar para el usuario con ID:", id_usuario)
+                return None
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
+def modificarAvatar(id_usuario, nuevo_fondo, nuevo_personaje):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta SQL para actualizar la información del avatar del usuario
+            query = "UPDATE avatar SET fondo = %s, personaje = %s WHERE id_usuario = %s"
+            cursor.execute(query, (nuevo_fondo, nuevo_personaje, id_usuario))
+            conn.commit()
+            print(f"Avatar del usuario con ID {id_usuario} modificado con éxito.")
+            return True
+        except mysql.connector.Error as err:
+            conn.rollback()
+            print(f"Error de MySQL: {err}")
+            return False
         finally:
             cursor.close()
             close_connection(conn)

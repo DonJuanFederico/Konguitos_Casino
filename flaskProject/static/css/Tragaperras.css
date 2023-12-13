@@ -242,6 +242,7 @@ buttonRR {
 }
 
 #botonComprarMonedas {
+    cursor: pointer;
     margin-left: -190%;
     margin-top: -30%;
     transform: scale(0.07);
