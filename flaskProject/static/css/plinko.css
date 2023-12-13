@@ -31,7 +31,7 @@ body {
     top: 75%;
     transform: translateY(-50%);
     left: 100%;
-    transition: left 2s linear;
+    transition: left 1.5s linear;
     z-index: 1;
     width: 10%;
     opacity: 0;
