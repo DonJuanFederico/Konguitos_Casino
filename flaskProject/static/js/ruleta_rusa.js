@@ -85,6 +85,7 @@ async function disparar() {
     } else {
         const elementoRecamara = document.getElementById(`recamara${recamara}`);
         if (elementoRecamara) {
+            /*
             if (recamara === 5) {
                 elementoRecamara.style.backgroundColor = "#47f403";
                 mensaje.textContent = "Has ganada suertudo.";
@@ -92,7 +93,7 @@ async function disparar() {
                 verficarResultado(recamara);
                 //Espera 2 segundos y reinicia el juego
                 setTimeout(reiniciarJuego, 2000);
-            } else if (recamara === bala) {
+            }*/ if (recamara === bala) {
                 elementoRecamara.style.backgroundColor = "#d70c0c";
                 mensaje.textContent = "Moriste puto pringado";
                 document.querySelector('#disparar').style.display = 'none';
@@ -167,6 +168,7 @@ function verficarResultado(recamara) {
         multiplicador = 2;
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
+        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
         agregarDinero()
     }
 }
