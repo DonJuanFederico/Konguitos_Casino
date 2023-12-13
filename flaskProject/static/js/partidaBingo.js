@@ -2,7 +2,7 @@
 
 var anfitrion = false;
 var socket = io();
-var jugadoresRestantes = 2;
+var jugadoresRestantes = 1;
 var usuariosEntrados = [];
 
 /***
