@@ -141,7 +141,20 @@ def foto_y_registra_usuario():
     nombreUsuario = session.get('nombreUsuario')
     if request.method == 'POST':
         photo = request.files.get('photo')
-        print(convertir_imagen_a_blob(photo))
+
+        numero = session.get('numeroTarjeta')
+        tarjeta = numero.split(" ")
+        numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
+        fecha = session.get('caducidadTarjeta')
+        tarjeta = fecha.split("/")
+        fechaCaducidad = "20" + tarjeta[1] + "-" + tarjeta[1] + "-01"
+        if agregarUsuario(nombreUsuario, session.get('contraseña'), session.get('correo'), session.get('DNI'), 1000, session.get('telefono'), convertir_imagen_a_blob(photo), session.get('pais'), session.get('codigoPostal'), None):
+            print("Exito Usuario")
+            if agregarTarjeta(nombreUsuario, numeroTarjeta, session.get('titulanteTarjeta'), fechaCaducidad, session.get('cvv')):
+                print("Exito Tarjeta")
+                return redirect(url_for('index'))
+            else:
+                return redirect(url_for('index'))
         return redirect(url_for('index'))
     return render_template('registroCamara.html', nombreUsuario = nombreUsuario)
 @app.route('/Registro/terminosCondiciones.html')
