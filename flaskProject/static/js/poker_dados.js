@@ -1,4 +1,3 @@
-
 let dadosBloqueados = {
     dice1: false,
     dice2: false,
@@ -75,8 +74,13 @@ function calcularResultado(valoresDados) {
         frecuencias[valor] = (frecuencias[valor] || 0) + 1;
     }
 
+
     const valoresFrecuentes = Object.values(frecuencias);
     const numValoresUnicos = Object.keys(frecuencias).length;
+
+    const esMayor = esEscaleraMayor(valoresDados);
+    console.log(esMayor);
+    const esMenor = esEscaleraMenor(valoresDados);
 
     if (valoresFrecuentes.includes(5)) {
         return 'Repóker'; // 5 dados con el mismo valor
@@ -90,9 +94,27 @@ function calcularResultado(valoresDados) {
         return 'Doble Pareja'; // Dos parejas
     } else if (valoresFrecuentes.includes(2)) {
         return 'Pareja'; // 2 dados con el mismo valor
+    } else if (esMayor) {
+        return 'Escalera Mayor'; // Escalera mayor (6-5-4-3-2)
+    } else if (esMenor) {
+        return 'Escalera Menor'; // Escalera menor (5-4-3-2-1)
     } else {
         return 'Nada'; // Ninguna combinación especial
     }
+}
+
+function esEscaleraMayor(valoresDados) {
+    console.log(valoresDados);
+    const escaleraMayor = [2, 3, 4, 5, 6];
+    const valoresOrdenados = [...valoresDados].sort((a, b) => a - b);
+    console.log(valoresOrdenados);
+    return JSON.stringify(valoresOrdenados) === JSON.stringify(escaleraMayor);
+}
+
+function esEscaleraMenor(valoresDados) {
+    const escaleraMenor = [1, 2, 3, 4, 5];
+    const valoresOrdenados = [...valoresDados].sort((a, b) => a - b);
+    return JSON.stringify(valoresOrdenados) === JSON.stringify(escaleraMenor);
 }
 
 function resetGame(){
