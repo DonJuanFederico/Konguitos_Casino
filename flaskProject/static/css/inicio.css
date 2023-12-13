@@ -9,6 +9,14 @@ body {
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55);
 }
+.bx {
+  font-size: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+}
+
+
 
 .login-box {
   position: absolute;

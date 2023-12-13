@@ -36,21 +36,25 @@ def index():
 
 @app.route('/Inicio/', methods=['GET', 'POST'])
 def inicio():
-    form = inicioSesion()
-    if form.validate_on_submit():
-        nombreUsuarioInicio = form.username.data
+    nombreUsuarioInicio = ""
+    contrasenna = ""
+    mensaje = ""
+    if request.method == 'POST':
+        nombreUsuarioInicio = request.form.get('nombreUsuario')
         session['nombreUsuario'] = nombreUsuarioInicio
-        contraseña = form.password.data
+        contrasenna = request.form.get('contraseña')
         print("Nombre de usuario:", nombreUsuarioInicio)
-        print("Contraseña:", contraseña)
-        if adminLogIn(nombreUsuarioInicio, contraseña):
+        print("Contraseña:", contrasenna)
+        if adminLogIn(nombreUsuarioInicio, contrasenna):
             return interfazAdmin()
-        elif iniciar_sesion(nombreUsuarioInicio, contraseña):
+        elif iniciar_sesion_correo(nombreUsuarioInicio, contrasenna):
+            return juegos()
+        elif iniciar_sesion(nombreUsuarioInicio, contrasenna):
             return juegos()
         else:
-            print("Inicio de sesión fallido: usuario o contraseña incorrectos, o BBDD apagada")
+            flash("Usuario,Correo o contraseña incorrecto", "info")
             return index()
-    return render_template('inicio.html', form=form)
+    return render_template('inicio.html',mensaje=mensaje, nombreUsuarioInicio=nombreUsuarioInicio, contrasenna=contrasenna)
 
 
 @app.route('/Registro/Datos Personales/', methods=['GET','POST'])
