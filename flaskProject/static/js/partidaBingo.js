@@ -157,7 +157,7 @@ hiceFila = true;
 hiceDobleFila = true;
 
 function mostrarNumerosRapido(array) {
-    if(array.length > 0) {
+    if(array.length > 0 && primeroBingo) {
         const spanNumero = document.getElementById("numeroSeleccionado");
         const tiempoVisualizacion = 2;
         const tiempoEspera = 2;
@@ -185,20 +185,24 @@ function mostrarNumerosRapido(array) {
                     } else {
                         fila3++;
                     }
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/agregar_ganancias", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     if ((fila1 === 5 || fila2 === 5 || fila3 === 5) && hiceFila) {
                         hiceFila = false;
                         if(primeroFila){
                             primeroFila = false;
-                            //Mandar al resto que ponga primero fila
+                            //Mandar al resto que ponga primero fila = false
                             //Ingresar dinero
+                            xhr.send("&cantidad_a_agregar=" + 10);
                         }
                         socket.emit("fila", {"username" : username, "room": room});
-
                     }
                     if ((((fila1 + fila2) === 10) || ((fila1 + fila3) === 10) || ((fila2 + fila3) === 10)) && hiceDobleFila) {
                         hiceDobleFila = false;
                         if(primeroDobleFila){
                             primeroDobleFila = false;
+                            xhr.send("&cantidad_a_agregar=" + 15);
                         }
                         //Mensaje de hizo fila
                         socket.emit("dobleFila", {"username" : username, "room": room});
@@ -206,6 +210,7 @@ function mostrarNumerosRapido(array) {
                     }
                     if (fila1 + fila2 + fila3 === 15) {
                         if(primeroBingo){
+                            xhr.send("&cantidad_a_agregar=" + 50);
                             primeroBingo = false;
                             socket.emit("bingoCompleto", {"username" : username, "room": room});
                         }
