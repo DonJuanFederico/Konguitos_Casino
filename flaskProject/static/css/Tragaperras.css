@@ -299,6 +299,7 @@ buttonRR {
     opacity: 0;
     transition: opacity 0.4s;
     margin-top: 2px;
+    z-index: 2;
 }
 
 #home{top: 80%;}
