@@ -128,13 +128,36 @@ socket.on("numeroRecibido", data => {
 });
 
 socket.on("numeros_bingo", data => {
-    mostrarNumerosRapido(data.numeros_mostrar_bingo);
+    cambiarImagenes(data.numeros_mostrar_bingo);
 });
+
+function cambiarImagenes(array) {
+    const imagen = document.getElementById("imagenBingo");
+    let contador = 1;
+
+    const cambioImagen = () => {
+        imagen.src = `/static/images/bingo/${contador}.png`;
+        console.log(contador);
+        if (contador === 6) {
+            mostrarNumerosRapido(array);
+            setTimeout(() => {
+                contador++;
+                cambioImagen();
+            }, 200);
+        } else if(contador !== 11) {
+            setTimeout(() => {
+                contador++;
+                cambioImagen();
+            }, 200);
+        }
+    };
+    cambioImagen();
+}
 
 function mostrarNumerosRapido(array) {
     if(array.length > 0) {
         const spanNumero = document.getElementById("numeroSeleccionado");
-        const tiempoVisualizacion = 4; // Tiempo de visualización de números en segundos
+        const tiempoVisualizacion = 2; // Tiempo de visualización de números en segundos
         const tiempoEspera = 3; // Tiempo de espera entre visualizaciones en segundos
 
         const intervalo = setInterval(() => {
@@ -177,7 +200,7 @@ function mostrarNumerosRapido(array) {
             });
             array.shift();
             setTimeout(() => {
-                mostrarNumerosRapido(array);
+                cambiarImagenes(array);
             }, tiempoEspera * 1000);
         }, (tiempoVisualizacion + tiempoEspera) * 1000);
     }
