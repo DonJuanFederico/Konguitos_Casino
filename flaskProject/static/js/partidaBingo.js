@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 usuariosEntrados.push(data.nuevo_usuario);
                 jugadoresRestantes--;
                 empezarPartida();
+
             }
         }
     });
@@ -85,6 +86,10 @@ function empezarPartida(){
     if (jugadoresRestantes === 0) {
         let numeros_elegidos = sacarNumeros()
         socket.emit("empezar", { "room": room, "array_numeros": numeros_elegidos });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/eliminar_sala", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&nombre_sala=" + room);
     }else {
         socket.emit("esperando", { "room": room, "jugadoresRestantes": jugadoresRestantes });
     }
@@ -132,11 +137,8 @@ function cambiarImagenes(array) {
         imagen.src = `/static/images/bingo/${contador}.png`;
         if (contador === 6) {
             mostrarNumerosRapido(array);
-            setTimeout(() => {
-                contador++;
-                cambioImagen();
-            }, 200);
-        } else if(contador !== 11) {
+        }
+        if (contador !== 11) {
             setTimeout(() => {
                 contador++;
                 cambioImagen();

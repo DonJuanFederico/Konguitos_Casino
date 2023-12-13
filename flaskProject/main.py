@@ -513,6 +513,14 @@ def crear_partida():
     registrarPartida(obtener_nombre(), request.form.get('nombre_partida'))
     return "Partida creada correctamente"
 
+@app.route('/eliminar_sala', methods=['POST'])
+def eliminar_sala():
+    print("Antes " + str(ROOMS))
+    nombre_sala = request.form.get('nombre_sala')
+    if nombre_sala in ROOMS:
+        ROOMS.remove(nombre_sala)
+    print("Despues " + str(ROOMS))
+    return "Sala eliminada correctamente"
 
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
@@ -533,7 +541,6 @@ def message(data):
     # Evento personalizado:
     # emit("some-event", "this is a custom event message")
 
-
 @socketio.on("join")
 def join(data):
     # Antes del send especificar la sala
@@ -542,12 +549,12 @@ def join(data):
 
 @socketio.on("fila")
 def fila(data):
-    send({"msg": data["username"] + " ha conseguido una fila "}, room=data["room"])
+    send({"msg": data["username"] + " ha conseguido una línea "}, room=data["room"])
     emit("cambiarFila",  room=data["room"])
 
 @socketio.on("dobleFila")
 def dobleFila(data):
-    send({"msg": data["username"] + " ha conseguido doble fila "}, room=data["room"])
+    send({"msg": data["username"] + " ha conseguido doble línea "}, room=data["room"])
     emit("cambiarDobleFila", room=data["room"])
 
 @socketio.on("bingoCompleto")
