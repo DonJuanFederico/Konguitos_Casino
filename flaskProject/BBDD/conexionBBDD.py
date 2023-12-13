@@ -635,6 +635,9 @@ def mostrarCarton(nombre):
             result = cursor.fetchone()
             if result:  # Comprobar si hay resultados
                 carton = result[0]  # Obtener el valor de la consulta
+                query_delete = "DELETE FROM carton WHERE nombreJugador = (%s)"
+                cursor.execute(query_delete, (nombre,))
+                conn.commit()
         except mysql.connector.Error as err:
             print(f"Error al obtener el número: {err}")
         finally:
@@ -665,6 +668,9 @@ def buscarAnfitrion(nombre):
             cursor.execute(query, (nombre,))
             result = cursor.fetchone()
             if result:
+                query_delete = "DELETE FROM partidabingo WHERE nombreJugador = (%s)"
+                cursor.execute(query_delete, (nombre,))
+                conn.commit()
                 return True  # Devuelve True si se encuentra el nombre
         except mysql.connector.Error as err:
             print(f"Error al obtener el número: {err}")
