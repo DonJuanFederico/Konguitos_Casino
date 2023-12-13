@@ -508,7 +508,7 @@
                 <span>Unirse a sala</span>
                 <div id="rooms" style="display: none;">
                     {% for room in rooms %}
-                        <p class="select-room" onclick='alerta(this.innerHTML)' >{{ room|title }}</p>
+                        <p class="select-room" onclick='enviarSala(this.innerHTML)' >{{ room|title }}</p>
                     {% endfor %}
                 </div>
             </div>

@@ -5,13 +5,6 @@ var socket = io();
 var jugadoresRestantes = 1;
 var usuariosEntrados = [];
 
-/***
-
-                                        ESTO LUEGO HAY QUE CAMBIARLO
-
- ***/
-let room = "Lounge";
-
 document.addEventListener("DOMContentLoaded", () =>{
 
     fetch('/obtener_carton')
@@ -34,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             console.error('Error al obtener el cartón:', error);
         });
 
-    joinRoom("Lounge");
+    joinRoom(room);
     socket.on("message", data => {
         //console.log(`Message received: ${data}`)
         const p = document.createElement("p");

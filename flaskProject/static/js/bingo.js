@@ -105,10 +105,38 @@ document.getElementById("botonJugar").addEventListener("click", function() {
     if (buscarPartida ) {
         if(nombrePartida.length > 0){
             var xhr = new XMLHttpRequest();
+            // Primera solicitud para crear la partida
             xhr.open("POST", "/crear_partida", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                // La primera solicitud ha finalizado
+                if (xhr.status === 200) {
+                  // La primera solicitud fue exitosa
+                  // Ahora realizamos la segunda solicitud para enviar 'sala' y redirigir después
+                  var xhr2 = new XMLHttpRequest();
+                  xhr2.open("POST", "/partidaBingo", true);
+                  xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                  xhr2.onreadystatechange = function() {
+                    if (xhr2.readyState === XMLHttpRequest.DONE) {
+                      // La segunda solicitud ha finalizado
+                      if (xhr2.status === 200) {
+                        // Redirigir a la página partidaBingo
+                        window.location.href = "/partidaBingo";
+                      } else {
+                        // Manejar errores si es necesario
+                      }
+                    }
+                  };
+                  xhr2.send("&sala=" + nombrePartida);
+                } else {
+                  // Manejar errores si es necesario
+                }
+              }
+            };
+
+            // Enviar la primera solicitud para crear la partida
             xhr.send("&nombre_partida=" + nombrePartida);
-            window.location.href = "/partidaBingo";
         }else{
             Swal.fire({
                 title: 'Ponga un nombre a la sala!',
@@ -160,8 +188,19 @@ document.getElementById("unirseSala").addEventListener("click", function() {
     }
 });
 
-function alerta(newRoom) {
-    window.location.href = "/partidaBingo";
+function enviarSala(sala) {
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open("POST", "/partidaBingo", true);
+    xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr2.onreadystatechange = function() {
+        if (xhr2.readyState === XMLHttpRequest.DONE) {
+            if (xhr2.status === 200) {
+                // Redirigir a la página partidaBingo
+                window.location.href = "/partidaBingo";
+            }
+        }
+    };
+    xhr2.send("&sala=" + sala);
 }
 
 function retirarDinero() {

@@ -11,8 +11,11 @@ from time import strftime, localtime
 import time
 from PIL import Image
 import io
+from flask_session import Session
 
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
 # Inicializar flask socketio
 socketio = SocketIO(app)
@@ -509,7 +512,13 @@ def crear_partida():
 
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
-    return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS)
+    if request.method == 'POST':
+        salaElegida = request.form.get('sala')
+        session['salaElegida'] = salaElegida
+        return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
+    salaElegida = session.get('salaElegida')
+    return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
+
 
 
 @socketio.on("message")
