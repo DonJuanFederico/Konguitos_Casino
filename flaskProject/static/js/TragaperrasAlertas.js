@@ -1,4 +1,5 @@
-function reglas(){
+function reglas(event){
+    event.preventDefault();
         Swal.fire({
             title: 'REGLAS',
             html: "<div style='text-align: center;'>" +
@@ -22,7 +23,8 @@ function reglas(){
     }
 
     //Alerta de Recompensas
-function recompensas() {
+function recompensas(event) {
+    event.preventDefault();
         Swal.fire({
             title: 'RECOMPENSAS',
             html: "<div style='text-align: center;'>" +

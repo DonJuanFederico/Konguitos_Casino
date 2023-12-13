@@ -65,8 +65,14 @@
     <div title="Atrás" id="back" onclick="volverAtras()">
         <i class="fa-solid fa-circle-left fa-2xl"></i>
     </div>
-</div>
-<div id="Juego">
+        <!-- Botones de reglas y recompensas -->
+    <div class="botonDeReglas">
+        <buttonRR onclick="reglas(event)">Reglas</buttonRR>
+    </div>
+    <div class="botonDeRecompensas">
+        <buttonRR onclick="recompensas(event)">Recompensas</buttonRR>
+    </div>
+    <!-- Tragaperras html -->
     <audio controls autoplay loop id="audio-player">
         <source src="/static/audio/gravityRush.mp3" type="audio/mpeg">
     </audio>
@@ -76,14 +82,6 @@
             <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
             <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
         </div>
-    </div>
-
-    <!-- Botones de reglas y recompensas -->
-    <div class="botonDeReglas">
-        <buttonRR onclick="reglas()">Reglas</buttonRR>
-    </div>
-    <div class="botonDeRecompensas">
-        <buttonRR onclick="recompensas()">Recompensas</buttonRR>
     </div>
 
     <!-- Slots -->
