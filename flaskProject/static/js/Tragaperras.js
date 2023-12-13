@@ -86,63 +86,66 @@ function init(firstInit = true, groups = 1, duration = 1) {
 
 //Función al darle al spin
 async function spin() {
-    // Si la animación está en progreso, no hacemos nada
-    if (animacionEnProgreso) return;
-    // Bloqueo de Play
-    spinnerButton.setAttribute('disabled', 'disabled');
-    animacionEnProgreso = true;
+    // Si la animación está en progreso o la apuesta no es válida, no hacemos nada
+    const apuestaValida = FuncionDeApuesta();
 
-    FuncionDeApuesta();
+    if (!animacionEnProgreso && apuestaValida) {
+        // Bloqueo de Play
+        spinnerButton.setAttribute('disabled', 'disabled');
+        animacionEnProgreso = true;
 
-    init(false, 1, 2);
+        init(false, 1, 2);
 
-    //Este for es para que se muevan los slots de arriba a abajo (no es lo mismo que el shuffle)
-    for (const slot of posicionamiento) {
-        const boxes = slot.querySelector('.boxes');
-        const duration = parseInt(boxes.style.transitionDuration);
-        boxes.style.transform = 'translateY(0)';
-        await new Promise((resolve) => setTimeout(resolve, duration * 50));
+        //Este for es para que se muevan los slots de arriba a abajo (no es lo mismo que el shuffle)
+        for (const slot of posicionamiento) {
+            const boxes = slot.querySelector('.boxes');
+            const duration = parseInt(boxes.style.transitionDuration);
+            boxes.style.transform = 'translateY(0)';
+            await new Promise((resolve) => setTimeout(resolve, duration * 50));
+        }
+
+        //cambiar la imagen de konguito
+        for (let i = 1; i <= 5; i++) {
+            let imagen = document.getElementById('KonguitoTragaperras');
+            imagen.src = `/static/images/tragaperras/${i}def.png`;
+            // Esperar un tiempo antes de cambiar la imagen
+            await new Promise((resolve) => setTimeout(resolve, 150)); // Cambia el valor de 500 a la cantidad de milisegundos que desees
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        //Verifico si hay ganancia
+        verificarGanancia()
+
+        //Desbloqueo de Play
+        animacionEnProgreso = false;
+        spinnerButton.removeAttribute('disabled');
     }
-
-    //cambiar la imagen de konguito
-    for (let i = 1; i <= 5; i++) {
-        let imagen = document.getElementById('KonguitoTragaperras');
-        imagen.src = `/static/images/tragaperras/${i}def.png`;
-        // Esperar un tiempo antes de cambiar la imagen
-        await new Promise((resolve) => setTimeout(resolve, 150)); // Cambia el valor de 500 a la cantidad de milisegundos que desees
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    //Verifico si hay ganancia
-    verificarGanancia()
-
-    //Desbloqueo de Play
-    animacionEnProgreso = false;
-    spinnerButton.removeAttribute('disabled');
 }
 
-function FuncionDeApuesta() {
-    //Funcion para restar el dinero de la apuesta
-    apuesta = parseFloat(document.querySelector('#bet').value);
-
+// Función asíncrona para manejar la lógica de apuesta
+async function FuncionDeApuesta() {
+    // Obtener el valor del input de apuesta
+    const apuestaInput = document.querySelector('#bet');
+    const apuesta = parseFloat(apuestaInput.value);
     let balanceActual = parseFloat(monedasUsuarioElement.textContent);
-    //Aqui se comprueba si el usuario tiene suficiente dinero para apostar
-    if (apuesta <= 0) {
-        alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
-        return;
-    } else if (apuesta > balanceActual) {
-        alert('No tienes suficiente saldo para esta apuesta.');
-        return;
+    // Verificar si la apuesta es un número válido
+    if (isNaN(apuesta) || apuesta <= 0) {
+        alert('Por favor, ingrese una apuesta válida mayor a 0.');
+        return false;
     }
-
-    //Aqui se resta el dinero de la apuesta al saldo del cliente en la pagina
-    monedasUsuarioElement.textContent = monedasUsuarioElement.textContent - apuesta
-    console.log("Apuesta: " + apuesta);
-
-    //Aqui funcion para actualizar la base de datos con el nuevo saldo del cliente
-    retirarDinero()
-    console.log("Balance actual: " + balanceActual + " - " + apuesta + " = " + (balanceActual - apuesta));
+    // Verificar si el usuario tiene suficiente saldo para la apuesta
+    else if (apuesta > balanceActual) {
+        alert('No tienes suficiente saldo para esta apuesta.');
+        return false;
+    } else {
+        // Aquí puedes realizar operaciones adicionales, como restar el dinero de la apuesta al saldo del usuario
+        monedasUsuarioElement.textContent = balanceActual - apuesta;
+        console.log("Apuesta: " + apuesta);
+        retirarDinero();
+        console.log("Balance actual: " + balanceActual + " - " + apuesta + " = " + (balanceActual - apuesta));
+        return true; // Devolver true si la apuesta es válida
+    }
 }
 
 //Funcion para desordenar los items (animacion de los slots)
