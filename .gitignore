@@ -1,2 +1,8 @@
 .idea
 __pychache__
+flaskProject/.idea
+flaskProject/__pychache__
+flaskProject/BBDD/__pycache__
+flaskProject/CartonBingo/__pycache__
+flaskProject/correo/__pychache__
+flaskProject/Generador/__pychache__
