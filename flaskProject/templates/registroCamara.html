@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Registro</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registroCamara.css') }}">
+    <style>
+        #container {
+            display: flex;
+            justify-content: space-between;
+        }
+        #video {
+            width: 45%;
+        }
+        #canvas {
+            width: 45%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="msform" method="POST"  enctype="multipart/form-data">
+        <ul id="progressbar">
+            <li> Datos Personales </li>
+            <li> Tarjeta Bancaria </li>
+            <li class="active"> Foto Personal </li>
+        </ul>
+        <fieldset>
+    <h2 class="fs-title">Foto Personal</h2>
+    <h3 class="fs-subtitle">Falta poco para ser un konguito</h3>
+
+    <!-- Input element for uploading a photo -->
+    <input type="file" name="photo" id="photo" accept="image/*" required/>
+
+    <div id="container">
+        <div class="video-wrap">
+            <video id="video" autoplay style="width: 60%"></video>
+        </div>
+        <canvas id="canvas" width="300" height="200"></canvas>
+    </div>
+    <div class="controller">
+        <button type="button" id="snap" onclick="capturePhoto()">Capture</button>
+        <a id="downloadLink" download="{{nombreUsuario}}.jpg" style="display: none;">Download Photo</a>
+    </div>
+
+    <!-- Other elements as needed -->
+
+    <button type="button" name="previous" class="previous action-button" onclick="atras()">Atrás</button>
+            <input type="submit" name="next" class="next action-button" value="Crear Cuenta"/>
+</fieldset>
+
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const downloadLink = document.getElementById('downloadLink');
+
+    // Obtener acceso a la cámara
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            video.srcObject = stream;
+        })
+        .catch(function (error) {
+            console.error('Error accessing the camera: ', error);
+        });
+
+    // Función para capturar una foto y mostrarla en el canvas
+    window.capturePhoto = function () {
+        const snapButton = document.getElementById('snap');
+        const context = canvas.getContext('2d');
+
+        if (snapButton.textContent === 'Capture') {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.style.display = 'block';
+            // video.style.display = 'none';
+            // snapButton.textContent = 'Retake'; // Cambiar el texto del botón
+
+            // Update download link with captured photo data
+            const dataURL = canvas.toDataURL('image/jpeg');
+            downloadLink.href = dataURL;
+
+            // Show the download link
+            downloadLink.style.display = 'block';
+        } else {
+            // Mostrar la cámara y ocultar el canvas
+            // canvas.style.display = 'none';
+            video.style.display = 'block';
+            snapButton.textContent = 'Capture'; // Cambiar el texto del botón de nuevo
+
+            // Hide the download link
+            downloadLink.style.display = 'none';
+        }
+    };
+
+    window.atras = function () {
+        document.location.href = '/Registro/Tarjeta Bancaria/';
+    }
+});
+
+    </script>
+</body>
+</html>
