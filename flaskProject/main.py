@@ -514,12 +514,24 @@ def join(data):
     join_room(data["room"])
     send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room=data["room"])
 
+@socketio.on("fila")
+def fila(data):
+    send({"msg": data["username"] + " ha conseguido una fila "}, room=data["room"])
+    emit("cambiarFila",  room=data["room"])
+
+@socketio.on("dobleFila")
+def dobleFila(data):
+    send({"msg": data["username"] + " ha conseguido doble fila "}, room=data["room"])
+    emit("cambiarDobleFila", room=data["room"])
+
+@socketio.on("bingoCompleto")
+def bingoCompleto(data):
+    emit("terminarPartida", {"ganador": data["username"]}, room=data["room"])
 
 @socketio.on("empezar")
 def empezar(data):
     send({"msg": "EMPIEZA LA PARTIDA"}, room = data["room"])
     emit("numeros_bingo", {"numeros_mostrar_bingo": (data["array_numeros"])},room=data["room"])
-    print("NUMEROS BINGO" + str(data["array_numeros"]))
 
 @socketio.on("esperando")
 def esperando(data):
