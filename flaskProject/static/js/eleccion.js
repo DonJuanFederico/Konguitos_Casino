@@ -14,12 +14,17 @@ let KGs = document.getElementById('KGs');
 let optionButton = document.createElement('div');
 let marco = document.getElementById('marcoJuego');
 function startGame(){
-    if(isNaN(parseFloat(document.getElementById('amount').value)) === false) {
+    if(parseFloat(document.getElementById('amount').value) > 0) {
         if(!cierre) {
             cierre = true;
             firstOptions();
             document.getElementById('marcoJuego').addEventListener('click', function (event) {
                 if (event.target.classList.contains('option-button')) {
+                    var elementos = document.getElementsByClassName("option-button");
+                    for (var i = 0; i < elementos.length; i++) {
+                        elementos[i].textContent = opciones[i];
+                        elementos[i].setAttribute('style', 'padding: 10px;');
+                    }
                     roundCounter++;
                     checkOption();
                     marco.style.color = 'white';
@@ -36,7 +41,6 @@ function startGame(){
                         }
                         ronda = false;
                     }
-                    //document.getElementById('counter').textContent = 'Ronda: ' + (roundCounter - 1) + ', opciones: ' + (number + extra - 2) + ', prob. acierto: ' + prob + '.';
                 }
                 document.getElementById('nextRound').style.opacity = '1';
                 document.getElementById('nextRound').style.cursor = 'pointer';
@@ -49,7 +53,6 @@ function firstOptions() {
     retirarDinero();
     opciones.sort(() => Math.random() - 0.5);  // desordena las opciones
     document.getElementById('marcoJuego').innerHTML = '';
-    // Generate 4 random options
     if(roundCounter === 0) addOptions(0, 4);
 }
 
@@ -57,13 +60,13 @@ function addOptions(act_opt, mr_opt) {
     for (let i = 0; i < (act_opt + mr_opt); i++) {
         optionButton = document.createElement('div');
         optionButton.classList.add('option-button');
-        optionButton.textContent = opciones[i];
+        optionButton.textContent = '';         //opciones[i];
+
         document.getElementById('marcoJuego').appendChild(optionButton);
     }
 }
 
 function removeOptions(arrayElementos) {
-    //document.getElementById('counter').textContent = arrayElementos;
     arrayElementos.forEach(function(elemento) {
         elemento.remove();
     });
@@ -87,7 +90,6 @@ function checkOption(){
         winings = (winings + document.getElementById('amount').value * 0.7);
     } else {
         winings = 0;
-        cierre = true;
         setTimeout(() => {location.reload();}, 2000);
     }
     KGs.textContent = winings.toFixed(2);
@@ -132,7 +134,7 @@ function withdraw(){
             height: 700,
             confirmButtonText: '¡SUUUUUUUU!',
             confirmButtonColor: 'darkgoldenrod',
-            backdrop: `rgba(0, 0, 0, 0.5)`,
+            backdrop: `rgba(0, 0, 0, 0.8)`,
             allowOutsideClick: true,
             allowEscapeKey: true,
             customClass: {
@@ -159,7 +161,7 @@ function showRules(){
             "</div>",
         confirmButtonText: '¡QUIERO APOSTAAAAARRR!',
         confirmButtonColor: 'darkgoldenrod',
-        backdrop: `rgba(0,0,0,0.5)`,
+        backdrop: `rgba(0,0,0,0.8)`,
         allowOutsideClick: true,
         allowEscapeKey: true,
         customClass: {
@@ -182,7 +184,7 @@ function showPercent(){
             "</div>",
         confirmButtonText: '¡VER ESTO ES DE CAGAOS!',
         confirmButtonColor: 'darkgoldenrod',
-        backdrop: `rgba(0,0,0,0.5)`,
+        backdrop: `rgba(0,0,0,0.8)`,
         allowOutsideClick: true,
         allowEscapeKey: true,
         customClass: {

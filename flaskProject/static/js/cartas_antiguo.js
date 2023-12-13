@@ -97,7 +97,7 @@ deck.addEventListener('click', () => {
     for (let i = 1; i < slots.length; i++) {
         slots[i].style.backgroundColor = '';
     }
-    if(isNaN(parseFloat(document.getElementById('apuesta').value)) === false){
+    if(parseFloat(document.getElementById('apuesta').value) > 0){
         if(!repartir) {
             repartir = true;
             bloqueo = false;
@@ -137,7 +137,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
             imageUrl: `/static/images/carta_mas_alta/draw_3.png`,
             showCancelButton: false,
             showConfirmButton: false,
-            backdrop: `rgba(0,0,0,0.6)`,
+            backdrop: `rgba(0,0,0,0.8)`,
             background: `none`,
         });
     } else if (card_1 > card_2) {
@@ -146,7 +146,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
             imageUrl: `/static/images/carta_mas_alta/mensaje_win.png`,
             showCancelButton: false,
             showConfirmButton: false,
-            backdrop: `rgba(0,0,0,0.6)`,
+            backdrop: `rgba(0,0,0,0.8)`,
             background: `none`,
         });
     } else {
@@ -155,7 +155,7 @@ function compareCards(selectedCardValue, dealerCardValue) {
             imageUrl: `/static/images/carta_mas_alta/loser.png`,
             showCancelButton: false,
             showConfirmButton: false,
-            backdrop: `rgba(0,0,0,0.6)`,
+            backdrop: `rgba(0,0,0,0.8)`,
             background: `none`,
         });
     }
@@ -203,7 +203,7 @@ function showRules(){
             "</div>",
         confirmButtonText: '¡Dejame Jugar!',
         confirmButtonColor: 'darkgoldenrod',
-        backdrop: `rgba(0,0,0,0.4)`,
+        backdrop: `rgba(0,0,0,0.8)`,
         allowOutsideClick: true,
         allowEscapeKey: true,
         customClass: {

@@ -1,6 +1,5 @@
 body{
     background-image: url("https://openseauserdata.com/files/5f085809f2b711643e4eb4974cc03c0e.gif");
-    /*background-position: center;*/
     background-size: cover;
     color: white;
 }
@@ -11,7 +10,6 @@ audio{
 
 /* marco del dinero del usuario */
 #prueba3{
-    /*color: white;*/
     background-image: url("/static/images/konguito_run/marcoCasino.png");
     background-size: cover;
     position: absolute;
@@ -87,13 +85,12 @@ audio{
 }
 
 #marcoJuego{
-    color: transparent;
     border: 2px solid lightskyblue;
 }
 
 /* de CHAT GPT */
 .option-button{
-    padding: 10px;
+    padding: 20px;
     margin: 5px;
     font-size: 16px;
     display: block;

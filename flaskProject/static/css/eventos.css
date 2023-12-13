@@ -187,7 +187,8 @@ a:after {
   width: 100%;
   top: 50%;
   display: block;
-  border: 15px solid red;
+  border: 10px solid red;
+  opacity: 0.8;
   transform: translateX(-50%) translateY(-50%) rotate(0deg);
   animation: 10s infinite alternate ease-in-out tipsy;
 }
