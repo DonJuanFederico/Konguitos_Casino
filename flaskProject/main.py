@@ -8,6 +8,7 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 import re
 from CartonBingo.CreadorCarton import CreadorCarton
 from time import strftime, localtime
+import time
 
 app = Flask(__name__)
 
@@ -451,23 +452,29 @@ def join(data):
     send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room=data["room"])
 
 
+@socketio.on("empezar")
+def empezar(data):
+    send({"msg": "EMPIEZA LA PARTIDA"}, room = data["room"])
+    emit("numeros_bingo", {"numeros_mostrar_bingo": (data["array_numeros"])},room=data["room"])
+    print("NUMEROS BINGO" + str(data["array_numeros"]))
+
+@socketio.on("esperando")
+def esperando(data):
+    send({"msg": "QUEDAN " + str(data["jugadoresRestantes"]) + " PARA EMPEZAR LA PARTIDA"}, room=data["room"])
+
 @socketio.on("anadir")
 def anadir(data):
-    # Antes del send especificar la sala
+    #Antes del send especificar la sala
     join_room(data["room"])
     emit("nuevo_valor_contador", {"valor": int(data["valor"])}, room=data["room"])
 
-
 carton_generado = None
-
-
 @socketio.on("pedirCarton")
 def pedirCarton():
     creador = CreadorCarton()
     global carton_generado
     carton_generado = creador.generar_carton()
     emit("cartonRecibido", {"carton_generado": carton_generado})
-
 
 @socketio.on("valorNumero")
 def valorNumero():
@@ -487,15 +494,14 @@ def guardar_carton():
     else:
         return "No se ha generado ningún cartón aún"
 
-
 @app.route('/obtener_carton', methods=['GET'])
 def obtener_carton():
     carton = mostrarCarton(obtener_nombre())
     return jsonify({"carton": carton})
 
-
 @app.route('/buscar_anfitrion', methods=['POST'])
 def buscar_anfitrion():
+    time.sleep(1)
     nombre_usuario = request.form.get('nombre_usuario')
     resultado = buscarAnfitrion(nombre_usuario)
     return jsonify({'resultado': resultado})
