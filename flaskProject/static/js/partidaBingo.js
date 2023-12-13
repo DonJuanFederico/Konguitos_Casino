@@ -189,7 +189,7 @@ function mostrarNumerosRapido(array) {
                             primeroFila = false;
                             //Mandar al resto que ponga primero fila = false
                             //Ingresar dinero
-                            xhr.send("&cantidad_a_agregar=" + 10);
+                            xhr.send("&cantidad_a_agregar=" + 5);
                         }
                         socket.emit("fila", {"username" : username, "room": room});
                     }
@@ -197,7 +197,7 @@ function mostrarNumerosRapido(array) {
                         hiceDobleFila = false;
                         if(primeroDobleFila){
                             primeroDobleFila = false;
-                            xhr.send("&cantidad_a_agregar=" + 15);
+                            xhr.send("&cantidad_a_agregar=" + 10);
                         }
                         //Mensaje de hizo fila
                         socket.emit("dobleFila", {"username" : username, "room": room});
@@ -231,8 +231,8 @@ socket.on("cambiarDobleFila", data => {
 
 socket.on("terminarPartida", data => {
     primeroBingo = false;
-    if(data.ganador !== username) {
-        Swal.fire({
+    if (data.ganador !== username) {
+        const losePopup = Swal.fire({
             html: `<div style="font-size: 30px;">Perdiste. ${data.ganador} te robó el bingo </div>`,
             imageUrl: `/static/images/bingo/perderBingo.png`,
             showCancelButton: false,
@@ -244,8 +244,15 @@ socket.on("terminarPartida", data => {
                 image: 'custom-swal-image'
             }
         });
-    }else{
-        Swal.fire({
+
+        losePopup.then((result) => {
+            // Aquí se ejecuta cuando el usuario cierra el popup
+            if (result.dismiss === Swal.DismissReason.close) {
+                window.location.href = "/Juegos"; // Redirección al cerrar
+            }
+        });
+    } else {
+        const winPopup = Swal.fire({
             html: `<div style="font-size: 30px;">Felicidades, disfruta el premio!!.</div>`,
             imageUrl: `/static/images/bingo/ganarBingo.png`,
             showCancelButton: false,
@@ -255,6 +262,13 @@ socket.on("terminarPartida", data => {
             customClass: {
                 container: 'custom-swal-container',
                 image: 'custom-swal-image'
+            }
+        });
+
+        winPopup.then((result) => {
+            // Aquí se ejecuta cuando el usuario cierra el popup
+            if (result.dismiss === Swal.DismissReason.close) {
+                window.location.href = "/Juegos"; // Redirección al cerrar
             }
         });
     }

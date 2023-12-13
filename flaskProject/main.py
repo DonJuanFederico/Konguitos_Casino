@@ -509,29 +509,30 @@ def page_not_found(error):
 
 @app.route('/crear_partida', methods=['POST'])
 def crear_partida():
-    ROOMS.append(request.form.get('nombre_partida'))
-    registrarPartida(obtener_nombre(), request.form.get('nombre_partida'))
+    nombre_partida = request.form.get('nombre_partida')
+    if nombre_partida in ROOMS:
+        return "La partida ya existe"
+    ROOMS.append(nombre_partida)
+    registrarPartida(obtener_nombre(), nombre_partida)
     return "Partida creada correctamente"
 
 @app.route('/eliminar_sala', methods=['POST'])
 def eliminar_sala():
-    print("Antes " + str(ROOMS))
     nombre_sala = request.form.get('nombre_sala')
     if nombre_sala in ROOMS:
         ROOMS.remove(nombre_sala)
-    print("Despues " + str(ROOMS))
     return "Sala eliminada correctamente"
 
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
     if request.method == 'POST':
         salaElegida = request.form.get('sala')
-        session['salaElegida'] = salaElegida
+        if salaElegida not in ROOMS:
+            return  "Sala no disponible"
+        session['salaElegidaBingo'] = salaElegida
         return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
-    salaElegida = session.get('salaElegida')
+    salaElegida = session.get('salaElegidaBingo')
     return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
-
-
 
 @socketio.on("message")
 def message(data):

@@ -615,14 +615,24 @@ def guardarCarton(nombre, carton):
     if conn:
         cursor = conn.cursor()
         try:
-            query = "INSERT INTO carton (nombreJugador, numerosCarton) VALUES (%s, %s)"
-            cursor.execute(query, (nombre, carton))
+            # Comprobar y eliminar
+            check_query = "SELECT * FROM carton WHERE nombreJugador = %s"
+            cursor.execute(check_query, (nombre,))
+            existing_row = cursor.fetchone()
+            if existing_row:
+                delete_query = "DELETE FROM carton WHERE nombreJugador = %s"
+                cursor.execute(delete_query, (nombre,))
+                conn.commit()
+            insert_query = "INSERT INTO carton (nombreJugador, numerosCarton) VALUES (%s, %s)"
+            cursor.execute(insert_query, (nombre, carton))
             conn.commit()
+
         except mysql.connector.Error as err:
             print(f"Error de MySQL: {err}")
         finally:
             cursor.close()
             close_connection(conn)
+
 
 def mostrarCarton(nombre):
     conn = connect()
