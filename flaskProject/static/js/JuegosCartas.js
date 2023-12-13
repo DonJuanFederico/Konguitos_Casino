@@ -11,5 +11,5 @@ document.getElementById("cargarCartaEleccion").addEventListener("click", functio
 });
 
 document.getElementById("cargarPoker").addEventListener("click", function(){
-    window.location.href = "/Juegos/Indice_cartas/Cartas_de_eleccion/";
+    window.location.href = "/Juegos/Indice_cartas/Poker_texas/";
 });

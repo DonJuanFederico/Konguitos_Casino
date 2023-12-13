@@ -40,6 +40,7 @@ function recompensas() {
                 "<h3>Facil y sencillo:</h3>" +
                 "<br>Si ganas te llevas un x2 de lo apostado</br>" +
                 "<br>Si pierdes, pierdes lo apostado</br>" +
+                "<br>Si empatas, recuperas tu apuesta</br>" +
                 "</div>",
             confirmButtonText: 'QUIERO DINERO',
             confirmButtonColor: '#3085d6',
