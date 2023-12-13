@@ -395,7 +395,7 @@ def blackjack():
     return render_template('blackjack.html', DINERO=DINERO)
 
 @app.route('/Juegos/Indice_cartas/Poker/', methods=['GET'])
-def blackjack():
+def poker_texas():
     DINERO = obtenerDinero()
     return render_template('poker_texas.html', DINERO=DINERO)
 
