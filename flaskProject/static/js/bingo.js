@@ -100,7 +100,12 @@ document.getElementById("divReglas").addEventListener("click", function() {
     });
 });
 
-document.getElementById("botonJugar").addEventListener("click", function() {
+document.getElementById("Formulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Para prevenir el comportamiento predeterminado del formulario
+    crearSala(); // Llama a tu función aquí
+});
+
+function crearSala() {
     var nombrePartida = document.getElementById("nombrePartida").value;
     if (buscarPartida ) {
         if(nombrePartida.length > 0){
@@ -124,20 +129,20 @@ document.getElementById("botonJugar").addEventListener("click", function() {
                         // Redirigir a la página partidaBingo
                         window.location.href = "/partidaBingo";
                       } else {
-                        // Manejar errores si es necesario
+                        alert("Error 2")
                       }
                     }
                   };
                   xhr2.send("&sala=" + nombrePartida);
                 } else {
-                  // Manejar errores si es necesario
+                  alert("Error")
                 }
               }
             };
 
             // Enviar la primera solicitud para crear la partida
             xhr.send("&nombre_partida=" + nombrePartida);
-        }else{
+        } else {
             Swal.fire({
                 title: 'Ponga un nombre a la sala!',
                 confirmButtonText: 'Entendido',
@@ -148,18 +153,19 @@ document.getElementById("botonJugar").addEventListener("click", function() {
                 allowEnterKey: true,
             });
         }
-    }else{
+    } else {
         Swal.fire({
-                title: 'Guarde el cartón antes de jugar',
-                confirmButtonText: 'Entendido',
-                confirmButtonColor: '#9a20a8',
-                backdrop: true,
-                allowOutsideClick: true,
-                allowEscapeKey: true,
-                allowEnterKey: true,
-            });
+            title: 'Guarde el cartón antes de jugar',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#9a20a8',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+        });
     }
-});
+}
+
 
 document.getElementById("unirseSala").addEventListener("click", function() {
     var roomsContent = document.getElementById('rooms').innerHTML;
