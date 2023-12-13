@@ -18,6 +18,27 @@ db_config = {
     "port": 3306,
 }
 
+def existeCorreo(correo):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el correo ya está registrado
+            query = "SELECT * FROM usuarios WHERE Correo = %s"
+            cursor.execute(query, (correo,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("Correo ya registrado")
+                return True
+            else:
+                print("Correo no registrado")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
 
 def obtener_pais_desde_direccion(direccion):
     # Reemplaza 'TU_CLAVE_DE_API' con tu clave de API de Google Maps

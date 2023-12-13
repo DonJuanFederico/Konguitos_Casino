@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, Response, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify, Response, redirect, url_for, session, flash
 from BBDD.conexionBBDD import *
 from datetime import datetime
 from templates.form import *
@@ -9,6 +9,8 @@ import re
 from CartonBingo.CreadorCarton import CreadorCarton
 from time import strftime, localtime
 import time
+from PIL import Image
+import io
 
 app = Flask(__name__)
 
@@ -48,44 +50,100 @@ def inicio():
     return render_template('inicio.html', form=form)
 
 
-@app.route('/Registro/', methods=['GET', 'POST'])
+@app.route('/Registro/Datos Personales/', methods=['GET','POST'])
 def registroUsuario():
-    form = crearUsuario()
-    if form.validate_on_submit():
-        nombreUsuario = form.username.data
+    mensaje = ""
+    nombreUsuario = ""
+    correo = ""
+    DNI = ""
+    telefono = ""
+    pais = ""
+    codigoPostal = ""
+    contraseña = ""
+    verificarContraseña = ""
+    aceptaTerminos = ""
+    if request.method == 'POST':
+        nombreUsuario = request.form.get('nombreUsuario')
+        correo = request.form.get('correo')
+        DNI = request.form.get('DNI')
+        telefono = request.form.get('telefono')
+        pais = request.form.get('pais')
+        codigoPostal = request.form.get('codigoPostal')
+        contraseña = request.form.get('contraseña')
+        verificarContraseña = request.form.get('verificarContraseña')
+        aceptaTerminos = request.form.get('terminosYCondiciones')
         session['nombreUsuario'] = nombreUsuario
-        contraseña = form.password.data
-        correo = form.email.data
-        DNI = form.dni.data
-        dinero = 0.0
-        telefono = form.telephone.data
-        foto = None
-        fecha_hora = datetime.now()
-        calle = form.street.data
-        codigoPostal = form.postalCode.data
-        numeroTarjeta = form.cardNumber.data
-        titulanteTarjeta = form.nameHolder.data
-        caducidadTarjeta = form.expirationDate.data
-        cvv = form.cvv.data
-        print("Nombre de usuario:", nombreUsuario)
-        print("NumeroTarjeta:", numeroTarjeta)
-        if agregarUsuario(nombreUsuario, contraseña, correo, DNI, dinero, telefono, foto, calle, codigoPostal, None):
-            print("Exito Usuario")
-            if agregarTarjeta(nombreUsuario, numeroTarjeta, titulanteTarjeta, caducidadTarjeta, cvv):
-                print("Exito Tarjeta")
-                return camara()
-            else:
-                return redirect(url_for('registroUsuario'))
+        session['correo'] = correo
+        session['DNI'] = DNI
+        session['telefono'] = telefono
+        session['pais'] = pais
+        session['codigoPostal'] = codigoPostal
+        session['contraseña'] = contraseña
+        if (nombreUsuario == "" or correo == "" or DNI == "" or telefono == "" or pais == "" or codigoPostal == "" or contraseña == "" or verificarContraseña == ""):
+            flash("Rellene todos los campos", "info")
         else:
-            return redirect(url_for('registroUsuario'))
-    return render_template('registroUsuario.html', form=form)
+            if obtenerId(nombreUsuario) is not None:
+                flash("El usuario " + nombreUsuario + " ya existe", "info")
+            else:
+                    if existeCorreo(correo):
+                        flash("Correo " + correo + " ya registrado", "info")
+                    else:
+                            flash("")
+                            # Verificar la presencia de letras mayúsculas, minúsculas, dígitos y caracteres especiales
+                            tiene_mayuscula = any(c.isupper() for c in contraseña)
+                            tiene_minuscula = any(c.islower() for c in contraseña)
+                            tiene_digito = any(c.isdigit() for c in contraseña)
+                            tiene_caracter_especial = any(c for c in contraseña if c.isalnum() is False)
+                            if tiene_mayuscula and tiene_minuscula and tiene_digito and tiene_caracter_especial and (len(contraseña) >= 8):
+                                flash("")
+                                if contraseña == verificarContraseña:
+                                    if aceptaTerminos == "on":
+                                        flash("")
+                                        return redirect(url_for('registroTarjeta'))
+                                    else:
+                                        flash("")
+                                        flash("Debe aceptar los términos y condiciones para poder continuar con el registro", "info")
+                                else:
+                                    flash("Las contraseñas no coinciden", "info")
+                            else:
+                                flash("Contraseña poco segura, se aconseja introducir al menos una mayúscula, minúscula, un número, un carácter especial y mínimo 8 caracteres", "info")
+    return render_template('registroUsuario.html', mensaje=mensaje, nombreUsuario=nombreUsuario, correo=correo, DNI=DNI, telefono=telefono, pais=pais, codigoPostal=codigoPostal, contraseña=contraseña, verificarContraseña=verificarContraseña)
 
-
-@app.route('/Registro/Tarjeta/', methods=['GET', 'POST'])
+@app.route('/Registro/Tarjeta Bancaria/', methods=['GET', 'POST'])
 def registroTarjeta():
-    return render_template('registroTarjeta.html')
+    numeroTarjeta = ""
+    titulanteTarjeta = ""
+    caducidadTarjeta = ""
+    cvv = ""
+    if request.method == 'POST':
+        numeroTarjeta = request.form.get('numeroTarjeta')
+        titulanteTarjeta = request.form.get('titulanteTarjeta')
+        caducidadTarjeta = request.form.get('caducidadTarjeta')
+        cvv = request.form.get('CVV')
+        session['numeroTarjeta'] = numeroTarjeta
+        session['titulanteTarjeta'] = titulanteTarjeta
+        session['caducidadTarjeta'] = caducidadTarjeta
+        session['cvv'] = cvv
+        print("Numero de tarjeta:", numeroTarjeta)
+        print("Titulante de tarjeta:", titulanteTarjeta)
+        print("Caducidad de tarjeta:", caducidadTarjeta)
+        print("CVV de tarjeta:", cvv)
+        return redirect(url_for('foto_y_registra_usuario'))
+    return render_template('registroTarjeta.html', numeroTarjeta=numeroTarjeta, titulanteTarjeta=titulanteTarjeta, caducidadTarjeta=caducidadTarjeta, cvv=cvv)
 
 
+def convertir_imagen_a_blob(file_storage):
+    imagen_blob = file_storage.read()
+    return imagen_blob
+
+@app.route('/Registro/Foto Personal/', methods=['GET', 'POST'])
+def foto_y_registra_usuario():
+    nombreUsuario = session.get('nombreUsuario')
+    if request.method == 'POST':
+        photo = request.files.get('photo')
+        print(convertir_imagen_a_blob(photo))
+        return redirect(url_for('index'))
+    return render_template('registroCamara.html', nombreUsuario = nombreUsuario)
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
     return render_template('terminosCondiciones.html')

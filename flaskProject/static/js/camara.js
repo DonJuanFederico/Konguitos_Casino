@@ -1,44 +1,34 @@
-//capturar video o imagen
-const video = document.querySelector(".video");
-const canvas = document.querySelector(".canvas");
+document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const snapButton = document.getElementById('snap');
 
-//tomar foto
-const button = document.querySelector(".start-btn");
+            // Obtener acceso a la cámara
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.error('Error accessing the camera: ', error);
+                });
 
-//mostrar foto
-const photo = document.querySelector(".photo");
+            // Capturar una foto y mostrar en el canvas
+            snapButton.addEventListener('click', function () {
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                video.pause();
+                video.srcObject.getVideoTracks().forEach(track => track.stop());
+                video.style.display = 'none';
+                canvas.style.display = 'block';
+            });
 
-//constrains
-const constraints = {
-  video: { width: 420, height: 340 },
-  audio: false,
-};
+            // Función para enviar el formulario (puedes personalizarla según tus necesidades)
+            window.submitForm = function () {
+                // Aquí puedes agregar lógica para enviar el formulario
+                // Por ejemplo, puedes crear un FormData y enviarlo mediante una petición AJAX
+                const formData = new FormData(document.getElementById('msform'));
+                console.log('Form data:', formData);
 
-let videoStream; // Variable para mantener un seguimiento del stream de video.
-let isCameraActive = true; // Variable para controlar si la cámara está activa o no.
-
-// Función para acceder a la cámara
-const getVideo = async () => {
-  try {
-    videoStream = await navigator.mediaDevices.getUserMedia(constraints);
-    handleSuccess(videoStream);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// Si la promesa tiene éxito
-const handleSuccess = (stream) => {
-  video.srcObject = stream;
-  video.play();
-};
-
-// Detener la cámara
-const stopVideoStream = () => {
-  if (videoStream) {
-    const tracks = videoStream.getTracks();
-    tracks.forEach((track) => track.stop());
-  }
-};
-
-getVideo();
+                // Después de enviar el formulario, puedes redirigir al usuario a otra página o realizar otras acciones
+            };
+        });

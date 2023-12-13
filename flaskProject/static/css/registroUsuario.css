@@ -1,163 +1,155 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {
+  margin: 0;
+  padding: 0;
+}
 
 html {
   height: 100%;
+  /*Image only BG fallback*/
+
+  /*background = gradient + image pattern combo*/
+  background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
 }
 
 body {
-  margin:0%;
-  font-family: 'Roboto', sans-serif;
+  font-family: montserrat, arial, verdana;
+}
+/*form styles*/
+#msform {
+  width: 70%;
+  margin: 10px auto;
+  text-align: center;
+  position: relative;
+}
+#msform fieldset {
+  background: rgba(225, 212, 212, 0.27);
+  border: 0 none;
+  border-radius: 3px;
+  box-shadow: 0 0 15px 1px rgba(72, 41, 41, 0.4);
+  padding: 20px 30px;
+  box-sizing: border-box;
+  width: 60%;
+  margin: 0 2%;
+  left: 18%;
+  position: relative;
+}
+/*inputs*/
+#msform input,
+#msform textarea {
+  padding: 8px;
+  left: 20%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  width: 50%;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #2c3e50;
+  font-size: 13px;
+  position: relative;
+}
+
+#msform label {
   font-weight: bold;
+  position: absolute;
+  left: 7%;
+  margin-top: 3%;
+  font-size: 15px;
   text-transform: uppercase;
-  background: linear-gradient(#141e30, #243b55);
-}
+  color: #2c3e50;
+  margin-bottom: 5px;
 
-.loginPersonal-box {
-  position: absolute;
-  left: 10%;
-  top:5%;
-  width: 30%;
-  height: 90%;
-  padding: 3%;
-  background: rgba(0,0,0,.5);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
-  border-radius: 10px;
 }
-
-.loginPersonal-box h2 {
-  margin: 0 0 5%;
-  padding-right: 0;
-  color: #ffffff;
-  text-align: center;
-}
-
-.loginPersonal-box .user-box {
-  position: relative;
-}
-
-.loginPersonal-box .user-box input {
-  width: 95%;
-  padding: 3% 0;
-  font-size: 120%;
-  color: #fff;
-  margin-bottom: 3%;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-.loginPersonal-box .user-box label {
-  position: absolute;
-  top:0;
-  left: 0;
-  padding: 5% 0;
-  font-size: 100%;
-  color: #fff;
-  pointer-events: none;
-  transition: .5s;
-}
-
-.loginPersonal-box .user-box input:focus ~ label,
-.loginPersonal-box .user-box input:valid ~ label {
-  top: -40%;
-  left: 0;
-  color: #03e9f4;
-  font-size: 12px;
-}
-
-.loginTarjeta-box{
-  position: absolute;
-  right: 10%;
-  top:5%;
-  width: 30%;
-  height: 90%;
-  padding: 3%;
-  background: rgba(0,0,0,.5);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
-  border-radius: 10px;
-}
-
-.loginTarjeta-box h2 {
- margin: 0 0 5%;
-  padding-right: 0;
-  color: #ffffff;
-  text-align: center;
-}
-
-.loginTarjeta-box .user-box {
-  position: relative;
-}
-
-.loginTarjeta-box .user-box input {
-  width: 95%;
-  padding: 3% 0;
-  font-size: 120%;
-  color: #fff;
-  margin-bottom: 10%;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-
-.loginTarjeta-box .user-box label {
-  position: absolute;
-  top:0;
-  left: 0;
-  padding: 5% 0;
-  font-size: 100%;
-  color: #fff;
-  pointer-events: none;
-  transition: .5s;
-}
-
-.loginTarjeta-box .user-box input:focus ~ label,
-.loginTarjeta-box .user-box input:valid ~ label {
-   top: -40%;
-  left: 0;
-  color: #03e9f4;
-  font-size: 12px;
-}
-
-.terminos .user-box{
-  position: absolute;
-  left: 10%;
-  bottom: 5%;
-  font-size: 120%;
-}
-
-.registro {
-  position: relative;
-  background: black;
-  cursor: pointer;
-  border: none;
-  padding: 2.5% 5%;
-  color: white;
-  font-size: 170%;
+/*buttons*/
+#msform .action-button {
+  width: 100px;
+  background: #27ae60;
   font-weight: bold;
-  border-radius: 10%;
+  color: white;
+  border: 0 none;
+  border-radius: 1px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px 5px;
+  text-decoration: none;
+  font-size: 14px;
 }
 
-.registro::before {
+#msform .action-button:hover,
+#msform .action-button:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #27ae60;
+}
+/*headings*/
+.fs-title {
+  font-size: 15px;
+  text-transform: uppercase;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+.fs-subtitle {
+  margin-bottom: 2%;
+  font-weight: normal;
+  font-size: 13px;
+  color: black;
+}
+/*progressbar*/
+#progressbar {
+  margin-bottom: 20px;
+  overflow: hidden;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+}
+#progressbar li {
+  list-style-type: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: 9px;
+  width: 33.33%;
+  float: left;
+  position: relative;
+}
+#progressbar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 20px;
+  line-height: 20px;
+  display: block;
+  font-size: 10px;
+  color: #333;
+  background: white;
+  border-radius: 3px;
+  margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+#progressbar li:after {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, red,blue,deeppink,blue,
-    red,blue,deeppink,blue);
-  background-size: 800%;
-  border-radius: 10px;
-  filter: blur(8px);
-  animation: glowing 20s linear infinite;
+  height: 2px;
+  background: white;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,
+#progressbar li.active:after {
+  background: #27ae60;
+  color: white;
 }
 
-@keyframes glowing {
-  0% { background-position: 0 0; }
-  50% { background-position: 400% 0; }
-  100% { background-position: 0 0; }
+.bx {
+  font-size: 25px;
+  cursor: pointer;
+  position: absolute;
+  left: 80%;
 }
