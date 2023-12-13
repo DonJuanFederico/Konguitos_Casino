@@ -21,7 +21,7 @@ let animacionEnProgreso = false;
 
 // Inicializamos el juego
 function init(firstInit = true, groups = 1, duration = 1) {
-
+// Configurar los slots
     for (const slot of posicionamiento) {
         if (firstInit) {
             // Establecer el atributo "spinned" en "0" al inicializar
@@ -275,12 +275,14 @@ function agregarDinero() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("&cantidad_a_agregar=" + monto);
 }
+
 // funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
 let prevUrl = document.referrer;
-function volverAtras(){
-    if(prevUrl.indexOf(window.location.host) !== -1) {
-    // Ir a la página anterior
-    window.history.back();
+
+function volverAtras() {
+    if (prevUrl.indexOf(window.location.host) !== -1) {
+        // Ir a la página anterior
+        window.history.back();
     }
 }
 

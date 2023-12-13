@@ -191,6 +191,19 @@ button:hover {
     color: #050505;
 }
 
+.botonDeAviso {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 3%;
+    color: #050505;
+}
+
 buttonRR {
     cursor: pointer;
     font-size: 1.2rem;
