@@ -137,6 +137,7 @@ function cambiarImagenes(array) {
 
     const cambioImagen = () => {
         imagen.src = `/static/images/bingo/${contador}.png`;
+        console.log(contador);
         if (contador === 6) {
             mostrarNumerosRapido(array);
             setTimeout(() => {
@@ -153,14 +154,11 @@ function cambiarImagenes(array) {
     cambioImagen();
 }
 
-hiceFila = true;
-hiceDobleFila = true;
-
 function mostrarNumerosRapido(array) {
     if(array.length > 0) {
         const spanNumero = document.getElementById("numeroSeleccionado");
-        const tiempoVisualizacion = 2;
-        const tiempoEspera = 2;
+        const tiempoVisualizacion = 2; // Tiempo de visualización de números en segundos
+        const tiempoEspera = 3; // Tiempo de espera entre visualizaciones en segundos
 
         const intervalo = setInterval(() => {
             const numeroAleatorio = Math.floor(Math.random() * 90) + 1;
@@ -185,29 +183,17 @@ function mostrarNumerosRapido(array) {
                     } else {
                         fila3++;
                     }
-                    if ((fila1 === 5 || fila2 === 5 || fila3 === 5) && hiceFila) {
-                        hiceFila = false;
-                        if(primeroFila){
-                            primeroFila = false;
-                            //Mandar al resto que ponga primero fila
-                            //Ingresar dinero
-                        }
-                        socket.emit("fila", {"username" : username, "room": room});
-
+                    if ((fila1 === 5 || fila2 === 5 || fila3 === 5) && primeroFila) {
+                        alert("Hizo fila");
+                        primeroFila = false;
                     }
-                    if ((((fila1 + fila2) === 10) || ((fila1 + fila3) === 10) || ((fila2 + fila3) === 10)) && hiceDobleFila) {
-                        hiceDobleFila = false;
-                        if(primeroDobleFila){
-                            primeroDobleFila = false;
-                        }
-                        //Mensaje de hizo fila
-                        socket.emit("dobleFila", {"username" : username, "room": room});
-
+                    if ((((fila1 + fila2) === 10) || ((fila1 + fila3) === 10) || ((fila2 + fila3) === 10)) && primeroDobleFila) {
+                        alert("Hizo doble fila");
+                        primeroDobleFila = false;
                     }
-                    if (fila1 + fila2 + fila3 === 15) {
-                        if(primeroBingo){
-                            socket.emit("bingoCompleto", {"username" : username, "room": room});
-                        }
+                    if ((fila1 + fila2 + fila3 === 15) && primeroBingo) {
+                        alert("Bingo");
+                        primeroBingo = false;
                     }
                 }
                 iteracion++;
@@ -219,44 +205,6 @@ function mostrarNumerosRapido(array) {
         }, (tiempoVisualizacion + tiempoEspera) * 1000);
     }
 }
-
-socket.on("cambiarFila", data => {
-    primeroFila = false;
-});
-
-socket.on("cambiarDobleFila", data => {
-    primeroDobleFila = false;
-});
-
-socket.on("terminarPartida", data => {
-    if(data.ganador !== username) {
-        Swal.fire({
-            html: `<div style="font-size: 30px;">Perdiste. ${data.ganador} te robó el bingo </div>`,
-            imageUrl: `/static/images/bingo/perderBingo.png`,
-            showCancelButton: false,
-            showConfirmButton: false,
-            backdrop: `rgb(181, 245, 156)`,
-            background: `none`,
-            customClass: {
-                container: 'custom-swal-container',
-                image: 'custom-swal-image'
-            }
-        });
-    }else{
-        Swal.fire({
-            html: `<div style="font-size: 30px;">Felicidades, disfruta el premio!!.</div>`,
-            imageUrl: `/static/images/bingo/ganarBingo.png`,
-            showCancelButton: false,
-            showConfirmButton: false,
-            backdrop: `rgb(181, 245, 156)`,
-            background: `none`,
-            customClass: {
-                container: 'custom-swal-container',
-                image: 'custom-swal-image'
-            }
-        });
-    }
-});
 
 document.addEventListener("DOMContentLoaded", () => {
     let msg = document.querySelector("#user-message");

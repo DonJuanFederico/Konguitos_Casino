@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ProbarOnline</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+    <style>
+        body {
+          margin: 0;
+        }
+        #total{
+            position: absolute;
+            margin: 0;
+            background-color: cadetblue;
+            width: 100vw; /* Ancho del 100% del viewport */
+            height: 100vh; /* Altura del 100% del viewport */
+        }
+
+        #botonCarton{
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center;
+        }
+        #prueba{
+            position: relative;
+        }
+
+        #div1, #div2, #div3, #div4, #div5, #div6, #div7, #div8, #div9, #div10, #div11, #div12, #div13, #div14, #div15, #div16, #div17, #div18, #div19, #div20, #div21, #div22, #div23, #div24, #div25, #div26, #div27{
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center;
+        }
+
+        span{
+            font-size: 400%;
+        }
+
+        #div1{
+            position: relative;
+            top: 0%;
+            left: 0%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div2{
+            position: relative;
+            top: -33.33%;
+            left: 11.11%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div3{
+            position: relative;
+            top: -66.66%;
+            left: 22.22%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div4{
+            position: relative;
+            top: -100%;
+            left: 33.33%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div5{
+            position: relative;
+            top: -133.33%;
+            left: 44.44%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div6{
+            position: relative;
+            top: -166.66%;
+            left: 55.55%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div7{
+            position: relative;
+            top: -200%;
+            left: 66.66%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div8{
+            position: relative;
+            top: -233.33%;
+            left: 77.77%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div9{
+            position: relative;
+            top: -266.66%;
+            left: 88.88%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div10{
+            position: relative;
+            top: -266.66%;
+            left: 0%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div11{
+            position: relative;
+            top: -300%;
+            left: 11.11%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div12{
+            position: relative;
+            top: -333.33%;
+            left: 22.22%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div13{
+            position: relative;
+            top: -366.66%;
+            left: 33.33%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div14{
+            position: relative;
+            top: -400%;
+            left: 44.44%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div15{
+            position: relative;
+            top: -433.33%;
+            left: 55.55%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div16{
+            position: relative;
+            top: -466.66%;
+            left: 66.66%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div17{
+            position: relative;
+            top: -500.00%;
+            left: 77.77%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div18{
+            position: relative;
+            top: -533.33%;
+            left: 88.88%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div19{
+            position: relative;
+            top: -533.33%;
+            left: 0%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div20{
+            position: relative;
+            top: -566.66%;
+            left: 11.11%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div21{
+            position: relative;
+            top: -600%;
+            left: 22.22%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div22{
+            position: relative;
+            top: -633.33%;
+            left: 33.33%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div23{
+            position: relative;
+            top: -666.66%;
+            left: 44.44%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+        #div24{
+            position: relative;
+            top: -700%;
+            left: 55.55%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div25{
+            position: relative;
+            top: -733.33%;
+            left: 66.66%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: blue;
+        }
+        #div26{
+            position: relative;
+            top: -766.66%;
+            left: 77.77%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: cornflowerblue;
+        }
+        #div27{
+            position: relative;
+            top: -800%;
+            left: 88.88%;
+            height: 33.33%;
+            width: 11.11%;
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div id = "total">
+        <div id = "prueba">
+            <form id="chatForm" method="POST" action="/guardar_datos">
+                <label for="lname">Nombre:</label><br>
+                <input type="text" id="lname" name="nombre" value=""><br>
+                <label for="numeroId">Id:</label><br>
+                <input type="text" id="numeroId" name="id" value=""><br>
+                <button class="button black" type="submit">Jugar</button>
+            </form>
+            <div id = "botonCarton">
+                <button class="button black" type="submit" id="pedir">Dar cartón</button>
+            </div>
+        </div>
+        <div id = "carton">
+            <div id = "div1">
+                <span id = "span1"></span>
+            </div>
+            <div id = "div2">
+                <span id = "span2"></span>
+            </div>
+            <div id = "div3">
+                <span id = "span3"></span>
+            </div>
+            <div id = "div4">
+                <span id = "span4"></span>
+            </div>
+            <div id = "div5">
+                <span id = "span5"></span>
+            </div>
+            <div id = "div6">
+                <span id = "span6"></span>
+            </div>
+            <div id = "div7">
+                <span id = "span7"></span>
+            </div>
+            <div id = "div8">
+                <span id = "span8"></span>
+            </div>
+            <div id = "div9">
+                <span id = "span9"></span>
+            </div>
+            <div id = "div10">
+                <span id = "span10"></span>
+            </div>
+            <div id = "div11">
+                <span id = "span11"></span>
+            </div>
+            <div id = "div12">
+                <span id = "span12"></span>
+            </div>
+            <div id = "div13">
+                <span id = "span13"></span>
+            </div>
+            <div id = "div14">
+                <span id = "span14"></span>
+            </div>
+            <div id = "div15">
+                <span id = "span15"></span>
+            </div>
+            <div id = "div16">
+                <span id = "span16"></span>
+            </div>
+            <div id = "div17">
+                <span id = "span17"></span>
+            </div>
+            <div id = "div18">
+                <span id = "span18"></span>
+            </div>
+            <div id = "div19">
+                <span id = "span19"></span>
+            </div>
+            <div id = "div20">
+                <span id = "span20"></span>
+            </div>
+            <div id = "div21">
+                <span id = "span21"></span>
+            </div>
+            <div id = "div22">
+                <span id = "span22"></span>
+            </div>
+            <div id = "div23">
+                <span id = "span23"></span>
+            </div>
+            <div id = "div24">
+                <span id = "span24"></span>
+            </div>
+            <div id = "div25">
+                <span id = "span25"></span>
+            </div>
+            <div id = "div26">
+                <span id = "span26"></span>
+            </div>
+            <div id = "div27">
+                <span id = "span27"></span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src = "{{ url_for('static', filename = 'js/inicio.js') }}"></script>
+</body>
+</html>

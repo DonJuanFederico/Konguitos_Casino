@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ProbarOnline</title>
+    <link href="{{ url_for('static', filename = 'css/style.css')}}" rel = "stylesheet" />
+</head>
+<body>
+    <h1 id ="valor-numero">{{ NUMERO }}</h1>
+    <button type="button" onclick="sumarIncremento()">Incrementar</button>
+    <button type="button" onclick="resetear()">Resetear</button>
+    <script src="/static/js/index.js"></script>
+</body>
+</html>

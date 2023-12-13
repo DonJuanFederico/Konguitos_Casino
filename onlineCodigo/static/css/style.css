@@ -1,0 +1,11 @@
+#carton{
+    position: relative;
+    width: 50%;
+    height: 40%;
+    top: 20%;
+    left: 40%;
+    background-image: url('/static/fotos/carton.png');
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el div */
+    background-position: center; /* Posiciona la imagen en el centro del div */
+    background-repeat: no-repeat;
+}
