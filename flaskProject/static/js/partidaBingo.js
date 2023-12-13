@@ -206,6 +206,7 @@ function mostrarNumerosRapido(array) {
                     }
                     if (fila1 + fila2 + fila3 === 15) {
                         if(primeroBingo){
+                            primeroBingo = false;
                             socket.emit("bingoCompleto", {"username" : username, "room": room});
                         }
                     }
@@ -229,13 +230,14 @@ socket.on("cambiarDobleFila", data => {
 });
 
 socket.on("terminarPartida", data => {
+    primeroBingo = false;
     if(data.ganador !== username) {
         Swal.fire({
             html: `<div style="font-size: 30px;">Perdiste. ${data.ganador} te robó el bingo </div>`,
             imageUrl: `/static/images/bingo/perderBingo.png`,
             showCancelButton: false,
             showConfirmButton: false,
-            backdrop: `rgb(181, 245, 156)`,
+            backdrop: `rgb(245, 123, 123)`,
             background: `none`,
             customClass: {
                 container: 'custom-swal-container',
