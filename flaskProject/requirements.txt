@@ -1,6 +1,7 @@
 asgiref==3.7.2
 bidict==0.22.1
 blinker==1.6.2
+cachelib==0.10.2
 certifi==2023.7.22
 charset-normalizer==3.3.2
 click==8.1.7
@@ -11,6 +12,7 @@ EasyProcess==1.1
 entrypoint2==1.1
 filelock==3.12.4
 Flask==3.0.0
+Flask-Session==0.5.0
 Flask-SocketIO==5.3.6
 Flask-WTF==1.2.1
 h11==0.14.0

@@ -5,13 +5,6 @@ var socket = io();
 var jugadoresRestantes = 1;
 var usuariosEntrados = [];
 
-/***
-
-                                        ESTO LUEGO HAY QUE CAMBIARLO
-
- ***/
-let room = "Lounge";
-
 document.addEventListener("DOMContentLoaded", () =>{
 
     fetch('/obtener_carton')
@@ -34,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             console.error('Error al obtener el cartón:', error);
         });
 
-    joinRoom("Lounge");
+    joinRoom(room);
     socket.on("message", data => {
         //console.log(`Message received: ${data}`)
         const p = document.createElement("p");
@@ -52,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 usuariosEntrados.push(data.nuevo_usuario);
                 jugadoresRestantes--;
                 empezarPartida();
+
             }
         }
     });
@@ -92,6 +86,10 @@ function empezarPartida(){
     if (jugadoresRestantes === 0) {
         let numeros_elegidos = sacarNumeros()
         socket.emit("empezar", { "room": room, "array_numeros": numeros_elegidos });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/eliminar_sala", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("&nombre_sala=" + room);
     }else {
         socket.emit("esperando", { "room": room, "jugadoresRestantes": jugadoresRestantes });
     }
@@ -139,11 +137,8 @@ function cambiarImagenes(array) {
         imagen.src = `/static/images/bingo/${contador}.png`;
         if (contador === 6) {
             mostrarNumerosRapido(array);
-            setTimeout(() => {
-                contador++;
-                cambioImagen();
-            }, 200);
-        } else if(contador !== 11) {
+        }
+        if (contador !== 11) {
             setTimeout(() => {
                 contador++;
                 cambioImagen();
@@ -194,7 +189,7 @@ function mostrarNumerosRapido(array) {
                             primeroFila = false;
                             //Mandar al resto que ponga primero fila = false
                             //Ingresar dinero
-                            xhr.send("&cantidad_a_agregar=" + 10);
+                            xhr.send("&cantidad_a_agregar=" + 5);
                         }
                         socket.emit("fila", {"username" : username, "room": room});
                     }
@@ -202,7 +197,7 @@ function mostrarNumerosRapido(array) {
                         hiceDobleFila = false;
                         if(primeroDobleFila){
                             primeroDobleFila = false;
-                            xhr.send("&cantidad_a_agregar=" + 15);
+                            xhr.send("&cantidad_a_agregar=" + 10);
                         }
                         //Mensaje de hizo fila
                         socket.emit("dobleFila", {"username" : username, "room": room});
@@ -236,8 +231,8 @@ socket.on("cambiarDobleFila", data => {
 
 socket.on("terminarPartida", data => {
     primeroBingo = false;
-    if(data.ganador !== username) {
-        Swal.fire({
+    if (data.ganador !== username) {
+        const losePopup = Swal.fire({
             html: `<div style="font-size: 30px;">Perdiste. ${data.ganador} te robó el bingo </div>`,
             imageUrl: `/static/images/bingo/perderBingo.png`,
             showCancelButton: false,
@@ -249,8 +244,15 @@ socket.on("terminarPartida", data => {
                 image: 'custom-swal-image'
             }
         });
-    }else{
-        Swal.fire({
+
+        losePopup.then((result) => {
+            // Aquí se ejecuta cuando el usuario cierra el popup
+            if (result.dismiss === Swal.DismissReason.close) {
+                window.location.href = "/Juegos"; // Redirección al cerrar
+            }
+        });
+    } else {
+        const winPopup = Swal.fire({
             html: `<div style="font-size: 30px;">Felicidades, disfruta el premio!!.</div>`,
             imageUrl: `/static/images/bingo/ganarBingo.png`,
             showCancelButton: false,
@@ -260,6 +262,13 @@ socket.on("terminarPartida", data => {
             customClass: {
                 container: 'custom-swal-container',
                 image: 'custom-swal-image'
+            }
+        });
+
+        winPopup.then((result) => {
+            // Aquí se ejecuta cuando el usuario cierra el popup
+            if (result.dismiss === Swal.DismissReason.close) {
+                window.location.href = "/Juegos"; // Redirección al cerrar
             }
         });
     }

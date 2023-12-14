@@ -1,3 +1,4 @@
+import webbrowser
 from flask import Flask, render_template, request, jsonify, Response, redirect, url_for, session, flash
 from BBDD.conexionBBDD import *
 from datetime import datetime
@@ -11,8 +12,11 @@ from time import strftime, localtime
 import time
 from PIL import Image
 import io
+from flask_session import Session
 
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
 # Inicializar flask socketio
 socketio = SocketIO(app)
@@ -33,21 +37,25 @@ def index():
 
 @app.route('/Inicio/', methods=['GET', 'POST'])
 def inicio():
-    form = inicioSesion()
-    if form.validate_on_submit():
-        nombreUsuarioInicio = form.username.data
+    nombreUsuarioInicio = ""
+    contrasenna = ""
+    mensaje = ""
+    if request.method == 'POST':
+        nombreUsuarioInicio = request.form.get('nombreUsuario')
         session['nombreUsuario'] = nombreUsuarioInicio
-        contraseña = form.password.data
+        contrasenna = request.form.get('contraseña')
         print("Nombre de usuario:", nombreUsuarioInicio)
-        print("Contraseña:", contraseña)
-        if adminLogIn(nombreUsuarioInicio, contraseña):
+        print("Contraseña:", contrasenna)
+        if adminLogIn(nombreUsuarioInicio, contrasenna):
             return interfazAdmin()
-        elif iniciar_sesion(nombreUsuarioInicio, contraseña):
+        elif iniciar_sesion_correo(nombreUsuarioInicio, contrasenna):
+            return juegos()
+        elif iniciar_sesion(nombreUsuarioInicio, contrasenna):
             return juegos()
         else:
-            print("Inicio de sesión fallido: usuario o contraseña incorrectos, o BBDD apagada")
+            flash("Usuario,Correo o contraseña incorrecto", "info")
             return index()
-    return render_template('inicio.html', form=form)
+    return render_template('inicio.html',mensaje=mensaje, nombreUsuarioInicio=nombreUsuarioInicio, contrasenna=contrasenna)
 
 
 @app.route('/Registro/Datos Personales/', methods=['GET','POST'])
@@ -203,8 +211,13 @@ def registroAdmin():
 # Funciones Administrador
 @app.route('/Administrador/')
 def interfazAdmin():
-    return render_template('funcionesAdmin/descripcion.html')
-
+    phpmyadmin_url = "http://localhost/phpmyadmin/"
+    try:
+        webbrowser.open(phpmyadmin_url)
+        return index()
+    except Exception as e:
+        print("Error al abrir phpMyAdmin: {str(e)}")
+        return f"Error al abrir phpMyAdmin: {str(e)}"
 
 @app.route('/Administrador/Usuarios/')
 def tablaUsuarios():
@@ -502,15 +515,30 @@ def page_not_found(error):
 
 @app.route('/crear_partida', methods=['POST'])
 def crear_partida():
-    ROOMS.append(request.form.get('nombre_partida'))
-    registrarPartida(obtener_nombre(), request.form.get('nombre_partida'))
+    nombre_partida = request.form.get('nombre_partida')
+    if nombre_partida in ROOMS:
+        return "La partida ya existe"
+    ROOMS.append(nombre_partida)
+    registrarPartida(obtener_nombre(), nombre_partida)
     return "Partida creada correctamente"
 
+@app.route('/eliminar_sala', methods=['POST'])
+def eliminar_sala():
+    nombre_sala = request.form.get('nombre_sala')
+    if nombre_sala in ROOMS:
+        ROOMS.remove(nombre_sala)
+    return "Sala eliminada correctamente"
 
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
-    return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS)
-
+    if request.method == 'POST':
+        salaElegida = request.form.get('sala')
+        if salaElegida not in ROOMS:
+            return  "Sala no disponible"
+        session['salaElegidaBingo'] = salaElegida
+        return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
+    salaElegida = session.get('salaElegidaBingo')
+    return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
 
 @socketio.on("message")
 def message(data):
@@ -520,7 +548,6 @@ def message(data):
     # Evento personalizado:
     # emit("some-event", "this is a custom event message")
 
-
 @socketio.on("join")
 def join(data):
     # Antes del send especificar la sala
@@ -529,12 +556,12 @@ def join(data):
 
 @socketio.on("fila")
 def fila(data):
-    send({"msg": data["username"] + " ha conseguido una fila "}, room=data["room"])
+    send({"msg": data["username"] + " ha conseguido una línea "}, room=data["room"])
     emit("cambiarFila",  room=data["room"])
 
 @socketio.on("dobleFila")
 def dobleFila(data):
-    send({"msg": data["username"] + " ha conseguido doble fila "}, room=data["room"])
+    send({"msg": data["username"] + " ha conseguido doble línea "}, room=data["room"])
     emit("cambiarDobleFila", room=data["room"])
 
 @socketio.on("bingoCompleto")

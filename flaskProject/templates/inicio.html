@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://unpkg.com/boxicons/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
     <audio controls autoplay loop>
@@ -21,16 +22,29 @@
     <div class="login-box">
       <h2>Inicio</h2>
         <form method="POST">
-          {{ form.hidden_tag() }}
         <div class="user-box">
-          <input required="" {{ form.username() }}
-              <label>Nombre de Usuario</label>
+
+          <input id="nombreUsuario"  name="nombreUsuario" value="{{ nombreUsuarioInicio }}" required>
+              <label>Nombre de Usuario o Correo</label>
         </div>
         <div class="user-box">
-          <input required="" {{ form.password()}}
+          <input  type="password" id="contraseña" name="contraseña" value="{{ contrasenna }}" required>
+            <i class="bx bx-hide" id="primera" STYLE="color: white; position: absolute; left: 90%; width: 20%; height: 20%"></i>
           <label>Contraseña</label>
         </div>
-             {{ form.submit(class="entrar")}}
+            <div id="error-message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+                <div id="mensajeAlerta" data-valor='{{ mensaje }}'></div>
+            <button type="submit" class = "entrar">ENTRAR</button>
         </form>
         <form method="GET" action="{{ url_for('registroUsuario')}}">
             <button type="submit" class = "registroUsuario">REGISTRO</button>
@@ -68,5 +82,22 @@
         }
         $('#myModal').modal('hide');
       }
+
+      document.addEventListener("DOMContentLoaded", function() {
+              var password = document.getElementById('contraseña');
+              var primera = document.getElementById('primera');
+
+          primera.addEventListener('click', function() {
+            if (password.type === "password") {
+              password.type = "text";
+              primera.classList.add('bx-show-alt');
+              primera.classList.remove('bx-hide');
+            } else {
+              password.type = "password";
+              primera.classList.remove('bx-show-alt');
+              primera.classList.add('bx-hide');
+            }
+          });
+        });
 </script>
 </body>

@@ -100,16 +100,59 @@ document.getElementById("divReglas").addEventListener("click", function() {
     });
 });
 
-document.getElementById("botonJugar").addEventListener("click", function() {
+document.getElementById("Formulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Para prevenir el comportamiento predeterminado del formulario
+    crearSala(); // Llama a tu función aquí
+});
+
+function crearSala() {
     var nombrePartida = document.getElementById("nombrePartida").value;
     if (buscarPartida ) {
         if(nombrePartida.length > 0){
+            nombrePartida = nombrePartida.charAt(0).toUpperCase() + nombrePartida.slice(1).toLowerCase();
             var xhr = new XMLHttpRequest();
+            // Primera solicitud para crear la partida
             xhr.open("POST", "/crear_partida", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        if (xhr.responseText === "La partida ya existe") {
+                            Swal.fire({
+                                title: 'Usa otro nombre, ya hay una sala que lo utiliza',
+                                confirmButtonText: 'Entendido',
+                                confirmButtonColor: '#a8209d',
+                                backdrop: true,
+                                allowOutsideClick: true,
+                                allowEscapeKey: true,
+                                allowEnterKey: true,
+                            });
+                        } else {
+                            var xhr2 = new XMLHttpRequest();
+                            xhr2.open("POST", "/partidaBingo", true);
+                            xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                            xhr2.onreadystatechange = function() {
+                                if (xhr2.readyState === XMLHttpRequest.DONE) {
+                                    // La segunda solicitud ha finalizado
+                                    if (xhr2.status === 200) {
+                                        // Redirigir a la página partidaBingo
+                                        window.location.href = "/partidaBingo";
+                                    } else {
+                                        alert("Error al crear la partida");
+                                    }
+                                }
+                            };
+                            xhr2.send("&sala=" + nombrePartida);
+                        }
+                    } else {
+                        alert("Error al crear la partida");
+                    }
+                }
+            };
+
+            // Enviar la primera solicitud para crear la partida
             xhr.send("&nombre_partida=" + nombrePartida);
-            window.location.href = "/partidaBingo";
-        }else{
+        } else {
             Swal.fire({
                 title: 'Ponga un nombre a la sala!',
                 confirmButtonText: 'Entendido',
@@ -120,18 +163,19 @@ document.getElementById("botonJugar").addEventListener("click", function() {
                 allowEnterKey: true,
             });
         }
-    }else{
+    } else {
         Swal.fire({
-                title: 'Guarde el cartón antes de jugar',
-                confirmButtonText: 'Entendido',
-                confirmButtonColor: '#9a20a8',
-                backdrop: true,
-                allowOutsideClick: true,
-                allowEscapeKey: true,
-                allowEnterKey: true,
-            });
+            title: 'Guarde el cartón antes de jugar',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#9a20a8',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+        });
     }
-});
+}
+
 
 document.getElementById("unirseSala").addEventListener("click", function() {
     var roomsContent = document.getElementById('rooms').innerHTML;
@@ -160,8 +204,41 @@ document.getElementById("unirseSala").addEventListener("click", function() {
     }
 });
 
-function alerta(newRoom) {
-    window.location.href = "/partidaBingo";
+function enviarSala(sala) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/partidaBingo", true); // Nueva ruta para verificar la sala
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                if (xhr.responseText === "Sala no disponible") {
+                    Swal.fire({
+                        title: 'Esa sala acaba de llenarse, mala suerte',
+                        confirmButtonText: 'Buscar otra sala',
+                        confirmButtonColor: '#00ffd9',
+                        backdrop: true,
+                        allowOutsideClick: true,
+                        allowEscapeKey: true,
+                        allowEnterKey: true,
+                    }).then(() => {
+                        // Buscar el elemento de la sala y eliminarlo del DOM
+                        var rooms = document.getElementsByClassName('select-room');
+                        for (var i = 0; i < rooms.length; i++) {
+                            if (rooms[i].innerHTML === sala) {
+                                rooms[i].parentNode.removeChild(rooms[i]);
+                                break; // Detener el bucle
+                            }
+                        }
+                    });
+                } else {
+                    window.location.href = "/partidaBingo";
+                }
+            } else {
+                alert("Error al unirse a la sala");
+            }
+        }
+    };
+    xhr.send("sala=" + sala); // Envía la solicitud con el nombre de la sala
 }
 
 function retirarDinero() {

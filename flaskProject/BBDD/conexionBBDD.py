@@ -18,6 +18,33 @@ db_config = {
     "port": 3306,
 }
 
+
+def iniciar_sesion_correo(correo, contraseña):
+    contraseña = encriptarClave(contraseña)
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el usuario y la contraseña son válidos
+            query = "SELECT * FROM usuarios WHERE Correo = %s AND Contraseña = %s"
+            cursor.execute(query, (correo, contraseña))
+            resultado = cursor.fetchone()
+
+            if resultado:
+                print("Inicio de sesión exitoso")
+                almacenar_nombre(resultado[1])
+                return True
+            else:
+                print("Inicio de sesión fallido: usuario o contraseña incorrectos")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
+
+
 def existeCorreo(correo):
     conn = connect()
     if conn:
@@ -588,14 +615,24 @@ def guardarCarton(nombre, carton):
     if conn:
         cursor = conn.cursor()
         try:
-            query = "INSERT INTO carton (nombreJugador, numerosCarton) VALUES (%s, %s)"
-            cursor.execute(query, (nombre, carton))
+            # Comprobar y eliminar
+            check_query = "SELECT * FROM carton WHERE nombreJugador = %s"
+            cursor.execute(check_query, (nombre,))
+            existing_row = cursor.fetchone()
+            if existing_row:
+                delete_query = "DELETE FROM carton WHERE nombreJugador = %s"
+                cursor.execute(delete_query, (nombre,))
+                conn.commit()
+            insert_query = "INSERT INTO carton (nombreJugador, numerosCarton) VALUES (%s, %s)"
+            cursor.execute(insert_query, (nombre, carton))
             conn.commit()
+
         except mysql.connector.Error as err:
             print(f"Error de MySQL: {err}")
         finally:
             cursor.close()
             close_connection(conn)
+
 
 def mostrarCarton(nombre):
     conn = connect()
@@ -608,6 +645,9 @@ def mostrarCarton(nombre):
             result = cursor.fetchone()
             if result:  # Comprobar si hay resultados
                 carton = result[0]  # Obtener el valor de la consulta
+                query_delete = "DELETE FROM carton WHERE nombreJugador = (%s)"
+                cursor.execute(query_delete, (nombre,))
+                conn.commit()
         except mysql.connector.Error as err:
             print(f"Error al obtener el número: {err}")
         finally:
@@ -638,6 +678,9 @@ def buscarAnfitrion(nombre):
             cursor.execute(query, (nombre,))
             result = cursor.fetchone()
             if result:
+                query_delete = "DELETE FROM partidabingo WHERE nombreJugador = (%s)"
+                cursor.execute(query_delete, (nombre,))
+                conn.commit()
                 return True  # Devuelve True si se encuentra el nombre
         except mysql.connector.Error as err:
             print(f"Error al obtener el número: {err}")

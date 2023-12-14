@@ -497,9 +497,9 @@
                 <span>Crear sala</span>
                 <div class="contenedorCrearJuego">
                     <div class="container__item">
-                        <form class="form">
-                            <input class="form__field" placeholder="Nombre de la sala" maxlength="15" id="nombrePartida"/>
-                            <button type="button" class="btn btn--primary btn--inside uppercase" id = "botonJugar" action="/guardar_datos">Jugar</button>
+                        <form class="form" id="Formulario">
+                            <input type = "text" class="form__field" placeholder="Nombre de la sala" maxlength="15" id="nombrePartida"/>
+                            <button type="submit" class="btn btn--primary btn--inside uppercase" id="botonJugar">Jugar</button>
                         </form>
                     </div>
                 </div>
@@ -508,7 +508,7 @@
                 <span>Unirse a sala</span>
                 <div id="rooms" style="display: none;">
                     {% for room in rooms %}
-                        <p class="select-room" onclick='alerta(this.innerHTML)' >{{ room|title }}</p>
+                        <p class="select-room" onclick='enviarSala(this.innerHTML)' >{{ room|title }}</p>
                     {% endfor %}
                 </div>
             </div>
