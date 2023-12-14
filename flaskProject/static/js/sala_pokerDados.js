@@ -1,11 +1,9 @@
-var socket = io();
-var buscarPartida = false;
-
 document.getElementById("botonComprarMonedas").addEventListener("click", function() {
     window.location.href = "/dinero/";
 });
 
 //Falta div reglas
+/*
 document.getElementById("divReglas").addEventListener("click", function() {
     Swal.fire({
         title: 'Bienvenido al bingo',
@@ -27,7 +25,7 @@ document.getElementById("divReglas").addEventListener("click", function() {
         allowEnterKey: true,
     });
 });
-
+*/
 document.getElementById("Formulario").addEventListener("submit", function(event) {
     event.preventDefault(); // Para prevenir el comportamiento predeterminado del formulario
     crearSala(); // Llama a tu función aquí
@@ -35,7 +33,6 @@ document.getElementById("Formulario").addEventListener("submit", function(event)
 
 function crearSala() {
     var nombrePartida = document.getElementById("nombrePartida").value;
-    if (buscarPartida ) {
         if(nombrePartida.length > 0){
             nombrePartida = nombrePartida.charAt(0).toUpperCase() + nombrePartida.slice(1).toLowerCase();
             var xhr = new XMLHttpRequest();
@@ -90,45 +87,22 @@ function crearSala() {
                 allowEnterKey: true,
             });
         }
-    } else {
-        Swal.fire({
-            title: 'Guarde el cartón antes de jugar',
-            confirmButtonText: 'Entendido',
-            confirmButtonColor: '#9a20a8',
-            backdrop: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-        });
-    }
 }
 
 
 document.getElementById("unirseSala").addEventListener("click", function() {
     var roomsContent = document.getElementById('rooms').innerHTML;
-    if(buscarPartida){
-        // Mostrar el cuadro de diálogo con el contenido de las salas disponibles
-        Swal.fire({
-            title: 'Salas disponibles',
-            html: "<div class='custom-content'>" + roomsContent + "</div>",
-            confirmButtonText: '¡Salir!',
-            confirmButtonColor: '#708baf',
-            backdrop: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-        });
-    }else{
-        Swal.fire({
-            title: 'Antes de unirte a una sala crea un cartón y guardalo',
-            confirmButtonText: '¡Vamos a ello!',
-            confirmButtonColor: '#afa570',
-            backdrop: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-        });
-    }
+    // Mostrar el cuadro de diálogo con el contenido de las salas disponibles
+    Swal.fire({
+        title: 'Salas disponibles',
+        html: "<div class='custom-content'>" + roomsContent + "</div>",
+        confirmButtonText: '¡Salir!',
+        confirmButtonColor: '#708baf',
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        allowEnterKey: true,
+    });
 });
 
 function enviarSala(sala) {

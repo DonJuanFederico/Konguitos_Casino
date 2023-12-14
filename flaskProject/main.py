@@ -486,7 +486,7 @@ def craps():
 @app.route('/Juegos/Indice_Dados/Poker/', methods=['GET'])
 def poker_dados():
     DINERO = obtenerDinero()
-    return render_template("sala_pokerDados.html", DINERO=DINERO)
+    return render_template("sala_pokerDados.html", DINERO=DINERO, rooms=ROOMS)
 
 @app.route('/Juegos/Indice_Dados/Poker/Partida', methods=['GET'])
 def poker_dados_partida():
