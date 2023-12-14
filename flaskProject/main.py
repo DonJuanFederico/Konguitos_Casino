@@ -344,7 +344,7 @@ def ayuda():
     return render_template('soporte_cliente.html')
 
 
-@app.route('/Perfil_de_usuario/nueva_pw/', methods=['GET', 'POST'])
+@app.route('/nueva_pw/', methods=['GET', 'POST'])
 def enviarCorreoContrasena():
     usuario = session.get('nombreUsuarioInicio')
     numero_seis_digitos = random.randrange(1000000)  # Genera un número entre 0 y 999999 inclusive
