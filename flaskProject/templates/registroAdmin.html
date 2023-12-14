@@ -1,30 +1,41 @@
-{% extends "base.html" %}
-{% block title %}<title> Registro Administrador </title>{% endblock %}
-{% block stylesheets %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title> Registro Administrador </title>
     <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registroAdmin.css') }}">
-{% endblock %}
-{% block body %}
+</head>
 <body>
-    <form method="POST">
-        {{ form.hidden_tag() }}
+<form method="POST">
          <div class="loginPersonal-box">
             <h2>Datos Personales</h2>
             <div class="user-box">
-              <input required="" type="number" {{ form.name()}}
-              <label>Nombre </label>
+              <input required="" type="text" name="nombreAdministrador" value="{{ nombreAdministrador }}">
+              <label>Nombre Usuario </label>
             </div>
             <div class="user-box">
-              <input required="" {{ form.password() }}
-              <label>Contraseña</label>
+              <input required="" type="password" type="text" name="contrasenna" value="{{ contrasennaAdmin }}">
+              <label >Contraseña</label>
             </div>
             <div class="user-box">
-              <input required="" type="email" {{ form.email() }}
+              <input required="" type="email" name="correoAdmin" value="{{ correoAdmin }}">
               <label>Correo</label>
             </div>
+             <div id="error-message" style="color: white">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
              <div class="user-box">
-                <button {{ form.submit(class="registro")}} Registro</button>
+                <button class="registro"> Registro</button>
             </div>
          </div>
     </form>
-{% endblock %}
+</body>
+</html>

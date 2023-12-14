@@ -192,20 +192,36 @@ def avatar():
 
 @app.route('/Registro Administrador/', methods=['GET', 'POST'])
 def registroAdmin():
-    form = crearAdmin()
-    if form.validate_on_submit():
-        nombre = form.name.data
-        contraseña = form.password.data
-        correo = form.email.data
-        print("Nombre Completo:", nombre)
-        print("Contraseña:", contraseña)
-        print("Correo:", correo)
-        if crear_administrador(nombre, contraseña, correo):
-            print("Éxito")
-            return redirect(url_for('index'))
+    nombreUsuarioAdmin = ""
+    contrasennaAdmin = ""
+    correoAdmin = ""
+    mensaje = ""
+    if request.method == 'POST':
+        nombreUsuarioAdmin = request.form.get('nombreAdministrador')
+        contrasennaAdmin = request.form.get('contrasenna')
+        correoAdmin = request.form.get('correoAdmin')
+        print(nombreUsuarioAdmin, contrasennaAdmin, correoAdmin)
+        if (nombreUsuarioAdmin == "" or contrasennaAdmin == "" or correoAdmin == ""):
+            flash("Rellene todos los campos", "info")
+        else:
+            if existeUsuario(nombreUsuarioAdmin):
+                flash("El usuario " + nombreUsuarioAdmin + " ya existe como usuario", "info")
+            else:
+                if existeAdmin(nombreUsuarioAdmin):
+                    flash("El usuario " + nombreUsuarioAdmin + " ya existe como administrador", "info")
+                else:
+                    if existeCorreo(correoAdmin):
+                        flash("Correo " + correoAdmin + " ya registrado como usuario", "info")
+                    else:
+                        if existeCorreoAdmin(correoAdmin):
+                            flash("Correo " + correoAdmin + " ya registrado en administrador", "info")
+                        else:
+                            usuarioRegistrado = True
+                            crear_administrador(nombreUsuarioAdmin, contrasennaAdmin, correoAdmin)
+                            return redirect(url_for('index'))
     else:
-        return render_template('registroAdmin.html', form=form)
-    return render_template('registroAdmin.html', form=form)
+        return render_template('registroAdmin.html', mensaje=mensaje, nombreUsuarioAdmin=nombreUsuarioAdmin, contrasennaAdmin=contrasennaAdmin, correoAdmin=correoAdmin)
+    return render_template('registroAdmin.html', mensaje=mensaje, nombreUsuarioAdmin=nombreUsuarioAdmin, contrasennaAdmin=contrasennaAdmin, correoAdmin=correoAdmin)
 
 
 # Funciones Administrador
