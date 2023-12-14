@@ -195,9 +195,7 @@ function manejarAvatar(tipoAvatar) {
             break;
         case "astronauta":
             if (ASTRONAUTA == 0) {
-                console.log("astronauta: ", ASTRONAUTA, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "astronauta");
-                console.log("astronauta: ", ASTRONAUTA)
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -215,9 +213,7 @@ function manejarAvatar(tipoAvatar) {
             break;
         case "rey":
             if (REY == 0) {
-                console.log("rey: ", REY, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "rey");
-                console.log("rey: ", REY)
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -235,9 +231,7 @@ function manejarAvatar(tipoAvatar) {
             break;
         case "capitan":
             if (CAPITAN == 0) {
-                console.log("capitan: ", CAPITAN, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "capitan");
-                console.log("capitan: ", CAPITAN)
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -255,9 +249,7 @@ function manejarAvatar(tipoAvatar) {
             break;
         case "tigre":
             if (TIGRE == 0) {
-                console.log("tigre: ", TIGRE, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "tigre");
-                console.log("tigre: ", TIGRE)
             } else {
                 alert("Ya tienes este avatar: tigre. Te devolvemos el dinero.");
                 actualizarDineroUsuario(apuesta);
@@ -266,9 +258,7 @@ function manejarAvatar(tipoAvatar) {
             break;
         case "vikingo":
             if (VIKINGO == 0) {
-                console.log("vikingo: ", VIKINGO, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "vikingo");
-                console.log("vikingo: ", VIKINGO)
             } else {
                 alert("Ya tienes este avatar: vikingo. Te devolvemos el dinero.");
                 actualizarDineroUsuario(apuesta);
