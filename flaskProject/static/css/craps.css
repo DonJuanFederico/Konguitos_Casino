@@ -7,7 +7,6 @@ body {
     background-image: url('https://image.freepik.com/free-vector/poker-table-background-green-color_47243-1068.jpg');
     background-size: 100%;
     color: white;
-    z-index: 1;
 }
 
 /* Contenedor principal */
@@ -21,12 +20,12 @@ body {
 
 /* Arreglos espacio entre contenedores (se rompió con la toolbar) */
 #bet-container {
-    margin-top: 90px;
+    margin-top: 60px;
     margin-bottom: 20px;
 }
 
 #bet-container2 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #dice-container {
@@ -73,11 +72,12 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: 0;
+    bottom: 90px;
     width: 100%;
     padding: 10px 0;
     box-sizing: border-box;
     background-color: transparent; /* Fondo transparente */
+    z-index: 0;
 }
 
 /* Estilo de los botones de apuestas en la parte inferior */
