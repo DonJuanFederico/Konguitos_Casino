@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     function joinRoom(room){
         //Emit ya que es personalizado, y pasando los dos valores que necesita
-        socket.emit("joinPoker", {"username" : username, "room": room});
+        socket.emit("joinPokerDados", {"username" : username, "room": room});
     }
 })
 
@@ -171,11 +171,6 @@ function resetGame(){
     document.getElementById("result").textContent = `Mano actual: Ninguna`;
 
 }
-
-
-document.getElementById("masMonedas").addEventListener("click", function () {
-        window.location.href = "/dinero/";
-});
 
 function agregarDinero(monto) {
     var xhr = new XMLHttpRequest();

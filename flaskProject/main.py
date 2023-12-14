@@ -609,6 +609,12 @@ def join(data):
     join_room(data["room"])
     send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room=data["room"])
 
+@socketio.on("joinPokerDados")
+def joinPokerDados(data):
+    # Antes del send especificar la sala
+    join_room(data["room"])
+    send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room=data["room"])
+
 @socketio.on("fila")
 def fila(data):
     send({"msg": data["username"] + " ha conseguido una línea "}, room=data["room"])
