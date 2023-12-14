@@ -1,3 +1,4 @@
+import webbrowser
 from flask import Flask, render_template, request, jsonify, Response, redirect, url_for, session, flash
 from BBDD.conexionBBDD import *
 from datetime import datetime
@@ -210,8 +211,14 @@ def registroAdmin():
 # Funciones Administrador
 @app.route('/Administrador/')
 def interfazAdmin():
-    return render_template('funcionesAdmin/descripcion.html')
+    phpmyadmin_url = "http://localhost/phpmyadmin/"
 
+    try:
+        webbrowser.open(phpmyadmin_url)
+        return "Redirigiendo a phpMyAdmin..."
+    except Exception as e:
+        print("Error al abrir phpMyAdmin: {str(e)}")
+        return f"Error al abrir phpMyAdmin: {str(e)}"
 
 @app.route('/Administrador/Usuarios/')
 def tablaUsuarios():
