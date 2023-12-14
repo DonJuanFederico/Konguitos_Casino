@@ -72,7 +72,7 @@ function comprobarContrasena() {
                     console.error(error);
                 }
             });
-            window.location.href = '/Perfil_de_usuario/';
+            verificarCambio();
             //alert('EUREKAAAAA');
         } else {
             alert('La contraseña no cumple con los requisitos establecidos.');
@@ -106,4 +106,17 @@ function mostrarRequisitos(){
             htmlContainer: 'custom-container'
           },
     });
+}
+
+function verificarCambio(){
+    Swal.fire({
+        icon: 'success',
+        title: 'Contraseña cambiada correctamente',
+        text: '',
+        confirmButtonText: 'Salir',
+        confirmButtonColor: '#3085d6',
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+    }).then(() => {window.location.href = '/Perfil_de_usuario/';});
 }

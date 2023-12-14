@@ -701,11 +701,7 @@ def modificar_Avatar():
 
 if __name__ == "__main__":
     import os
-
     port = int(os.environ.get("PORT", 5000))  # Obtener el puerto del entorno o usar el 5000 por defecto
-<<<<<<< HEAD
+    socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
     socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
 
-=======
-    socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
->>>>>>> e1f71be8a48df419c13e961412e23733476b4a2c
