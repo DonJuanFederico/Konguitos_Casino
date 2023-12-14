@@ -1,7 +1,6 @@
 {% extends 'plantilla.html' %}
 {% block title %} Poker con Dados {% endblock %}
 {% block stylesheets %}
-    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/static/css/poker_dados.css">
 {% endblock %}
 {% block body %}
@@ -57,7 +56,6 @@
 
         <div id = cajaApuesta>
             <img id ="fotoMoneda" src="/static/images/moneda.png">
-            <img id = "masMonedas" title="Ingresar dinero" src="/static/images/masMonedas.png" onclick="ingresarDinero()">
             <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
         </div>
 
@@ -73,9 +71,13 @@
 
 {% endblock %}
 {% block javascript %}
-    <script src="/static/js/poker_dados.js"></script>
-    <script src="/static/js/dadosAlertas.js"></script>
+    <script type="text/javascript">
+        const username = `{{ username }}`;
+        const room = `{{ salaElegida }}`;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src = "{{ url_for('static', filename = 'js/poker_dados.js') }}"></script>
+    <script src="/static/js/dadosAlertas.js"></script>
     <script src="/static/js/mutearPagina.js"></script>
-
 {% endblock %}

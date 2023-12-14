@@ -573,14 +573,15 @@ def eliminar_salaPokerDados():
 
 @app.route('/partidaPokerDados', methods=['GET', 'POST'])
 def partidaPokerDados():
+    DINERO = obtenerDinero()
     if request.method == 'POST':
         salaElegida = request.form.get('sala')
         if salaElegida not in ROOMSPokerDados:
             return  "Sala no disponible"
         session['salaElegidaPokerDados'] = salaElegida
-        return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+        return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida, DINERO = DINERO)
     salaElegida = session.get('salaElegidaPokerDados')
-    return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+    return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida, DINERO = DINERO)
 
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
