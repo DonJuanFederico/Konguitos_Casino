@@ -45,6 +45,7 @@ def inicio():
     nombreUsuarioInicio = ""
     contrasenna = ""
     mensaje = ""
+    print(nombreRegistrado)
     if nombreRegistrado is True:
         flash("Usuario " + session.get('nombreUsuario') + " se acaba de registrar", "info")
     if request.method == 'POST':
@@ -168,15 +169,6 @@ def foto_y_registra_usuario():
     nombreUsuario = session.get('nombreUsuario')
     if request.method == 'POST':
         photo = request.files.get('photo')
-<<<<<<< HEAD
-        numero = session.get('numeroTarjeta')
-        tarjeta = numero.split(" ")
-        numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
-        fecha = session.get('caducidadTarjeta')
-        tarjeta = fecha.split("/")
-        fechaCaducidad = "20" + tarjeta[1] + "-" + tarjeta[1] + "-01"
-=======
->>>>>>> 0d14cf2348436400f9515ba9a923259c85246b73
         if agregarUsuario(nombreUsuario, session.get('contraseña'), session.get('correo'), session.get('DNI'), 1000, session.get('telefono'), convertir_imagen_a_blob(photo), session.get('pais'), session.get('codigoPostal'), None):
             print("Exito Usuario")
             if agregarTarjeta(nombreUsuario, session.get('numeroTarjeta'), session.get('titulanteTarjeta'), session.get('caducidadTarjeta'), session.get('cvv')):
@@ -200,20 +192,36 @@ def avatar():
 
 @app.route('/Registro Administrador/', methods=['GET', 'POST'])
 def registroAdmin():
-    form = crearAdmin()
-    if form.validate_on_submit():
-        nombre = form.name.data
-        contraseña = form.password.data
-        correo = form.email.data
-        print("Nombre Completo:", nombre)
-        print("Contraseña:", contraseña)
-        print("Correo:", correo)
-        if crear_administrador(nombre, contraseña, correo):
-            print("Éxito")
-            return redirect(url_for('index'))
+    nombreUsuarioAdmin = ""
+    contrasennaAdmin = ""
+    correoAdmin = ""
+    mensaje = ""
+    if request.method == 'POST':
+        nombreUsuarioAdmin = request.form.get('nombreAdministrador')
+        contrasennaAdmin = request.form.get('contrasenna')
+        correoAdmin = request.form.get('correoAdmin')
+        print(nombreUsuarioAdmin, contrasennaAdmin, correoAdmin)
+        if (nombreUsuarioAdmin == "" or contrasennaAdmin == "" or correoAdmin == ""):
+            flash("Rellene todos los campos", "info")
+        else:
+            if existeUsuario(nombreUsuarioAdmin):
+                flash("El usuario " + nombreUsuarioAdmin + " ya existe como usuario", "info")
+            else:
+                if existeAdmin(nombreUsuarioAdmin):
+                    flash("El usuario " + nombreUsuarioAdmin + " ya existe como administrador", "info")
+                else:
+                    if existeCorreo(correoAdmin):
+                        flash("Correo " + correoAdmin + " ya registrado como usuario", "info")
+                    else:
+                        if existeCorreoAdmin(correoAdmin):
+                            flash("Correo " + correoAdmin + " ya registrado en administrador", "info")
+                        else:
+                            usuarioRegistrado = True
+                            crear_administrador(nombreUsuarioAdmin, contrasennaAdmin, correoAdmin)
+                            return redirect(url_for('index'))
     else:
-        return render_template('registroAdmin.html', form=form)
-    return render_template('registroAdmin.html', form=form)
+        return render_template('registroAdmin.html', mensaje=mensaje, nombreUsuarioAdmin=nombreUsuarioAdmin, contrasennaAdmin=contrasennaAdmin, correoAdmin=correoAdmin)
+    return render_template('registroAdmin.html', mensaje=mensaje, nombreUsuarioAdmin=nombreUsuarioAdmin, contrasennaAdmin=contrasennaAdmin, correoAdmin=correoAdmin)
 
 
 # Funciones Administrador
@@ -321,7 +329,7 @@ def rankings():
 @app.route('/Perfil_de_usuario/', methods=['GET', 'POST'])
 def perfil():
     print("ENTRA")
-    usuario = session.get('nombreUsuario')
+    usuario = session.get('nombreUsuarioInicio')
     usuario_id = obtenerId(usuario)
     print("usuario: ", usuario)
     print("usuario_id: ", usuario_id)
@@ -336,7 +344,7 @@ def ayuda():
     return render_template('soporte_cliente.html')
 
 
-@app.route('/Perfil_de_usuario/nueva_pw/', methods=['GET', 'POST'])
+@app.route('/nueva_pw/', methods=['GET', 'POST'])
 def enviarCorreoContrasena():
     usuario = session.get('nombreUsuario')
     numero_seis_digitos = random.randrange(1000000)  # Genera un número entre 0 y 999999 inclusive
@@ -493,22 +501,10 @@ def blackjack():
     DINERO = obtenerDinero()
     return render_template('blackjack.html', DINERO=DINERO)
 
-@app.route('/Juegos/Indice_cartas/Poker/', methods=['GET'])
-def poker_texas():
-    DINERO = obtenerDinero()
-    return render_template('poker_texas.html', DINERO=DINERO)
-
-
-@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
-def craps():
-    DINERO = obtenerDinero()
-    return render_template("craps.html", DINERO=DINERO)
-
-
 @app.route('/Juegos/Indice_Dados/Poker/', methods=['GET'])
 def poker_dados():
     DINERO = obtenerDinero()
-    return render_template("sala_pokerDados.html", DINERO=DINERO, rooms=ROOMS)
+    return render_template("sala_pokerDados.html", DINERO=DINERO, rooms=ROOMSPokerDados)
 
 @app.route('/Juegos/Indice_Dados/Poker/Partida', methods=['GET'])
 def poker_dados_partida():
@@ -532,6 +528,15 @@ def plinko():
 def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
 
+@app.route('/Juegos/Indice_cartas/Poker/', methods=['GET'])
+def poker_texas():
+    DINERO = obtenerDinero()
+    return render_template('poker_texas.html', DINERO=DINERO)
+
+@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
+def craps():
+    DINERO = obtenerDinero()
+    return render_template("craps.html", DINERO=DINERO)
 
 @app.route('/crear_partidaPokerDados', methods=['POST'])
 def crear_partidaPokerDados():
@@ -540,6 +545,7 @@ def crear_partidaPokerDados():
         return "La partida ya existe"
     ROOMSPokerDados.append(nombre_partida)
     registrarPartidaPokerDados(obtener_nombre(), nombre_partida)
+    print("LAs salas ahora: " + str(ROOMSPokerDados))
     return "Partida creada correctamente"
 
 @app.route('/crear_partida', methods=['POST'])
@@ -567,14 +573,15 @@ def eliminar_salaPokerDados():
 
 @app.route('/partidaPokerDados', methods=['GET', 'POST'])
 def partidaPokerDados():
+    DINERO = obtenerDinero()
     if request.method == 'POST':
         salaElegida = request.form.get('sala')
         if salaElegida not in ROOMSPokerDados:
             return  "Sala no disponible"
         session['salaElegidaPokerDados'] = salaElegida
-        return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+        return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida, DINERO = DINERO)
     salaElegida = session.get('salaElegidaPokerDados')
-    return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+    return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida, DINERO = DINERO)
 
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
@@ -598,6 +605,12 @@ def message(data):
 
 @socketio.on("join")
 def join(data):
+    # Antes del send especificar la sala
+    join_room(data["room"])
+    send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room=data["room"])
+
+@socketio.on("joinPokerDados")
+def joinPokerDados(data):
     # Antes del send especificar la sala
     join_room(data["room"])
     send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room=data["room"])
@@ -691,3 +704,4 @@ if __name__ == "__main__":
 
     port = int(os.environ.get("PORT", 5000))  # Obtener el puerto del entorno o usar el 5000 por defecto
     socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
+

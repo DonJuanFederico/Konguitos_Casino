@@ -97,7 +97,7 @@ deck.addEventListener('click', () => {
     for (let i = 1; i < slots.length; i++) {
         slots[i].style.backgroundColor = '';
     }
-    if(parseFloat(document.getElementById('apuesta').value) > 0){
+    if(parseFloat(document.getElementById('apuesta').value) > 0 && parseFloat(document.getElementById('apuesta').value) <= saldo){
         if(!repartir) {
             repartir = true;
             bloqueo = false;
@@ -106,17 +106,12 @@ deck.addEventListener('click', () => {
             let apuesta = parseFloat(document.getElementById('apuesta').value);
             saldo = Math.round((parseFloat(saldo) - parseFloat(apuesta)) * 100)/ 100;
             document.getElementById('monedas').textContent = saldo;
-            // Verifica si la apuesta es válida
-            if (apuesta <= 0) {
-                alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
-                return;
-            } else if (apuesta > saldo) {
-                alert('No tienes suficiente saldo para esta apuesta.');
-                return;
-            }
             hideCards();
         }
-    } else {
+    }
+    else if (parseFloat(document.getElementById('apuesta').value) > saldo) {
+                alert('No tienes suficiente saldo para esta apuesta.');
+    }else {
         alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
     }
 });

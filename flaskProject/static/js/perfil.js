@@ -75,7 +75,7 @@ function volverAtras(){
 function requestContrasena(){
     // hacer q envie email automatico
     generarCodigoCorreo();
-    document.location.href = '/Perfil_de_usuario/nueva_pw/';
+    document.location.href = '/nueva_pw/';
 }
 
 function generarCodigoCorreo(){

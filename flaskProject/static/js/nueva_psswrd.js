@@ -4,8 +4,6 @@ const contenedorPw = document.getElementById('nuevaPw');
 const requisitos = document.getElementById('requisitos');
 const primeraPw = document.getElementById('primera');
 const segundaPw = document.getElementById('segunda');
-const numeroVer = document.getElementById('numeroVerificacion');
-const BVerificar = document.getElementById('verificar');
 
 let array = [];
 
@@ -74,6 +72,7 @@ function comprobarContrasena() {
                     console.error(error);
                 }
             });
+            window.location.href = '/Perfil_de_usuario/';
             //alert('EUREKAAAAA');
         } else {
             alert('La contraseña no cumple con los requisitos establecidos.');
@@ -83,7 +82,6 @@ function comprobarContrasena() {
     } else {
         alert('Introduzca una contraseña valida.')
     }
-    window.location.href = '/Perfil_de_usuario/';
 }
 
 function mostrarRequisitos(){
