@@ -17,6 +17,49 @@ db_config = {
     "database": "casino",
     "port": 3306,
 }
+def existeDNI(dni):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el DNI ya está registrado
+            query = "SELECT * FROM usuarios WHERE DNI = %s"
+            cursor.execute(query, (dni,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("DNI ya registrado")
+                return True
+            else:
+                print("DNI no registrado")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
+
+def existeTelefono(telefono):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el teléfono ya está registrado
+            query = "SELECT * FROM usuarios WHERE Telefono = %s"
+            cursor.execute(query, (telefono,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("Teléfono ya registrado")
+                return True
+            else:
+                print("Teléfono no registrado")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
 
 
 def iniciar_sesion_correo(correo, contraseña):

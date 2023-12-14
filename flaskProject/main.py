@@ -31,6 +31,9 @@ ROOMSPokerDados = []
 app.config['SECRET_KEY'] = 'ded843028a32eb605772926d'
 
 
+global nombreRegistrado;
+nombreRegistrado = False;
+
 @app.route('/')
 def index():
     return redirect(url_for('inicio'))
@@ -41,6 +44,8 @@ def inicio():
     nombreUsuarioInicio = ""
     contrasenna = ""
     mensaje = ""
+    if nombreRegistrado is True:
+        flash("Usuario " + session.get('nombreUsuario') + " se acaba de registrar", "info")
     if request.method == 'POST':
         nombreUsuarioInicio = request.form.get('nombreUsuarioInicio')
         session['nombreUsuarioInicio'] = nombreUsuarioInicio # La hago global
@@ -96,25 +101,31 @@ def registroUsuario():
                     if existeCorreo(correo):
                         flash("Correo " + correo + " ya registrado", "info")
                     else:
-                            flash("")
-                            # Verificar la presencia de letras mayúsculas, minúsculas, dígitos y caracteres especiales
-                            tiene_mayuscula = any(c.isupper() for c in contraseña)
-                            tiene_minuscula = any(c.islower() for c in contraseña)
-                            tiene_digito = any(c.isdigit() for c in contraseña)
-                            tiene_caracter_especial = any(c for c in contraseña if c.isalnum() is False)
-                            if tiene_mayuscula and tiene_minuscula and tiene_digito and tiene_caracter_especial and (len(contraseña) >= 8):
-                                flash("")
-                                if contraseña == verificarContraseña:
-                                    if aceptaTerminos == "on":
-                                        flash("")
-                                        return redirect(url_for('registroTarjeta'))
-                                    else:
-                                        flash("")
-                                        flash("Debe aceptar los términos y condiciones para poder continuar con el registro", "info")
-                                else:
-                                    flash("Las contraseñas no coinciden", "info")
+                        if existeDNI(DNI):
+                            flash("DNI " + DNI + " ya registrado", "info")
+                        else:
+                            if existeTelefono(telefono):
+                                flash("Teléfono " + telefono + " ya registrado", "info")
                             else:
-                                flash("Contraseña poco segura, se aconseja introducir al menos una mayúscula, minúscula, un número, un carácter especial y mínimo 8 caracteres", "info")
+                                flash("")
+                                # Verificar la presencia de letras mayúsculas, minúsculas, dígitos y caracteres especiales
+                                tiene_mayuscula = any(c.isupper() for c in contraseña)
+                                tiene_minuscula = any(c.islower() for c in contraseña)
+                                tiene_digito = any(c.isdigit() for c in contraseña)
+                                tiene_caracter_especial = any(c for c in contraseña if c.isalnum() is False)
+                                if tiene_mayuscula and tiene_minuscula and tiene_digito and tiene_caracter_especial and (len(contraseña) >= 8):
+                                    flash("")
+                                    if contraseña == verificarContraseña:
+                                        if aceptaTerminos == "on":
+                                            flash("")
+                                            return redirect(url_for('registroTarjeta'))
+                                        else:
+                                            flash("")
+                                            flash("Debe aceptar los términos y condiciones para poder continuar con el registro", "info")
+                                    else:
+                                        flash("Las contraseñas no coinciden", "info")
+                                else:
+                                    flash("Contraseña poco segura, se aconseja introducir al menos una mayúscula, minúscula, un número, un carácter especial y mínimo 8 caracteres", "info")
     return render_template('registroUsuario.html', mensaje=mensaje, nombreUsuario=nombreUsuario, correo=correo, DNI=DNI, telefono=telefono, pais=pais, codigoPostal=codigoPostal, contraseña=contraseña, verificarContraseña=verificarContraseña)
 
 @app.route('/Registro/Tarjeta Bancaria/', methods=['GET', 'POST'])
@@ -128,20 +139,21 @@ def registroTarjeta():
         titulanteTarjeta = request.form.get('titulanteTarjeta')
         caducidadTarjeta = request.form.get('caducidadTarjeta')
         cvv = request.form.get('CVV')
+
+        # Número de Tarjeta
+        tarjeta = numeroTarjeta.split(" ")
+        if len(tarjeta) == 3:
+            numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2]
+        elif len(tarjeta) == 4:
+            numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
+        tarjeta = caducidadTarjeta.split("/")
+        caducidadTarjeta = "20" + tarjeta[1] + "-" + tarjeta[0] + "-01"
         session['numeroTarjeta'] = numeroTarjeta
         session['titulanteTarjeta'] = titulanteTarjeta
         session['caducidadTarjeta'] = caducidadTarjeta
         session['cvv'] = cvv
-        tarjeta = numeroTarjeta.split(" ")
-        numeroTarjeta2 = ""
-        if len(tarjeta) == 3:
-            numeroTarjeta2 = tarjeta[0] + tarjeta[1] + tarjeta[2]
-        elif len(tarjeta) == 4:
-            numeroTarjeta2 = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
-        print("Numero de tarjeta:", numeroTarjeta2)
-        print("Titulante de tarjeta:", titulanteTarjeta)
-        print("Caducidad de tarjeta:", caducidadTarjeta)
-        print("CVV de tarjeta:", cvv)
+        print("NumeroTarjeta: " + session.get('numeroTarjeta'))
+        print("FechaCaducidad: " + session.get('caducidadTarjeta'))
         return redirect(url_for('foto_y_registra_usuario'))
     return render_template('registroTarjeta.html', numeroTarjeta=numeroTarjeta, titulanteTarjeta=titulanteTarjeta, caducidadTarjeta=caducidadTarjeta, cvv=cvv)
 
@@ -155,22 +167,17 @@ def foto_y_registra_usuario():
     nombreUsuario = session.get('nombreUsuario')
     if request.method == 'POST':
         photo = request.files.get('photo')
-        # Obtengo el número de tarjeta
-        numero = session.get('numeroTarjeta')
-        tarjeta = numero.split(" ")
-        numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
-        fecha = session.get('caducidadTarjeta')
-        tarjeta = fecha.split("/")
-        fechaCaducidad = "20" + tarjeta[1] + "-" + tarjeta[1] + "-01"
         if agregarUsuario(nombreUsuario, session.get('contraseña'), session.get('correo'), session.get('DNI'), 1000, session.get('telefono'), convertir_imagen_a_blob(photo), session.get('pais'), session.get('codigoPostal'), None):
             print("Exito Usuario")
-            if agregarTarjeta(nombreUsuario, numeroTarjeta, session.get('titulanteTarjeta'), fechaCaducidad, session.get('cvv')):
+            if agregarTarjeta(nombreUsuario, session.get('numeroTarjeta'), session.get('titulanteTarjeta'), session.get('caducidadTarjeta'), session.get('cvv')):
                 print("Exito Tarjeta")
+                nombreRegistrado = True
                 return redirect(url_for('index'))
             else:
                 return redirect(url_for('index'))
         return redirect(url_for('index'))
     return render_template('registroCamara.html', nombreUsuario = nombreUsuario)
+
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
     return render_template('terminosCondiciones.html')
