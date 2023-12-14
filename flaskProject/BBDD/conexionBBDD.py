@@ -669,6 +669,20 @@ def registrarPartida(nombreUsuario, nombrePartida):
             cursor.close()
             close_connection(conn)
 
+def registrarPartidaPokerDados(nombreUsuario, nombrePartida):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            query = "INSERT INTO partidaBingo (nombreJugador, id) VALUES (%s, %s)"
+            cursor.execute(query, (nombreUsuario, nombrePartida))
+            conn.commit()
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
 def buscarAnfitrion(nombre):
     conn = connect()
     if conn:

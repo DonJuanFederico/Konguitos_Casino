@@ -10,20 +10,158 @@ h1 {
     margin-top: 50px;
 }
 
-button {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 18px;
-    margin: 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.contenedorCrearJuego {
+    position: relative;
+    width: 20%;
+    left: 25%
 }
 
-button:hover {
-    background-color: #2980b9;
+.form__field {
+    width: 220%;
+    background: #fff;
+    color: #a3a3a3;
+    font: inherit;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+    border: 0;
+    outline: 0;
+    padding: 22px 18px;
+}
+
+.btn {
+    display: inline-block;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    transition: all 200ms ease-in;
+    cursor: pointer;
+
+}
+
+.btn--primary {
+  background: #7f8ff4;
+  color: #fff;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 12px 36px;
+}
+.btn--primary:hover {
+  background: #6c7ff2;
+}
+.btn--primary:active {
+  background: #7f8ff4;
+  box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+}
+.btn--inside {
+    margin-top: 5%;
+    margin-left: 95%;
+}
+
+#nombrePartida{
+    margin-top: 5%;
+}
+
+.form__field {
+    width: 220%;
+    background: #fff;
+    color: #a3a3a3;
+    font: inherit;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+    border: 0;
+    outline: 0;
+    padding: 22px 18px;
+}
+
+#divSeleccionJuegos {
+    margin-top: 10%;
+    user-select: none;
+    margin-left: 4%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Hace que los elementos se estiren para igualar la altura */
+    overflow: hidden;
+    font-size: 1rem;
+}
+
+#crearSala, #unirseSala {
+    background-color: #A3E7FF;
+    border-radius: 2%;
+    border: 3px solid #91e1ff;
+    padding-bottom: 2%;
+    text-align: center;
+    flex: 1;
+}
+
+#unirseSala {
+    cursor: pointer;
+    margin-left: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#crearSala span,
+#unirseSala span {
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    margin: 0;
+    font-size: 6vh;
+    text-shadow: 0 0 5px #22ff00, 0 0 15px #22ff00, 0 0 30px #22ff00, 0 0 50px #22ff00;
+}
+
+.select-room{
+    cursor: pointer;
+}
+
+#marcoMonedas {
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
+    position: absolute;
+    top: 0;
+    right: 4%;
+    width: 20%;
+    height: 40%;
+    background-size: 100% 100%;
+    display: flex;
+}
+
+#divMonedasUsuario {
+    margin-right: 2%;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#divMonedasUsuario span {
+    position: absolute;
+    font-size: 300%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#botonComprarMonedas {
+    cursor: pointer;
+    margin-left: -100%;
+    margin-top: -30%;
+    transform: scale(0.07);
+    animation: animacionBotonComprarMonedas 2s infinite alternate;
+}
+
+@keyframes animacionBotonComprarMonedas{
+    0% {
+        transform: scale(0.07);
+    }
+    50% {
+        transform: scale(0.08);
+    }
+    100% {
+        transform: scale(0.07);
+    }
 }

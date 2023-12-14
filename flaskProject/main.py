@@ -21,6 +21,7 @@ Session(app)
 # Inicializar flask socketio
 socketio = SocketIO(app)
 ROOMS = []
+ROOMSPokerDados = []
 
 # python
 # import os
@@ -494,6 +495,11 @@ def craps():
 @app.route('/Juegos/Indice_Dados/Poker/', methods=['GET'])
 def poker_dados():
     DINERO = obtenerDinero()
+    return render_template("sala_pokerDados.html", DINERO=DINERO)
+
+@app.route('/Juegos/Indice_Dados/Poker/Partida', methods=['GET'])
+def poker_dados_partida():
+    DINERO = obtenerDinero()
     return render_template("poker_dados.html", DINERO=DINERO)
 
 
@@ -514,6 +520,15 @@ def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
 
 
+@app.route('/crear_partidaPokerDados', methods=['POST'])
+def crear_partidaPokerDados():
+    nombre_partida = request.form.get('nombre_partida')
+    if nombre_partida in ROOMSPokerDados:
+        return "La partida ya existe"
+    ROOMSPokerDados.append(nombre_partida)
+    registrarPartidaPokerDados(obtener_nombre(), nombre_partida)
+    return "Partida creada correctamente"
+
 @app.route('/crear_partida', methods=['POST'])
 def crear_partida():
     nombre_partida = request.form.get('nombre_partida')
@@ -530,6 +545,24 @@ def eliminar_sala():
         ROOMS.remove(nombre_sala)
     return "Sala eliminada correctamente"
 
+@app.route('/eliminar_salaPokerDados', methods=['POST'])
+def eliminar_sala():
+    nombre_sala = request.form.get('nombre_sala')
+    if nombre_sala in ROOMSPokerDados:
+        ROOMSPokerDados.remove(nombre_sala)
+    return "Sala eliminada correctamente"
+
+@app.route('/partidaPokerDados', methods=['GET', 'POST'])
+def partidaPokerDados():
+    if request.method == 'POST':
+        salaElegida = request.form.get('sala')
+        if salaElegida not in ROOMSPokerDados:
+            return  "Sala no disponible"
+        session['salaElegidaPokerDados'] = salaElegida
+        return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+    salaElegida = session.get('salaElegidaPokerDados')
+    return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
     if request.method == 'POST':
@@ -540,6 +573,7 @@ def partidaBingo():
         return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
     salaElegida = session.get('salaElegidaBingo')
     return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
+
 
 @socketio.on("message")
 def message(data):
