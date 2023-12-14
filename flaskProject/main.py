@@ -528,6 +528,15 @@ def plinko():
 def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
 
+@app.route('/Juegos/Indice_cartas/Poker/', methods=['GET'])
+def poker_texas():
+    DINERO = obtenerDinero()
+    return render_template('poker_texas.html', DINERO=DINERO)
+
+@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
+def craps():
+    DINERO = obtenerDinero()
+    return render_template("craps.html", DINERO=DINERO)
 
 @app.route('/crear_partidaPokerDados', methods=['POST'])
 def crear_partidaPokerDados():
