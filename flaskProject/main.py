@@ -537,7 +537,7 @@ def eliminar_sala():
     return "Sala eliminada correctamente"
 
 @app.route('/eliminar_salaPokerDados', methods=['POST'])
-def eliminar_sala():
+def eliminar_salaPokerDados():
     nombre_sala = request.form.get('nombre_sala')
     if nombre_sala in ROOMSPokerDados:
         ROOMSPokerDados.remove(nombre_sala)
