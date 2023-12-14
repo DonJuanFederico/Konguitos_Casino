@@ -95,3 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
     FALTA Q LOS LUNES QUEDE ABIERTO EL TEMPORIZADOR (DESAPAREZCA)
     Y CUANDO SEA MARTES VUELVA A APARECER EL TEMPORIZADOR
  */
+
+function volverAtras() {
+    document.location.href = '/Juegos/';
+}

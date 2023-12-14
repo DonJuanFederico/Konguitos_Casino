@@ -7,7 +7,6 @@ body{
    */
   background-size: cover;
   background-position: center 100%;
-  z-index: 1;
   overflow: hidden;
 }
 
@@ -23,6 +22,7 @@ audio{
   width: 100%;
   height: 100vh;
   background-color: rgba(0,0,0,0.2);
+
 }
 
 /* contenedor de los juegos */
@@ -200,5 +200,136 @@ a:before {
 
 a:after {
   border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #1dd21f #1dd21f;
+}
+
+/* PLANTILLA*/
+/* fija los elementos de la #lbar para q se desplace con el scroll */
+#fixator{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    color: white;
+}
+
+/* MENU HAMBURGUESA */
+#bars__menu{
+    top: 90%;
+    cursor: pointer;
+    z-index: 1;
+}
+#bars__menu:hover, #home:hover, #ajustes:hover, #buscador:hover, #volume:hover, #out:hover, #headset:hover, #rank:hover, #trophy:hover{
+    color: darkgoldenrod;
+    filter: drop-shadow(10px 10px 10px rgba(0,0,0,1));
+}
+
+#bars__menu, #home, #ajustes, #buscador, #volume, #out, #headset, #rank, #trophy{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 95%;
+    transform: translate(-50%, -50%);
+}
+#home, #ajustes, #buscador, #volume, #out, #headset, #rank, #trophy{
+    opacity: 0;
+    transition: opacity 0.4s;
+    margin-top: 2px;
+    z-index: 2;
+}
+
+#home{top: 80%;}
+#ajustes{top: 75%;}
+#buscador{top: 70%;}
+#out{top: 85%;}
+#volume{top: 65%;}
+#headset{top: 60%;}
+#rank{top: 55%;}
+#trophy{top: 50%;}
+#vOn{
+    opacity: 1;
+    display: block;
+    position: absolute;
+    top: 20%;
+    left: 0;
+}
+#vOff{
+    position: absolute;
+    top: 20%;
+    left: 0;
+    /*opacity: 0;*/
+    display: none;
+}
+
+/* BARRA DE BUSQUEDA */
+#ctn-bars-search{
+    display: none;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    z-index: 8;
+    transition: all 400ms;
+}
+
+#ctn-bars-search input{
+    display: block;
+    width: 1200px;
+    margin: auto;
+    padding: 10px;
+    font-size: 18px;
+    z-index: 8;
+}
+
+#box-search{
+    display: none;
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 1200px;
+    background: white;
+    overflow: hidden;
+    z-index: 9;
+    cursor: pointer;
+}
+
+#box-search li a{
+    display: block;
+    width: 1200px;
+    color: #777777;
+    padding: 8px 0px;
+    padding-left: 20px;
+    /*text-decoration: none;*/
+}
+
+#box-search li a:hover{
+    background: #f3f3f3;
+}
+
+/* COVER PARA BLOQUEAR EL FONDO (SE SUPERPONE) */
+#cover-ctn-search{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 7;
+}
+
+#back{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 90%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 1;
+}
+#back:hover{
+    color: darkgoldenrod;
+    filter: drop-shadow(10px 10px 10px rgba(0,0,0,1));
 }
 
