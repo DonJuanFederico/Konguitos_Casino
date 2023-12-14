@@ -346,12 +346,12 @@ def ayuda():
 
 @app.route('/nueva_pw/', methods=['GET', 'POST'])
 def enviarCorreoContrasena():
-    usuario = session.get('nombreUsuario')
+    usuario = session.get('nombreUsuarioInicio')
     numero_seis_digitos = random.randrange(1000000)  # Genera un número entre 0 y 999999 inclusive
     numero_formateado = f"{numero_seis_digitos:06d}"
     enviar_correo(usuario, numero_formateado)
     if request.method == 'POST':
-        usuario = session.get('nombreUsuario')
+        usuario = session.get('nombreUsuarioInicio')
         contrasena = request.form.get('nuevaContrasena')
         cambiarContraseña(usuario, contrasena)
         return jsonify({'message': 'Contraseña cambiada exitosamente'})  # Puedes devolver cualquier mensaje que desees
@@ -414,7 +414,7 @@ def ruletaRusa():
 def gashapon():
     DINERO = obtenerDinero()
     print("ENTRA")
-    usuario = session.get('nombreUsuario')
+    usuario = session.get('nombreUsuarioInicio')
     id_usuario = obtenerId(usuario)
     VALORES = obtenerValoresGashapon(id_usuario)
     print("usuario: ", usuario)
@@ -684,14 +684,14 @@ def buscar_anfitrion():
 
 @app.route('/obtener_avatar', methods=['GET'])
 def obtener_Avatar():
-    usuario = session.get('nombreUsuario')
+    usuario = session.get('nombreUsuarioInicio')
     id_usuario = obtenerId(usuario)
     resultado = obtenerAvatar(id_usuario)
     return jsonify({'resultado': resultado})
 
 @app.route('/modificar_avatar', methods=['POST'])
 def modificar_Avatar():
-    usuario = session.get('nombreUsuario')
+    usuario = session.get('nombreUsuarioInicio')
     id_usuario = obtenerId(usuario)
     datos_avatar = request.get_json()
     fondo = datos_avatar.get('backgroundColor')
@@ -703,5 +703,9 @@ if __name__ == "__main__":
     import os
 
     port = int(os.environ.get("PORT", 5000))  # Obtener el puerto del entorno o usar el 5000 por defecto
+<<<<<<< HEAD
     socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
 
+=======
+    socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
+>>>>>>> e1f71be8a48df419c13e961412e23733476b4a2c

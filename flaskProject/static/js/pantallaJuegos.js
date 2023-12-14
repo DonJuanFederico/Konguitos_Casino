@@ -99,7 +99,6 @@ function cambiarAvatar(){document.location.href = '/Perfil_de_usuario/';}
 
 document.addEventListener("DOMContentLoaded", function () {
     var xhr = new XMLHttpRequest();
-
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {

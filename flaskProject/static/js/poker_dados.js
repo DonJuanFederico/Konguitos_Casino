@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () =>{
         usuariosEntrados.push(data.nuevo_usuario);
         jugadoresRestantes--;
         empezarPartida();
-
     }
 
     var xhr = new XMLHttpRequest();
@@ -35,6 +34,10 @@ document.addEventListener("DOMContentLoaded", () =>{
             }
         }
     };
+
+    socket.on("message", data => {
+        alert("Se unio " + data.username);
+    });
 
     function joinRoom(room){
         //Emit ya que es personalizado, y pasando los dos valores que necesita
