@@ -61,7 +61,7 @@ function crearSala() {
                                     // La segunda solicitud ha finalizado
                                     if (xhr2.status === 200) {
                                         // Redirigir a la página partidaBingo
-                                        window.location.href = "/partidaBingo";
+                                        window.location.href = "/partidaPokerDados";
                                     } else {
                                         alert("Error al crear la partida");
                                     }
