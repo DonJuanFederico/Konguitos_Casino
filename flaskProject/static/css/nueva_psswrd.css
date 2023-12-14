@@ -145,3 +145,7 @@ body{
     background-color: #7addf3;
     box-shadow: 5px 4px 11px 3px rgba(0,0,0,0.3);
 }
+
+#numeroVerificacion{
+    display: none;
+}

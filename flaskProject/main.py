@@ -13,6 +13,7 @@ import time
 from PIL import Image
 import io
 from flask_session import Session
+import random
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -149,7 +150,6 @@ def foto_y_registra_usuario():
     nombreUsuario = session.get('nombreUsuario')
     if request.method == 'POST':
         photo = request.files.get('photo')
-
         numero = session.get('numeroTarjeta')
         tarjeta = numero.split(" ")
         numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
@@ -317,7 +317,8 @@ def perfil():
     print("usuario_id: ", usuario_id)
     data = obtenerArrayDatosUsuario(usuario_id)
     data2 = obtenerArrayDatosTarjeta(usuario_id)
-    return render_template('perfil.html', data=data, data2=data2)
+    #foto_usuario = obtenerImagenUsuario(usuario_id)  # no se ve (necesita una por defecto) ademas los q no tienen foto no va el perfil
+    return render_template('perfil.html', data=data, data2=data2) #, foto_usuario=foto_usuario)
 
 
 @app.route('/soporte_cliente/')
@@ -327,12 +328,16 @@ def ayuda():
 
 @app.route('/Perfil_de_usuario/nueva_pw/', methods=['GET', 'POST'])
 def enviarCorreoContrasena():
+    usuario = session.get('nombreUsuario')
+    numero_seis_digitos = random.randrange(1000000)  # Genera un número entre 0 y 999999 inclusive
+    numero_formateado = f"{numero_seis_digitos:06d}"
+    enviar_correo(usuario, numero_formateado)
     if request.method == 'POST':
         usuario = session.get('nombreUsuario')
         contrasena = request.form.get('nuevaContrasena')
         cambiarContraseña(usuario, contrasena)
         return jsonify({'message': 'Contraseña cambiada exitosamente'})  # Puedes devolver cualquier mensaje que desees
-    return render_template('nueva_psswrd.html')
+    return render_template('nueva_psswrd.html', numero_formateado=numero_formateado)
 
 
 @app.route('/desafios_recompensas/')

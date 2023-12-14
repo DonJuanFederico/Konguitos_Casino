@@ -4,6 +4,10 @@ const contenedorPw = document.getElementById('nuevaPw');
 const requisitos = document.getElementById('requisitos');
 const primeraPw = document.getElementById('primera');
 const segundaPw = document.getElementById('segunda');
+const numeroVer = document.getElementById('numeroVerificacion');
+const BVerificar = document.getElementById('verificar');
+
+let array = [];
 
 numerosCodigo.forEach((input, index) => {
     input.addEventListener('keyup', function (event) {
@@ -26,17 +30,36 @@ numerosCodigo.forEach((input, index) => {
     });
 });
 
-function verificarContrasena(){
-    contenedorVer.style.display = 'none';
-    contenedorPw.style.display = 'flex';
-    requisitos.style.display = 'flex';
+function verificarContrasena() {
+    var elementos = document.getElementsByClassName("numeros");
+    var array = [];
+
+    for (var i = 0; i < elementos.length; i++) {
+        array.push(elementos[i].value);
+    }
+
+    let codigoAComprobar = array.join('');
+    let numeroVerificacion = document.getElementById("numeroVerificacion");
+    let numeroFormateado = parseInt(numeroVerificacion.textContent);
+
+    if (numeroFormateado === parseInt(codigoAComprobar)) {
+        // Realizar acciones cuando la comprobación es exitosa
+        contenedorVer.style.display = 'none';
+        contenedorPw.style.display = 'flex';
+        requisitos.style.display = 'flex';
+        array = [];
+    } else {
+        // Realizar acciones cuando la comprobación falla
+        alert("Los códigos no coinciden");
+    }
 }
+
 
 function comprobarContrasena() {
     if(primeraPw.value === segundaPw.value && primeraPw.value !== '') {
         var requisitos = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (requisitos.test(segundaPw.value)) {
-            /*var nuevaContrasena = $('#segunda').val();
+            var nuevaContrasena = $('#segunda').val();
             $.ajax({
                 type: 'POST',
                 url: '/Perfil_de_usuario/nueva_pw/',
@@ -50,8 +73,8 @@ function comprobarContrasena() {
                 error: function (error) {
                     console.error(error);
                 }
-            });*/
-            alert('EUREKAAAAA');
+            });
+            //alert('EUREKAAAAA');
         } else {
             alert('La contraseña no cumple con los requisitos establecidos.');
         }
@@ -60,7 +83,7 @@ function comprobarContrasena() {
     } else {
         alert('Introduzca una contraseña valida.')
     }
-    //window.location.href = '/Perfil_de_usuario/';
+    window.location.href = '/Perfil_de_usuario/';
 }
 
 function mostrarRequisitos(){

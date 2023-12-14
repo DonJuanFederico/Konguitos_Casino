@@ -96,7 +96,7 @@ audio{
     width: 100%;
     position: absolute;
     border: 2px solid black;
-    background-image: url("https://cdn.icon-icons.com/icons2/2030/PNG/512/user_icon_124042.png");
+    /*background-image: url("https://cdn.icon-icons.com/icons2/2030/PNG/512/user_icon_124042.png");*/
     background-color: rgba(255, 255, 255, 0.2);
     background-size: cover;
 }

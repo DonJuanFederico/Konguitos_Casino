@@ -1,5 +1,7 @@
 # pip install faker
-
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 #    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
 #    !!!!!!!!!!!!!!!!!!!!!!!!   NO EJECUTAR     !!!!!!!!!!!!!!!!!!!!!!!!!
@@ -19,12 +21,16 @@
 # Si se ejecuta este archivo, genera usuarios que se insertan en la base de datos
 
 import mysql.connector
-from faker import Faker
-from datetime import datetime
-import hashlib
+import random
 
+smtp_server = 'smtp.gmail.com'
+smtp_port = 587
+smtp_usuario = 'konguitoscasino@gmail.com'
+smtp_password = 'kcyksuhopsqzvdld'
 
-def main():
+nombreUsuario = 'toto'
+def obtener_correo_por_usuario(nombre_usuario):
+    # Configuración de la base de datos
     db_config = {
         "host": "konguitoscasino.mysql.database.azure.com",
         "user": "KingKonguito",
@@ -34,43 +40,60 @@ def main():
     }
 
     try:
+        # Conectar a la base de datos
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
-        faker = Faker()
-        def cifrar_contraseña(contraseña):
-            return hashlib.sha256(contraseña.encode()).hexdigest()
 
-        for _ in range(1000):
-            nombre_usuario = faker.user_name()
-            contraseña = cifrar_contraseña(faker.password())
-            correo = faker.email()
-            dni = faker.unique.random_number(8, True)
-            dinero = faker.random_int(100, 1000)
-            telefono = faker.phone_number()
-            fecha_creacion = datetime.now()
-            calle = faker.street_address()
-            codigo_postal = faker.zipcode()
+        # Consultar el correo electrónico del usuario
+        query = "SELECT Correo FROM usuarios WHERE NombreUsuario = %s"
+        cursor.execute(query, (nombre_usuario,))
+        correo_usuario = cursor.fetchone()
 
-            dinero_ganado = faker.random_int(0, 10000)
-
-            query = """
-                INSERT INTO usuarios (NombreUsuario, Contraseña, Correo, DNI, Dinero, Telefono, FechaDeCreacion, Calle, CodigoPostal, DineroGanado)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            values = (
-            nombre_usuario, contraseña, correo, dni, dinero, telefono, fecha_creacion, calle, codigo_postal, dinero_ganado)
-
-            cursor.execute(query, values)
-        conn.commit()
+        if correo_usuario:
+            return correo_usuario[0]  # Devolver el primer elemento de la tupla (correo electrónico)
+        else:
+            return None  # Usuario no encontrado
 
     except mysql.connector.Error as err:
-        print(f"Error: {err}")
+        print(f"Error de MySQL: {err}")
+        return None
 
     finally:
-        if 'conn' in locals() and conn.is_connected():
+        if conn.is_connected():
             cursor.close()
             conn.close()
 
+def enviar_correo(nombreUsuario, codigoVerificacion):
+
+    # Configuracion de los datos del servidor SMTP y las credenciales
+    correo = obtener_correo_por_usuario(nombreUsuario)
+
+    msg = MIMEMultipart()
+    msg['From'] = smtp_usuario
+    msg['To'] = correo
+    msg['Subject'] = "Verificacion de correo"
+
+    # Crea el mensaje con el código de verificación
+    mensaje = f'Ya queda poco para que seas un konguito. Tu código de verificación es: {codigoVerificacion}'
+    msg.attach(MIMEText(mensaje, 'plain'))
+
+    # Conecta al servidor SMTP y envía el correo
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(smtp_usuario, smtp_password)
+        server.sendmail(smtp_usuario, correo, msg.as_string())
+        print("Correo enviado con éxito")
+        server.quit()
+    except Exception as e:
+        print(f"Error al enviar el correo: {str(e)}")
+
+
+def main():
+    obtener_correo_por_usuario('toto')
+    numero_seis_digitos = random.randrange(1000000)  # Genera un número entre 0 y 999999 inclusive
+    numero_formateado = f"{numero_seis_digitos:06d}"
+    enviar_correo(nombreUsuario, numero_formateado)
 
 if __name__ == "__main__":
     main()
