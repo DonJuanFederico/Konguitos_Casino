@@ -251,7 +251,16 @@ function manejarAvatar(tipoAvatar) {
             if (TIGRE == 0) {
                 activarColumnaGashapon(id_usuario, "tigre");
             } else {
-                alert("Ya tienes este avatar: tigre. Te devolvemos el dinero.");
+                 Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: Tigre. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
@@ -260,7 +269,16 @@ function manejarAvatar(tipoAvatar) {
             if (VIKINGO == 0) {
                 activarColumnaGashapon(id_usuario, "vikingo");
             } else {
-                alert("Ya tienes este avatar: vikingo. Te devolvemos el dinero.");
+               Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: Vikingo. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
