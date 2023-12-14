@@ -12,7 +12,6 @@ function agregarDinero() {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        alert("Ingreso realizado");
                         Swal.fire({
                             icon: 'success',
                             title: 'Ingreso realizado',
@@ -38,7 +37,10 @@ function agregarDinero() {
                     location.reload(); // Recarga la página
                 }
             };
-            xhr.send("&cantidad_a_agregar=" + monto);
+            //Espere 1 segundo para que se actualice la base de datos
+            setTimeout(function () {
+                xhr.send("&cantidad_a_agregar=" + monto);
+            }, 1000);
         }
     } else {
 
@@ -80,7 +82,6 @@ function retirarDinero() {
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
-                            alert("Retiro realizado");
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Retiro realizado',
@@ -106,7 +107,10 @@ function retirarDinero() {
                         location.reload(); // Recarga la página
                     }
                 };
-                xhr.send("&cantidad_a_retirar=" + monto);
+                //Espera 1 segundo para que se actualice la base de datos
+                setTimeout(function () {
+                    xhr.send("&cantidad_a_retirar=" + monto);
+                }, 1000);
             }
         }
     } else {
