@@ -132,7 +132,7 @@ function enviarSala(sala) {
                         }
                     });
                 } else {
-                    window.location.href = "/partidaBingo";
+                    window.location.href = "/partidaPokerDados";
                 }
             } else {
                 alert("Error al unirse a la sala");

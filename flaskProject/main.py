@@ -501,22 +501,10 @@ def blackjack():
     DINERO = obtenerDinero()
     return render_template('blackjack.html', DINERO=DINERO)
 
-@app.route('/Juegos/Indice_cartas/Poker/', methods=['GET'])
-def poker_texas():
-    DINERO = obtenerDinero()
-    return render_template('poker_texas.html', DINERO=DINERO)
-
-
-@app.route('/Juegos/Indice_Dados/Craps/', methods=['GET'])
-def craps():
-    DINERO = obtenerDinero()
-    return render_template("craps.html", DINERO=DINERO)
-
-
 @app.route('/Juegos/Indice_Dados/Poker/', methods=['GET'])
 def poker_dados():
     DINERO = obtenerDinero()
-    return render_template("sala_pokerDados.html", DINERO=DINERO, rooms=ROOMS)
+    return render_template("sala_pokerDados.html", DINERO=DINERO, rooms=ROOMSPokerDados)
 
 @app.route('/Juegos/Indice_Dados/Poker/Partida', methods=['GET'])
 def poker_dados_partida():
@@ -548,6 +536,7 @@ def crear_partidaPokerDados():
         return "La partida ya existe"
     ROOMSPokerDados.append(nombre_partida)
     registrarPartidaPokerDados(obtener_nombre(), nombre_partida)
+    print("LAs salas ahora: " + str(ROOMSPokerDados))
     return "Partida creada correctamente"
 
 @app.route('/crear_partida', methods=['POST'])
@@ -699,3 +688,5 @@ if __name__ == "__main__":
 
     port = int(os.environ.get("PORT", 5000))  # Obtener el puerto del entorno o usar el 5000 por defecto
     socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
+
+
