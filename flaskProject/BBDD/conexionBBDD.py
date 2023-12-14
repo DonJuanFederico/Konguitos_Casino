@@ -31,11 +31,11 @@ def iniciar_sesion_correo(correo, contraseña):
             resultado = cursor.fetchone()
 
             if resultado:
-                print("Inicio de sesión exitoso")
+                print("Inicio de sesión de usuario por correo exitoso")
                 almacenar_nombre(resultado[1])
                 return True
             else:
-                print("Inicio de sesión fallido: usuario o contraseña incorrectos")
+                print("Inicio de sesión de usuario por correo fallido")
                 return False
         except mysql.connector.Error as err:
             print(f"Error de MySQL: {err}")
@@ -124,11 +124,11 @@ def iniciar_sesion(usuario, contraseña):
             resultado = cursor.fetchone()
 
             if resultado:
-                print("Inicio de sesión exitoso")
+                print("Inicio de sesión con nombre de usuario exitoso")
                 almacenar_nombre(usuario)
                 return True
             else:
-                print("Inicio de sesión fallido: usuario o contraseña incorrectos")
+                print("Inicio de sesión por nombre de usuario fallido")
                 return False
         except mysql.connector.Error as err:
             print(f"Error de MySQL: {err}")
@@ -362,7 +362,7 @@ def adminLogIn(nombre, contraseña):
                     print("Inicio de sesión de administrador exitoso")
                     return True
                 else:
-                    print("Inicio de sesión de administrador fallido: nombre o contraseña incorrectos")
+                    print("Inicio de sesión de administrador fallido")
                     return False
             except mysql.connector.Error as err:
                 print(f"Error de MySQL: {err}")

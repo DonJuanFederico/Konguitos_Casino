@@ -41,16 +41,15 @@ def inicio():
     contrasenna = ""
     mensaje = ""
     if request.method == 'POST':
-        nombreUsuarioInicio = request.form.get('nombreUsuario')
-        session['nombreUsuario'] = nombreUsuarioInicio
-        contrasenna = request.form.get('contraseña')
-        print("Nombre de usuario:", nombreUsuarioInicio)
-        print("Contraseña:", contrasenna)
-        if adminLogIn(nombreUsuarioInicio, contrasenna):
+        nombreUsuarioInicio = request.form.get('nombreUsuarioInicio')
+        session['nombreUsuarioInicio'] = nombreUsuarioInicio # La hago global
+        contrasennaInicio = request.form.get('contraseña')
+        if adminLogIn(nombreUsuarioInicio, contrasennaInicio):
+            flash("Registrado como administrador", "info")
             return interfazAdmin()
-        elif iniciar_sesion_correo(nombreUsuarioInicio, contrasenna):
+        elif iniciar_sesion_correo(nombreUsuarioInicio, contrasennaInicio):
             return juegos()
-        elif iniciar_sesion(nombreUsuarioInicio, contrasenna):
+        elif iniciar_sesion(nombreUsuarioInicio, contrasennaInicio):
             return juegos()
         else:
             flash("Usuario,Correo o contraseña incorrecto", "info")
@@ -298,7 +297,9 @@ def edicion():
 
 @app.route('/Juegos/')
 def juegos():
-    return render_template('pantallaJuegos.html', NOMBRE=obtener_nombre())
+    nombre = session.get('nombreUsuarioInicio')
+    print("nombre: ", nombre)
+    return render_template('pantallaJuegos.html', NOMBRE=nombre)
 
 
 @app.route('/Rankings/')
