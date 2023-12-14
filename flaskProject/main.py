@@ -212,10 +212,9 @@ def registroAdmin():
 @app.route('/Administrador/')
 def interfazAdmin():
     phpmyadmin_url = "http://localhost/phpmyadmin/"
-
     try:
         webbrowser.open(phpmyadmin_url)
-        return "Redirigiendo a phpMyAdmin..."
+        return index()
     except Exception as e:
         print("Error al abrir phpMyAdmin: {str(e)}")
         return f"Error al abrir phpMyAdmin: {str(e)}"

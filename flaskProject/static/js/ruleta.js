@@ -756,6 +756,10 @@ function agregarDinero() {
     xhr.send("&cantidad_a_agregar=" + montoSumar);
 }
 
+function actualizarDineroUsuario(apuestaTotal) {
+    let dineroUsuarioElement = document.querySelector('#monedasUsuario');
+    dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) + apuestaTotal;
+}
 
 document.querySelector(".roulette-wheel").addEventListener(
   "touchmove",
