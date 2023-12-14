@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (PIRATA === 1) {
         pirataAvatar.dataset.locked = 'false';
     } else {
-        pirataAvatar.dataset.locked = 'false';
+        pirataAvatar.dataset.locked = 'true';
     }
 
     const reyAvatar = document.querySelector('.character.king');

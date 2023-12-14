@@ -705,3 +705,7 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Obtener el puerto del entorno o usar el 5000 por defecto
     socketio.run(app, host="0.0.0.0", port=port, allow_unsafe_werkzeug=True)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7baeb020b4a5539edf617f2c2baf54aeb9eb8b73

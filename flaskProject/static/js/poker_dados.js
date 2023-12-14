@@ -6,8 +6,41 @@ let dadosBloqueados = {
     dice5: false
 };
 
+var anfitrion = false;
+var socket = io();
+var jugadoresRestantes = 1;
+var usuariosEntrados = [];
+
 let valoresDados = [0, 0, 0, 0, 0];
 let numeroTiros = 3;
+
+document.addEventListener("DOMContentLoaded", () =>{
+    joinRoom(room);
+    if(anfitrion && !usuariosEntrados.includes(data.nuevo_usuario)){
+        usuariosEntrados.push(data.nuevo_usuario);
+        jugadoresRestantes--;
+        empezarPartida();
+
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/buscar_anfitrion", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("&nombre_usuario=" + username);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            if (data.resultado === true) {
+                anfitrion = true; // Establecer la variable anfitrion como true si la respuesta es true
+            }
+        }
+    };
+
+    function joinRoom(room){
+        //Emit ya que es personalizado, y pasando los dos valores que necesita
+        socket.emit("joinPokerDados", {"username" : username, "room": room});
+    }
+})
 
 function toggleBloquearDado(dadoId) {
     const dadoImg = document.getElementById(dadoId);
@@ -138,11 +171,6 @@ function resetGame(){
     document.getElementById("result").textContent = `Mano actual: Ninguna`;
 
 }
-
-
-document.getElementById("masMonedas").addEventListener("click", function () {
-        window.location.href = "/dinero/";
-});
 
 function agregarDinero(monto) {
     var xhr = new XMLHttpRequest();

@@ -19,6 +19,8 @@ spinnerButton.addEventListener('click', spin);
 // Agregamos una variable para controlar si se está realizando una animación
 let animacionEnProgreso = false;
 
+let apuesta = 0;
+
 // Inicializamos el juego
 function init(firstInit = true, groups = 1, duration = 1) {
 // Configurar los slots
@@ -125,9 +127,7 @@ async function spin() {
 
 // Función asíncrona para manejar la lógica de apuesta
 async function FuncionDeApuesta() {
-    // Obtener el valor del input de apuesta
-    const apuestaInput = document.querySelector('#bet');
-    const apuesta = parseFloat(apuestaInput.value);
+    apuesta = parseInt(document.querySelector('#bet').value);
     let balanceActual = parseFloat(monedasUsuarioElement.textContent);
     // Verificar si la apuesta es un número válido
     if (isNaN(apuesta) || apuesta <= 0) {

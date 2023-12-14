@@ -17,6 +17,95 @@ db_config = {
     "database": "casino",
     "port": 3306,
 }
+
+def existeCorreoAdmin(correo):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el correo ya está registrado
+            query = "SELECT * FROM administradores WHERE Correo = %s"
+            cursor.execute(query, (correo,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("Correo ya registrado")
+                return True
+            else:
+                print("Correo no registrado")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False
+
+def existeUsuario(nombre_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el usuario ya existe
+            query = "SELECT * FROM usuarios WHERE NombreUsuario = %s"
+            cursor.execute(query, (nombre_usuario,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("Usuario ya existe")
+                return True
+            else:
+                print("Usuario no existe")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
+
+def existeAdmin(nombre):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el administrador ya existe
+            query = "SELECT * FROM administradores WHERE Nombre_Completo = %s"
+            cursor.execute(query, (nombre,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("Administrador ya existe")
+                return True
+            else:
+                print("Administrador no existe")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
+
+def existeUsuario(nombre_usuario):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el usuario ya existe
+            query = "SELECT * FROM usuarios WHERE NombreUsuario = %s"
+            cursor.execute(query, (nombre_usuario,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("Usuario ya existe")
+                return True
+            else:
+                print("Usuario no existe")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
+
 def existeDNI(dni):
     conn = connect()
     if conn:
