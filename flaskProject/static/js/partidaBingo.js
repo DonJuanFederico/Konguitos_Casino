@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () =>{
                 usuariosEntrados.push(data.nuevo_usuario);
                 jugadoresRestantes--;
                 empezarPartida();
-
             }
         }
     });
