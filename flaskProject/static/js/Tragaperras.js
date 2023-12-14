@@ -131,12 +131,30 @@ async function FuncionDeApuesta() {
     let balanceActual = parseFloat(monedasUsuarioElement.textContent);
     // Verificar si la apuesta es un número válido
     if (isNaN(apuesta) || apuesta <= 0) {
-        alert('Por favor, ingrese una apuesta válida mayor a 0.');
+         Swal.fire({
+             icon: 'error',
+            title: 'Oops...',
+            text: 'Por favor, ingrese una apuesta válida mayor a 0.',
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         return false;
     }
     // Verificar si el usuario tiene suficiente saldo para la apuesta
     else if (apuesta > balanceActual) {
-        alert('No tienes suficiente saldo para esta apuesta.');
+         Swal.fire({
+             icon: 'error',
+            title: 'Oops...',
+            text: 'No tienes suficiente saldo para esta apuesta.',
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         return false;
     } else {
         // Aquí puedes realizar operaciones adicionales, como restar el dinero de la apuesta al saldo del usuario
