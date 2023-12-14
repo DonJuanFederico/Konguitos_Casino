@@ -1,0 +1,135 @@
+{% block stylesheets %}
+<title>Tragaperras</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="/static/css/Tragaperras.css">
+<link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+{% endblock %}
+{% block body %}
+<div id="fixator">
+    <!-- CONTROLA LO QUE SE REPITE EN TODAS LOS HIJOS -->
+    <div id="ctn-bars-search">
+        <input type="text" id="inputSearch" placeholder="¿Y ahora a que vas a jugar?" autocomplete="off"
+               onclick="resultadosBusqueda()">
+    </div>
+
+    <ul id="box-search">
+        <li><a onclick="paginaHome()"><i class="fa-solid fa-house-chimney"></i> Home </a></li>
+        <!-- PONER UN ATRIBUTO DE onclick Y HACER window.location = '' / o poner la url-->
+        <li><a onclick="paginaAjustes()"><i class="fa-regular fa-circle-user"></i> Perfil </a></li>
+        <li><a onclick="cartas()"><i class="fa-solid fa-ranking-star"></i> Carta más alta </a></li>
+        <li><a onclick="blackJack()"><i class="fa-solid fa-coins"></i> BlackJack </a></li>
+        <li><a onclick="poker()"><i class="fa-solid fa-money-bill-transfer"></i> Poker </a></li>
+        <li><a onclick="craps()"><i class="fa-solid fa-dice"></i> Dados craps </a></li>
+        <li><a onclick="ruleta()"><i class="fa-solid fa-skull"></i> Ruleta </a></li>
+        <li><a onclick="kongoRun()"><i class="fa-solid fa-person-running"></i> Kongo Run </a></li>
+        <li><a onclick="tragaperras()"><i class="fa-solid fa-circle-dollar-to-slot"></i> Tragaperras </a></li>
+        <li><a onclick="plinko()"><i class="fa-solid fa-money-bill-trend-up"></i> Plinko </a></li>
+        <li><a onclick="bingo()"><i class="fa-regular fa-circle-xmark"></i> Bingo </a></li>
+        <li><a onclick="eventos()"><i class="fa-regular fa-calendar-xmark"></i> Eventos </a></li>
+        <li><a onclick="rankings()"><i class="fa-solid fa-ranking-star"></i> Rankings </a></li>
+        <li><a onclick="desafios()"><i class="fa-solid fa-trophy"></i> Desafios </a></li>
+    </ul>
+
+    <div id="cover-ctn-search" onclick="cerrarBuscador()"></div>
+
+    <!-- se puede manegar como un bloque y me ahorro codigo -->
+    <div title="Menú" id="bars__menu">
+        <i class="fa-solid fa-bars fa-2xl" id="menu_animado"></i>  <!-- fa-bounce -->
+    </div>
+    <div title="Home" id="home" onclick="paginaHome()">
+        <i class="fa-solid fa-house-chimney fa-2xl"></i>  <!-- fa-beat-fade -->
+    </div>
+    <div title="Perfil" id="ajustes" onclick="paginaAjustes()">
+        <i class="fa-solid fa-gear fa-2xl"></i>  <!-- fa-spin -->
+    </div>
+    <div title="Buscador" id="buscador" onclick="ponerBuscador()">
+        <i class="fa-solid fa-magnifying-glass fa-2xl"></i> <!-- fa-beat-fade -->
+    </div>
+    <div title="Cerrar sesión" id="out" onclick="cerrarSesion()">
+        <i class="fa-solid fa-arrow-right-from-bracket fa-2xl"></i>
+    </div>
+    <div title="volumen" id="volume" onclick="quitarVolumen()">
+        <i id="vOn" class="fa-solid fa-volume-high fa-xl"></i>
+        <i id="vOff" class="fa-solid fa-volume-xmark fa-xl"></i>
+    </div>
+    <div title="Soporte al Cliente" id="headset" onclick="ayuda()">
+        <i class="fa-solid fa-headset fa-2xl"></i>
+    </div>
+    <div title="Rankings" id="rank" onclick="rankings()">
+        <i class="fa-solid fa-ranking-star fa-2xl"></i>
+    </div>
+    <div title="Desafios y Recompensas" id="trophy" onclick="desafios()">
+        <i class="fa-solid fa-trophy fa-2xl"></i>
+    </div>
+
+    <div title="Atrás" id="back" onclick="volverAtras()">
+        <i class="fa-solid fa-circle-left fa-2xl"></i>
+    </div>
+        <!-- Botones de reglas y recompensas -->
+    <div class="botonDeReglas">
+        <buttonRR onclick="reglas(event)">Reglas</buttonRR>
+    </div>
+    <div class="botonDeRecompensas">
+        <buttonRR onclick="recompensas(event)">Recompensas</buttonRR>
+    </div>
+    <div class="botonDeAviso">
+        <buttonRR onclick="aviso(event)">Aviso</buttonRR>
+    </div>
+    <!-- Tragaperras html -->
+    <audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/gravityRush.mp3" type="audio/mpeg">
+    </audio>
+    <div id="marcoMonedas">
+        <img id="imagenKonguitoCoin" src="/static/images/moneda.png">
+        <div id="divMonedasUsuario">
+            <span style="color: white" id="monedasUsuario">{{ DINERO }}</span><br><br>
+            <img id="botonComprarMonedas" src="/static/images/masMonedas.png">
+        </div>
+    </div>
+
+    <!-- Slots -->
+    <div class="posicionamiento">
+        <div class="slot">
+            <div class="boxes">
+            </div>
+        </div>
+        <div class="slot">
+            <div class="boxes">
+            </div>
+        </div>
+
+        <div class="slot">
+            <div class="boxes">
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="buttonSpin">
+        <button id="spinner">Spin</button>
+    </div>
+    <div class="recuadroApuesta">
+        <label id="apostado">Apostado:</label>
+        <input type="number" id="bet" value="1" min="1">
+    </div>
+    <div class="recuadroGanado" id="mensaje-gananado">
+        <label for="prize">Ganado:</label>
+        <span id="prize">0</span>
+    </div>
+
+    <!-- Imagenes -->
+    <div id="player">
+        <img src="/static/images/tragaperras/1def.png" alt="ImagenTragaperras" id="KonguitoTragaperras">
+    </div>
+
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="/static/js/Tragaperras.js"></script>
+<script src="/static/js/TragaperrasAlertas.js"></script>
+<script src="/static/js/plantilla.js"></script>
+<script src="/static/js/mutearPagina.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+{% endblock %}
+

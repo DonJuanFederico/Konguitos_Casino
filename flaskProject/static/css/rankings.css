@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("/static/images/rankings/fondo_oscuro.jpg"); /* quitarle brillo */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+audio{
+    display: none;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+#mi-tabla {
+    background-color: rgba(61, 58, 58, 0.9);
+    margin: 5%;
+    border: 2px solid #be80f0;
+    width: 80%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#mi-tabla th, #mi-tabla td {
+    border: 2px solid #be80f0;
+    padding: 8px;
+}
+
+#mi-tabla th {
+    color: #e800ff;
+    background-color: rgba(2,5,162,0.3);
+}
+
+#mi-tabla tbody tr {
+    color: goldenrod;
+    border-bottom: 1px solid #be80f0;
+}

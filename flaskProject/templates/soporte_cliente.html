@@ -1,0 +1,35 @@
+{% extends 'plantilla.html' %}
+{% block title %} Soporte al cliente {% endblock %}
+{% block stylesheets %}
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/css/soporte_cliente.css">
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h1>Soporte al Cliente</h1>
+    <img src="/static/images/soporte_cliente/KonguitosSinFondo.png" alt="ImagenKonguitos" id="logo">
+</div>
+<div class="support-form">
+    <form onsubmit="submitForm();return false;">
+        <input type="text" id="name" placeholder="Nombre de usuario">
+        <input type="text" id="email" placeholder="Correo Electrónico">
+        <textarea id="message" placeholder="Mensaje"></textarea>
+        <button type="submitForm">Enviar</button>
+    </form>
+</div>
+<div class="telefono">
+    <h6>contacto soporte cliente: +34 123 456 789</h6>
+    <h6>Mejor no nos llames, nadie le va a contestar :)</h6>
+</div>
+<!-- Imagenes -->
+<div id="player">
+    <img src="/static/images/soporte_cliente/KonguitoSoporteCliente.png" alt="ImagenSoporte" id="Soporte_cliente konguito">
+</div>
+
+{% endblock %}
+{% block javascript %}
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="/static/js/soporte_cliente.js"></script>
+{% endblock %}

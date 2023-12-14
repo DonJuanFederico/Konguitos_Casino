@@ -1,0 +1,273 @@
+body{
+    margin: 0;
+    height: 100vh;
+}
+
+label{
+    color: greenyellow;
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+
+p{
+    color: greenyellow;
+    text-align: center;
+    font-size: 24px;
+}
+
+input{
+    width: 200px;
+    height: 25px;
+    margin: 2px;
+}
+
+#audio-player {
+     display: none;
+}
+
+.contenedorMultiplicador{
+    font-size: 50px;
+    text-align-last: center;
+    margin-top: 10px;
+}
+
+.botonIniciarPausar.pausa {
+    cursor: pointer;
+    border-width: 0 0 0 60px;
+    border-style: double;
+
+}
+
+.botonIniciarPausar{
+    cursor: pointer;
+    width: 0;
+    height: 74px;
+    background: transparent;
+    box-sizing: border-box;
+    border-color: transparent transparent transparent greenyellow;
+    transition: 800ms all ease;
+    border-style: solid;
+    border-width: 37px 0 37px 60px;
+}
+
+.botonIniciarPausar:hover{
+    border-color: transparent transparent transparent rgb(85, 131, 17);
+}
+
+.menuBotonesJuego{
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+}
+
+.menuApuestasUsuario{
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: -2%;
+}
+
+.menuRecompensa {
+    margin-top: 1%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.desplazamientoKonguitoDino{
+    animation: animacionDesplazamientoKonguitoDino 5s linear;
+}
+
+#contenedorJuego{
+    width: 100%;
+    height: 45%; 
+    position: relative;
+}
+
+#fondoDinamico{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("/static/images/konguito_run/fondoDino.png");
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    background-size: auto 100%;
+    animation: movimientoFondo 2s linear infinite;
+}
+
+#marcoMonedas {
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
+    position: absolute;
+    top: 0;
+    right: 4%;
+    width: 20%;
+    height: 40%;
+    background-size: 100% 100%;
+    display: flex;
+}
+
+#divMonedasUsuario {
+    position: relative;
+    right: 15%;
+    margin-right: 2%;
+    width: 50%;
+    height: 15%;
+    top: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#divMonedasUsuario span {
+    position: absolute;
+    font-size: 200%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#imagenKonguitoCoin {
+    margin-left: 5%;
+    margin-top: -3%;
+    transform: scale(0.3);
+}
+
+#botonComprarMonedas {
+    cursor: pointer;
+    margin-left: -190%;
+    margin-top: -30%;
+    transform: scale(0.07);
+    animation: animacionBotonComprarMonedas 2s infinite alternate;
+}
+
+#panelBotones{
+    position: relative;
+    width: 100%;
+    height: 55%;
+    overflow: hidden;
+}
+
+#imagenPanelBotones{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("/static/images/konguito_run/imagenPanel.jpg");
+    background-position: 0 0;
+}
+
+#logoCasino {
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 8%;
+    width: 25%;
+    height: 60%;
+    animation: animacionLogos 2s infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+#logoCasino img{
+    cursor: pointer;
+    width: 70%;
+    height: 110%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#logoJuego{
+    position: absolute;
+    margin-top: 4%;
+    margin-right: 6%;
+    right: 0;
+    width: 25%;
+    height: 60%;
+    animation: animacionLogos 2s infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logoJuego img{
+    cursor: pointer;
+    width: 80%;
+    height: 120%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#konguitoDino {
+    width: 15%;
+    height: 70%;
+    position: absolute;
+    bottom: 5%;
+    left: 40%;
+}
+
+#konguitoDino img{
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes animacionBotonComprarMonedas{
+    0% {
+        transform: scale(0.07);
+    }
+    50% {
+        transform: scale(0.08);
+    }
+    100% {
+        transform: scale(0.07);
+    }
+}
+
+@keyframes animacionLogos{
+    0% {
+        transform: scale(1);
+        transform-origin: center center;
+    }
+    50% {
+        transform: scale(1.15);
+        transform-origin: center center;
+    }
+    100% {
+        transform: scale(1);
+        transform-origin: center center;
+    }
+}
+
+@keyframes animacionDesplazamientoKonguitoDino{
+    0%{
+        left: 40%;
+    }
+    25%{
+        left: 45%;
+    }
+    50%{
+        left: 40%;
+    }
+    73%,76%{
+        left: 35%
+    }
+    100%{
+        left: 40%
+    }
+
+}
+
+@keyframes movimientoFondo{
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1500px 0;
+    }
+}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}<title> Registro Administrador </title>{% endblock %}
+{% block stylesheets %}
+    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registroAdmin.css') }}">
+{% endblock %}
+{% block body %}
+<body>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+         <div class="loginPersonal-box">
+            <h2>Datos Personales</h2>
+            <div class="user-box">
+              <input required="" type="number" {{ form.name()}}
+              <label>Nombre </label>
+            </div>
+            <div class="user-box">
+              <input required="" {{ form.password() }}
+              <label>Contraseña</label>
+            </div>
+            <div class="user-box">
+              <input required="" type="email" {{ form.email() }}
+              <label>Correo</label>
+            </div>
+             <div class="user-box">
+                <button {{ form.submit(class="registro")}} Registro</button>
+            </div>
+         </div>
+    </form>
+{% endblock %}

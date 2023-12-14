@@ -1,0 +1,178 @@
+{% extends "plantilla.html" %}
+{% block title %} Desafios y Recompensas {% endblock %}
+{% block stylesheets %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/css/desafios_recompensas.css">
+{% endblock %}
+{% block body %}
+<header id="Titulo">
+    <h1>Desafíos y Recompensas</h1>
+</header>
+
+<div class="card-container">
+    <div class="card">
+        <h2>Desafios</h2>
+        <h1>18</h1>
+        <p>0% Completados</p>
+    </div>
+    <div class="card">
+        <h2>Recompensas</h2>
+        <h1>30</h1>
+        <p>0% Conseguidas</p>
+    </div>
+</div>
+<div class="progreso">
+    <h2>Desafios Activos</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Desafio</th>
+            <th>Dificultad</th>
+            <th>Descripción</th>
+            <th>Progreso</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Crazy Slots (Bronze)</td>
+            <td>Easy</td>
+            <td>Consigue 100KC en el tragaperras.</td>
+            <td class="progress">0%
+                <progress id="progresoSlots" value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Crazy Slots (Silver)</td>
+            <td>Medium</td>
+            <td>Consigue 1000KC en el tragaperras.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Crazy Slots (Gold)</td>
+            <td>Dificult</td>
+            <td>Consigue 10000KC en el tragaperras.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Old Bingo (Bronze)</td>
+            <td>Easy</td>
+            <td>Consigue 100KC en el bingo.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Old Bingo (Silver)</td>
+            <td>Easy</td>
+            <td>Consigue 1000KC en el bingo.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Old Bingo (Gold)</td>
+            <td>Easy</td>
+            <td>Consigue 1000KC en el bingo.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Lucky Number (Bronze)</td>
+            <td>Easy</td>
+            <td>Apuesta a un número específico en la ruleta europea y gana.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Red or Black Streak (Silver)</td>
+            <td>Medium</td>
+            <td>Logra una racha de 5 victorias consecutivas apostando solo al rojo o al negro en la ruleta
+                europea.
+            </td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Grand Finale (Gold)</td>
+            <td>Hard</td>
+            <td>Apuesta a un número específico, a un color y a una paridad al mismo tiempo en la ruleta europea y
+                gana
+                las tres apuestas simultáneamente.
+            </td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Survivor (Bronze)</td>
+            <td>Easy</td>
+            <td>Juega a la ruleta rusa y sobrevive a 3 rondas consecutivas.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Wildcard (Bronze)</td>
+            <td>Easy</td>
+            <td>Elige una carta específica en un juego de cartas y gana la mano con esa carta.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Royal Flush Master (Silver)</td>
+            <td>Medium</td>
+            <td>Consigue un Royal Flush en una mano de póker.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Dice Duel (Gold)</td>
+            <td>Hard</td>
+            <td>Gana un juego de dados craps con un doble en el primer lanzamiento.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Bluff Master (Bronze)</td>
+            <td>Easy</td>
+            <td>Realiza un exitoso bluff en una mano de póker y gana la mano.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+
+        </tr>
+        <tr>
+            <td>Full House Fever (Silver)</td>
+            <td>Medium</td>
+            <td>Consigue un Full House en una mano de póker.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        <tr>
+            <td>Poker Face (Gold)</td>
+            <td>Hard</td>
+            <td>Mantén tu cara impasible durante una mano de póker y gana la mano sin mostrar ninguna emoción.</td>
+            <td class="progress">0%
+                <progress value="0" max="100"></progress>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="/static/js/desafios_recompensas.js"></script>
+{% endblock %}
+```

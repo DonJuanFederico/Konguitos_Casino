@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crea tu carton</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&family=Dancing+Script&family=Square+Peg&display=swap" rel="stylesheet">
+    <style>
+        body {
+          margin: 0;
+        }
+        #total{
+            margin: 0;
+            background-image: url("/static/images/bingo/fondo.jpg");
+            background-size: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el div */
+            background-position: center; /* Posiciona la imagen en el centro del div */
+            background-repeat: no-repeat;
+            width: 100vw; /* Ancho del 100% del viewport */
+            height: 100vh; /* Altura del 100% del viewport */
+        }
+
+        #prueba{
+            position: relative;
+        }
+
+        #carton{
+            user-select: none;
+            position: relative;
+            width: 50%;
+            height: 40%;
+            top: -0%;
+            left: 45%;
+            "background-image: url('/static/images/bingo/carton.png');"
+            background-size: contain; /* Ajusta el tamaño de la imagen para cubrir completamente el div */
+            background-position: center; /* Posiciona la imagen en el centro del div */
+            background-repeat: no-repeat;
+        }
+
+        span{
+            font-size: 400%;
+        }
+
+        #carton {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr); /* Crea 9 columnas */
+        }
+
+        /* Establece un ancho para los div internos */
+        #carton > div {
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center;
+            width: 100%; /* Ajusta el ancho con el espacio entre los elementos */
+            height: 100%;
+            border: 0.15em solid #c30ad9; /* Borde para visualización */
+            background-color: white;
+            box-shadow: inset 0 0 8px #c30ad9, 0 0 8px #c30ad9;
+        }
+
+        .container{
+            padding-top: 0.5%;
+            height: 30%;
+            border:  0.15em solid white;
+            box-shadow: inset 0 0 5px red, 0 0 5px red;
+            border-radius: 10%;
+            max-width: 40%;
+            margin: auto;
+            text-align: center;
+            color: white;
+            background-image: url('/static/images/bingo/negro.jpg');
+            background-size: cover;
+        }
+
+        .neon{
+            font-family: 'Dancing Script', cursive;
+            margin: 0;
+            font-size: 6vh;
+            text-shadow: 0 0 5px red, 0 0 15px red, 0 0 30px red, 0 0 50px red;
+        }
+
+        .neon2{
+            font-family: monospace;
+            margin: 0;
+            font-size: 8vh;
+            text-shadow: 0 0 5px yellow, 0 0 15px yellow, 0 0 30px yellow;
+             animation: cambiarColorBingo 3s infinite
+        }
+
+        @keyframes cambiarColorBingo {
+            0%{
+                color: yellow;
+            }
+            25%{
+                color: #e0e004;
+            }
+            50%{
+                color: #cccc03;
+            }
+            75%{
+                color: #e0e004;
+            }
+            95%,100%{
+                color: yellow;
+            }
+
+        }
+
+        .neon3{
+            font-family: monospace;
+            letter-spacing: 5px;
+            margin: 0;
+            font-size: 3vh;
+        }
+
+        .neonCrearCarton{
+            font-size: 2.5vw;
+            box-shadow: inset 0 0 5px #c30ad9, 0 0 5px #c30ad9;
+            text-shadow: 0 0 2px #c30ad9, 0 0 8px #c30ad9, 0 0 12px #c30ad9;
+            border-radius: 10%;
+            color: black;
+            height: 100%;
+            background-image: url('/static/images/bingo/fondoTexto.jpg');
+            background-size: cover;
+            user-select: none;
+        }
+
+        .neonGuardarCarton{
+            font-size: 2.5vw;
+            box-shadow: inset 0 0 5px #45d90a, 0 0 5px #45d90a;
+            text-shadow: 0 0 2px #45d90a, 0 0 8px #45d90a, 0 0 12px #45d90a;
+            border-radius: 10%;
+            color: black;
+            height: 100%;
+            background-image: url('/static/images/bingo/fondoTexto.jpg');
+            background-size: cover;
+            user-select: none;
+        }
+
+        .flicker1{
+            text-shadow: 0 0 5px #71d212, 0 0 15px #71d212, 0 0 30px #71d212;
+            animation: parpadearVerde 1s infinite backwards steps(3);
+        }
+
+        .flicker2{
+            text-shadow: 0 0 5px #e04417, 0 0 15px #e04417, 0 0 30px #e04417;
+            animation: parpadearNaranja 1s infinite backwards steps(3) 1s;
+        }
+
+        .flicker3{
+            text-shadow: 0 0 5px #13d2d9, 0 0 15px #13d2d9, 0 0 30px #13d2d9;
+            animation: parpadearAzul 1s infinite backwards steps(3) 2s;
+        }
+
+        .flicker4{
+            text-shadow: 0 0 5px #d012cc, 0 0 15px #d012cc, 0 0 30px #d012cc;
+            animation: parpadearRosa 1s infinite backwards steps(3) 3s;
+        }
+
+        @keyframes parpadearVerde {
+            to{
+                color: #346409;
+                text-shadow: none;
+            }
+        }
+
+        @keyframes parpadearNaranja{
+            to{
+                color: #641e09;
+                text-shadow: none;
+            }
+        }
+
+        @keyframes parpadearAzul{
+            to{
+                color: #096164;
+                text-shadow: none;
+            }
+        }
+
+        @keyframes parpadearRosa{
+            to{
+                color: #640962;
+                text-shadow: none;
+            }
+        }
+
+        #prueba {
+            display: flex; /* Usa flexbox */
+            justify-content: flex-end; /* Alinea los elementos a la derecha */
+            align-items: center;
+            margin-top: 1.5%;
+            margin-bottom: 1.5%;
+            height: 16%;
+        }
+
+        #botonCarton, #botonGuardar {
+            cursor: pointer;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            /* Estilos adicionales para los elementos internos si es necesario */
+            width: 12%; /* Ancho deseado */
+            height: 105%; /* Altura deseada */
+            margin-right: 15%; /* Espacio entre los elementos */
+        }
+
+        #divReglas{
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            margin-top: 3%;
+            margin-left: 4%;
+            width: 22%;
+            height: 20%;
+            cursor: pointer;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            box-shadow: inset 0 0 5px #0a2cd9, 0 0 5px #0a2cd9;
+            text-shadow: 0 0 2px #0a2cd9, 0 0 8px #0a2cd9, 0 0 12px #0a2cd9;
+            border-radius: 10%;
+            font-size: 1rem;
+            background-image: url("/static/images/bingo/fondoTexto.jpg");
+            user-select: none;
+        }
+
+        #divSeleccionJuegos{
+            user-select: none;
+            position: relative;
+            margin-left: 4%;
+            left: 0%;
+            top: -50%;
+            width: 30%;
+            align-items: center;
+            overflow: hidden;
+            background-color: black;
+            box-shadow: inset 0 0 5px red, 0 0 5px red;
+            border-radius: 10%;
+            font-size: 1rem;
+        }
+
+        #crearSala, #unirseSala{
+            position: relative;
+            border: 3px solid red;
+            padding-bottom: 2%;
+            text-align: center;
+        }
+
+         #unirseSala{
+             cursor: pointer;
+         }
+
+        .contenedorCrearJuego {
+            width: 20%;
+            top: -2%;
+        }
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .uppercase {
+          text-transform: uppercase;
+        }
+
+        .btn {
+            position: relative;
+            left: -20%;
+            top: -40%;
+            display: inline-block;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            border: 0;
+            outline: 0;
+            padding: 0;
+            transition: all 200ms ease-in;
+            cursor: pointer;
+
+        }
+        .btn--primary {
+          background: #7f8ff4;
+          color: #fff;
+          box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+          border-radius: 2px;
+          padding: 12px 36px;
+        }
+        .btn--primary:hover {
+          background: #6c7ff2;
+        }
+        .btn--primary:active {
+          background: #7f8ff4;
+          box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+        }
+        .btn--inside {
+          margin-left: -96px;
+        }
+
+        .form{
+            position: relative;
+            top: 0%;
+            left: 300%;
+        }
+
+        .form__field {
+            position: relative;
+            left: -200%;
+            width: 220%;
+            background: #fff;
+            color: #a3a3a3;
+            font: inherit;
+            box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+            border: 0;
+            outline: 0;
+            padding: 22px 18px;
+        }
+
+        #crearSala span, #unirseSala span {
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            margin: 0;
+            font-size: 6vh;
+            text-shadow: 0 0 5px red, 0 0 15px red, 0 0 30px red, 0 0 50px red;
+        }
+
+        .select-room{
+            cursor: pointer;
+        }
+
+        #marcoMonedas {
+            background-image: url("/static/images/konguito_run/marcoCasino.png");
+            position: absolute;
+            top: 0;
+            right: 4%;
+            width: 20%;
+            height: 40%;
+            background-size: 100% 100%;
+            display: flex;
+        }
+
+        #divMonedasUsuario {
+            margin-right: 2%;
+            width: 100%;
+            height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        #divMonedasUsuario span {
+            position: absolute;
+            font-size: 300%;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #botonComprarMonedas {
+            cursor: pointer;
+            margin-left: -100%;
+            margin-top: -30%;
+            transform: scale(0.07);
+            animation: animacionBotonComprarMonedas 2s infinite alternate;
+        }
+
+        @keyframes animacionBotonComprarMonedas{
+            0% {
+                transform: scale(0.07);
+            }
+            50% {
+                transform: scale(0.08);
+            }
+            100% {
+                transform: scale(0.07);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id = "total">
+        <div class = "container">
+            <h1 class = "neon">Konguitos Casino</h1>
+            <p class = "neon2">Bingo</p>
+            <p class = "neon3">
+                <span class = "flicker1">♣</span>
+                <span class = "flicker2">♦</span>
+                <span class = "flicker3">♥</span>
+                <span class = "flicker4">♠</span>
+            </p>
+        </div>
+        <div id = "prueba">
+            <div id = "botonCarton">
+                <h1 class = "neonCrearCarton" id = "pedir">Crear Cartón</h1>
+            </div>
+            <div id = "botonGuardar">
+                <h1 class = "neonGuardarCarton" id = "guardar">Guardar Cartón</h1>
+            </div>
+        </div>
+        <div id = "carton">
+            <div id = "div1">
+                <span id = "span1"></span>
+            </div>
+            <div id = "div2">
+                <span id = "span2"></span>
+            </div>
+            <div id = "div3">
+                <span id = "span3"></span>
+            </div>
+            <div id = "div4">
+                <span id = "span4"></span>
+            </div>
+            <div id = "div5">
+                <span id = "span5"></span>
+            </div>
+            <div id = "div6">
+                <span id = "span6"></span>
+            </div>
+            <div id = "div7">
+                <span id = "span7"></span>
+            </div>
+            <div id = "div8">
+                <span id = "span8"></span>
+            </div>
+            <div id = "div9">
+                <span id = "span9"></span>
+            </div>
+            <div id = "div10">
+                <span id = "span10"></span>
+            </div>
+            <div id = "div11">
+                <span id = "span11"></span>
+            </div>
+            <div id = "div12">
+                <span id = "span12"></span>
+            </div>
+            <div id = "div13">
+                <span id = "span13"></span>
+            </div>
+            <div id = "div14">
+                <span id = "span14"></span>
+            </div>
+            <div id = "div15">
+                <span id = "span15"></span>
+            </div>
+            <div id = "div16">
+                <span id = "span16"></span>
+            </div>
+            <div id = "div17">
+                <span id = "span17"></span>
+            </div>
+            <div id = "div18">
+                <span id = "span18"></span>
+            </div>
+            <div id = "div19">
+                <span id = "span19"></span>
+            </div>
+            <div id = "div20">
+                <span id = "span20"></span>
+            </div>
+            <div id = "div21">
+                <span id = "span21"></span>
+            </div>
+            <div id = "div22">
+                <span id = "span22"></span>
+            </div>
+            <div id = "div23">
+                <span id = "span23"></span>
+            </div>
+            <div id = "div24">
+                <span id = "span24"></span>
+            </div>
+            <div id = "div25">
+                <span id = "span25"></span>
+            </div>
+            <div id = "div26">
+                <span id = "span26"></span>
+            </div>
+            <div id = "div27">
+                <span id = "span27"></span>
+            </div>
+        </div>
+        <div id="divReglas">
+            <span>Reglas</span>
+        </div>
+        <div id = "divSeleccionJuegos">
+            <div id="crearSala">
+                <span>Crear sala</span>
+                <div class="contenedorCrearJuego">
+                    <div class="container__item">
+                        <form class="form" id="Formulario">
+                            <input type = "text" class="form__field" placeholder="Nombre de la sala" maxlength="15" id="nombrePartida"/>
+                            <button type="submit" class="btn btn--primary btn--inside uppercase" id="botonJugar">Jugar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="unirseSala">
+                <span>Unirse a sala</span>
+                <div id="rooms" style="display: none;">
+                    {% for room in rooms %}
+                        <p class="select-room" onclick='enviarSala(this.innerHTML)' >{{ room|title }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div id = "marcoMonedas">
+            <div id = "divMonedasUsuario">
+                <span style="color: white" id= "monedasUsuario">{{ DINERO }}</span><br><br>
+                <img id = "botonComprarMonedas" src="/static/images/masMonedas.png">
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src = "{{ url_for('static', filename = 'js/bingo.js') }}"></script>
+</body>
+</html>

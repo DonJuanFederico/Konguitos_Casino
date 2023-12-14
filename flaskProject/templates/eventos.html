@@ -1,0 +1,53 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/css/eventos.css">
+    <title> Eventos </title>
+{% endblock %}
+{% block body %}
+    <audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/Sonic.mp3" type="audio/mpeg">
+    </audio>
+    <div class = "contenedorTotal">
+        <div class="container">
+          <a>Eventos</a>
+        </div>
+        <div class="datos">
+            <div class = "contenedorJuegos">
+                <article id="cargarGashapon">
+                    <img id = "cartelJuego" src="/static/images/eventos/gashaponCartel.png" onclick="gashapon()">
+                    <img class="blackout" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEventoGashapon()">
+                    <img src="/static/images/eventos/gashaponFrontal.png" onclick="gashapon()">
+                </article>
+                <article id="cargarRuletaRusa">
+                    <img id = "cartelJuego" src="/static/images/eventos/ruletaRusaCartel.png" onclick="ruletaRusa()">
+                    <img class="blackout_2" src="/static/images/eventos/bloqueo_entero2.5.png" onclick="unclockEventoRuleta()">
+                    <img src="/static/images/eventos/ruletaRusaFrontal.png" onclick="ruletaRusa()">
+                </article>
+            </div>
+            <div class="contendorTimers">
+                <div id="temporizador">
+                    <div class="bloque">
+                        <div id="dias">00</div>
+                        <p>Days</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="horas">00</div>
+                        <p>Hours</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="minutos">00</div>
+                        <p>Mins</p>
+                    </div>
+                    <div class="bloque">
+                        <div id="segundos">00</div>
+                        <p>Secs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/eventos.js"></script>
+    <script src="/static/js/mutearPagina.js"></script>
+{% endblock %}

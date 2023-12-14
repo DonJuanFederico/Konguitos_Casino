@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
+html {
+  height: 100%;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+.bx {
+  font-size: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+}
+
+
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  padding: 50px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding-right: 0;
+  color: #ffffff;
+  text-align: center;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.login-box form .entrar {
+  position: relative;
+  display: inline-block;
+  padding: 10px 10px;
+  color: #484848;
+  width: 50%;
+  height: 20%;
+  letter-spacing: 4px;
+  font-size: 17px;
+  text-decoration: none;
+  overflow: hidden;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.login-box .entrar:hover {
+  background: #26c94a;
+  color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #26c94a,
+              0 0 25px #26c94a,
+              0 0 100px #26c94a;
+}
+
+.login-box form .registroUsuario {
+  position: relative;
+  display: inline-block;
+  padding: 10px 10px;
+  color: #484848;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 50%;
+  height: 20%;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 30px;
+  letter-spacing: 4px
+}
+
+
+.login-box .registroUsuario:hover {
+  background: rgba(7, 230, 252, 0.99);
+  color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(7, 230, 252, 0.99),
+              0 0 25px rgba(7, 230, 252, 0.99),
+              0 0 100px rgba(7, 230, 252, 0.99);
+}
+
+.login-box form .registroAdmin {
+  position: relative;
+  display: inline-block;
+  padding: 10px 10px;
+  color: #484848;
+  font-size: 16px;
+  width: 50%;
+  height: 20%;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 30px;
+  letter-spacing: 4px
+}
+
+.login-box .registroAdmin:hover {
+  background: rgba(252, 7, 7, 0.99);
+  color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(252, 7, 7, 0.99),
+              0 0 25px rgba(252, 7, 7, 0.99),
+              0 0 100px rgba(252, 7, 7, 0.99);
+}
+
+#logoMovimiento {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

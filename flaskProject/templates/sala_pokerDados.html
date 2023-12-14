@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Poker con dados</title>
+    <link rel="stylesheet" href="/static/css/sala_poker.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&family=Dancing+Script&family=Square+Peg&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Juego de Dados</h1>
+    <div id = "divSeleccionJuegos">
+            <div id="crearSala">
+                <span>Crear sala</span>
+                <div class="contenedorCrearJuego">
+                    <div class="container__item">
+                        <form class="form" id="Formulario">
+                            <input type="text" class="form__field" placeholder="Nombre de la sala" maxlength="15" id="nombrePartida"/>
+                            <button type="submit" class="btn btn--primary btn--inside uppercase" id="botonJugar">Jugar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="unirseSala">
+                <span>Unirse a sala</span>
+                <div id="rooms" style="display: none;">
+                    {% for room in rooms %}
+                        <p class="select-room" onclick='enviarSala(this.innerHTML)' >{{ room|title }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div id = "marcoMonedas">
+            <div id = "divMonedasUsuario">
+                <span style="color: white" id= "monedasUsuario">{{ DINERO }}</span><br><br>
+                <img id = "botonComprarMonedas" src="/static/images/masMonedas.png">
+            </div>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src = "{{ url_for('static', filename = 'js/sala_pokerDados.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Registro</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/images/moneda_dorada.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/static/js/registroUsuario.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registroUsuario.css') }}">
+    <link href="https://unpkg.com/boxicons/css/boxicons.min.css" rel="stylesheet">
+<body>
+    <form id="msform" method="POST">
+        <ul id="progressbar">
+            <li class="active datosPersonales"> Datos Personales </li>
+            <li> Tarjeta Bancaria </li>
+            <li> Foto Personal </li>
+        </ul>
+            <fieldset>
+            <h2 class="fs-title">Sé un konguito más</h2>
+            <h3 class="fs-subtitle">Paso 1</h3>
+                <label  style="margin-top: 2%; left: 5%" >Nombre de Usuario</label>
+            <input type="text"  name="nombreUsuario" value="{{ nombreUsuario }}"  placeholder="Nombre de Usuario">
+
+                <label style="margin-top: 8.5%; left: 16%">Correo</label>
+            <input type="email" id="correo" name="correo"  value="{{ correo }}" placeholder="Email"/>
+
+                <label style="margin-top: 8.5%; left: 18%">DNI</label>
+            <input type="text" name="DNI" placeholder="DNI" value="{{ DNI }}"/>
+
+                <label style="margin-top: 8.5%; left: 14%">Teléfono</label>
+            <input type="tel" name="telefono" inputmode="tel" value="{{ telefono }}" placeholder="Teléfono"/>
+
+                <label style="margin-top: 8.5%; left: 17%">País</label>
+            <input type="text" name="pais" inputmode="letters" value="{{ pais }}" placeholder="País"/>
+
+                <label style="margin-top: 8.5%; left: 10%">Código Postal</label>
+            <input type="text" name="codigoPostal" inputmode="numeric" value="{{ codigoPostal }}" placeholder="Código Postal"/>
+
+                <label style="margin-top: 8.5%; left: 11%">Contraseña</label>
+            <input class="contraseña" type="password" name="contraseña" id="contraseña" value="{{ contraseña }}" placeholder="Contraseña"/>
+            <i class="bx bx-hide" id="primera" ></i>
+
+                <label style="margin-top: 8.5%; left: 6%">Verificar Contraseña</label>
+            <input type="password" name="verificarContraseña" id="contraseña2" value="{{ verificarContraseña }}" placeholder="Verificar Contraseña"/>
+            <i class="bx bx-hide" id="segunda"></i>
+                <br>
+                <input type="checkbox" name="terminosYCondiciones"  style="margin-left: -50%; margin-top: 5%">
+                <a href="#" id="enlaceTerminos">Términos y condiciones</a>
+
+            <div id="error-message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+                <div id="mensajeAlerta" data-valor='{{ mensaje }}'></div>
+                <button class="next action-button back" id="atras" onclick="volverAtras()">Atrás</button>
+                <button class="next action-button">Siguiente</button>
+            </fieldset>
+    </form>
+
+</body>
+</html>

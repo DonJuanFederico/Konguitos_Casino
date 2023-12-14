@@ -1,0 +1,40 @@
+{% extends 'plantilla.html' %}
+{% block title %} Rankings {% endblock %}
+{% block stylesheets %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla CSS</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/rankings.css">
+{% endblock %}
+{% block body %}
+    <audio controls autoplay loop id="audio-player">
+        <source src="/static/audio/Undertale.mp3" type="audio/mpeg">
+    </audio>
+    <div class="container">
+        <table id="mi-tabla">
+            <thead>
+                <tr>
+                    <th> Posicion </th>
+                    <th> Nombre </th>
+                    <th> País </th>
+                    <th> Ganancias </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rank in datos_ranking %}
+                <tr>
+                    <td> {{ rank.Ranking }} </td>
+                    <td> {{ rank.NombreUsuario }} </td>
+                    <td> {{ rank.Calle }}</td>
+                    <td> + {{ rank.DineroGanado }}</td>
+                </tr>
+                {% endfor %}
+                <!-- Filas de datos se agregarán aquí dinámicamente con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/mutearPAgina.js"></script>
+{% endblock %}
+

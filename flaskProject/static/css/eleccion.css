@@ -1,0 +1,168 @@
+body{
+    background-image: url("https://openseauserdata.com/files/5f085809f2b711643e4eb4974cc03c0e.gif");
+    background-size: cover;
+    color: white;
+}
+
+audio{
+    display: none;
+}
+
+/* marco del dinero del usuario */
+#prueba3{
+    background-image: url("/static/images/konguito_run/marcoCasino.png");
+    background-size: cover;
+    position: absolute;
+    display: flex;
+    width: 15%;
+    height: 20%;
+    top: 1%;
+    left: 80%;
+    overflow: hidden;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.9));
+}
+
+#prueba3 span {
+    top: 34%;
+    left: 40%;
+    position: absolute;
+    font-size: 160%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+#fotoMoneda {
+    margin-left: -10%;
+    margin-top: -4%;
+    transform: scale(0.2);
+    filter: drop-shadow(5px 10px 8px rgba(0,0,0,1));
+}
+
+#masMonedas{
+    position: absolute;
+    height: 23%;
+    width: 17%;
+    top: 15%;
+    left: 7%;
+    animation: masMonedasAnimation 2s infinite alternate;
+    cursor: pointer;
+}
+
+/* animacion del boton '+' */
+@keyframes masMonedasAnimation{
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+    50% {
+        transform: scale(1.2);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(3px 3px 5px rgba(0,0,0,1));
+    }
+}
+#contenedorTotal{
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    height: 70%;
+    width: 50%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    border: 2px solid #7d0bff;
+    text-align: center;
+}
+
+#titulo{
+    text-align: center;
+    margin: 1% 0 5% 0;
+    font-size: 48px;
+}
+
+#marcoJuego{
+    border: 2px solid lightskyblue;
+}
+
+/* de CHAT GPT */
+.option-button{
+    padding: 20px;
+    margin: 5px;
+    font-size: 16px;
+    display: block;
+    cursor: pointer;
+    border: 2px solid red;
+}
+.option-button:hover{
+    border: 2px solid aquamarine;
+    background-color: rgba(255,255,255,.3);
+}
+
+#inGame{
+    position: absolute;
+    top: 25%;
+    left: 80%;
+    height: 25%;
+    width: 8%;
+}
+#withdraw, #nextRound, #KGNumber{
+    height: 25%;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: darkgoldenrod;
+    margin-top: 10%;
+    opacity: 0;
+}
+#KGNumber{
+    opacity: 1;
+    text-align: center;
+    align-items: center;
+    background-color: #0a0f2d;
+    border: 2px solid white;
+}
+#withdraw:hover, #nextRound:hover, #playButton:hover{
+    background-color: goldenrod;
+    box-shadow: 5px 5px 5px rgba(0, 246, 238, 0.56);
+}
+
+#counter{
+    border: 2px solid #2cff0b;
+    margin-top: 1%;
+}
+
+#rules{
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    height: 25%;
+    width: 8%;
+}
+#ruleButton, #percent, #playButton{
+    width: 100%;
+    height: 25%;
+    margin-top: 10%;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: darkgoldenrod;
+    cursor: pointer;
+}
+#ruleButton:hover, #percent:hover, #playButton:hover{
+    background-color: goldenrod;
+    box-shadow: 5px 5px 5px rgba(0, 246, 238, 0.56);
+}
+
+#apuesta{
+    position: absolute;
+    top: 55%;
+    left: 10%;
+}
+#amount{
+    width: 30%;
+}
