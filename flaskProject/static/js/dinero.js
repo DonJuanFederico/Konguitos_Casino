@@ -34,6 +34,9 @@ function agregarDinero() {
                             allowEscapeKey: true,
                         });
                     }
+                    setTimeout(function() {
+                      location.reload();
+                    }, 3000); // 3000 = 3 segundos
                     location.reload(); // Recarga la página
                 }
             };
