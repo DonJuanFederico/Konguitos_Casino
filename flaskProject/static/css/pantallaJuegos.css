@@ -215,3 +215,23 @@ img{
     justify-content: center;
     gap: 3%;
 }
+
+.avatar{
+    position: absolute;
+    height: 20%;
+    width: 20%;
+    top: 1%;
+    right: 5%;
+}
+
+.imagen {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    height: 110px; /* Tamaño del círculo */
+    width: 110px; /* Tamaño del círculo */
+    border-radius: 50%;
+    background-size: cover;
+    cursor: pointer;
+    z-index: 1;
+}

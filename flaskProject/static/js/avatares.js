@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (REY === 1) {
         reyAvatar.dataset.locked = 'false';
     } else {
-        reyAvatar.dataset.locked = 'false';
+        reyAvatar.dataset.locked = 'true';
+    }
 
     const astronautaAvatar = document.querySelector('.character.astronaut');
     if (ASTRONAUTA === 1) {
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const capitanAvatar = document.querySelector('.character.captain');
-    if (CAPTAIN === 1) {
+    if (CAPITAN === 1) {
         capitanAvatar.dataset.locked = 'false';
     } else {
         capitanAvatar.dataset.locked = 'true';
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const vikingoAvatar = document.querySelector('.character.viking');
-    if (VIKING === 1) {
+    if (VIKINGO === 1) {
         vikingoAvatar.dataset.locked = 'false';
     } else {
         vikingoAvatar.dataset.locked = 'true';

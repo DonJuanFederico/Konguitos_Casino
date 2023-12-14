@@ -93,3 +93,37 @@ document.querySelectorAll('img.eventos').forEach(function(imagen) {
         window.location.href = '/Juegos/Eventos/';
     });
 });
+
+//Gestión Avatar
+function cambiarAvatar(){document.location.href = '/Perfil_de_usuario/';}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                console.log("Respuesta del servidor:", data);
+                const nombrePersonaje = data.resultado.personaje; // Asigna el nombre del personaje
+                const colorFondo = data.resultado.fondo;
+                console.log("Nombre del personaje obtenido:", nombrePersonaje);
+
+                const rutaBase = "/static/images/avatares/";
+                const rutaAvatarCompleta = rutaBase + nombrePersonaje + ".png";
+                const contenedorAvatar = document.querySelector('.imagen');
+
+                contenedorAvatar.style.backgroundColor = colorFondo;
+                contenedorAvatar.style.backgroundImage = `url('${rutaAvatarCompleta}')`;
+
+            } else {
+                console.error('Error al obtener el nombre del personaje:', xhr.status);
+            }
+        }
+    };
+
+    xhr.open("GET", "/obtener_avatar", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send();
+});

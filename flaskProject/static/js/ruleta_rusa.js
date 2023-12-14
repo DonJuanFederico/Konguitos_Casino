@@ -5,8 +5,6 @@ let recamara = 0; // Declaración de la variable recamara
 const mensaje = document.querySelector('#mensajeDeInstrucciones');
 let saldo = parseFloat(document.querySelector('#monedasUsuario').textContent);
 let HaDisparado = 0;
-console.log("Apostado: " + apuesta)
-
 
 
 async function iniciarJuego() {
@@ -15,7 +13,6 @@ async function iniciarJuego() {
     // Comprueba que la apuesta es válida
     if (apuesta >= 1 && apuesta <= saldo) {
         bala = Math.floor(Math.random() * 6) + 1;
-        console.log("bala: " + bala)
         document.querySelector('#recuadroApuesta').style.display = "none";
         document.getElementById('iniciarJuego').style.display = 'none';
         console.log("apuesta: " + apuesta)
@@ -24,8 +21,16 @@ async function iniciarJuego() {
         // Inicia la animación de encender recámaras
         await EncenderRecamaras();
     } else {
-        // Muestra un mensaje de error al usuario
-        alert("La apuesta no es válida. Debe ser un NUMERO positivo y menor que el saldo. ");
+        Swal.fire({
+            icon: 'error',
+            title: 'La apuesta no es válida',
+            text: 'Debe ser un NÚMERO positivo y menor que el saldo.',
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
     }
 }
 
@@ -68,7 +73,7 @@ async function disparar() {
         if (elementoRecamara) {
             if (recamara === bala) {
                 elementoRecamara.style.backgroundColor = "#d70c0c";
-                mensaje.textContent = "Moriste puto pringado";
+                mensaje.textContent = "Has muerto";
                 document.querySelector('#disparar').style.display = 'none';
                 document.querySelector('#retirarse').style.display = 'none';
                 //Espera 2 segundos y reinicia el juego
@@ -76,7 +81,7 @@ async function disparar() {
                 reiniciarJuego();
             } else {
                 elementoRecamara.style.backgroundColor = "#47f403";
-                mensaje.textContent = "Has sobrevivido. Te has cagado eh.";
+                mensaje.textContent = "Has sobrevivido.";
             }
             recamara++;
         } else {
@@ -85,25 +90,24 @@ async function disparar() {
     } else {
         const elementoRecamara = document.getElementById(`recamara${recamara}`);
         if (elementoRecamara) {
-            /*
-            if (recamara === 5) {
-                elementoRecamara.style.backgroundColor = "#47f403";
-                mensaje.textContent = "Has ganada suertudo.";
-                alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
-                verficarResultado(recamara);
-                //Espera 2 segundos y reinicia el juego
-                setTimeout(reiniciarJuego, 2000);
-            }*/ if (recamara === bala) {
+            if (recamara === bala) {
                 elementoRecamara.style.backgroundColor = "#d70c0c";
-                mensaje.textContent = "Moriste puto pringado";
+                mensaje.textContent = "Has muerto";
                 document.querySelector('#disparar').style.display = 'none';
                 document.querySelector('#retirarse').style.display = 'none';
-                alert("Has perdido: " + apuesta + " KongoCoins");
+                Swal.fire({
+                    text: 'Has perdido: ' + apuesta + " KongoCoins",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 //Espera 2 segundos y reinicia el juego
                 setTimeout(reiniciarJuego, 2000);
             } else {
                 elementoRecamara.style.backgroundColor = "#47f403";
-                mensaje.textContent = "Has sobrevivido. Te has cagado eh.";
+                mensaje.textContent = "Sigues vivo";
             }
             recamara++;
         } else {
@@ -128,7 +132,7 @@ function reiniciarJuego() {
 }
 
 function retirarse() {
-    mensaje.textContent = "Te has retirado cagón";
+    mensaje.textContent = "Te has retirado";
     document.querySelector('#disparar').style.display = 'none';
     document.querySelector('#retirarse').style.display = 'none';
     verficarResultado(recamara - 1)
@@ -138,29 +142,69 @@ function retirarse() {
 
 function verficarResultado(recamara) {
     if (recamara === 0) {
-        alert("Te has retirado perdiendo todo.");
+        Swal.fire({
+            title: 'RECOMPENSAS',
+            text: "Te has retirado perdiendo todo.",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         // No se realiza ninguna actualización aquí, ya que no hay ganancias
     } else if (recamara === 1) {
         multiplicador = 0.2;
-        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        Swal.fire({
+            title: 'RECOMPENSAS',
+            text: "Has ganado: " + apuesta * multiplicador + " KongoCoins",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
     } else if (recamara === 2) {
         multiplicador = 0.4;
-        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        Swal.fire({
+            title: 'RECOMPENSAS',
+            text: "Has ganado: " + apuesta * multiplicador + " KongoCoins",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
     } else if (recamara === 3) {
         multiplicador = 1;
-        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        Swal.fire({
+            title: 'RECOMPENSAS',
+            text: "Has ganado: " + apuesta * multiplicador + " KongoCoins",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
     } else if (recamara === 4) {
         multiplicador = 1.5;
-        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        Swal.fire({
+            title: 'RECOMPENSAS',
+            text: "Has ganado: " + apuesta * multiplicador + " KongoCoins",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
         agregarDinero()
@@ -168,7 +212,15 @@ function verficarResultado(recamara) {
         multiplicador = 2;
         actualizarDineroUsuario(apuesta * multiplicador);
         premio = apuesta * multiplicador;
-        alert("Has ganado: " + apuesta * multiplicador + " KongoCoins");
+        Swal.fire({
+            title: 'RECOMPENSAS',
+            text: "Has ganado: " + apuesta * multiplicador + " KongoCoins",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         agregarDinero()
     }
 }
@@ -207,9 +259,10 @@ function agregarDinero() {
 
 // funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
 let prevUrl = document.referrer;
-function volverAtras(){
-    if(prevUrl.indexOf(window.location.host) !== -1) {
-    // Ir a la página anterior
-    window.history.back();
+
+function volverAtras() {
+    if (prevUrl.indexOf(window.location.host) !== -1) {
+        // Ir a la página anterior
+        window.history.back();
     }
 }

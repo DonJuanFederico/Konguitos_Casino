@@ -17,6 +17,49 @@ db_config = {
     "database": "casino",
     "port": 3306,
 }
+def existeDNI(dni):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el DNI ya está registrado
+            query = "SELECT * FROM usuarios WHERE DNI = %s"
+            cursor.execute(query, (dni,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("DNI ya registrado")
+                return True
+            else:
+                print("DNI no registrado")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
+
+def existeTelefono(telefono):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            # Consulta para verificar si el teléfono ya está registrado
+            query = "SELECT * FROM usuarios WHERE Telefono = %s"
+            cursor.execute(query, (telefono,))
+            resultado = cursor.fetchone()
+            if resultado:
+                print("Teléfono ya registrado")
+                return True
+            else:
+                print("Teléfono no registrado")
+                return False
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+    return False  # Devuelve False si no se pudo conectar a la base de datos
 
 
 def iniciar_sesion_correo(correo, contraseña):
@@ -31,11 +74,11 @@ def iniciar_sesion_correo(correo, contraseña):
             resultado = cursor.fetchone()
 
             if resultado:
-                print("Inicio de sesión exitoso")
+                print("Inicio de sesión de usuario por correo exitoso")
                 almacenar_nombre(resultado[1])
                 return True
             else:
-                print("Inicio de sesión fallido: usuario o contraseña incorrectos")
+                print("Inicio de sesión de usuario por correo fallido")
                 return False
         except mysql.connector.Error as err:
             print(f"Error de MySQL: {err}")
@@ -124,11 +167,11 @@ def iniciar_sesion(usuario, contraseña):
             resultado = cursor.fetchone()
 
             if resultado:
-                print("Inicio de sesión exitoso")
+                print("Inicio de sesión con nombre de usuario exitoso")
                 almacenar_nombre(usuario)
                 return True
             else:
-                print("Inicio de sesión fallido: usuario o contraseña incorrectos")
+                print("Inicio de sesión por nombre de usuario fallido")
                 return False
         except mysql.connector.Error as err:
             print(f"Error de MySQL: {err}")
@@ -362,7 +405,7 @@ def adminLogIn(nombre, contraseña):
                     print("Inicio de sesión de administrador exitoso")
                     return True
                 else:
-                    print("Inicio de sesión de administrador fallido: nombre o contraseña incorrectos")
+                    print("Inicio de sesión de administrador fallido")
                     return False
             except mysql.connector.Error as err:
                 print(f"Error de MySQL: {err}")
@@ -669,6 +712,20 @@ def registrarPartida(nombreUsuario, nombrePartida):
             cursor.close()
             close_connection(conn)
 
+def registrarPartidaPokerDados(nombreUsuario, nombrePartida):
+    conn = connect()
+    if conn:
+        cursor = conn.cursor()
+        try:
+            query = "INSERT INTO partidaBingo (nombreJugador, id) VALUES (%s, %s)"
+            cursor.execute(query, (nombreUsuario, nombrePartida))
+            conn.commit()
+        except mysql.connector.Error as err:
+            print(f"Error de MySQL: {err}")
+        finally:
+            cursor.close()
+            close_connection(conn)
+
 def buscarAnfitrion(nombre):
     conn = connect()
     if conn:
@@ -799,127 +856,6 @@ def almacenar_idUsuario(id_usuario):
 def obtener_id_usuario():
     return idDelUsuario
 
-
-
-"""""
-def TienePirata():
-    conn = connect()
-    pirata = None
-    if conn:
-        cursor = conn.cursor()
-        try:
-            # Consulta para obtener el dinero del usuario
-            query = "SELECT pirata FROM gashapon WHERE id_usario = %s"
-            cursor.execute(query, (obtener_id_usuario(),))
-            pirata = cursor.fetchone()[0]
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-    return pirata
-def TieneAstronauta():
-    conn = connect()
-    astronauta = None
-    if conn:
-        cursor = conn.cursor()
-        try:
-            # Consulta para obtener el dinero del usuario
-            query = "SELECT astronauta FROM gashapon WHERE id_usario = %s"
-            cursor.execute(query, (obtener_id_usuario(),))
-            astronauta = cursor.fetchone()[0]
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-    return astronauta
-
-def TieneBasico():
-    conn = connect()
-    basico = None
-    if conn:
-        cursor = conn.cursor()
-        try:
-            # Consulta para obtener el dinero del usuario
-            query = "SELECT basico FROM gashapon WHERE id_usario = %s"
-            cursor.execute(query, (obtener_id_usuario(),))
-            basico = cursor.fetchone()[0]
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-    return basico
-
-def TieneRey():
-    conn = connect()
-    rey = None
-    if conn:
-        cursor = conn.cursor()
-        try:
-            # Consulta para obtener el dinero del usuario
-            query = "SELECT rey FROM gashapon WHERE id_usario = %s"
-            cursor.execute(query, (obtener_id_usuario(),))
-            rey = cursor.fetchone()[0]
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-    return rey
-
-def TieneCapitan():
-    conn = connect()
-    capitan = None
-    if conn:
-        cursor = conn.cursor()
-        try:
-            # Consulta para obtener el dinero del usuario
-            query = "SELECT capitan FROM gashapon WHERE id_usario = %s"
-            cursor.execute(query, (obtener_id_usuario(),))
-            capitan = cursor.fetchone()[0]
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-    return capitan
-
-def TieneTigre():
-    conn = connect()
-    tigre = None
-    if conn:
-        cursor = conn.cursor()
-        try:
-            # Consulta para obtener el dinero del usuario
-            query = "SELECT tigre FROM gashapon WHERE id_usario = %s"
-            cursor.execute(query, (obtener_id_usuario(),))
-            tigre = cursor.fetchone()[0]
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-    return tigre
-
-def TieneVikingo():
-    conn = connect()
-    vikingo = None
-    if conn:
-        cursor = conn.cursor()
-        try:
-            # Consulta para obtener el dinero del usuario
-            query = "SELECT vikingo FROM gashapon WHERE id_usario = %s"
-            cursor.execute(query, (obtener_id_usuario(),))
-            vikingo = cursor.fetchone()[0]
-        except mysql.connector.Error as err:
-            print(f"Error de MySQL: {err}")
-        finally:
-            cursor.close()
-            close_connection(conn)
-    return vikingo
-"""
 def obtenerValoresGashapon(id_usuario):
     conn = connect()
     if conn:

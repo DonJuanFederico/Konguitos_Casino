@@ -60,7 +60,16 @@ function activarColumnaGashapon(id_usuario, columna) {
 
 function girar() {
     if (dinero < 10) {
-        alert("No tienes suficiente dinero para jugar.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "No tienes suficiente dinero para jugar.",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
     } else {
         // Hide the ruedecilla element
         document.querySelector('#ruedecilla').style.display = "none";
@@ -124,11 +133,30 @@ function girar() {
                         premio = recompensa.value;
                         actualizarDineroUsuario(premio);
                         agregarDinero();
-                        alert("¡Has ganado una recompensa: " + recompensa.value + "KC!");
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Enhorabuena!',
+                            text: "Has ganado una recompensa: " + recompensa.value + "KC!",
+                            confirmButtonText: 'Salir',
+                            confirmButtonColor: '#3085d6',
+                            backdrop: true,
+                            allowOutsideClick: true,
+                            allowEscapeKey: true,
+                        });
+
                     } else if (recompensa.name) {
                         // Si es un avatar, realizar acciones específicas para el tipo de avatar
                         manejarAvatar(recompensa.name);
-                        alert("¡Has ganado una recompensa: Avatar " + recompensa.name + "!");
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Enhorabuena!',
+                            text: "¡Has ganado una recompensa: Avatar " + recompensa.name + "!",
+                            confirmButtonText: 'Salir',
+                            confirmButtonColor: '#3085d6',
+                            backdrop: true,
+                            allowOutsideClick: true,
+                            allowEscapeKey: true,
+                        });
                     }
 
                     break;
@@ -149,66 +177,108 @@ function manejarAvatar(tipoAvatar) {
     switch (tipoAvatar) {
         case "pirata":
             if (PIRATA == 0) {
-                console.log("pirata: ", PIRATA, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "pirata");
-                console.log("pirata: ", PIRATA)
             } else {
-                alert("Ya tienes este avatar: pirata. Te devolvemos el dinero.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: pirata. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
             break;
         case "astronauta":
             if (ASTRONAUTA == 0) {
-                console.log("astronauta: ", ASTRONAUTA, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "astronauta");
-                console.log("astronauta: ", ASTRONAUTA)
             } else {
-                alert("Ya tienes este avatar: astronauta. Te devolvemos el dinero.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: astronauta. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
             break;
         case "rey":
             if (REY == 0) {
-                console.log("rey: ", REY, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "rey");
-                console.log("rey: ", REY)
             } else {
-                alert("Ya tienes este avatar: rey. Te devolvemos el dinero.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: Rey. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
             break;
         case "capitan":
             if (CAPITAN == 0) {
-                console.log("capitan: ", CAPITAN, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "capitan");
-                console.log("capitan: ", CAPITAN)
             } else {
-                alert("Ya tienes este avatar: capitan. Te devolvemos el dinero.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: Capitan. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
             break;
         case "tigre":
             if (TIGRE == 0) {
-                console.log("tigre: ", TIGRE, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "tigre");
-                console.log("tigre: ", TIGRE)
             } else {
-                alert("Ya tienes este avatar: tigre. Te devolvemos el dinero.");
+                 Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: Tigre. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
             break;
         case "vikingo":
             if (VIKINGO == 0) {
-                console.log("vikingo: ", VIKINGO, "id_usuario: ", id_usuario)
                 activarColumnaGashapon(id_usuario, "vikingo");
-                console.log("vikingo: ", VIKINGO)
             } else {
-                alert("Ya tienes este avatar: vikingo. Te devolvemos el dinero.");
+               Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ya tienes este avatar: Vikingo. Te devolvemos el dinero.",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
                 actualizarDineroUsuario(apuesta);
                 agregarDinero();
             }
@@ -230,10 +300,11 @@ function actualizarDineroUsuario(cantidad) {
 
 // funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)
 let prevUrl = document.referrer;
-function volverAtras(){
-    if(prevUrl.indexOf(window.location.host) !== -1) {
-    // Ir a la página anterior
-    window.history.back();
+
+function volverAtras() {
+    if (prevUrl.indexOf(window.location.host) !== -1) {
+        // Ir a la página anterior
+        window.history.back();
     }
 }
 

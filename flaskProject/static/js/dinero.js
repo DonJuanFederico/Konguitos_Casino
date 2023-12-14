@@ -12,17 +12,47 @@ function agregarDinero() {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        alert("Ingreso realizado");
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Ingreso realizado',
+                            text: "Se ha ingresado " + monto + "€ a tu cuenta.",
+                            confirmButtonText: 'Salir',
+                            confirmButtonColor: '#3085d6',
+                            backdrop: true,
+                            allowOutsideClick: true,
+                            allowEscapeKey: true,
+                        });
                     } else {
-                        alert("Error al procesar la solicitud");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: "No se ha podido realizar el ingreso",
+                            confirmButtonText: 'Salir',
+                            confirmButtonColor: '#3085d6',
+                            backdrop: true,
+                            allowOutsideClick: true,
+                            allowEscapeKey: true,
+                        });
                     }
-                    location.reload(); // Recarga la página
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000); // 3000 = 3 segundos
                 }
             };
             xhr.send("&cantidad_a_agregar=" + monto);
         }
     } else {
-        alert("Por favor ingresa un número positivo con dos decimales como máximo.");
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Por favor ingresa un número positivo con dos decimales como máximo.",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
     }
 }
 
@@ -33,7 +63,16 @@ function retirarDinero() {
         // Muestra un mensaje de confirmación
         if (confirm("¿Estás seguro de que deseas retirar dinero?")) {
             if (monto > saldoActual) {
-                alert("No puedes terirar más de lo que tienes");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "No puedes retirar más de lo que tienes",
+                    confirmButtonText: 'Salir',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
             } else {
                 // Enviar solicitud HTTP a tu servidor Flask
                 var xhr = new XMLHttpRequest();
@@ -42,17 +81,46 @@ function retirarDinero() {
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
-                            alert("Retiro realizado");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Retiro realizado',
+                                text: "Se ha retirado " + monto + "€ de tu cuenta.",
+                                confirmButtonText: 'Salir',
+                                confirmButtonColor: '#3085d6',
+                                backdrop: true,
+                                allowOutsideClick: true,
+                                allowEscapeKey: true,
+                            });
                         } else {
-                            alert("Error al procesar la solicitud");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "No se ha podido realizar el retiro",
+                                confirmButtonText: 'Salir',
+                                confirmButtonColor: '#3085d6',
+                                backdrop: true,
+                                allowOutsideClick: true,
+                                allowEscapeKey: true,
+                            });
                         }
-                        location.reload(); // Recarga la página
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000); // 3000 = 3 segundos
                     }
                 };
                 xhr.send("&cantidad_a_retirar=" + monto);
             }
         }
-    }else {
-        alert("Por favor ingresa un número positivo con dos decimales como máximo.");
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Por favor ingresa un número positivo con dos decimales como máximo.",
+            confirmButtonText: 'Salir',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
     }
 }

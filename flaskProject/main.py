@@ -22,6 +22,7 @@ Session(app)
 # Inicializar flask socketio
 socketio = SocketIO(app)
 ROOMS = []
+ROOMSPokerDados = []
 
 # python
 # import os
@@ -30,6 +31,9 @@ ROOMS = []
 # print(hex_representation)
 app.config['SECRET_KEY'] = 'ded843028a32eb605772926d'
 
+
+global nombreRegistrado;
+nombreRegistrado = False;
 
 @app.route('/')
 def index():
@@ -41,17 +45,18 @@ def inicio():
     nombreUsuarioInicio = ""
     contrasenna = ""
     mensaje = ""
+    if nombreRegistrado is True:
+        flash("Usuario " + session.get('nombreUsuario') + " se acaba de registrar", "info")
     if request.method == 'POST':
-        nombreUsuarioInicio = request.form.get('nombreUsuario')
-        session['nombreUsuario'] = nombreUsuarioInicio
-        contrasenna = request.form.get('contraseña')
-        print("Nombre de usuario:", nombreUsuarioInicio)
-        print("Contraseña:", contrasenna)
-        if adminLogIn(nombreUsuarioInicio, contrasenna):
+        nombreUsuarioInicio = request.form.get('nombreUsuarioInicio')
+        session['nombreUsuarioInicio'] = nombreUsuarioInicio # La hago global
+        contrasennaInicio = request.form.get('contraseña')
+        if adminLogIn(nombreUsuarioInicio, contrasennaInicio):
+            flash("Registrado como administrador", "info")
             return interfazAdmin()
-        elif iniciar_sesion_correo(nombreUsuarioInicio, contrasenna):
+        elif iniciar_sesion_correo(nombreUsuarioInicio, contrasennaInicio):
             return juegos()
-        elif iniciar_sesion(nombreUsuarioInicio, contrasenna):
+        elif iniciar_sesion(nombreUsuarioInicio, contrasennaInicio):
             return juegos()
         else:
             flash("Usuario,Correo o contraseña incorrecto", "info")
@@ -97,25 +102,31 @@ def registroUsuario():
                     if existeCorreo(correo):
                         flash("Correo " + correo + " ya registrado", "info")
                     else:
-                            flash("")
-                            # Verificar la presencia de letras mayúsculas, minúsculas, dígitos y caracteres especiales
-                            tiene_mayuscula = any(c.isupper() for c in contraseña)
-                            tiene_minuscula = any(c.islower() for c in contraseña)
-                            tiene_digito = any(c.isdigit() for c in contraseña)
-                            tiene_caracter_especial = any(c for c in contraseña if c.isalnum() is False)
-                            if tiene_mayuscula and tiene_minuscula and tiene_digito and tiene_caracter_especial and (len(contraseña) >= 8):
-                                flash("")
-                                if contraseña == verificarContraseña:
-                                    if aceptaTerminos == "on":
-                                        flash("")
-                                        return redirect(url_for('registroTarjeta'))
-                                    else:
-                                        flash("")
-                                        flash("Debe aceptar los términos y condiciones para poder continuar con el registro", "info")
-                                else:
-                                    flash("Las contraseñas no coinciden", "info")
+                        if existeDNI(DNI):
+                            flash("DNI " + DNI + " ya registrado", "info")
+                        else:
+                            if existeTelefono(telefono):
+                                flash("Teléfono " + telefono + " ya registrado", "info")
                             else:
-                                flash("Contraseña poco segura, se aconseja introducir al menos una mayúscula, minúscula, un número, un carácter especial y mínimo 8 caracteres", "info")
+                                flash("")
+                                # Verificar la presencia de letras mayúsculas, minúsculas, dígitos y caracteres especiales
+                                tiene_mayuscula = any(c.isupper() for c in contraseña)
+                                tiene_minuscula = any(c.islower() for c in contraseña)
+                                tiene_digito = any(c.isdigit() for c in contraseña)
+                                tiene_caracter_especial = any(c for c in contraseña if c.isalnum() is False)
+                                if tiene_mayuscula and tiene_minuscula and tiene_digito and tiene_caracter_especial and (len(contraseña) >= 8):
+                                    flash("")
+                                    if contraseña == verificarContraseña:
+                                        if aceptaTerminos == "on":
+                                            flash("")
+                                            return redirect(url_for('registroTarjeta'))
+                                        else:
+                                            flash("")
+                                            flash("Debe aceptar los términos y condiciones para poder continuar con el registro", "info")
+                                    else:
+                                        flash("Las contraseñas no coinciden", "info")
+                                else:
+                                    flash("Contraseña poco segura, se aconseja introducir al menos una mayúscula, minúscula, un número, un carácter especial y mínimo 8 caracteres", "info")
     return render_template('registroUsuario.html', mensaje=mensaje, nombreUsuario=nombreUsuario, correo=correo, DNI=DNI, telefono=telefono, pais=pais, codigoPostal=codigoPostal, contraseña=contraseña, verificarContraseña=verificarContraseña)
 
 @app.route('/Registro/Tarjeta Bancaria/', methods=['GET', 'POST'])
@@ -129,14 +140,21 @@ def registroTarjeta():
         titulanteTarjeta = request.form.get('titulanteTarjeta')
         caducidadTarjeta = request.form.get('caducidadTarjeta')
         cvv = request.form.get('CVV')
+
+        # Número de Tarjeta
+        tarjeta = numeroTarjeta.split(" ")
+        if len(tarjeta) == 3:
+            numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2]
+        elif len(tarjeta) == 4:
+            numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
+        tarjeta = caducidadTarjeta.split("/")
+        caducidadTarjeta = "20" + tarjeta[1] + "-" + tarjeta[0] + "-01"
         session['numeroTarjeta'] = numeroTarjeta
         session['titulanteTarjeta'] = titulanteTarjeta
         session['caducidadTarjeta'] = caducidadTarjeta
         session['cvv'] = cvv
-        print("Numero de tarjeta:", numeroTarjeta)
-        print("Titulante de tarjeta:", titulanteTarjeta)
-        print("Caducidad de tarjeta:", caducidadTarjeta)
-        print("CVV de tarjeta:", cvv)
+        print("NumeroTarjeta: " + session.get('numeroTarjeta'))
+        print("FechaCaducidad: " + session.get('caducidadTarjeta'))
         return redirect(url_for('foto_y_registra_usuario'))
     return render_template('registroTarjeta.html', numeroTarjeta=numeroTarjeta, titulanteTarjeta=titulanteTarjeta, caducidadTarjeta=caducidadTarjeta, cvv=cvv)
 
@@ -150,21 +168,26 @@ def foto_y_registra_usuario():
     nombreUsuario = session.get('nombreUsuario')
     if request.method == 'POST':
         photo = request.files.get('photo')
+<<<<<<< HEAD
         numero = session.get('numeroTarjeta')
         tarjeta = numero.split(" ")
         numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
         fecha = session.get('caducidadTarjeta')
         tarjeta = fecha.split("/")
         fechaCaducidad = "20" + tarjeta[1] + "-" + tarjeta[1] + "-01"
+=======
+>>>>>>> 0d14cf2348436400f9515ba9a923259c85246b73
         if agregarUsuario(nombreUsuario, session.get('contraseña'), session.get('correo'), session.get('DNI'), 1000, session.get('telefono'), convertir_imagen_a_blob(photo), session.get('pais'), session.get('codigoPostal'), None):
             print("Exito Usuario")
-            if agregarTarjeta(nombreUsuario, numeroTarjeta, session.get('titulanteTarjeta'), fechaCaducidad, session.get('cvv')):
+            if agregarTarjeta(nombreUsuario, session.get('numeroTarjeta'), session.get('titulanteTarjeta'), session.get('caducidadTarjeta'), session.get('cvv')):
                 print("Exito Tarjeta")
+                nombreRegistrado = True
                 return redirect(url_for('index'))
             else:
                 return redirect(url_for('index'))
         return redirect(url_for('index'))
     return render_template('registroCamara.html', nombreUsuario = nombreUsuario)
+
 @app.route('/Registro/terminosCondiciones.html')
 def terminos():
     return render_template('terminosCondiciones.html')
@@ -173,21 +196,6 @@ def terminos():
 @app.route('/Perfil_de_usuario/Avatar/')
 def avatar():
     return render_template('avatares.html')
-
-
-@app.route('/Camara/', methods=['GET', 'POST'])
-def camara():
-    form = TomarFoto()
-    if form.validate_on_submit():
-        foto = tomarFoto()
-        print("a:", foto.__sizeof__())
-        nombreUsuario = session.get('nombreUsuario')
-        print("a: ", nombreUsuario)
-        if agregarFotoUsuario(nombreUsuario, foto):
-            print("c")
-            return redirect(url_for('camara'))
-        return redirect(url_for('camara'))
-    return render_template('camara.html', form=form)
 
 
 @app.route('/Registro Administrador/', methods=['GET', 'POST'])
@@ -298,7 +306,9 @@ def edicion():
 
 @app.route('/Juegos/')
 def juegos():
-    return render_template('pantallaJuegos.html', NOMBRE=obtener_nombre())
+    nombre = session.get('nombreUsuarioInicio')
+    print("nombre: ", nombre)
+    return render_template('pantallaJuegos.html', NOMBRE=nombre)
 
 
 @app.route('/Rankings/')
@@ -498,6 +508,11 @@ def craps():
 @app.route('/Juegos/Indice_Dados/Poker/', methods=['GET'])
 def poker_dados():
     DINERO = obtenerDinero()
+    return render_template("sala_pokerDados.html", DINERO=DINERO, rooms=ROOMS)
+
+@app.route('/Juegos/Indice_Dados/Poker/Partida', methods=['GET'])
+def poker_dados_partida():
+    DINERO = obtenerDinero()
     return render_template("poker_dados.html", DINERO=DINERO)
 
 
@@ -518,6 +533,15 @@ def page_not_found(error):
     return render_template("pagina_no_encontrada.html"), 404
 
 
+@app.route('/crear_partidaPokerDados', methods=['POST'])
+def crear_partidaPokerDados():
+    nombre_partida = request.form.get('nombre_partida')
+    if nombre_partida in ROOMSPokerDados:
+        return "La partida ya existe"
+    ROOMSPokerDados.append(nombre_partida)
+    registrarPartidaPokerDados(obtener_nombre(), nombre_partida)
+    return "Partida creada correctamente"
+
 @app.route('/crear_partida', methods=['POST'])
 def crear_partida():
     nombre_partida = request.form.get('nombre_partida')
@@ -534,6 +558,24 @@ def eliminar_sala():
         ROOMS.remove(nombre_sala)
     return "Sala eliminada correctamente"
 
+@app.route('/eliminar_salaPokerDados', methods=['POST'])
+def eliminar_salaPokerDados():
+    nombre_sala = request.form.get('nombre_sala')
+    if nombre_sala in ROOMSPokerDados:
+        ROOMSPokerDados.remove(nombre_sala)
+    return "Sala eliminada correctamente"
+
+@app.route('/partidaPokerDados', methods=['GET', 'POST'])
+def partidaPokerDados():
+    if request.method == 'POST':
+        salaElegida = request.form.get('sala')
+        if salaElegida not in ROOMSPokerDados:
+            return  "Sala no disponible"
+        session['salaElegidaPokerDados'] = salaElegida
+        return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+    salaElegida = session.get('salaElegidaPokerDados')
+    return render_template('poker_dados.html', username=obtener_nombre(), rooms=ROOMSPokerDados, salaElegida=salaElegida)
+
 @app.route('/partidaBingo', methods=['GET', 'POST'])
 def partidaBingo():
     if request.method == 'POST':
@@ -544,6 +586,7 @@ def partidaBingo():
         return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
     salaElegida = session.get('salaElegidaBingo')
     return render_template('partidaBingo.html', username=obtener_nombre(), rooms=ROOMS, salaElegida=salaElegida)
+
 
 @socketio.on("message")
 def message(data):
