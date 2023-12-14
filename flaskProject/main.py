@@ -132,7 +132,13 @@ def registroTarjeta():
         session['titulanteTarjeta'] = titulanteTarjeta
         session['caducidadTarjeta'] = caducidadTarjeta
         session['cvv'] = cvv
-        print("Numero de tarjeta:", numeroTarjeta)
+        tarjeta = numeroTarjeta.split(" ")
+        numeroTarjeta2 = ""
+        if len(tarjeta) == 3:
+            numeroTarjeta2 = tarjeta[0] + tarjeta[1] + tarjeta[2]
+        elif len(tarjeta) == 4:
+            numeroTarjeta2 = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
+        print("Numero de tarjeta:", numeroTarjeta2)
         print("Titulante de tarjeta:", titulanteTarjeta)
         print("Caducidad de tarjeta:", caducidadTarjeta)
         print("CVV de tarjeta:", cvv)
@@ -149,7 +155,7 @@ def foto_y_registra_usuario():
     nombreUsuario = session.get('nombreUsuario')
     if request.method == 'POST':
         photo = request.files.get('photo')
-
+        # Obtengo el número de tarjeta
         numero = session.get('numeroTarjeta')
         tarjeta = numero.split(" ")
         numeroTarjeta = tarjeta[0] + tarjeta[1] + tarjeta[2] + tarjeta[3]
@@ -173,21 +179,6 @@ def terminos():
 @app.route('/Perfil_de_usuario/Avatar/')
 def avatar():
     return render_template('avatares.html')
-
-
-@app.route('/Camara/', methods=['GET', 'POST'])
-def camara():
-    form = TomarFoto()
-    if form.validate_on_submit():
-        foto = tomarFoto()
-        print("a:", foto.__sizeof__())
-        nombreUsuario = session.get('nombreUsuario')
-        print("a: ", nombreUsuario)
-        if agregarFotoUsuario(nombreUsuario, foto):
-            print("c")
-            return redirect(url_for('camara'))
-        return redirect(url_for('camara'))
-    return render_template('camara.html', form=form)
 
 
 @app.route('/Registro Administrador/', methods=['GET', 'POST'])

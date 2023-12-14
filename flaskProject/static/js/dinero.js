@@ -34,16 +34,12 @@ function agregarDinero() {
                             allowEscapeKey: true,
                         });
                     }
-                    setTimeout(function() {
-                      location.reload();
+                    setTimeout(function () {
+                        location.reload();
                     }, 3000); // 3000 = 3 segundos
-                    location.reload(); // Recarga la página
                 }
             };
-            //Espere 1 segundo para que se actualice la base de datos
-            setTimeout(function () {
-                xhr.send("&cantidad_a_agregar=" + monto);
-            }, 1000);
+            xhr.send("&cantidad_a_agregar=" + monto);
         }
     } else {
 
@@ -107,13 +103,12 @@ function retirarDinero() {
                                 allowEscapeKey: true,
                             });
                         }
-                        location.reload(); // Recarga la página
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000); // 3000 = 3 segundos
                     }
                 };
-                //Espera 1 segundo para que se actualice la base de datos
-                setTimeout(function () {
-                    xhr.send("&cantidad_a_retirar=" + monto);
-                }, 1000);
+                xhr.send("&cantidad_a_retirar=" + monto);
             }
         }
     } else {
