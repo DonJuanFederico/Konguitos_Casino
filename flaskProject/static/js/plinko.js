@@ -244,9 +244,9 @@ function mostrarContador() {
 }
 
 document.getElementById("guardar").addEventListener("click", function () {
-
     valor = document.getElementById("numero").value;
     if ((valor >= 0) && (saldo - valor >= 0)) {
+        document.getElementById('guardar').style.display = 'none';
         saldo = saldo - valor;
         apuesta = valor;
         console.log("Se ha guardado el número " + apuesta);
