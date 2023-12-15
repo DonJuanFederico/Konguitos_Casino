@@ -131,6 +131,7 @@ function actualizarPosicionBola() {
             if (bola.offsetTop + bola.clientHeight >= board.clientHeight * 0.59) {
                 if (semaforo == true) {
                     agregarDinero();
+                    document.getElementById('guardar').style.display = 'block';
                 }
                 bola.velocidadX = 0;
                 bola.velocidadY = 0;
@@ -212,12 +213,6 @@ function actualizarPosicionBola() {
                 }
             }
 
-            if (bola.velocidadX === 0 && bola.velocidadY === 0) {
-                mostrarScore(true);
-            } else {
-                mostrarScore(false);
-            }
-
             idAnimacion = requestAnimationFrame(function () {
                 actualizarPosicionBola();
             });
@@ -244,15 +239,18 @@ function mostrarContador() {
 }
 
 document.getElementById("guardar").addEventListener("click", function () {
+
     valor = document.getElementById("numero").value;
-    if ((valor >= 0) && (saldo - valor >= 0)) {
-        document.getElementById('guardar').style.display = 'none';
+    print(valor)
+    if ((valor =! 0.00) && ((valor >= 0) && (saldo - valor >= 0))) {
+
         saldo = saldo - valor;
         apuesta = valor;
         console.log("Se ha guardado el número " + apuesta);
 
         reiniciarBola();
         retirarDinero();
+        document.getElementById('guardar').style.display = 'none';
         document.getElementById('monedas').textContent = saldo;
     } else {
         mostrarModal()
