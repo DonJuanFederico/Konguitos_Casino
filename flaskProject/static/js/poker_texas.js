@@ -214,7 +214,14 @@ function newGame() {
     // Validar si la apuesta es válida (por ejemplo, si es mayor que cero)
     if (betAmount <= 0 || isNaN(betAmount)) {
         gameOver = true;
-        alert('Ingresa una cantidad válida para apostar.');
+        Swal.fire({
+            title: 'Ingresa una cantidad válida para apostar.',
+            confirmButtonText: 'Perfecto',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
 
         return; // Evitar iniciar el juego si la apuesta no es válida
     } else {

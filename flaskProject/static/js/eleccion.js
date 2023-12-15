@@ -46,7 +46,17 @@ function startGame(){
                 document.getElementById('nextRound').style.cursor = 'pointer';
             });
         }
-    } else alert('Tienes que apostar un mínimo de 1 KG. Gracias.')
+    } else {
+        Swal.fire({
+            title: 'Tienes que apostar un mínimo de 1 KG. Gracias.',
+            confirmButtonText: 'Vamos a ello',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
+    }
+
 }
 
 function firstOptions() {

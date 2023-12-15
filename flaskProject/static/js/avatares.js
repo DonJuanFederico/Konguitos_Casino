@@ -103,7 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         xhr.send(JSON.stringify(datosAvatar));
-        alert('Tu avatar se ha guardado correctamente');
+        Swal.fire({
+            title: 'Tu avatar se ha guardado correctamente',
+            confirmButtonText: 'Perfecto',
+            confirmButtonColor: '#d6b530',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         document.location.href = '/Perfil_de_usuario/';
     });
 

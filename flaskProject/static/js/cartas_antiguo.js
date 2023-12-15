@@ -110,9 +110,23 @@ deck.addEventListener('click', () => {
         }
     }
     else if (parseFloat(document.getElementById('apuesta').value) > saldo) {
-                alert('No tienes suficiente saldo para esta apuesta.');
+        Swal.fire({
+            title: 'No tienes suficiente saldo para esta apuesta.',
+            confirmButtonText: 'Vamos a ello',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
     }else {
-        alert('Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.');
+        Swal.fire({
+            title: 'Tiene que apostar una cantidad mínima de 0.01 Konguito Coin.',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
     }
 });
 

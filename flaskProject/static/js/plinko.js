@@ -264,11 +264,9 @@ document.getElementById("guardar").addEventListener("click", function () {
 });
 
 document.getElementById("monedas").addEventListener("click", function () {
-    alert('¡Se hizo clic en la imagen "masMonedas"!');
     window.location.href = "/dinero/";
 });
 masMonedasImagen.addEventListener('click', function () {
-    alert('¡Se hizo clic en la imagen "masMonedas"!');
     window.location.href = "/dinero/";
 });
 
