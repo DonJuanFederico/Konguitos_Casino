@@ -10,11 +10,13 @@ var anfitrion = false;
 var socket = io();
 //Partidas de 5 entonces: jugadoresRestantes = 4
 var jugadoresRestantes = 1;
+var jugadoresTotales = 2;
 var usuariosEntrados = [];
 
 let valoresDados = [0, 0, 0, 0, 0];
 let numeroTiros = 3;
-
+var ordenUsuarios =[]
+var ordenValores = []
 
 document.addEventListener("DOMContentLoaded", () =>{
 
@@ -69,6 +71,38 @@ document.addEventListener("DOMContentLoaded", () =>{
         //Emit ya que es personalizado, y pasando los dos valores que necesita
         socket.emit("joinPokerDados", {"username" : username, "room": room});
     }
+
+    socket.on("mostrarResultado", data => {
+        var traduccion
+        if (data.resultadoAlmacenado === 8) {
+            traduccion = "Repóker";
+        } else if (data.resultadoAlmacenado === 7) {
+            traduccion = "Póker";
+        } else if (data.resultadoAlmacenado === 6) {
+            traduccion = "Full";
+        } else if (data.resultadoAlmacenado === 3) {
+            traduccion = "Trío";
+        } else if (data.resultadoAlmacenado === 2) {
+            traduccion = "Doble Pareja";
+        } else if (data.resultadoAlmacenado === 1) {
+            traduccion = "Pareja";
+        } else if (data.resultadoAlmacenado === 5) {
+            traduccion = "Escalera Mayor";
+        } else if (data.resultadoAlmacenado === 4) {
+            traduccion = "Escalera Menor";
+        } else {
+            traduccion = " nada";
+        }
+        Swal.fire({
+            title: `Ha ganado ${data.nombreAlmacenado} teniendo un ${traduccion}`,
+            confirmButtonText: 'Vamos a jugar',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
+        document.getElementById("miBoton").style.display = 'block';
+    });
 
     revisarAnfitrion();
 
@@ -150,7 +184,14 @@ function toggleBloquearDado(dadoId) {
             dadoImg.style.border = 'none'; // Quitar borde cuando se desbloquea
         }
     } else {
-        alert('No puedes bloquear dados antes de comenzar la partida.');
+        Swal.fire({
+            title: 'No puedes bloquear dados antes de comenzar la partida.',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#3085d6',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
     }
 }
 
@@ -161,9 +202,15 @@ function lanzarDados() {
     const botonLanzar = document.querySelector('.lanzar-button');
 
     // Validar si la apuesta es válida (por ejemplo, si es mayor que cero)
-    if (betAmount <= 0 || isNaN(betAmount)) {
-        alert('Ingresa una cantidad válida para apostar.');
-
+    if ((betAmount !== 9)||betAmount > parseFloat(document.getElementById("monedas").textContent) ||betAmount <= 0 || isNaN(betAmount) || !(betAmount - parseFloat(betAmount.toFixed(2)) == 0)) {
+        Swal.fire({
+            title: 'Ahora mismo la partida cuesta 9 KC, no lo cambie',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#f8361c',
+            backdrop: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+        });
         return; // Evitar iniciar el juego si la apuesta no es válida
     } else {
 
@@ -187,15 +234,62 @@ function lanzarDados() {
         document.getElementById("throws").textContent = `Tiradas restantes: ${numeroTiros}`;
 
         if (numeroTiros === 0) {
+            //Aquí dar resultados al admin y esperar
+            document.getElementById("miBoton").style.display = 'none';
             botonLanzar.disabled = true;
+            var resultadoNumerico;
             setTimeout(() => {
-                alert(`Tu resultado final es: ${resultado}`);
+                if (resultado === "Repóker"){
+                    resultadoNumerico = 8;
+                }else if (resultado === "Póker"){
+                    resultadoNumerico = 7;
+                }else if (resultado === "Full"){
+                    resultadoNumerico = 6;
+                }else if (resultado === "Trío"){
+                    resultadoNumerico = 3;
+                }else if (resultado === "Doble Pareja"){
+                    resultadoNumerico = 2;
+                }else if (resultado === "Pareja"){
+                    resultadoNumerico = 1;
+                }else if (resultado === "Escalera Mayor"){
+                    resultadoNumerico = 5;
+                }else if (resultado === "Escalera Menor"){
+                    resultadoNumerico = 4;
+                }else{
+                    resultadoNumerico = 0;
+                }
+                socket.emit("compartirResultado", {"username" : username, "room": room, "resultado": resultadoNumerico});
                 resetGame();
                 botonLanzar.disabled = false;
             }, 1000);
         }
     }
 }
+
+socket.on("almacenarNumero", data =>{
+    if (anfitrion && ordenUsuarios.length !== jugadoresTotales - 1) {
+        ordenUsuarios.push(data.nombreAlmacenado);
+        ordenValores.push(data.resultadoAlmacenado);
+    } else if(anfitrion){
+        ordenUsuarios.push(data.nombreAlmacenado);
+        ordenValores.push(data.resultadoAlmacenado);
+
+        if (ordenValores.length === jugadoresTotales) {
+            let maxIndex = 0;
+            let maxValor = ordenValores[0];
+
+            for (let i = 1; i < ordenValores.length; i++) {
+                if (ordenValores[i] > maxValor) {
+                    maxValor = ordenValores[i];
+                    maxIndex = i;
+                }
+            }
+            socket.emit("resultadosRonda", {"username" : ordenUsuarios[maxIndex], "room": room, "resultado": maxValor});
+            ordenUsuarios = [];
+            ordenValores = [];
+        }
+    }
+});
 
 function calcularResultado(valoresDados) {
     const frecuencias = {};

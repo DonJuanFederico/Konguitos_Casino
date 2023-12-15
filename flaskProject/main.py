@@ -656,8 +656,17 @@ def empezar(data):
     emit("numeros_bingo", {"numeros_mostrar_bingo": (data["array_numeros"])},room=data["room"])
 
 @socketio.on("empezarPokerDados")
-def empezar(data):
+def empezarPokerDados(data):
     emit("abrirBoton",room=data["room"])
+
+@socketio.on("compartirResultado")
+def compartirResultado(data):
+    emit("almacenarNumero",{"nombreAlmacenado": (data["username"]), "resultadoAlmacenado": (data["resultado"])}, room=data["room"])
+
+@socketio.on("resultadosRonda")
+def resultadosRonda(data):
+    print("Estoy")
+    emit("mostrarResultado",{"nombreAlmacenado": (data["username"]), "resultadoAlmacenado": (data["resultado"])}, room=data["room"])
 
 @socketio.on("esperando")
 def esperando(data):
