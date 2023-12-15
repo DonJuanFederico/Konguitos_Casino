@@ -28,42 +28,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Bloqueo y desbloqueo de personajes en función del gashapon
     const pirataAvatar = document.querySelector('.character.pirate');
-    if (PIRATA === 1) {
+
+    if (PIRATA == 1) {
         pirataAvatar.dataset.locked = 'false';
     } else {
         pirataAvatar.dataset.locked = 'true';
     }
 
     const reyAvatar = document.querySelector('.character.king');
-    if (REY === 1) {
+    if (REY == 1) {
         reyAvatar.dataset.locked = 'false';
     } else {
         reyAvatar.dataset.locked = 'true';
     }
 
     const astronautaAvatar = document.querySelector('.character.astronaut');
-    if (ASTRONAUTA === 1) {
+    if (ASTRONAUTA == 1) {
         astronautaAvatar.dataset.locked = 'false';
     } else {
         astronautaAvatar.dataset.locked = 'true';
     }
 
     const capitanAvatar = document.querySelector('.character.captain');
-    if (CAPITAN === 1) {
+    if (CAPITAN == 1) {
         capitanAvatar.dataset.locked = 'false';
     } else {
         capitanAvatar.dataset.locked = 'true';
     }
 
     const tigreAvatar = document.querySelector('.character.tiger');
-    if (TIGRE === 1) {
+    if (TIGRE == 1) {
         tigreAvatar.dataset.locked = 'false';
     } else {
         tigreAvatar.dataset.locked = 'true';
     }
 
     const vikingoAvatar = document.querySelector('.character.viking');
-    if (VIKINGO === 1) {
+    if (VIKINGO == 1) {
         vikingoAvatar.dataset.locked = 'false';
     } else {
         vikingoAvatar.dataset.locked = 'true';

@@ -2,8 +2,9 @@
 let deck = [];
 let playerHand = [];
 let player2Hand = [];
+let table = [];
 let gameOver = true;
-let hiddenCard = true;
+let hiddenCard = 3;
 
 let balance = parseFloat(document.getElementById('monedas').textContent);
 let betAmount;
@@ -117,11 +118,16 @@ function calculateHandValue(hand) {
 
 function updateUI() {
     const playerHandContainer = document.getElementById('player-hand');
+    console.log(`Mano jugador: ${playerHand}`);
+    console.log(`Mano rival: ${player2Hand}`);
+    console.log(`Mano mesa: ${table}`);
     const player2HandContainer = document.getElementById('player2-hand');
+    const tableContainer = document.getElementById('table');
 
     // Limpiar los contenedores de las manos
     playerHandContainer.innerHTML = '';
     player2HandContainer.innerHTML = '';
+    tableContainer.innerHTML = '';
 
     // Mostrar las imágenes de la mano del jugador
     playerHand.forEach(card => {
@@ -132,12 +138,13 @@ function updateUI() {
         playerHandContainer.appendChild(cardElement);
     });
 
-    // Mostrar la mano de la banca, con la carta oculta si es necesario
-    player2Hand.forEach((card, index) => {
+    //Mano del rival solo si terminó la partida
+     // Mostrar la mano del rival solo si terminó la partida
+    player2Hand.forEach(card => {
         const cardElement = document.createElement('img');
         let cardFileName;
 
-        if (index === 1 && !gameOver && hiddenCard) {
+        if (!gameOver) {
             cardFileName = 'reverse.jpg'; // Nombre de archivo de la carta oculta
         } else {
             cardFileName = card.replace(/ /g, '') + '.png';
@@ -147,6 +154,20 @@ function updateUI() {
         cardElement.classList.add('card-image');
         player2HandContainer.appendChild(cardElement);
     });
+
+    for (let i = 0; i < table.length; i++) {
+        const cardElement = document.createElement('img');
+        const cardFileName = table[i].replace(/ /g, '') + '.png';
+
+        if (i < hiddenCard) {
+            cardElement.src = `/static/images/cards/${cardFileName}`; // Mostrar las dos primeras cartas
+        } else if (i >= hiddenCard && i < 5) {
+            cardElement.src = `/static/images/cards/reverse.jpg`; // Ocultar las siguientes tres cartas
+        }
+
+        cardElement.classList.add('card-image');
+        tableContainer.appendChild(cardElement);
+    }
 
 }
 
@@ -185,12 +206,6 @@ function checkResult() {
     updateBalance();
 }
 
-
-function betEnded() {
-    betAmount = 0;
-    updateBalance();
-}
-
 function newGame() {
 
     const betInput = document.getElementById('apuesta');
@@ -214,8 +229,9 @@ function startGame(){
     deck = [];
     playerHand = [];
     player2Hand = [];
+    table = [];
     gameOver = false;
-    hiddenCard = true;
+    hiddenCard = 3;
     document.getElementById('result').textContent = '';
     document.getElementById('player-hand').innerHTML = '';
     document.getElementById('player2-hand').innerHTML = '';
@@ -225,17 +241,23 @@ function startGame(){
     dealCard(player2Hand);
     dealCard(playerHand);
     dealCard(player2Hand);
+    dealCard(table);
+    dealCard(table);
     updateUI();
 }
 
 // Event listeners
-document.getElementById('deal-button').addEventListener('click', () => {
+document.getElementById('start-button').addEventListener('click', () => {
     if (gameOver) {
         newGame();
     }
 });
 
-document.getElementById('hit-button').addEventListener('click', () => {
+document.getElementById('deal-button').addEventListener('click', () => {
+
+});
+
+document.getElementById('bet-button').addEventListener('click', () => {
     if (!gameOver) {
         dealCard(playerHand);
         const playerValue = calculateHandValue(playerHand);
