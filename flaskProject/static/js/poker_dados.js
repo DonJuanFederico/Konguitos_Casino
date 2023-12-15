@@ -9,8 +9,8 @@ let dadosBloqueados = {
 var anfitrion = false;
 var socket = io();
 //Partidas de 5 entonces: jugadoresRestantes = 4
-var jugadoresRestantes = 1;
-var jugadoresTotales = 2;
+var jugadoresRestantes = 4;
+var jugadoresTotales = 5;
 var usuariosEntrados = [];
 
 let valoresDados = [0, 0, 0, 0, 0];
