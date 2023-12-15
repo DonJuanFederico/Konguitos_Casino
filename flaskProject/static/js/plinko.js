@@ -241,20 +241,22 @@ function mostrarContador() {
 document.getElementById("guardar").addEventListener("click", function () {
 
     valor = document.getElementById("numero").value;
-    print(valor)
-    if ((valor =! 0.00) && ((valor >= 0) && (saldo - valor >= 0))) {
+    if (!isNaN(valor) && valor > 0 && saldo - valor >= 0) {
+    saldo = saldo - valor;
+    apuesta = valor;
+    console.log("Se ha guardado el número " + apuesta);
 
-        saldo = saldo - valor;
-        apuesta = valor;
-        console.log("Se ha guardado el número " + apuesta);
-
+    // Solo ejecutar reiniciarBola() si el valor es mayor que 0
+    if (valor > 0) {
         reiniciarBola();
-        retirarDinero();
-        document.getElementById('guardar').style.display = 'none';
-        document.getElementById('monedas').textContent = saldo;
-    } else {
-        mostrarModal()
     }
+
+    retirarDinero();
+    document.getElementById('guardar').style.display = 'none';
+    document.getElementById('monedas').textContent = saldo;
+} else {
+    mostrarModal();
+}
 
     setTimeout(function () {
         ignorarColisiones = false;
