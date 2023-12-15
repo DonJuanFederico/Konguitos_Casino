@@ -88,6 +88,7 @@ function init(firstInit = true, groups = 1, duration = 1) {
 
 //Función al darle al spin
 async function spin() {
+    spinnerButton.removeAttribute('disabled')
     // Si la animación está en progreso o la apuesta no es válida, no hacemos nada
     const apuestaValida = FuncionDeApuesta();
 
@@ -257,12 +258,9 @@ function verificarGanancia() {
     }
     //METODO DE ACTUALIZAR EL BALANCE
     if (premio > 0) {
-        //ACTUALIZAMOS EL SALDO DEL CLIENTE EN LA BASE DE DATOS Y EN LA PAGINA
-        let balanceActual = parseFloat(monedasUsuarioElement.textContent);
-        console.log("Premio: " + premio)
-        console.log("Balance actual: " + balanceActual + " + " + premio + " = " + (balanceActual + premio));
         //PAGINA:
-        monedasUsuarioElement.textContent = Math.round((parseFloat(monedasUsuarioElement.textContent) + parseFloat(premio)) * 100) / 100;
+        var valor = Math.round((parseFloat(monedasUsuarioElement.textContent) + parseFloat(premio)) * 100) / 100;
+        monedasUsuarioElement.textContent = parseFloat(valor).toFixed(2);
         //BASE DE DATOS:
         agregarDinero()
     }
