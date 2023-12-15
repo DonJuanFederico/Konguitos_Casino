@@ -187,7 +187,19 @@ def terminos():
 
 @app.route('/Perfil_de_usuario/Avatar/')
 def avatar():
-    return render_template('avatares.html')
+    usuario = session.get('nombreUsuarioInicio')
+    id_usuario = obtenerId(usuario)
+    VALORES = obtenerValoresGashapon(id_usuario)
+    # Accede directamente al valor asociado a la clave 'pirata'
+    pirata = VALORES.get('pirata', 0)  # Si 'pirata' no está en VALORES, devuelve 0
+    astronauta = VALORES.get('astronauta', 0)
+    rey = VALORES.get('rey', 0)
+    capitan = VALORES.get('capitan', 0)
+    tigre = VALORES.get('tigre', 0)
+    vikingo = VALORES.get('vikingo', 0)
+    # Pasa las variables a la plantilla
+    return render_template('avatares.html', PIRATA=pirata, ASTRONAUTA=astronauta, REY=rey,
+                           CAPITAN=capitan, TIGRE=tigre, VIKINGO=vikingo, ID=id_usuario)
 
 
 @app.route('/Registro Administrador/', methods=['GET', 'POST'])
@@ -619,6 +631,10 @@ def joinPokerDados(data):
 def fila(data):
     send({"msg": data["username"] + " ha conseguido una línea "}, room=data["room"])
     emit("cambiarFila",  room=data["room"])
+
+@socketio.on("actualizarUsuarios")
+def actualizarUsuarios(data):
+    emit("cambiarUsuarios", room=data["room"])
 
 @socketio.on("dobleFila")
 def dobleFila(data):

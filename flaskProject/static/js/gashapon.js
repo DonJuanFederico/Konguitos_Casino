@@ -295,7 +295,8 @@ document.getElementById("botonComprarMonedas").addEventListener("click", functio
 
 function actualizarDineroUsuario(cantidad) {
     let dineroUsuarioElement = document.querySelector('#monedasUsuario');
-    dineroUsuarioElement.textContent = parseFloat(dineroUsuarioElement.textContent) + cantidad;
+    var resultado = parseFloat(dineroUsuarioElement.textContent) + cantidad;
+    dineroUsuarioElement.textContent = parseFloat(resultado).toFixed(2);
 }
 
 // funcion para ir a la ventana de atras (obtengo la url anterior y voy a ella)

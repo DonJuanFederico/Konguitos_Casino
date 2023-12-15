@@ -8,19 +8,15 @@ let dadosBloqueados = {
 
 var anfitrion = false;
 var socket = io();
-var jugadoresRestantes = 1;
+var jugadoresRestantes = 2;
 var usuariosEntrados = [];
 
 let valoresDados = [0, 0, 0, 0, 0];
 let numeroTiros = 3;
 
+
 document.addEventListener("DOMContentLoaded", () =>{
     joinRoom(room);
-    if(anfitrion && !usuariosEntrados.includes(data.nuevo_usuario)){
-        usuariosEntrados.push(data.nuevo_usuario);
-        jugadoresRestantes--;
-        empezarPartida();
-    }
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/buscar_anfitrion", true);
@@ -36,12 +32,46 @@ document.addEventListener("DOMContentLoaded", () =>{
     };
 
     socket.on("message", data => {
-        alert("Se unio " + data.username);
+        if(anfitrion){
+            usuariosEntrados.push(data.nuevo_usuario);
+            jugadoresRestantes--;
+            emit()
+            socket.emit("actualizarUsuarios", {"room": room});
+            mostrarRestoJugadores();
+        }
     });
+
+    socket.on("cambiarUsuarios", data =>{
+        jugadoresRestantes--;
+        mostrarRestoJugadores()
+    })
 
     function joinRoom(room){
         //Emit ya que es personalizado, y pasando los dos valores que necesita
         socket.emit("joinPokerDados", {"username" : username, "room": room});
+    }
+
+    function empezarPartida(){
+    }
+
+    function mostrarRestoJugadores(){
+        alert(jugadoresRestantes>0);
+        if(jugadoresRestantes>0){
+            Swal.fire({
+                html: `<div style="font-size: 30px;">ESPERANDO</div>`,
+                imageUrl: `/static/images/pokerDados/jugadoresRestantes${jugadoresRestantes}.png`,
+                showCancelButton: false,
+                showConfirmButton: false,
+                backdrop: `rgb(181, 245, 156)`,
+                background: `none`,
+                customClass: {
+                    container: 'custom-swal-container',
+                    image: 'custom-swal-image'
+                }
+            });
+        }else{
+            alert("Empieza la puta partida")
+        }
     }
 })
 
