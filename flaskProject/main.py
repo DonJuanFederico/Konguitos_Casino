@@ -31,23 +31,25 @@ ROOMSPokerDados = []
 # print(hex_representation)
 app.config['SECRET_KEY'] = 'ded843028a32eb605772926d'
 
-
-global nombreRegistrado;
-nombreRegistrado = False;
+app.config['registroAdmin'] = False # Para la alerta de registro administrador correcto
+app.config['nombreUsuarioRegistrado'] = False; # Para la alerta de registro usuario correcto
 
 @app.route('/')
 def index():
     return redirect(url_for('inicio'))
-
 
 @app.route('/Inicio/', methods=['GET', 'POST'])
 def inicio():
     nombreUsuarioInicio = ""
     contrasenna = ""
     mensaje = ""
-    print(nombreRegistrado)
-    if nombreRegistrado is True:
-        flash("Usuario " + session.get('nombreUsuario') + " se acaba de registrar", "info")
+    print(app.config['nombreUsuarioRegistrado'])
+    if session.get('registroAdmin') is True:
+        flash("Usuario administrador se acaba de registrar", "info")
+        session['registroAdmin'] = False
+    if session.get('nombreUsuarioRegistrado') is True:
+        flash("Usuario se acaba de registrar", "info")
+        session['nombreUsuarioRegistrado'] = False
     if request.method == 'POST':
         nombreUsuarioInicio = request.form.get('nombreUsuarioInicio')
         session['nombreUsuarioInicio'] = nombreUsuarioInicio # La hago global
@@ -173,7 +175,7 @@ def foto_y_registra_usuario():
             print("Exito Usuario")
             if agregarTarjeta(nombreUsuario, session.get('numeroTarjeta'), session.get('titulanteTarjeta'), session.get('caducidadTarjeta'), session.get('cvv')):
                 print("Exito Tarjeta")
-                nombreRegistrado = True
+                session['nombreUsuarioRegistrado'] = True
                 return redirect(url_for('index'))
             else:
                 return redirect(url_for('index'))
@@ -210,9 +212,9 @@ def registroAdmin():
     mensaje = ""
     if request.method == 'POST':
         nombreUsuarioAdmin = request.form.get('nombreAdministrador')
+        session['nombreAdministrador'] = nombreUsuarioAdmin
         contrasennaAdmin = request.form.get('contrasenna')
         correoAdmin = request.form.get('correoAdmin')
-        print(nombreUsuarioAdmin, contrasennaAdmin, correoAdmin)
         if (nombreUsuarioAdmin == "" or contrasennaAdmin == "" or correoAdmin == ""):
             flash("Rellene todos los campos", "info")
         else:
@@ -228,7 +230,7 @@ def registroAdmin():
                         if existeCorreoAdmin(correoAdmin):
                             flash("Correo " + correoAdmin + " ya registrado en administrador", "info")
                         else:
-                            usuarioRegistrado = True
+                            session['registroAdmin'] = True
                             crear_administrador(nombreUsuarioAdmin, contrasennaAdmin, correoAdmin)
                             return redirect(url_for('index'))
     else:
