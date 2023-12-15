@@ -32,13 +32,19 @@ document.addEventListener("DOMContentLoaded", () =>{
     };
 
     socket.on("message", data => {
-        if(anfitrion && !usuariosEntrados.includes(data.nuevo_usuario)){
+        if(anfitrion){
             usuariosEntrados.push(data.nuevo_usuario);
             jugadoresRestantes--;
-            empezarPartida();
+            emit()
+            socket.emit("actualizarUsuarios", {"room": room});
+            mostrarRestoJugadores();
         }
-        mostrarRestoJugadores();
     });
+
+    socket.on("cambiarUsuarios", data =>{
+        jugadoresRestantes--;
+        mostrarRestoJugadores()
+    })
 
     function joinRoom(room){
         //Emit ya que es personalizado, y pasando los dos valores que necesita
@@ -46,11 +52,10 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
 
     function empezarPartida(){
-
     }
 
     function mostrarRestoJugadores(){
-        alert("Entre aqui")
+        alert(jugadoresRestantes>0);
         if(jugadoresRestantes>0){
             Swal.fire({
                 html: `<div style="font-size: 30px;">ESPERANDO</div>`,
@@ -64,6 +69,8 @@ document.addEventListener("DOMContentLoaded", () =>{
                     image: 'custom-swal-image'
                 }
             });
+        }else{
+            alert("Empieza la puta partida")
         }
     }
 })

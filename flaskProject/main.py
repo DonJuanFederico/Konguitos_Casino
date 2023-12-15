@@ -632,6 +632,10 @@ def fila(data):
     send({"msg": data["username"] + " ha conseguido una línea "}, room=data["room"])
     emit("cambiarFila",  room=data["room"])
 
+@socketio.on("actualizarUsuarios")
+def actualizarUsuarios(data):
+    emit("cambiarUsuarios", room=data["room"])
+
 @socketio.on("dobleFila")
 def dobleFila(data):
     send({"msg": data["username"] + " ha conseguido doble línea "}, room=data["room"])
