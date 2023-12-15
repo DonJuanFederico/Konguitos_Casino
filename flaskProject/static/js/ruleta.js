@@ -3,8 +3,9 @@ function reglas() {
     Swal.fire({
         title: 'Reglas',
         html: "<div style='text-align: center;'>" +
-            "1. Se escoje la ficha que se quiere apostar" +
-            "<br>2. Se escoje la casilla a la que se quiere apostar" +
+            "1. Se elije si se quiere continuar con la misma apuesta" +
+            "<br> 2. Se escoje la moneda con la que se quiere apostar" +
+            "<br>3. Se escoje la casilla a la que se quiere apostar" +
             "<br>1to18: 1 a 18" +
             "<br>19to36: 19 a 36" +
             "<br>even: pares" +
@@ -14,7 +15,7 @@ function reglas() {
             "<br> 1st 12: 1 a 12" +
             "<br> 2nd 12: 13 a 24" +
             "<br> 3rd 12: 25 a 36" +
-            "<br> 3. Pulsa el botón girar",
+            "<br> 4. Pulsa el botón girar",
         confirmButtonText: '¡Dejame Jugar!',
         confirmButtonColor: '#3085d6',
         backdrop: true,
@@ -23,6 +24,46 @@ function reglas() {
         width: '50%',
     });
 }
+
+function noTienesSuficienteDineroDuplicarApuesta() {
+    Swal.fire({
+        title: 'No puedes apostar más',
+        html: "No puedes duplicar tu apuesta",
+        confirmButtonText: '¡Dejame Jugar!',
+        confirmButtonColor: '#3085d6',
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        width: '50%',
+    });
+}
+
+function noTienesSuficienteDineroParaUsarEstaMoneda(tipoMoneda) {
+    Swal.fire({
+        title: 'No tienesSaldo',
+        html: "No puedes usar la moneda " + tipoMoneda,
+        confirmButtonText: '¡Dejame Jugar!',
+        confirmButtonColor: '#3085d6',
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        width: '50%',
+    });
+}
+
+function noTienesUnaMonedaSeleccionada() {
+    Swal.fire({
+        title: 'Selecciona una moneda',
+        html: " Te has leído las reglas ????",
+        confirmButtonText: '¡Dejame Jugar!',
+        confirmButtonColor: '#3085d6',
+        backdrop: true,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+        width: '50%',
+    });
+}
+
 
 
 function recompensas() {
@@ -89,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Append the new div to the selected element
         div.appendChild(img1);
     } else {
-        console.error("No element with class 'resultado' found.");
+        //console.error("No element with class 'resultado' found.");
     }
 });
 
@@ -325,7 +366,7 @@ function opciones_botones_apuesta(opciones) {
             var img1 = document.getElementById('abcd');
             let dineroUsuarioElement = document.querySelector('#monedasUsuario');
             if (apuestaTotal * 2 > dineroUsuarioElement.textContent) {
-                alert("No tienes suficiente dinero para duplicar la apuesta")
+                noTienesSuficienteDineroDuplicarApuesta();
             } else {
                 if (puedeMultiplicar === true) {
                     apuestaTotal = apuestaTotal * 2;
@@ -448,7 +489,7 @@ let arrayApuestasPorOrden = [];
 function obtener_array_apuestas(tipo, cantidadApostada) {
     const index = arrayApuestas.findIndex(apuesta => apuesta[0] === tipo);
     if (valorMoneda === 0) {
-        alert("Seleccione una moneda");
+        noTienesUnaMonedaSeleccionada();
     } else {
         if (index !== -1) {
             arrayApuestas[index][1] += cantidadApostada;
@@ -465,7 +506,7 @@ let valorAcumulado = 0
 function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda, tipo) {
     let dineroUsuarioElement = document.querySelector('#monedasUsuario');
     if (apuestaTotal + valorMoneda > dineroUsuarioElement.textContent) {
-        alert("No tienes suficiente dinero para apostar la moneda de " + tipoMoneda)
+        noTienesSuficienteDineroParaUsarEstaMoneda(tipo_moneda);
     } else {
         for (const apuesta of arrayApuestas) {
             if (apuesta[0] === tipo) {
@@ -516,7 +557,7 @@ function colocar_moneda_con_valor_apostado_en_casilla(arrayApuestas, tipo_moneda
                 if (tipoElement) {
                     tipoElement.appendChild(div);
                 } else {
-                    console.error('Element with ID ' + tipo + ' not found.');
+                    //console.error('Element with ID ' + tipo + ' not found.');
                 }
                 var img1 = document.getElementById('abcd');
                 img1.innerHTML = "<br>Ganado: " + ganancias + "<br>" + "Total Apostado: " + apuestaTotal;
@@ -790,7 +831,7 @@ function actualizarDineroUsuario(cantidad) {
 }
 
 function agregarDinero(monto) {
-    console.log("a: ", monto);
+    //console.log("a: ", monto);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/agregar_ganancias", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -804,7 +845,7 @@ function agregarDinero(monto) {
                 updateBalance(); // Actualizar la visualización del saldo en la interfaz
             } else {
                 // Manejar errores si la solicitud al servidor falla
-                console.error('Error al agregar dinero.');
+                //console.error('Error al agregar dinero.');
             }
         }
     };
@@ -812,7 +853,7 @@ function agregarDinero(monto) {
 
 
 function retirarDinero(monto) {
-    console.log("b: ", monto);
+    //console.log("b: ", monto);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/retirar_dinero", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -826,7 +867,7 @@ function retirarDinero(monto) {
                 updateBalance(); // Actualizar la visualización del saldo en la interfaz
             } else {
                 // Manejar errores si la solicitud al servidor falla
-                console.error('Error al retirar dinero.');
+                // console.error('Error al retirar dinero.');
             }
         }
     };
