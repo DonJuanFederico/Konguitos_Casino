@@ -102,6 +102,12 @@ document.addEventListener("DOMContentLoaded", () =>{
             allowEscapeKey: true,
         });
         document.getElementById("miBoton").style.display = 'block';
+        if(username === data.nombreAlmacenado){
+            let monedasElement = document.getElementById('monedas');
+            let dineroActual = parseInt(monedasElement.textContent);
+            let nuevoDinero = dineroActual + 30;
+            monedasElement.textContent = nuevoDinero;
+        }
     });
 
     revisarAnfitrion();
@@ -213,7 +219,12 @@ function lanzarDados() {
         });
         return; // Evitar iniciar el juego si la apuesta no es válida
     } else {
-
+        if (numeroTiros === 3) {
+            let monedasElement = document.getElementById('monedas');
+            let dineroActual = parseInt(monedasElement.textContent);
+            let nuevoDinero = dineroActual - 9;
+            monedasElement.textContent = nuevoDinero;
+        }
         const dadosNoBloqueados = ['dice1', 'dice2', 'dice3', 'dice4', 'dice5'];
 
         for (let i = 0; i < dadosNoBloqueados.length; i++) {
@@ -296,8 +307,6 @@ function calcularResultado(valoresDados) {
     for (const valor of valoresDados) {
         frecuencias[valor] = (frecuencias[valor] || 0) + 1;
     }
-
-
     const valoresFrecuentes = Object.values(frecuencias);
     const numValoresUnicos = Object.keys(frecuencias).length;
 

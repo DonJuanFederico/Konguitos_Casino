@@ -1,13 +1,15 @@
 body {
     text-align: center;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Color de fondo opcional */
     margin: 0;
     padding: 0;
+    background-image: url('https://image.freepik.com/free-vector/poker-table-background-green-color_47243-1068.jpg');
+    background-size: 100%;
 }
 
 h1 {
     margin-top: 50px;
+    font-size: 4rem;
 }
 
 .contenedorCrearJuego {
@@ -75,7 +77,7 @@ h1 {
 }
 
 #divSeleccionJuegos {
-    margin-top: 10%;
+    margin-top: 8%;
     user-select: none;
     margin-left: 4%;
     width: 90%;

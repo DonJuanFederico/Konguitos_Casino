@@ -665,7 +665,6 @@ def compartirResultado(data):
 
 @socketio.on("resultadosRonda")
 def resultadosRonda(data):
-    print("Estoy")
     emit("mostrarResultado",{"nombreAlmacenado": (data["username"]), "resultadoAlmacenado": (data["resultado"])}, room=data["room"])
 
 @socketio.on("esperando")
