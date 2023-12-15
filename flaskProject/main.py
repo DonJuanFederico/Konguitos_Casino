@@ -559,7 +559,6 @@ def crear_partidaPokerDados():
         return "La partida ya existe"
     ROOMSPokerDados.append(nombre_partida)
     registrarPartidaPokerDados(obtener_nombre(), nombre_partida)
-    print("LAs salas ahora: " + str(ROOMSPokerDados))
     return "Partida creada correctamente"
 
 @app.route('/crear_partida', methods=['POST'])
@@ -629,14 +628,18 @@ def joinPokerDados(data):
     join_room(data["room"])
     send({"msg": data["username"] + " se ha unido a la sala " + data["room"]}, room=data["room"])
 
+@socketio.on("preguntarAnfitrion")
+def preguntarAnfitrion(data):
+    emit("respuestaAnfitrion", room=data["room"])
+
 @socketio.on("fila")
 def fila(data):
     send({"msg": data["username"] + " ha conseguido una línea "}, room=data["room"])
-    emit("cambiarFila",  room=data["room"])
+    emit("cambiarFila", room=data["room"])
 
 @socketio.on("actualizarUsuarios")
 def actualizarUsuarios(data):
-    emit("cambiarUsuarios", room=data["room"])
+    emit("cambiarUsuarios", {"jugadorFaltan": data["jugadores_restantes"]}, room=data["room"])
 
 @socketio.on("dobleFila")
 def dobleFila(data):
@@ -651,6 +654,10 @@ def bingoCompleto(data):
 def empezar(data):
     send({"msg": "EMPIEZA LA PARTIDA"}, room = data["room"])
     emit("numeros_bingo", {"numeros_mostrar_bingo": (data["array_numeros"])},room=data["room"])
+
+@socketio.on("empezarPokerDados")
+def empezar(data):
+    emit("abrirBoton",room=data["room"])
 
 @socketio.on("esperando")
 def esperando(data):

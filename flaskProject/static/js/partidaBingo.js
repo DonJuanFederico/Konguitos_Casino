@@ -2,7 +2,7 @@
 
 var anfitrion = false;
 var socket = io();
-var jugadoresRestantes = 1;
+var jugadoresRestantes = 5;
 var usuariosEntrados = [];
 
 document.addEventListener("DOMContentLoaded", () =>{

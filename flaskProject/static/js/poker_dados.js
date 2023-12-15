@@ -8,7 +8,8 @@ let dadosBloqueados = {
 
 var anfitrion = false;
 var socket = io();
-var jugadoresRestantes = 2;
+//Partidas de 5 entonces: jugadoresRestantes = 4
+var jugadoresRestantes = 1;
 var usuariosEntrados = [];
 
 let valoresDados = [0, 0, 0, 0, 0];
@@ -16,8 +17,10 @@ let numeroTiros = 3;
 
 
 document.addEventListener("DOMContentLoaded", () =>{
-    joinRoom(room);
 
+    document.getElementById("miBoton").style.display = 'none';
+
+    joinRoom(room);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/buscar_anfitrion", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -30,33 +33,16 @@ document.addEventListener("DOMContentLoaded", () =>{
             }
         }
     };
-
     socket.on("message", data => {
-        if(anfitrion){
+        if (anfitrion) {
             usuariosEntrados.push(data.nuevo_usuario);
             jugadoresRestantes--;
-            emit()
-            socket.emit("actualizarUsuarios", {"room": room});
             mostrarRestoJugadores();
         }
     });
 
-    socket.on("cambiarUsuarios", data =>{
-        jugadoresRestantes--;
-        mostrarRestoJugadores()
-    })
-
-    function joinRoom(room){
-        //Emit ya que es personalizado, y pasando los dos valores que necesita
-        socket.emit("joinPokerDados", {"username" : username, "room": room});
-    }
-
-    function empezarPartida(){
-    }
-
-    function mostrarRestoJugadores(){
-        alert(jugadoresRestantes>0);
-        if(jugadoresRestantes>0){
+    socket.on("respuestaAnfitrion", data => {
+        if(anfitrion){
             Swal.fire({
                 html: `<div style="font-size: 30px;">ESPERANDO</div>`,
                 imageUrl: `/static/images/pokerDados/jugadoresRestantes${jugadoresRestantes}.png`,
@@ -69,9 +55,86 @@ document.addEventListener("DOMContentLoaded", () =>{
                     image: 'custom-swal-image'
                 }
             });
-        }else{
-            alert("Empieza la puta partida")
         }
+    });
+
+    socket.on("cambiarUsuarios", data =>{
+        if(!anfitrion){
+            jugadoresRestantes = data.jugadorFaltan;
+            mostrarRestoJugadores()
+        }
+    })
+
+    function joinRoom(room){
+        //Emit ya que es personalizado, y pasando los dos valores que necesita
+        socket.emit("joinPokerDados", {"username" : username, "room": room});
+    }
+
+    revisarAnfitrion();
+
+    function mostrarRestoJugadores(){
+        if(jugadoresRestantes>0 && jugadoresRestantes < 4){
+            Swal.fire({
+                html: `<div style="font-size: 30px;">ESPERANDO</div>`,
+                imageUrl: `/static/images/pokerDados/jugadoresRestantes${jugadoresRestantes}.png`,
+                showCancelButton: false,
+                showConfirmButton: false,
+                backdrop: `rgb(181, 245, 156)`,
+                background: `none`,
+                customClass: {
+                    container: 'custom-swal-container',
+                    image: 'custom-swal-image'
+                }
+            });
+        }else if(jugadoresRestantes === 4 || anfitrion){
+            if(jugadoresRestantes===0){
+                Swal.fire({
+                    title: 'Empieza la partida',
+                    confirmButtonText: 'Vamos a jugar',
+                    confirmButtonColor: '#3085d6',
+                    backdrop: true,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                });
+                socket.emit("empezarPokerDados", { "room": room});
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/eliminar_salaPokerDados", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("&nombre_sala=" + room);
+            }else {
+                socket.emit("actualizarUsuarios", {"room": room, "jugadores_restantes": jugadoresRestantes});
+            }
+        }else{
+            Swal.fire({
+                title: 'Empieza la partida',
+                confirmButtonText: 'Vamos a jugar',
+                confirmButtonColor: '#3085d6',
+                backdrop: true,
+                allowOutsideClick: true,
+                allowEscapeKey: true,
+            });
+
+            socket.emit("empezarPokerDados", { "room": room});
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/eliminar_salaPokerDados", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("&nombre_sala=" + room);
+        }
+    }
+
+    socket.on("abrirBoton", data => {
+        document.getElementById("miBoton").style.display = 'block';
+    })
+
+    function revisarAnfitrion(){
+        let ejecutado = false;
+
+        setTimeout(() => {
+            if (!ejecutado && usuariosEntrados.length === 0) {
+                ejecutado = true;
+                socket.emit("preguntarAnfitrion", {"room": room});
+            }
+        }, 2000);
     }
 })
 
