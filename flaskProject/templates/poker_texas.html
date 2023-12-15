@@ -26,10 +26,8 @@
             <img src="/static/images/cards/reverse.jpg" class="card-image" />
             <img src="/static/images/cards/reverse.jpg" class="card-image" />
         </div>
-
-        <p id="result"></p>
         <button id="start-button">Nueva Partida</button>
-        <button id="deal-button">Repartir</button>
+        <button id="deal-button">Ver</button>
         <button id="bet-button">Subir Apuesta</button>
         <button id="stand-button">Plantarse</button>
 
@@ -41,10 +39,14 @@
         <span style="color: white" id= "monedas">{{ DINERO }}</span><br><br>
     </div>
 
+    <div id = "current-bet">
+        <p>Apuesta actual: <span id="bet-value"></span></p>
+    </div>
     <div id="bet-container">
         <label for="apuesta">Apuesta inicial:</label>
         <input type="number" id="apuesta" min="1">
     </div>
+
 
 
 

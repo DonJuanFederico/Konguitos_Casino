@@ -47,7 +47,7 @@ function dealCard(hand) {
     updateUI();
 }
 
-function calculateHandValue(hand) {
+function calculateHandValue(hand, table) {
     const values = {
         '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
         'J': 11, 'Q': 12, 'K': 13, 'A': 14
@@ -118,9 +118,6 @@ function calculateHandValue(hand) {
 
 function updateUI() {
     const playerHandContainer = document.getElementById('player-hand');
-    console.log(`Mano jugador: ${playerHand}`);
-    console.log(`Mano rival: ${player2Hand}`);
-    console.log(`Mano mesa: ${table}`);
     const player2HandContainer = document.getElementById('player2-hand');
     const tableContainer = document.getElementById('table');
 
@@ -155,16 +152,19 @@ function updateUI() {
         player2HandContainer.appendChild(cardElement);
     });
 
-    for (let i = 0; i < table.length; i++) {
+    const visibleTableCards = table.slice(0, table.length - hiddenCard);
+    visibleTableCards.forEach(card => {
         const cardElement = document.createElement('img');
-        const cardFileName = table[i].replace(/ /g, '') + '.png';
+        const cardFileName = card.replace(/ /g, '') + '.png';
+        cardElement.src = `/static/images/cards/${cardFileName}`;
+        cardElement.classList.add('card-image');
+        tableContainer.appendChild(cardElement);
+    });
 
-        if (i < hiddenCard) {
-            cardElement.src = `/static/images/cards/${cardFileName}`; // Mostrar las dos primeras cartas
-        } else if (i >= hiddenCard && i < 5) {
-            cardElement.src = `/static/images/cards/reverse.jpg`; // Ocultar las siguientes tres cartas
-        }
-
+    // Ocultar las cartas restantes en la mesa
+    for (let i = 0; i < hiddenCard; i++) {
+        const cardElement = document.createElement('img');
+        cardElement.src = `/static/images/cards/reverse.jpg`;
         cardElement.classList.add('card-image');
         tableContainer.appendChild(cardElement);
     }
@@ -232,7 +232,7 @@ function startGame(){
     table = [];
     gameOver = false;
     hiddenCard = 3;
-    document.getElementById('result').textContent = '';
+    document.getElementById('bet-value').textContent = betAmount;
     document.getElementById('player-hand').innerHTML = '';
     document.getElementById('player2-hand').innerHTML = '';
     createDeck();
@@ -241,6 +241,9 @@ function startGame(){
     dealCard(player2Hand);
     dealCard(playerHand);
     dealCard(player2Hand);
+    dealCard(table);
+    dealCard(table);
+    dealCard(table);
     dealCard(table);
     dealCard(table);
     updateUI();
@@ -254,23 +257,37 @@ document.getElementById('start-button').addEventListener('click', () => {
 });
 
 document.getElementById('deal-button').addEventListener('click', () => {
-
+    if(hiddenCard > 0){
+        retirarDinero(betAmount);
+        betAmount = betAmount *2;
+        document.getElementById('bet-value').textContent = betAmount;
+        hiddenCard = hiddenCard -1;
+        updateUI();
+    }
 });
 
 document.getElementById('bet-button').addEventListener('click', () => {
     if (!gameOver) {
-        dealCard(playerHand);
-        const playerValue = calculateHandValue(playerHand);
-        if (playerValue > 21) {
-            gameOver = true;
-            checkResult();
+        cantidadExtra = prompt("Introduzca la cantidad a apostar:");
+        cantidadExtra = parseFloat(cantidadExtra); // Convertir a número decimal
+
+        if (!isNaN(cantidadExtra) && cantidadExtra > betAmount) {
+            retirarDinero(cantidadExtra);
+            betAmount += cantidadExtra;
+            document.getElementById('bet-value').textContent = betAmount;
+        } else {
+            // Manejar el caso cuando la entrada no es un número válido
+            alert("Por favor, introduzca un número válido para la apuesta.");
         }
+        hiddenCard = hiddenCard -1;
+        updateUI();
     }
 });
 
 document.getElementById('stand-button').addEventListener('click', () => {
     if (!gameOver) {
-        hiddenCard = false;
+        hiddenCard = 0;
+        gameOver = true;
         updateUI();
         while (calculateHandValue(player2Hand) < 17) {
             dealCard(dealerHand);
