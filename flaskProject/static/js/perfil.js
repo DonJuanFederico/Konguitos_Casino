@@ -44,7 +44,7 @@ var dni = document.querySelector('.input_dni');
 var picture = document.getElementById('introducir10');
 
 // funcion para permitir la edicion de datos
-function editarDatos() {
+/*function editarDatos() {
     nombre_usuario.disabled = !nombre_usuario.disabled;
     email.disabled = !email.disabled;
     street.disabled = !street.disabled;
@@ -55,7 +55,7 @@ function editarDatos() {
     cvv.disabled = !cvv.disabled;
     dni.disabled = !dni.disabled;
     picture.disabled = !picture.disabled;
-}
+}*/
 
 // funcion para "cambiar el avatar"
 function cambiarAvatar(){document.location.href = '/Perfil_de_usuario/Avatar/';}
@@ -80,6 +80,10 @@ function requestContrasena(){
 
 function generarCodigoCorreo(){
     codigoGenerado = Math.floor(Math.random() * 900000) + 100000;
+}
+
+function editarDatos(){
+    alert('Valoraremos su solicud de edición de datos. Nos pondremos en contacto con usted brevemente con una respuesta.');
 }
 
 /*
