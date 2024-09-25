@@ -296,7 +296,7 @@ def obtenerDinero():
             cursor.close()
             close_connection(conn)
     else:
-        dinero = 10033 #para la posteridad
+        dinero = 133 #para la posteridad
         return dinero
 
 def agregarDineroTarjeta(cantidad_a_agregar):           #Este metodo no afecta a los rankings ya que solo agrega dinero a dinero (se usa para meter dinero a traves de la tarjeta)
