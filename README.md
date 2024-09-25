@@ -1,10 +1,9 @@
 # Konguitos_Casino
 
-El Casino:
+El Casino (si se lleva tiempo sin entrar, tarda unos minutos. despues, va sin problema):
 https://konguitoscasino.onrender.com
 
-La base de datos (encender antes de usar):
-
+La base de datos caducó (se está usando una simulación. todo lo que tiene que ver con la vase de datos no está en funcionamiento. todo el código era totalmente funcional.
 
 Planificación (To-Do) requisitos: Carpeta Documentos --> Excel
 
