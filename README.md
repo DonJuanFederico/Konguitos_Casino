@@ -1,5 +1,11 @@
 # Konguitos_Casino
 
+El Casino:
+https://konguitoscasino.onrender.com
+
+La base de datos (encender antes de usar):
+
+
 Planificación (To-Do) requisitos: Carpeta Documentos --> Excel
 
 Enlace de los requisitos: https://docs.google.com/document/d/14R_kHeSHYIqd3cnS0UIaapjFn16_p-2hvo5X-M9BWGs/edit?usp=sharing
