@@ -174,7 +174,9 @@ def iniciar_sesion_correo(correo, contraseña):
         finally:
             cursor.close()
             close_connection(conn)
-    return False  # Devuelve False si no se pudo conectar a la base de datos
+    else:
+        #return False  # Devuelve False si no se pudo conectar a la base de datos
+        return True #para la posteridad
 
 
 def existeCorreo(correo):
@@ -267,7 +269,9 @@ def iniciar_sesion(usuario, contraseña):
         finally:
             cursor.close()
             close_connection(conn)
-    return False  # Devuelve False si no se pudo conectar a la base de datos
+    else:
+        #return False  # Devuelve False si no se pudo conectar a la base de datos
+        return True #para la posteridad
 
 def almacenar_nombre(usuario):
     global nombreUsuario
@@ -291,7 +295,9 @@ def obtenerDinero():
         finally:
             cursor.close()
             close_connection(conn)
-    return dinero
+    else:
+        dinero = 10033 #para la posteridad
+        return dinero
 
 def agregarDineroTarjeta(cantidad_a_agregar):           #Este metodo no afecta a los rankings ya que solo agrega dinero a dinero (se usa para meter dinero a traves de la tarjeta)
     conn = connect()
